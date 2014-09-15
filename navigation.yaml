@@ -1,0 +1,64 @@
+# Developer portal /docs navigation definition file
+
+# Metadata (not part of the navigation structure)
+meta:
+  # Avaliable platforms
+  platforms:
+    - ios
+    - android
+
+# Navigation starts here (order matters)
+#
+#  - Page keys must be unique, lower case, no spaces.
+#  - If page is multi platform add 'platforms: true' to it. (platform sub-folders are expected in this case)
+#
+#  - Section keys must be unique, lower case, no spaces. Keys map directly to file names (minus .md extension)
+#  - If you must use multiple words for keys use a dash '-' as a separator
+
+# Introduction page
+introduction:
+  title: "Introduction"
+  section:
+    getting-started: "Getting Started"
+
+# Integration guide page
+integration:
+  title: "Integration"
+  platforms: true
+  section:
+    installation: "Installation"
+    initialization: "Initialization"
+    authentication: "Authentication"
+    concepts: "Concepts"
+    conversations: "Conversations"
+    messages: "Messages"
+    #metadata: "Metadata"
+    synchronization: "Sychronization"
+    deletion: "Deletion"
+    push-notifications: "Push Notifications"
+
+# Transition guide page
+transition:
+  title: "Transition"
+  platforms: true
+  section:
+    introduction: "Introduction"
+    sdk: "SDK"
+    deprecations: "Deprecations"
+    new-concepts: "New Concepts"
+    messaging: "Messaging"
+    conversations: "Conversations"
+    support: "Support"
+
+# Transition guide page
+resources:
+  title: "Resources"
+  platforms: true
+  section:
+    authentication-guide: "Authenticaton Guide"
+    push-notification-guide: "Push Notification Guide"
+
+# API Reference page
+api:
+  title: "API Reference"
+  platforms: true
