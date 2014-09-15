@@ -74,15 +74,9 @@ If you want your code snippet to be syntax highlighted you need to use one of th
 * `console` Console output or script
 * `groovy` Groovy
 
-### Web Componets
+### Web Components
 
 On top of the "standard" Markdown we are doing some custom parsing which is described below. We have a set of predefined tags that you can use inside markdown file which will render into a certain HTML component. This is a stanalone component that usually takes up the whole page width.
-
-#### Beta Warning
-
-To show a warning message "The SDK is currently in beta and should not be used in production" use this:
-
-    %%BETA-WARNING%%
 
 #### Collapsable content
 
