@@ -1,6 +1,22 @@
 # Installation
 The Layer Android SDK is built using the new Android build system. The Android SDK is available via an AAR or JAR file hosted on [Github](https://github.com/layerhq/releases-android). To install the SDK, perform one of following (either for local JAR or remote AAR).
 
+
+#### AAR (referenced by maven)
+Navigate to your `build.gradle` file and ensure that you include the following:
+
+```groovy
+repositories {
+    maven { url "https://raw.githubusercontent.com/layerhq/releases-android/master/releases/" }
+}
+
+dependencies {
+    compile 'com.layer.sdk:layer-sdk:0.7.16'
+    compile 'org.slf4j:slf4j-api:1.7.7'
+}
+```
+
+
 #### JAR (downloaded to local `libs` directory)
 
 1. Download the `layer-sdk-0.7.16.jar` JAR file from [Github](https://github.com/layerhq/releases-android)
@@ -18,19 +34,6 @@ dependencies {
 }
 ```
 
-#### AAR (referenced by maven)
-Navigate to your `build.gradle` file and ensure that you include the following:
-
-```groovy
-repositories {
-    maven { url "https://raw.githubusercontent.com/layerhq/releases-android/master/releases/" }
-}
-
-dependencies {
-    compile 'com.layer.sdk:layer-sdk:0.7.16'
-    compile 'org.slf4j:slf4j-api:1.7.7'
-}
-```
 
 ## Example AndroidManifest.xml
 The Layer Android SDK requires some permissions and references from your app's `AndroidManifest.xml` file.  These permissions allow the SDK to monitor network state and receive Google Cloud Messaging messages.  Below is an example with a `com.myapp.newstandalone` package; replace with your own package when merging with your own manifest.
