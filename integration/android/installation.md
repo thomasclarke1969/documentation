@@ -3,14 +3,12 @@ The Layer Android SDK is built using the new Android build system. The Android S
 
 #### JAR (downloaded to local `libs` directory)
 
-1. Download the `layer-sdk-0.7.13.jar` JAR file from [Github](https://github.com/layerhq/releases-android)
+1. Download the `layer-sdk-0.7.16.jar` JAR file from [Github](https://github.com/layerhq/releases-android)
 2. Drag the JAR file into the /libs directory of your Android Studio application
 3. Navigate to the JAR file in Android Studio navigatior, right click and select "Add As A Library..."
 4. Navigate to your `build.gradle` file and ensure that you include the following:
 
 ```groovy
-apply plugin: 'maven'
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:20.+'
@@ -20,14 +18,16 @@ dependencies {
 }
 ```
 
-#### AAR (with Layer `git-repo` gradle plugin)
+#### AAR (referenced by maven)
 Navigate to your `build.gradle` file and ensure that you include the following:
 
 ```groovy
-apply plugin: 'maven'
+repositories {
+    maven { url "https://raw.githubusercontent.com/layerhq/releases-android/master/releases/" }
+}
 
 dependencies {
-    compile 'com.layer.sdk:layer-sdk:0.7.13'
+    compile 'com.layer.sdk:layer-sdk:0.7.16'
     compile 'org.slf4j:slf4j-api:1.7.7'
 }
 ```
@@ -51,7 +51,8 @@ The Layer Android SDK requires some permissions and references from your app's `
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
     <!-- GCM permission for your app (replace [com.myapp.newstandalone] with your package name) -->
-    <permission android:name="com.myapp.newstandalone.permission.C2D_MESSAGE"
+    <permission
+        android:name="com.myapp.newstandalone.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>
     <uses-permission android:name="com.myapp.newstandalone.permission.C2D_MESSAGE"/>
 
@@ -60,7 +61,7 @@ The Layer Android SDK requires some permissions and references from your app's `
     <application ... >
 
         <!-- Layer SDK has these for monitoring network, boot, and GCM -->
-        <receiver android:name="com.layer.sdk.internal.receivers.LayerReceiver">
+        <receiver android:name="com.layer.sdk.services.LayerReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
                 <action android:name="android.intent.action.ANY_DATA_STATE"/>
@@ -68,15 +69,21 @@ The Layer Android SDK requires some permissions and references from your app's `
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.layer.sdk.internal.push.GcmBroadcastReceiver"
+            android:name="com.layer.sdk.services.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-        		<!-- Replace [com.myapp.newstandalone] with your package name -->
                 <category android:name="com.myapp.newstandalone"/>
             </intent-filter>
         </receiver>
-        <service android:name="com.layer.sdk.internal.push.GcmIntentService"/>
+        <service android:name="com.layer.sdk.services.GcmIntentService"/>
+
+        <!-- Listen for Layer-generated push Intents -->
+        <receiver android:name=".LayerPushReceiver">
+            <intent-filter>
+                <action android:name="com.layer.sdk.PUSH"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>
