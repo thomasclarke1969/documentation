@@ -1,5 +1,5 @@
 # Installation
-The Layer Android SDK is built using the new Android build system. The Android SDK is available via an AAR or JAR file hosted on [Github](https://github.com/layerhq/releases-android). To install the SDK, perform the one of following (either for local JAR or remote AAR).
+The Layer Android SDK is built using the new Android build system. The Android SDK is available via an AAR or JAR file hosted on [Github](https://github.com/layerhq/releases-android). To install the SDK, perform one of following (either for local JAR or remote AAR).
 
 #### JAR (downloaded to local `libs` directory)
 
