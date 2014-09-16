@@ -8,7 +8,7 @@ Please note, you have been given access to pre-production version of the Layer s
 ```
 
 ### Integration
-To get started, please take some time to go through the [Layer Integration Guide](/docs/integration). The latest SDK builds for [iOS](https://github.com/layerhq/releases-ios) and [Android](https://github.com/layerhq/releases-android) can be found on the [Layer Github](https://github.com/layerhq).
+To get started, please take some time to go through the [Layer Integration Guide](/docs/integration). The latest SDK builds for [iOS](https://github.com/layerhq/releases-ios) and [Android](https://github.com/layerhq/releases-android) can be found on the [Layer Github](https://github.com/layerhq?query=releases).
 
 ### Transition
 We have recently released a major update to our backend service and our client SDKs. For information on the architectural and functional changes, please visit the [Layer Transition Guide](/docs/transition).
