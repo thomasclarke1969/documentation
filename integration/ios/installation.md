@@ -6,13 +6,6 @@ The simplest way to add LayerKit to your application is with [CocoaPods](http://
 $ sudo gem install cocoapods
 ```
 
-To install LayerKit, first run the following
-
-```
-$ pod setup
-$ pod repo add layer-releases git@github.com:layerhq/releases-cocoapods.git
-```
-
 Navigate to your project's root directory and run `pod init` to create a `Podfile`.
 
 ```
