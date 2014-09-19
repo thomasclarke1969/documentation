@@ -119,10 +119,20 @@ If the “Background Modes” on/off switch is toggled to “off”, make sure y
 
 ##Register Your App to Receive Remote Notifications
 
-In your AppDelegate, you must declare that your application supports remote notifications. We recommend that you do this in `application:DidFinishLaunchingWithOptions:`
+In your AppDelegate, you must register the device to recieve push notifications. In order to support push notifications on both iOS 8 and iOS 7, you must implement the following. We recommend that you do this in `application:DidFinishLaunchingWithOptions:`
 
 ```
-[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+// Checking if app is running iOS 8
+if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+    // Register device for iOS8
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
+                                                                                             categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];
+    [application registerForRemoteNotifications];
+} else {
+    // Register device for iOS7
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+}
 ```
 
 The following AppDelegate method notifies your application that it has successfully registered with Apple’s Push Notification service. Your application is given a device token which must then be submitted to Layer. Copy and paste the following code into your AppDelegate. 
