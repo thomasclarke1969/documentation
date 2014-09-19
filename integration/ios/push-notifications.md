@@ -2,10 +2,20 @@
 
 For a comprehsive guide on configuring your application to leverage the Layer Push Notification service, please see the [Layer Push Notification Guide](/docs/resources#push-notification-guide). 
 
-Your application must register to receive for remote notifications. Call the following in `application:didFinishLaunchingWithOptions`.
+Your application must register to receive for remote notifications. To support device registration for both iOS 7 and iOS 8, your application must implement the following. We reccomend you do this in  `application:didFinishLaunchingWithOptions`.
 
 ```
-[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+// Checking if app is running iOS 8
+if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+    // Register device for iOS8
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
+                                                                                             categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];
+    [application registerForRemoteNotifications];
+} else {
+    // Register device for iOS7
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+}
 ```
 
 Your AppDelegate will be notified when your application that it has successfully registered with Apple’s Push Notification service via the following `UIApplicationDelegate` method. This method will provide a device token which must then be submitted to Layer. Copy and paste the following code into your AppDelegate. 
