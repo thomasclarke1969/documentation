@@ -43,8 +43,7 @@ request.HTTPMethod = @"POST";
 [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
 NSDictionary *parameters = @{ @"app_id": appIDString, @"user_id": userID, @"nonce": nonce };
-__block NSError *serializationError = nil;
-NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:&serializationError];
+NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
 request.HTTPBody = requestBody;
 
 NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
