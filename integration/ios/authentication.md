@@ -1,6 +1,6 @@
 # Authentication
 
-The Layer service is built to work with your existing backend service and existing users. Layer Authentication allows you to represent your users within the Layer service without sharing credentials. In order to do this, it requires that your backend server application generate identity tokens on behalf of your client application. 
+The Layer service is built to work with your existing backend application and existing users. Layer Authentication allows you to represent your users within the Layer service without sharing credentials. In order to do this, it requires that your backend server application generate identity tokens on behalf of your client application. 
 
 For a comprehensive guide on setting up the backend portion of Layer Authentication, please visit the [Layer Authentication Guide](/docs/resources#authentication-guide). 
 
@@ -25,10 +25,10 @@ The native authentication methods your application will need to implement are th
 ```
 
 ```emphasis
-Layer also provides a service that can generate identityTokens for your application for the purpose of trying the SDK without performing any backend setup. Please note, this service is only availbe for testing purposes and is not available in production. 
+Layer also provides a service that can generate identityTokens on behalf of your application for the purpose of testing the SDK without performing any backend setup. Please note, this service is only available for testing purposes and cannot be used in production applications. 
 ```
 
-In order to acquire an identity token, you will need to post your applciationId, a nonce and a userID to the identityToken service
+In order to acquire an identity token, you will need to post your `applciationID`, a `nonce` (obtained via a call to `requestAuthenticationNonce:completion`) and a `userID` to the identityToken service. The following code can be copied into your application. You must replace the values for `userIDString` and `nonce`.
 
 ```objectivec
 NSString *appIDString = @"%%C-INLINE-APPID%%"; // Your Layer application ID
