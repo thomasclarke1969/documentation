@@ -23,7 +23,7 @@ Upon receipt of a call to the `onMainThreadChanges()` method, your application c
 
 ```java
 public void onEventMainThread(LayerChangeEvent event) {
-	List<Change> changes = event.getChanges();
+	List<LayerChange> changes = event.getChanges();
 }        
 ```
 
