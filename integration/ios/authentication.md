@@ -30,8 +30,8 @@ Layer also provides a service that can generate identityTokens for your applicat
 
 In order to acquire an identity token, you will need to post your applciationId, a nonce and a userID to the identityToken service
 
-```
-NSString *appIDString = @"%%C-INLINE-APPID%%""; // Your Layer application ID
+```objectivec
+NSString *appIDString = @"%%C-INLINE-APPID%%"; // Your Layer application ID
 NSString *userIDString = @"INSERT_USER_ID"; // The userID representing the user attempting to authenticate
 NSString *nonce = @"INSERT_NONCE" // The nonce obtained from LayerKit
 
@@ -41,34 +41,24 @@ NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:identityToken
 request.HTTPMethod = @"POST";
 [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+
 NSDictionary *parameters = @{ @"app_id": appIDString, @"user_id": userID, @"nonce": nonce };
 __block NSError *serializationError = nil;
 NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:&serializationError];
-if (!requestBody) {
-    NSLog(@"Failed serialization of request parameters: %@", serializationError);
-    abort();
-    return;
-}
 request.HTTPBody = requestBody;
 
 NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
 NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
 [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-    if (!data) {
-        NSLog(@"Failed requesting identity token: %@", error);
-        abort();
-        return;
-    }
     
     // Deserialize the resonse
     NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&serializationError];
-    if (!responseObject) {
-        NSLog(@"Failed deserialization of response: %@", serializationError);
-        abort();
-        return;
-    }
     
-    NSString *identityToken = responseObject[@"identity_token"]; // The identity toke that must be subitted to layer for validation
+    //****************************************************************
+    // The identity toke that must be subitted to layer for validation
+    //****************************************************************
+    NSString *identityToken = responseObject[@"identity_token"];  
+    
 }] resume];
 ```
 
