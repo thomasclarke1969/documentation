@@ -1,6 +1,6 @@
 # Messages
 
-The `Message` object represents an individual message within a conversation. A message within the Layer service can consit of one or many pieces of content, represented by the `MessagesPart` object. 
+The `Message` object represents an individual message within a conversation. A message within the Layer service can consit of one or many pieces of content, represented by the `MessagePart` object. 
 
 ## MessagePart 
 
