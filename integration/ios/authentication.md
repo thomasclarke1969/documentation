@@ -31,33 +31,33 @@ If you would like to test LayerKit without performing any backend setup, Layer p
 In order to acquire an identity token, you will need to post your `applciationID`, a `nonce` (obtained via a call to `requestAuthenticationNonce:completion`) and a `userID` to the identityToken service. The following code can be copied into your application. You must replace the values for `userIDString` and `nonce`.
 
 ```objectivec
-NSString *appIDString = @"%%C-INLINE-APPID%%"; // Your Layer application ID
+NSString *appIDString = @"45cebb60-2899-11e4-8906-5cdb00004adc"; // Your Layer application ID
 NSString *userIDString = @"INSERT_USER_ID"; // The userID representing the user attempting to authenticate
-NSString *nonce = @"INSERT_NONCE" // The nonce obtained from LayerKit
-
-// Configure a Network Request 
+NSString *nonce = @"INSERT_NONCE"; // The nonce obtained from LayerKit
+    
+// Configure a Network Request
 NSURL *identityTokenURL = [NSURL URLWithString:@"https://layer-identity-provider.herokuapp.com/identity_tokens"];
 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:identityTokenURL];
 request.HTTPMethod = @"POST";
 [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-
-NSDictionary *parameters = @{ @"app_id": appIDString, @"user_id": userID, @"nonce": nonce };
+    
+NSDictionary *parameters = @{ @"app_id": appIDString, @"user_id": userIDString, @"nonce": nonce };
 NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
 request.HTTPBody = requestBody;
-
+    
 NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
 NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
 [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-    
+        
     // Deserialize the resonse
-    NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&serializationError];
-    
-    //****************************************************************
-    // The identity toke that must be subitted to layer for validation
-    //****************************************************************
+    NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+    /*
+     *The identity token that must be subitted to layer for validation
+     */
     NSString *identityToken = responseObject[@"identity_token"];  
-    
+        
 }] resume];
 ```
 
