@@ -26,7 +26,7 @@ The native authentication methods your application will need to implement are th
 
 ##Identity Token Service 
 
-If you would like to use LayerKit without performing any backend setup, Layer provides an Identity Service that can generate identityTokens on behalf of your application. 
+If you would like to use LayerKit without performing any backend setup, Layer provides an Identity Service that can generate identity tokens on behalf of your application. 
 
 ```emphasis
 Please note, the Identity Service is only available for testing purposes and cannot be used in production applications.
@@ -58,7 +58,7 @@ NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfigurat
     NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
     /*
-     *The identity token that must be subitted to layer for validation
+     *The identity token that must be submitted to layer for validation
      */
     NSString *identityToken = responseObject[@"identity_token"];  
         
