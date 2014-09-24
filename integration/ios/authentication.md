@@ -24,11 +24,15 @@ The native authentication methods your application will need to implement are th
 }];
 ```
 
+##Identity Token Service 
+
+If you would like to use LayerKit without performing any backend setup, Layer provides an Identity Service that can generate identityTokens on behalf of your application. 
+
 ```emphasis
-If you would like to test LayerKit without performing any backend setup, Layer provides a service that can generate identityTokens on behalf of your application. Please note, this service is only available for testing purposes and cannot be used in production applications. 
+Please note, the Identity Service is only available for testing purposes and cannot be used in production applications.
 ```
 
-In order to acquire an identity token, you will need to post your `applciationID`, a `nonce` (obtained via a call to `requestAuthenticationNonce:completion`) and a `userID` to the identityToken service. The following code can be copied into your application. You must replace the values for `userIDString` and `nonce`.
+In order to acquire an identity token, your application should `POST` it's `applicationID`, a `nonce` (obtained via a call to `requestAuthenticationNonce:completion`) and a `userID` to the Identity Service. The following code demonstrates how to do this and can be copied into your application. You must replace the values for `userIDString` and `nonce`.
 
 ```objectivec
 NSString *appIDString = @"45cebb60-2899-11e4-8906-5cdb00004adc"; // Your Layer application ID
