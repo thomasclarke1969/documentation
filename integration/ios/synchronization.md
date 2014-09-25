@@ -1,13 +1,13 @@
 # Synchronization
 
-LayerKit provides a flexible notification system for informing applications when changes have occured on Layer objects in response to synchronization. The system is designed to be general purpose and alerts your application to the creation, update, or deletion of an object. Changes are modeled as simple dictionaries with a fixed key space.
+LayerKit provides a flexible notification system for informing applications when changes have occurred on Layer objects in response to synchronization. The system is designed to be general purpose and alerts your application to the creation, update, or deletion of an object. Changes are modeled as simple dictionaries with a fixed key space.
 
-LayerKit leverages key-value observing to notifiy your application when changes occur. Your application should observe `LYRClientObjectsDidChangeNotification` in order to receive notifications. 
+LayerKit leverages key-value observing to notify your application when changes occur. Your application should observe `LYRClientObjectsDidChangeNotification` in order to receive notifications.
 
 ```objectivec
 // Adds the notification observer
-[[NSNotificationCenter defaultCenter] addObserver:self 
-									     selector:@selector(didReceiveLayerObjectsDidChangeNotification:) 
+[[NSNotificationCenter defaultCenter] addObserver:self
+									     selector:@selector(didReceiveLayerObjectsDidChangeNotification:)
                                              name:LYRClientObjectsDidChangeNotification object:layerClient];
 ```
 
@@ -18,14 +18,14 @@ Upon receipt of an `LYRClientObjectsDidChangeNotification`, your application can
  NSArray *changes = [notification.userInfo objectForKey:LYRClientObjectChangesUserInfoKey];
 ```
 
-Change notifications occur for both [LYRMessage](api/ios#lyrmessage) and [LYRConversation](api/ios#lyrconversation) objects. Your application can retrieve the type of object upon which a change has occured by retrieving the `LYRObjectChangeObjectKey` key from the change object.
+Change notifications occur for both [LYRMessage](api/ios#lyrmessage) and [LYRConversation](api/ios#lyrconversation) objects. Your application can retrieve the type of object upon which a change has occurred by retrieving the `LYRObjectChangeObjectKey` key from the change object.
 
 ```objectivec
 for (NSDictionary *change in changes) {
 	if ([[change objectForKey:LYRObjectChangeObjectKey] isKindOfClass:[LYRConversation class]]) {
 		// Object is a conversation
 	}
-	        
+
 	if ([[change objectForKey:LYRObjectChangeObjectKey]isKindOfClass:[LYRMessage class]]) {
 	    // Object is a message
 	}
@@ -53,10 +53,10 @@ switch (changeKey) {
 
 ```
 
-Your application can acquire the actual object upon which an update has occured by retrieving  the `LYRObjectChangeObjectKey` key from the change object.
+Your application can acquire the actual object upon which an update has occurred by retrieving  the `LYRObjectChangeObjectKey` key from the change object.
 
 ```objectivec
-// Returns the object for which a change has occured
+// Returns the object for which a change has occurred
 id changeObject = [change objectForKey:LYRObjectChangeObjectKey]
 ```
 
@@ -104,7 +104,7 @@ To above code can be combined in the following code block:
 ```
 
 ##Client Delegate
-The `LayerClientDelegate` also delares synchronization methods which alert your application when `LayerKit` has succesfully completed sychronization, or when a syncrhonization has failed. 
+The `LayerClientDelegate` also declares synchronization methods which alert your application when `LayerKit` has successfully completed synchronization, or when a synchronization has failed. 
 
 ```objectivec
 - (void)layerClient:(LYRClient *)client didFinishSynchronizationWithChanges:(NSArray *)changes;
@@ -115,5 +115,5 @@ The `LayerClientDelegate` also delares synchronization methods which alert your 
 - (void)layerClient:(LYRClient *)client didFailSynchronizationWithError:(NSError *)error
 {
 	NSLog()@"Layer Cliend did fail Synchronization with error:%@", error);
-} 
+}
 ```

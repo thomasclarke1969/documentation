@@ -1,5 +1,5 @@
 # Push Notifications
-For a comprehsive guide on configuring your application to leverage Google Cloud Messaging to deliver push notifications, please see the [Layer Push Notification Guide](/docs/resources#push-notification-guide). 
+For a comprehensive guide on configuring your application to leverage Google Cloud Messaging to deliver push notifications, please see the [Layer Push Notification Guide](/docs/resources#push-notification-guide).
 
 When your app is in the background, the LayerClient alerts you to pushes via a broadcast Intent with the `com.layer.sdk.PUSH` action.  Your BroadcastReceiver can then create and post the actual [UI notification](http://developer.android.com/guide/topics/ui/notifiers/notifications.html), or take another action.
 
@@ -13,7 +13,7 @@ LayerClient layerClient = LayerClient.newInstance(context, "[your APP ID]", "[yo
 
 ## Sending Push Notifications
 The sending client can now generate push notifications by specifying special metadata keys when sending messages:
-  
+
    1. **layer-push-message**: A string value intended to specify the notification message to display.
    2. **layer-push-sound**: A string value intended to represent a sound resource to play.
 

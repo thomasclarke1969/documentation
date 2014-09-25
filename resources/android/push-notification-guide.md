@@ -9,8 +9,13 @@ Go to the [Google Developer Console](https://console.developers.google.com) and 
 Name your project and click `Create`
 
 ![image alt text](android-push-1.jpg)
+<<<<<<< HEAD
  
 Select your newly created project from the project menu and note the numeric `Project Number`. You will need to input this number into the Layer Dashboard. It will also be used when initializing the Layer SDK in your applicaiton.
+=======
+
+2. Select your newly created project from the project menu and note the numeric `Project Number`. You will need to input this number into the Layer Dashboard. It will also be used when initializing the Layer SDK in your application.
+>>>>>>> 2e63b36f2f56cc4cb9735ed5d79129ef144d6f2b
 
 ![image alt text](android-push-2.jpg)
 
@@ -29,8 +34,13 @@ In the popup, select "Server key"
 Type `0.0.0.0/0` in the "Accept requests from these server IP addresses" field, and click "Create"
 
 ![image alt text](android-push-6.jpg)
+<<<<<<< HEAD
  
 Note the alphanumeric `API Key`. You will need to input this key into the Layer Dashboard.
+=======
+
+7. Note the alphanumeric `API Key`. You will need to input this key into the Layer Dashboard.
+>>>>>>> 2e63b36f2f56cc4cb9735ed5d79129ef144d6f2b
 
 ![image alt text](android-push-7.jpg)
 
@@ -40,6 +50,7 @@ Navigate to the Layer Developer Portal and login with your credentials. Select t
 
 ![image alt text](android-push-8.jpg)
 
+<<<<<<< HEAD
 Click the `Add Credentials` button. 
 
 ![image alt text](android-push-9.jpg)
@@ -48,6 +59,15 @@ Enter you GCM credentials.
 
   * Sender ID: the "Project Number" from your Google Developers Console project.
   * API Key: the "API Key" from your Google Developers Console project.
+=======
+2. Click the `Add Credentials` button.
+
+![image alt text](android-push-9.jpg)
+
+3. Enter you GCM credentials.
+	* Sender ID: the "Project Number" from your Google Developers Console project.
+	* API Key: the "API Key" from your Google Developers Console project.
+>>>>>>> 2e63b36f2f56cc4cb9735ed5d79129ef144d6f2b
 
 ![image alt text](android-push-10.jpg)
 
@@ -60,7 +80,7 @@ LayerClient layerClient = LayerClient.newInstance(context, "%%C-INLINE-APPID%%",
 
 ## Sending Push Notifications
 The sending client can now generate push notifications by specifying special metadata keys when sending messages:
-  
+
    1. **layer-push-message**: A string value intended to specify the notification message to display.
    2. **layer-push-sound**: A string value intended to represent a sound resource to play.
 
@@ -104,4 +124,3 @@ layerClient.setNotificationCallback(new LayerClient.LayerNotificationCallback() 
     }
 });
 ```
-

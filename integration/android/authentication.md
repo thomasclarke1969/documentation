@@ -72,3 +72,6 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
     }).execute();
 }
 ```
+
+On subsequent runs, the Layer SDK will cache authentication credentials. Your application should be prepared however to handle calls to `onAuthenticationChallenge` at all times.
+
