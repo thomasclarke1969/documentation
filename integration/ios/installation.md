@@ -12,7 +12,7 @@ Navigate to your project's root directory and run `pod init` to create a `Podfil
 pod init
 ```
 
-Open up the `Podfile` and add the following:
+Open up the `Podfile` and add the following between your project's target :
 
 ```
 pod 'LayerKit'
@@ -21,12 +21,12 @@ pod 'LayerKit'
 Save the file and run the following to install LayerKit.
 
 ```
-$ pod install
-``` 
+$ pod install --verbose
+```
 
 Cocoapods will download and install LayerKit and also create a .xcworkspace project.
 
-If you do not want to use CocoaPods, you can also clone the LayerKit repository from [Github](https://github.com/layerhq/releases-ios) and install the framework directly. 
+If you do not want to use CocoaPods, you can also clone the LayerKit repository from [Github](https://github.com/layerhq/releases-ios) and install the framework directly.
 
 
 ```collapse
@@ -54,12 +54,11 @@ LayerKit needs a few other frameworks to be included in your project in order to
 
     * `SystemConfiguration.framework`
     * `CFNetwork.framework`
-    * `MobileCoreServices.framwork`
+    * `MobileCoreServices.framework`
     * `Security.framework`
     ![image alt text](ios-installation-5.jpg)
 
   3. Navigate to your "Build Settings" tab and add the `-ObjC` and `-lz` flag to the "Other Linker Flags" setting.
     ![image alt text](ios-installation-6.jpg)
-    
-```
 
+```

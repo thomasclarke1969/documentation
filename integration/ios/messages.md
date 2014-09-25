@@ -1,12 +1,12 @@
 # Messages
 
-The [LYRMessage](/docs/api/ios#lyrmessage) object represents an individual message within a conversation. A message within the Layer service can consit of one or many pieces of content, represented by the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object. 
+The [LYRMessage](/docs/api/ios#lyrmessage) object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object.
 
-## LYRMessagePart 
+## LYRMessagePart
 
-Layer does not enforce restrictions on the type of data you send through the service. As such, [LYRMessagePart](/docs/api/ios#lyrmessagepart) objects are initialized with an `NSData` object and a MIME type string. The MIME type string simply describes the type of content the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object containts. 
+Layer does not enforce restrictions on the type of data you send through the service. As such, [LYRMessagePart](/docs/api/ios#lyrmessagepart) objects are initialized with an `NSData` object and a MIME type string. The MIME type string simply describes the type of content the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object contains.
 
-The following demonstrates creating message parts with both `text/plain` and `image/jpeg` MIME types. 
+The following demonstrates creating message parts with both `text/plain` and `image/jpeg` MIME types.
 
 ```objectivec
 // MIME type declarations
@@ -23,14 +23,14 @@ NSData *imageData = UIImagePNGRepresentation(image);
 LYRMessagePart *imagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeImageJPG data:imageData];
 ```
 
-The [LYRMessagePart](/docs/api/ios#lyrmessagepart) object also delares a convenince method for creating messages with `text/plain` MIME Type.
+The [LYRMessagePart](/docs/api/ios#lyrmessagepart) object also declares a convenience method for creating messages with `text/plain` MIME Type.
 
 ```objectivec
 // Creates a message part with a string of text
 LYRMessagePart *part = [LYRMessagePart messagePartWithText:@"Hi, how are you?"];
 ```
 
-## LYRMessage 
+## LYRMessage
 
 [LYRMessage](/docs/api/ios#lyrmessage) objects are initialized with an array of [LYRMessagePart](docs/api/ios#lyrmessagepart) objects and an [LYRConversation](/docs/api/ios#lyrconversation) object.  The object is created by calling `messageWithConversation:parts:` on [LYRMessage](/docs/api/ios#lyrmessage). This creates an [LYRMessage](/docs/api/ios#lyrmessage) object that is ready to be sent.
 
@@ -41,7 +41,7 @@ LYRMessage *message = [LYRMessage messageWithConversation:conversation parts:@[m
 
 ## Sending The Message
 
-Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:error:` on `LYRClient`. 
+Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:error:` on `LYRClient`.
 
 ```objectivec
 //Sends the specified message
@@ -53,9 +53,9 @@ if (success) {
 }
 ```
 
-The `sendMessage` method returns a boolean value which indicates if the message has passed validation and was enqueued for delivery in the local data store. If LayerKit has a current network connection, the message will immediately be sent off of the device. Otherwise it will remain enqueued locally utill the SDK re-establishes a network connection. At that point, the SDK will automatically send the message. 
+The `sendMessage` method returns a boolean value which indicates if the message has passed validation and was enqueued for delivery in the local data store. If LayerKit has a current network connection, the message will immediately be sent off of the device. Otherwise it will remain enqueued locally until the SDK re-establishes a network connection. At that point, the SDK will automatically send the message.
 
-[LYRMessage](/docs/api/ios#lyrmessage) objects declare a boolean property, `isSent`, which tells your application if the message was succesfully sent from your device and synchronized with the Layer serice. Your application can observe this property to be notified when a message was successfull sent.
+[LYRMessage](/docs/api/ios#lyrmessage) objects declare a boolean property, `isSent`, which tells your application if the message was successfully sent from your device and synchronized with the Layer service. Your application can observe this property to be notified when a message was successfully sent.
 
 ```objectivec
 // Notifies the LYRClientDelegate that a message or messages were successfully sent

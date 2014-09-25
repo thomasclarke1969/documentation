@@ -1,34 +1,34 @@
 # Messages
 
-The `Message` object represents an individual message within a conversation. A message within the Layer service can consit of one or many pieces of content, represented by the `MessagesPart` object. 
+The `Message` object represents an individual message within a conversation. A message within the Layer service can consit of one or many pieces of content, represented by the `MessagesPart` object.
 
-## MessagePart 
+## MessagePart
 
-Layer does not place restrictions on the type of data you send through the service. As such, `MessagePart` objects are initialized with an `Byte` object and a MIME Type string. The MIME Type simply describes the type of content the `MessagePart` containts.
+Layer does not place restrictions on the type of data you send through the service. As such, `MessagePart` objects are initialized with an `Byte` object and a MIME Type string. The MIME Type simply describes the type of content the `MessagePart` contains.
 
-The following demonstrates creating message parts with both text/plain and image/jpeg MIMEtypes. 
+The following demonstrates creating message parts with both text/plain and image/jpeg MIMEtypes.
 
 ```java
-// Creates a message part with a string of next and text/plain MIMEtype. 
+// Creates a message part with a string of next and text/plain MIMEtype.
 String messageText = "Hi! How are you";
 MessagePart messagePart = MessagePart.newInstance("text/plain", messageText.getBytes());
-                                                               
+
 // Creates a message part with an image
 Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.back_icon);
 ByteArrayOutputStream stream = new ByteArrayOutputStream();
 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-byte[] iamgeData = stream.toByteArray();
+byte[] imageData = stream.toByteArray();
 MessagePart messagePart = MessagePart.newInstance("image/jpeg", imageData);
 ```
 
-The MessagePart object also delares a convenince method for creating messages with text/plain MIME type:
+The MessagePart object also declares a convenience method for creating messages with text/plain MIME type:
 
 ```java
 String messageText = "Hi! How are you";
 MessagePart messagePart = MessagePart.newInstance(messageText);
 ```
 
-Your application can declare aditional MIME types that it wishes to support. The following demonstrates sending location data.
+Your application can declare additional MIME types that it wishes to support. The following demonstrates sending location data.
 
 ```java
 // Creates a HashMap with latitude and longitude
@@ -44,7 +44,7 @@ outputStream.writeObject(location);
 MessagePart locationPart = client.newMessagePart("text/location", locationData.toByteArray());
 ```
 
-## Message 
+## Message
 
 `Message` objects are initialized with an array of `MessagePart` objects and a `Conversation` object. The object is created by calling newInstance(). This creates a `Message` object that is ready to send.
 
@@ -63,7 +63,7 @@ client.sendMessage(message);
 
 ## Fetching Messages
 
-`Layer Client` exposes a simple API for fetching all messages for a given conversation. 
+`Layer Client` exposes a simple API for fetching all messages for a given conversation.
 
 ```java
 // Fetch all messages for a given conversation object

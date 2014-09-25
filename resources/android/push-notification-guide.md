@@ -9,8 +9,8 @@ The Layer Android SDK receives pushes through both the Layer push protocol and G
 2. Name your project and click `Create`
 
 ![image alt text](android-push-1.jpg)
- 
-2. Select your newly created project from the project menu and note the numeric `Project Number`. You will need to input this number into the Layer Dashboard. It will also be used when initializing the Layer SDK in your applicaiton.
+
+2. Select your newly created project from the project menu and note the numeric `Project Number`. You will need to input this number into the Layer Dashboard. It will also be used when initializing the Layer SDK in your application.
 
 ![image alt text](android-push-2.jpg)
 
@@ -29,7 +29,7 @@ The Layer Android SDK receives pushes through both the Layer push protocol and G
 6. Type `0.0.0.0/0` in the "Accept requests from these server IP addresses" field, and click "Create"
 
 ![image alt text](android-push-6.jpg)
- 
+
 7. Note the alphanumeric `API Key`. You will need to input this key into the Layer Dashboard.
 
 ![image alt text](android-push-7.jpg)
@@ -40,11 +40,11 @@ The Layer Android SDK receives pushes through both the Layer push protocol and G
 
 ![image alt text](android-push-8.jpg)
 
-2. Click the `Add Credentials` button. 
+2. Click the `Add Credentials` button.
 
 ![image alt text](android-push-9.jpg)
 
-3. Enter you GCM credentials. 
+3. Enter you GCM credentials.
 	* Sender ID: the "Project Number" from your Google Developers Console project.
 	* API Key: the "API Key" from your Google Developers Console project.
 
@@ -59,7 +59,7 @@ LayerClient layerClient = LayerClient.newInstance(context, "%%C-INLINE-APPID%%",
 
 ## Sending Push Notifications
 The sending client can now generate push notifications by specifying special metadata keys when sending messages:
-  
+
    1. **layer-push-message**: A string value intended to specify the notification message to display.
    2. **layer-push-sound**: A string value intended to represent a sound resource to play.
 
@@ -103,4 +103,3 @@ layerClient.setNotificationCallback(new LayerClient.LayerNotificationCallback() 
     }
 });
 ```
-

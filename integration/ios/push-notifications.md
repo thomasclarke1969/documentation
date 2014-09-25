@@ -1,6 +1,6 @@
 # Push Notifications
 
-For a comprehsive guide on configuring your application to leverage the Layer Push Notification service, please see the [Layer Push Notification Guide](/docs/resources#push-notification-guide). 
+For a comprehensive guide on configuring your application to leverage the Layer Push Notification service, please see the [Layer Push Notification Guide](/docs/resources#push-notification-guide).
 
 Your application must register to receive for remote notifications. Call the following in `application:didFinishLaunchingWithOptions`.
 
@@ -8,7 +8,7 @@ Your application must register to receive for remote notifications. Call the fol
 [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
 ```
 
-Your AppDelegate will be notified when your application that it has successfully registered with Apple’s Push Notification service via the following `UIApplicationDelegate` method. This method will provide a device token which must then be submitted to Layer. Copy and paste the following code into your AppDelegate. 
+Your AppDelegate will be notified when your application that it has successfully registered with Apple’s Push Notification service via the following `UIApplicationDelegate` method. This method will provide a device token which must then be submitted to Layer. Copy and paste the following code into your AppDelegate.
 
 ```
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -23,13 +23,13 @@ Your AppDelegate will be notified when your application that it has successfully
 }
 ```
 
-The Layer Push Notification service will only send push notifications when the recipient application is in the background of the device. Your app will not receive push notifications while in the foreground. 
+The Layer Push Notification service will only send push notifications when the recipient application is in the background of the device. Your app will not receive push notifications while in the foreground.
 
 ##Triggering Alerts
 
-By default, the Layer Push Notification service will deliver silent push notifications which wil not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you can leverage the `Metadata` APIs on [LYRClient](/docs/api/ios#lyrclient) by setting a value for the `LYRMessagePushNotificationAlertMessageKey` key. This will tell the Layer Push Notification service to deliever a regular APN and trigger an alert for the user.
+By default, the Layer Push Notification service will deliver silent push notifications which wil not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you can leverage the `Metadata` APIs on [LYRClient](/docs/api/ios#lyrclient) by setting a value for the `LYRMessagePushNotificationAlertMessageKey` key. This will tell the Layer Push Notification service to deliver a regular APN and trigger an alert for the user.
 
-The following demonstrates setting the alert text to be the same as the text of the message being sent. 
+The following demonstrates setting the alert text to be the same as the text of the message being sent.
 
 ```
 // Create a message with a string of text
@@ -59,6 +59,3 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
     }];
 }
 ```
- 
-
-

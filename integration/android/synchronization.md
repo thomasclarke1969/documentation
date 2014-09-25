@@ -3,7 +3,7 @@
 The Layer client provides a flexible notification system for informing applications when changes have occured on Layer objects in response to synchronization. The system is designed to be general purpose and alerts your application to the creation, update, or deletion of an object. Changes are modeled as simple dictionaries with a fixed key space.
 
 ##Event Listener
-The Layer SDK leverages listeners to notifiy your application when changes occur. Your application should register as a `LayerChangeEventListener` in order to recieve change notifications.
+The Layer SDK leverages listeners to notify your application when changes occur. Your application should register as a `LayerChangeEventListener` in order to receive change notifications.
 
 ```java
 public class MyApplication extends Application implements LayerChangeEventListener {
@@ -11,10 +11,10 @@ public class MyApplication extends Application implements LayerChangeEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         LayerClient client = LayerClient.newClient(this, "%%C-INLINE-APPID%%", "GCM ID");
         client.registerEventListener(this);
-        
+
     }
 }
 ```
@@ -24,17 +24,17 @@ Upon receipt of a call to the `onMainThreadChanges()` method, your application c
 ```java
 public void onEventMainThread(LayerChangeEvent event) {
 	List<Change> changes = event.getChanges();
-}        
+}
 ```
 
-Change notifications occur for both `Message` and `Conversation` objects. Your application can retrieve the type of object upon which a change has occured by calling getObjectType() on the change object.
+Change notifications occur for both `Message` and `Conversation` objects. Your application can retrieve the type of object upon which a change has occurred by calling getObjectType() on the change object.
 
 ```java
 switch (change.getObjectType()) {
      case CONVERSATION:
      // Object is a conversation
      break;
-     
+
      case MESSAGE:
      // Object is a message
      break;
@@ -49,11 +49,11 @@ switch (change.getChangeType()) {
 	case INSERT:
 	// Object was created
 	break;
-	
+
 	case UPDATE:
 	// Object was update
 	break;
-	
+
 	case DELETE:
 	// Object was deleted
 	break;
@@ -61,14 +61,14 @@ switch (change.getChangeType()) {
 break;
 ```
 
-Your application can acquire the actual object on which an update has occured by retrieve the LYRObjectChangeObjectKey key from the change object.
+Your application can acquire the actual object on which an update has occurred by retrieve the LYRObjectChangeObjectKey key from the change object.
 
 ```java
 id changeObject = change.getObject();
 ```
 
 ##Synchronization Listener
-The Layer SDK also provides a synchronization listener that alerts your application when a sychronization is about to begin, and when a syncrhonization has succesfully completed. Your application should register as a `LayerSyncListener` to recieve these call backs. 
+The Layer SDK also provides a synchronization listener that alerts your application when a synchronization is about to begin, and when a synchronization has successfully completed. Your application should register as a `LayerSyncListener` to recieve these call backs. 
 
 ```java
 public class MyApplication extends Application implements LayerSyncListener {
@@ -76,16 +76,16 @@ public class MyApplication extends Application implements LayerSyncListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         LayerClient client = LayerClient.newClient(this, "%%C-INLINE-APPID%%", "GCM ID");
         client.registerSyncListener(this);
-        
+
     }
-    
+
     public void onBeforeSync(LayerClient client) {
     	// LayerClient is starting synchronization
     }
-        
+
     public void onAfterSync(LayerClient client) {
     	// LayerClient has finshed synchronization
     }
