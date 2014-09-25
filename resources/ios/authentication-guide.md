@@ -1,25 +1,14 @@
 #Layer Authentication
 
 ##Introduction
-The Layer authentication architecture is designed to delegate the concerns of authentication and identity to an integrating partner via a simple, token based scheme. It requires that your backend application generate `Identity Tokens` on behalf of client applications. This token is simply a JSON Web Signature.
-
-Included in the generation of the Layer `Identity Token` is your backend's identifier representing the user attempting to authenticate. 
-
-```emphasis
-This allows you to represent your users within the Layer service via your existing user identifiers. Participation in a Layer conversation is also represented by this same identifier.
-``` 
-
-This mechanism allows you to authenticate users within the Layer service without sharing credentials and greatly enhanced client security.
-
-##Client Authentication Flow
-The Layer `Identity Token` must be obtained via a call to your backend application and must include a nonce value that was obtained from the client SDK. The token must then be submitted to Layer via a public method on the [LYRClient](api/ios#lyrclient)` object.
-
-There are libraries available in many popular languages for implementing JWS and generating `Idenity Tokens`. A few are listed below 
+Layer Authentication is designed to delegate the concerns of authentication and identity to an integrating partner via a simple, token based scheme. It requires that your backend application generate `Identity Tokens` on behalf of client applications. This token is simply a [JSON Web Signature](https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-32). There are libraries available in many popular languages for implementing JWS and generating `Identity Tokens`. A few are listed below 
 
 * [Node.js](https://github.com/brianloveswords/node-jws)
 * [Go](https://github.com/dgrijalva/jwt-go)
 * [Python](https://github.com/progrium/pyjwt/)
 * [Ruby](https://github.com/progrium/ruby-jwt)
+
+To view a sample implementation please see the [Layer Node.js gist](https://gist.github.com/kcoleman731/246bacfe7f7bc3603f33). 
 
 
 ##Setup
@@ -32,12 +21,12 @@ Before your backend application can begin generating `Identity Tokens` and authe
 %%C-PROVIDERID%%
 
 ```emphasis
-**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair and upload the public portion to Layer. **Layer can automatically generate the key pair on your behalf and upload the public portion to our serive. The private key will appear in a pop up.** Please copy and save the private key as it must be retained by your backend application and used to sign `Identity Tokens`.
+**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair by clicking the butotn below. Layer will upload the public portion to our service and the The private key will appear in a pop up. Please copy and save the private key as it must be retained by your backend application and used to sign Identity Tokens.
 ```
 
 %%C-KEYID%%
 
-To manage your authentication keys please visit the [dashboard](/dashboard/account/auth).
+To manage your authentication keys please visit the [Layer Dashboard](/dashboard/account/auth).
 
 ##Generating Identity Tokens
 Layer `Identity Tokens` are conceptually simple, consisting of a small pair of JSON dictionary structures (the JWS Header and Claim) and a cryptographic signature generated over them.
@@ -77,22 +66,40 @@ The full structure of the Layer Identity Token looks like the following:
 (Base64URL JWS Header).(Base64URL JWS Claim).(Base64URL RSA Signature of ((Base64URL JWS Header).(Base64URL JWS Claim)))
 ```
 
+##User Representation With Layer
+Included in the generation of the Layer `Identity Token` is your backend's identifier representing the user attempting to authenticate. 
+
+```emphasis
+This allows you to represent your users within the Layer service via your existing user identifiers. Participation in a Layer conversation is also represented by this same identifier.
+``` 
+
 ##Identity Token Validation
 We provide an [identity token validation tool](/dashboard/account/tools) in the Layer developer portal. To ensure you are generating identity tokens correctly, please validate your tokens. 
 
-##Native Authentication Methods
-The native methods your application must implement in order to authenticate the LayerClient are the following:
+
+##Client Authentication Flow
+The Layer Identity Token must be obtained via a call to your backend application. The identity token must include a nonce value that was obtained from the SDK via a call to the public method on the `[LYRClient](api/ios#lyrclient) object`, `requestAuthenticationNonceWithCompletion`. The token must then be submitted to Layer via another `[LYRClient](api/ios#lyrclient)` method `authenticateWithIdentityToken:completion`. Procedurally, the flow looks like the following. 
+
+1. Request an authentication nonce from LayerKit via a call to `requestAuthenticationNonceWithCompletion:`. 
+
+2. Post the authentication nonce to your backend in order to generate an identity token. 
+
+3. Submit the identity token returned from your backend application to Layer for validation via a call to `authenticateWithIdentityToken:completion`.
 
 ```objectivec
-// Request an authentication nonce from Layer
+/*
+ * 1. Request Authentication Nonce From Layer
+ */
 [layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
    NSLog(@"Authentication nonce %@", nonce);
 
    /*
-    * Upon recipet of nonce, post to your backend and acquire a Layer identityToken  
+    * 2. Upon receipt of nonce, post to your backend and acquire a Layer identityToken  
     */
 
-	// Submit the identity token to Layer for approval  
+   /*
+    * 3. Submit identity token to Layer for validation
+    */
 	[layerClient authenticateWithIdentityToken:@"generatedIdenityToken" completion:^(NSString *authenticatedUserID, NSError *error) {
 	   NSLog(@"Authenticated as %@", authenticatedUserID);
 	}];
