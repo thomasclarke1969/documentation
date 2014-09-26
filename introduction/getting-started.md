@@ -1,4 +1,4 @@
-# Getting started
+# Getting Started
 
 The Layer SDKs represent the easiest way to add rich communication features to your application. 
 They handle the hard parts of messaging including synchronization of messages and message states across devices, offline message support, push notifications and more.

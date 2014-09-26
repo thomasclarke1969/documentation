@@ -10,10 +10,10 @@ As a result of this feedback, we have been working over the last few months to d
   2. **SDK Interface Consistency and Simplification - **Contributes to a more seamless integration across Layer platforms with less cognitive overhead.
   3. **Separation of Application Model from Synchronization Logic **- Provides for a richer application interface that can be iterated independently of internal protocols.
   4. **Simplified Client-server Synchronization** - Makes message transfer more robust in the face of network failures, and optimizes incremental updates.
-  5. **Updated Network Transport Protoco**l - Optimized for mobile, including features important for mobile networks, such as request prioritization and channel level flow control.
+  5. **Updated Network Transport Protocol** - Optimized for mobile, including features important for mobile networks, such as request prioritization and channel level flow control.
   6. **Replacement Storage Back End** - Storage has been re-architected with greatly improved scalability, manageability and performance characteristics with a focus on geographically distributed deployments.
 
-Layer v0.7.0 **will introduce a number of breaking changes to your current implementation.** In order to provide a straightforward migration process, we have opted to include all of these enhancements in a single release that can be processed all at once. This document details the changes that will affect your current Layer integration. We have also put together a new [Integration guide](/docs/integration) which will help make the transition from our beta SDK to our v0.8 SDK as seamless as possible. 
+Layer v0.8.0 **will introduce a number of breaking changes to your current implementation.** In order to provide a straightforward migration process, we have opted to include all of these enhancements in a single release that can be processed all at once. This document details the changes that will affect your current Layer integration. We have also put together a new [Integration guide](/docs/integration) which will help make the transition from our beta SDK to our v0.8 SDK as seamless as possible. 
 
 ## Existing Message Data 
 

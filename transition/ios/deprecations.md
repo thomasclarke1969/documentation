@@ -2,7 +2,7 @@
 
 ## Layer Users
 
-Our new authentication architecture gives your backend complete control of your user’s identity and the relationships between users. As a result, it is no longer necessary for Layer to maintain an internal model of your users. The concept of a ‘User’ within Layer has been removed. Additionally, the notion of a Layer Address,  Layer Contact, and Layer Contact Controller, which were all tightly coupled with our user model, have also been removed. Going forward, you will send messages to users using your backend’s identifier for that user.
+Our new authentication architecture gives your backend complete control of your user’s identity and the relationships between users. As a result, it is no longer necessary for Layer to maintain an internal model of your users. The concept of a ‘User’ within Layer has been removed. Additionally, the notion of a Layer Address,  Layer Contact, and Layer Contact Controller, which were all tightly coupled with our user model, have also been removed. Going forward, you will address messages to users with your backend’s identifier for that user.
 
 ## Backend API 
 

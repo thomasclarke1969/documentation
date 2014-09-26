@@ -12,7 +12,7 @@ Navigate to your project's root directory and run `pod init` to create a `Podfil
 pod init
 ```
 
-Open up the `Podfile` and add the following between your project's target :
+Open up the `Podfile` and add the following below your project's target
 
 ```
 pod 'LayerKit'

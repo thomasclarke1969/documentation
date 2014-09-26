@@ -19,7 +19,7 @@ This key is specific to your application and should be kept private at all times
 NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"%%C-INLINE-APPID%%"];
 LYRClient *layerClient = [LYRClient clientWithAppID:appID];
 
-// Tells the LayerClient to establish a connection with the Layer service
+// Tells LYRClient to establish a connection with the Layer service
 [layerClient connectWithCompletion:^(BOOL success, NSError *error) {
     if (success) {
         NSLog(@"Client is Connected!");

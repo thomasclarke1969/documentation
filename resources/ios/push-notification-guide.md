@@ -2,7 +2,7 @@
 The Layer Push Notification Service can be used to keep your application’s data up to date at all times. This guide will walk you through integrating the Layer Push Notification service into your application.
 
 ##Enable Your App for Push notifications 
-Navigate to the [Apple Developer Portal](https://developer.apple.com/) and Log In. Select Cerificates, Identifiers, & Profiles on the right side of the page.
+Navigate to the [Apple Developer Portal](https://developer.apple.com/) and Log In. Select Certificates, Identifiers, & Profiles on the right side of the page.
 
 ![image alt text](ios-push-enable2.jpg)
 
@@ -119,7 +119,7 @@ If the “Background Modes” on/off switch is toggled to “off”, make sure y
 
 ##Register Your App to Receive Remote Notifications
 
-In your AppDelegate, you must register the device to recieve push notifications. In order to support push notifications on both iOS 8 and iOS 7, you must implement the following. We recommend that you do this in `application:DidFinishLaunchingWithOptions:`
+In your AppDelegate, you must register the device to receive push notifications. In order to support push notifications on both iOS 8 and iOS 7, you must implement the following. We recommend that you do this in `application:DidFinishLaunchingWithOptions:`
 
 ```
 // Checking if app is running iOS 8
@@ -172,7 +172,7 @@ Your application should implement the following in your AppDelegate to handle si
     NSError *error;
     BOOL success = [layerClient synchronizeWithRemoteNotification:userInfo completion:^(UIBackgroundFetchResult fetchResult, NSError *error) {
         if (!error) {
-        	NSLog (@"Layer Client finished background sycn");
+        	NSLog (@"Layer Client finished background sync");
         }
         completionHandler(fetchResult);
     }];

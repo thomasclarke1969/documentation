@@ -13,7 +13,7 @@ The steps to authenticate a user with Layer are the following:
 
 ##Identity Token 
 
-For a comprehensive guide on generating identity tokens via your backend application, please visit the [Layer Authentication Guide](/docs/resources#authentication-guide). For convenince, Layer also provides an Identity Service that can generate identity tokens on behalf of your application. 
+For a comprehensive guide on generating identity tokens via your backend application, please visit the [Layer Authentication Guide](/docs/resources#authentication-guide). For convenience, Layer also provides an Identity Service that can generate identity tokens on behalf of your application. 
 
 
 ```emphasis
@@ -47,7 +47,7 @@ NSString *userIDString = @"INSERT_USER_ID";
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        // Deserialize the resonse
+        // Deserialize the response
         NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         NSString *identityToken = responseObject[@"identity_token"];
         
@@ -77,7 +77,7 @@ NSString *userIDString = @"INSERT_USER_ID";
 @implementation ExampleLayerController
 
 // The only required LYRClientDelegate method. Called when LayerKit receives an 
-// authentication challenge. Method implmentation should attempt to reauthenticate
+// authentication challenge. Method implementation should attempt to re-authenticate
 // LayerKit. See the Layer Authentication Guide for more information on an authentication
 // challenge.
 - (void)layerClient:(LYRClient *)client didReceiveAuthenticationChallengeWithNonce:(NSString *)nonce
@@ -85,16 +85,16 @@ NSString *userIDString = @"INSERT_USER_ID";
 	NSLog(@"Client Did Receive Authentication Challenge with Nonce %@", nonce);
 }
 
-// Called when your application has succesfully authenticated a user via LayerKit
+// Called when your application has successfully authenticated a user via LayerKit
 - (void)layerClient:(LYRClient *)client didAuthenticateAsUserID:(NSString *)userID
 {
     NSLog(@"Client Did Authenticate As %@", userID);
 }
 
-// Called when you succesfully logout a user via LayerKit
+// Called when you successfully logout a user via LayerKit
 - (void)layerClientDidDeauthenticate:(LYRClient *)client
 {
-	NSLog(@"Client did deauthenticate the user");
+	NSLog(@"Client did de-authenticate the user");
 } 
 ```
 

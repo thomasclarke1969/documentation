@@ -114,6 +114,6 @@ The `LayerClientDelegate` also declares synchronization methods which alert your
 
 - (void)layerClient:(LYRClient *)client didFailSynchronizationWithError:(NSError *)error
 {
-	NSLog()@"Layer Cliend did fail Synchronization with error:%@", error);
+	NSLog(@"Layer Client did fail Synchronization with error:%@", error);
 }
 ```

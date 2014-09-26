@@ -1,24 +1,8 @@
 #Layer Authentication
 
 ##Introduction
-<<<<<<< HEAD
+
 Layer Authentication is designed to delegate the concerns of authentication and identity to an integrating partner via a simple, token based scheme. It requires that your backend application generate `Identity Tokens` on behalf of client applications. This token is simply a [JSON Web Signature](https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-32). There are libraries available in many popular languages for implementing JWS and generating `Identity Tokens`. A few are listed below 
-=======
-The Layer authentication architecture is designed to delegate the concerns of authentication and identity to an integrating partner via a simple, token based scheme. It requires that your backend application generate `Identity Tokens` on behalf of client applications. This token is simply a JSON Web Signature.
-
-Included in the generation of the Layer `Identity Token` is your backend's identifier representing the user attempting to authenticate.
-
-```emphasis
-This allows you to represent your users within the Layer service via your existing user identifiers. Participation in a Layer conversation is also represented by this same identifier.
-```
-
-This mechanism allows you to authenticate users within the Layer service without sharing credentials and greatly enhanced client security.
-
-##Client Authentication Flow
-The Layer `Identity Token` must be obtained via a call to your backend application and must include a nonce value that was obtained from the client SDK. The token must then be submitted to Layer via a public method on the [LYRClient](api/android#lyrclient)` object.
-
-There are libraries available in many popular languages for implementing JWS and generating `Idenity Tokens`. A few are listed below
->>>>>>> 2e63b36f2f56cc4cb9735ed5d79129ef144d6f2b
 
 * [Node.js](https://github.com/brianloveswords/node-jws)
 * [Go](https://github.com/dgrijalva/jwt-go)
@@ -38,11 +22,7 @@ Before your backend application can begin generating `Identity Tokens` and authe
 %%C-PROVIDERID%%
 
 ```emphasis
-<<<<<<< HEAD
-**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair by clicking the butotn below. Layer will upload the public portion to our service and the The private key will appear in a pop up. Please copy and save the private key as it must be retained by your backend application and used to sign Identity Tokens.
-=======
-**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair and upload the public portion to Layer. **Layer can automatically generate the key pair on your behalf and upload the public portion to our service. The private key will appear in a pop up.** Please copy and save the private key as it must be retained by your backend application and used to sign `Identity Tokens`.
->>>>>>> 2e63b36f2f56cc4cb9735ed5d79129ef144d6f2b
+**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair by clicking the buttn below. Layer will upload the public portion to our service and the The private key will appear in a pop up. Please copy and save the private key as it must be retained by your backend application and used to sign Identity Tokens.
 ```
 
 %%C-KEYID%%
@@ -98,9 +78,8 @@ This allows you to represent your users within the Layer service via your existi
 We provide an [identity token validation tool](/dashboard/account/tools) in the Layer developer portal. To ensure you are generating identity tokens correctly, please validate your tokens.
 
 
-<<<<<<< HEAD
 ##Client Authentication Flow
-To kick off the authentication flow, you application should ask the SDK to authenticate upon recieving a call to the `LayerConnectionListener`'s onConnectedConnected() method by calling authenticate().
+To kick off the authentication flow, you application should ask the SDK to authenticate upon receiving a call to the `LayerConnectionListener`'s onConnectedConnected() method by calling authenticate().
 
 ```java
  @Override
@@ -112,18 +91,7 @@ To kick off the authentication flow, you application should ask the SDK to authe
  }
 ```	
 
-If your application is not currently authenticated, it will recieve a call to your `LayerAuthenticationListener`'s `onAuthenticationChallenge()` method. Your application must then perform the following. 
-=======
-Register a Connection and Authentication listener prior to connecting the Layer SDK
-
-```java
-// Registers a Connection and Authentication listener
-client.registerConnectionListener(this).registerAuthenticationListener(this);
-client.connect();
-```
-
-Upon successfull connection, ask the `LayerClient` to authenticate
->>>>>>> 2e63b36f2f56cc4cb9735ed5d79129ef144d6f2b
+If your application is not currently authenticated, it will receive a call to your `LayerAuthenticationListener`'s `onAuthenticationChallenge()` method. Your application must then perform the following. 
 
 1. Acquire an authentication nonce from the Layer SDK. This nonce is given to your application via the call to `onAuthenticationChallenge()`.
 
@@ -136,7 +104,7 @@ Upon successfull connection, ask the `LayerClient` to authenticate
  * 1. Implement `onAuthenticationChallenge` to acquire a nonce
  */
 @Override
-<<<<<<< HEAD
+
 public void onAuthenticationChallenge(final LayerClient layerClient, final String nonce) {   
     String mUserId = "USER_ID_HERE";
 
@@ -147,14 +115,7 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
 	/*
      * 3. Submit identity token to Layer for validation
    	 */
-   	 layerClient.answerAuthenticationChallenge(eit);
-=======
-public void onAuthenticationChallenge(LayerClient client, String nonce) {
-
-    // Generate a Layer Identity Token with your backend, then call
-
-    client.answerAuthenticationChallenge(String identityToken);
->>>>>>> 2e63b36f2f56cc4cb9735ed5d79129ef144d6f2b
+   	 layerClient.answerAuthenticationChallenge("IDENTITY_TOKEN");
 }
 ```
 

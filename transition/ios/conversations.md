@@ -7,7 +7,6 @@ In order to display a list of messages comprising an individual conversation, yo
 NSOrderedSet *messages = [layerClient messagesForConversation:conversation];
 ```
 
-
 In order to extract the actual content from a message, you must acquire the individual message parts
 
 ```
@@ -20,11 +19,10 @@ NSArray *parts = [message parts];
 LYRMessagePart *part =[ parts objectAtIndex:0]
 
 //If the part is plain text, convert NSData to NSString
-if (part.MIMEType == LYRMIMETypeTextPlain) {
+if (part.MIMEType == @"text/plain") {
     NSString *string = [[NSString alloc] initWithData:part.data encoding:NSUTF8StringEncoding];
 }
 ```
-
 
 Additionally, you can fetch all conversations for the currently signed in user via the following:
 

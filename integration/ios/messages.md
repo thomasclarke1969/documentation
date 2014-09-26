@@ -6,12 +6,12 @@ The [LYRMessage](/docs/api/ios#lyrmessage) object represents an individual messa
 
 Layer does not enforce restrictions on the type of data you send through the service. As such, [LYRMessagePart](/docs/api/ios#lyrmessagepart) objects are initialized with an `NSData` object and a MIME type string. The MIME type string simply describes the type of content the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object contains.
 
-The following demonstrates creating message parts with both `text/plain` and `image/jpeg` MIME types.
+The following demonstrates creating message parts with both `text/plain` and `image/png` MIME types.
 
 ```objectivec
 // MIME type declarations
 static NSString *const MIMETypeTextPlain = @"text/plain";
-static NSString *const MIMETypeImageJPEG = @"image/jpeg";
+static NSString *const MIMETypeImagePNG = @"image/png";
 
 // Creates a message part with a string of text and text/plain MIMEtype.
 NSData *messageData = [@"Hi, how are you?" dataUsingEncoding:NSUTF8StringEncoding];
@@ -47,7 +47,7 @@ Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is read
 //Sends the specified message
 BOOL success = [layerClient sendMessage:message error:nil];
 if (success) {
-	NSLog(@"Message send succesfull");
+	NSLog(@"Message send successful");
 } else {
 	NSLog(@"Message send failed");
 }
@@ -55,27 +55,11 @@ if (success) {
 
 The `sendMessage` method returns a boolean value which indicates if the message has passed validation and was enqueued for delivery in the local data store. If LayerKit has a current network connection, the message will immediately be sent off of the device. Otherwise it will remain enqueued locally until the SDK re-establishes a network connection. At that point, the SDK will automatically send the message.
 
-[LYRMessage](/docs/api/ios#lyrmessage) objects declare a boolean property, `isSent`, which tells your application if the message was successfully sent from your device and synchronized with the Layer service. Your application can observe this property to be notified when a message was successfully sent.
-
-```objectivec
-// Notifies the LYRClientDelegate that a message or messages were successfully sent
-[self addObserver:message forKeyPath:@"isSent" options:NSKeyValueObservingOptionNew context:NULL];
-```
-
-Your application will then need to implement `observeValueForKeyPath:ofObject:change:context:` to respond to send notifications.
-
-```objectivec
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"isSent"]) {
- 		NSLog(@"Message sent");
-    }
-}
-```
+[LYRMessage](/docs/api/ios#lyrmessage) objects declare a boolean property, `isSent`, which tells your application if the message was successfully sent from your device and synchronized with the Layer service.
 
 ##Fetching Data
 
-The [LYRClient](/docs/api/ios#lyrclient) object exposes a simple API for fetching all messages for a given conversation. This method will return an `NSOrderedSet of messages with in descending order.
+The [LYRClient](/docs/api/ios#lyrclient) object exposes a simple API for fetching all messages for a given conversation. This method will return an `NSOrderedSet of messages in descending order.
 
 ```objectivec
 // Fetch all messages for a given conversation object

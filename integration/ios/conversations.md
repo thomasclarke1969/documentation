@@ -15,7 +15,7 @@ Note, that it is not necessary to include the currently authenticated user in th
 
 ##Participants
 
-Once a conversation has been created, participant lists remain mutable, meaning participants can be both added or removed. The Layer service does not enforce ownership of conversations so any client can both add and remove participants to a conversation.
+Once a conversation has been created, participant lists remain mutable, meaning participants can be added or removed. The Layer service does not enforce ownership of conversations so any client can both add or remove participants from a conversation.
 
 ```objectivec
 // Adds a participant to an existing conversation
@@ -24,7 +24,7 @@ Once a conversation has been created, participant lists remain mutable, meaning 
 
 // Removes a participant from an existing conversation
 // Removed participants will only lose access to future content. They will retain access
-// to the conversation and all preceeding content.
+// to the conversation and all preceding content.
 [layerClient removeParticipants:@[@"USER-IDENTIFIER"] fromConversation:conversation error:nil];
 ```
 
@@ -40,6 +40,6 @@ NSSet *conversations = [layerClient conversationsForIdentifiers:nil];
 Correspondingly, to fetch a specific conversation, that conversation’s identifier must be passed.
 
 ```objectivec
-// Returns an NSOrderedSet of all conversations for the signed in user
+// Returns an NSOrderedSet of all conversations for the given identifiers
 NSSet *conversations = [layerClient conversationsForIdentifiers:[NSSet setWithObject:@"CONVERSATION-IDENTIFER"]];
 ```

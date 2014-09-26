@@ -2,7 +2,7 @@
 
 ## Authentication
 
-As mentioned above, our new authentication architecture allows you to authenticate users within the Layer service without sharing credentials. With this architecture, your backend application will act as an identity provider for your client application. It will need to generate [identityTokens](https://docs.google.com/a/layer.com/document/d/1isApNdOIZ70f_sfpufyQd98Lkfe1pSziNLdd6d774pM/edit#heading=h.yu9aq0rirnxj)[ ](https://docs.google.com/a/layer.com/document/d/1isApNdOIZ70f_sfpufyQd98Lkfe1pSziNLdd6d774pM/edit#heading=h.yu9aq0rirnxj)on behalf of your application, which will in turn be used to to authenticate your users within the Layer service. For instructions on how to implement Layer Authentication, please see the [Layer Authentication Guide](https://docs.google.com/a/layer.com/document/d/1isApNdOIZ70f_sfpufyQd98Lkfe1pSziNLdd6d774pM/edit#heading=h.fmjl82sm01k2).
+As mentioned above, our new authentication architecture allows you to authenticate users within the Layer service without sharing credentials. With this architecture, your backend application will act as an identity provider for your client application. It will need to generate identityTokens on behalf of your application, which will in turn be used to to authenticate your users within the Layer service. For instructions on how to implement Layer Authentication, please see the [Layer Authentication Guide](https://preview.layer.com/docs/resources#authentication-guide).
 
 Below are the new public methods that your application will need to implement in order to authenticate the LYRClient.
 
@@ -16,7 +16,7 @@ Below are the new public methods that your application will need to implement in
 
 ## Conversations
 
-The Layer SDK V0.8 brings the notion of a ‘Conversation’ front and center. Whereas with the early access SDK, messages were sent to a specific LYRAddress, with the latest release, you explicitly create conversation objects and send messages with the context of that conversation. This represents a much more intuitive way to work with ongoing streams of communication between one or many users.
+The Layer SDK V0.8 brings the notion of a `Conversation` front and center. Whereas with the early access SDK, messages were sent to a specific `LYRAddress`, with our new SDK, you explicitly create conversation objects and send messages with the context of that conversation. This represents a much more intuitive way to work with ongoing streams of communication between one or many users.
 
 ## Participants
 
@@ -25,8 +25,7 @@ As mentioned above, we have dropped the notion of a Layer address. Going forward
 ```
 //This method provides a flexible mechanism for retrieving or creating conversations.
 - (LYRConversation *)conversationWithIdentifier:(NSString *)identifier participants:(NSArray *)participants;
-- ```
-
+```
 
 Additionally, we have added the ability to add or remove participants from an existing conversation. Participants added to an existing conversation will have access to all previous messages sent within the context of that conversation.
 
@@ -36,10 +35,6 @@ LYRMessageParts represent a piece of content embedded within a message. Each par
 
 ```
 + (instancetype)messagePartWithMIMEType:(NSString *)MIMEType data:(NSData *)data;
-
-
-+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType stream:(NSInputStream *)stream;
-
 
 + (instancetype)messagePartWithText:(NSString *)text;
 ```
@@ -54,9 +49,9 @@ To make LayerKit as extensible as possible we are introducing the concept of Met
 ## Sync Notifications
 
 The Layer client now provides a flexible notification system for informing applications when changes have
-occured on domain objects in response to synchronization activities. The system is designed to be general purpose and alerts your application to the creation, update, or deletion of an object. Changes are modeled as simple dictionaries with a fixed key space.
+occurred on domain objects in response to synchronization activities. The system is designed to be general purpose and alerts your application to the creation, update, or deletion of an object. Changes are modeled as simple dictionaries with a fixed key space.
 
-LayerKit leverages key-value observing to notify your application when changes occur. Your application should observe `LYRClientObjectsDidChangeNotification` in order to recieve notifications.
+LayerKit leverages key-value observing to notify your application when changes occur. Your application should observe `LYRClientObjectsDidChangeNotification` in order to receive notifications.
 
 ```objectivec
 [[NSNotificationCenter defaultCenter] addObserver:self
