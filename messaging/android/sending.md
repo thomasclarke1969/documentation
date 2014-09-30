@@ -1,4 +1,26 @@
 # Sending Messages
+Conversation` objects are created by calling `Conversation.newInstance()`. This method takes a list of participant identifiers.  As Layer Authentication allows you to represent users within the Layer service via your backend’s federated identifier, participants are represented with those same user identifiers.
+
+```java
+// Creates and returns a new conversation object with sample participant identifiers
+Conversation conversation = Conversation.newInstance(Arrays.asList("USER-IDENTIFIER"));
+```
+
+```emphasis
+Note, that it is not necessary to include the currently authenticated user in the participant array. They are added to new conversations automatically when the first message gets sent to that conversation.
+```
+
+## Add/Remove Participants
+
+Once a conversation has been created, particiapnt lists remain mutable, meaning participants can be both added and removed. The Layer servivce does not enforce any ownership, so any client can both add and remove participants.
+
+```java
+// Adds a participant to a given conversation
+client.addParticipants(conversation, Arrays.asList("948374848"));
+
+// Removes a participant from a given conversation
+client.removeParticipants(conversation, Arrays.asList("948374848"));
+```
 
 The `Message` object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the `MessagePart` object.
 
@@ -59,13 +81,4 @@ Once an `Message` object is initialized, it is ready for sending. The message is
 ```java
 // Sends the specified message
 client.sendMessage(message);
-```
-
-## Fetching Messages
-
-`Layer Client` exposes a simple API for fetching all messages for a given conversation.
-
-```java
-// Fetch all messages for a given conversation object
-List<Message> messages =  client.getMessages(conversation);
 ```

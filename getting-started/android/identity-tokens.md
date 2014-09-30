@@ -1,7 +1,4 @@
 #Identity Tokens
-
-##Introduction
-
 To successfully authenticate, Layer requires that your backend application generate `Identity Tokens` on behalf of client applications. This token is simply a [JSON Web Signature](https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-32). There are libraries available in many popular languages for implementing JWS and generating `Identity Tokens`. A few are listed below
 
 * [Node.js](https://github.com/brianloveswords/node-jws)
