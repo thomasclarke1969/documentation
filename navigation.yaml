@@ -16,47 +16,79 @@ meta:
 #  - If you must use multiple words for keys use a dash '-' as a separator
 
 # Introduction page
-introduction:
-  title: "Introduction"
-  section:
-    getting-started: "Getting Started"
+#introduction:
+#  title: "Introduction"
+#  section:
+#    getting-started: "Getting Started"
 
-# Integration guide page
-integration:
-  title: "Integration"
+#Overivew page
+overview:
+  title: "Overview"
+  section:
+    what-is-layer: "What is Layer?"
+
+getting-started:
+  title: "Getting Started"
   platforms: true
   section:
     installation: "Installation"
-    initialization: "Initialization"
+    setup: "Setup"
     authentication: "Authentication"
+    identity-tokens: "Identity Tokens"
+
+messaging:
+  title: "Messaging"
+  platforms: true
+  section:
     concepts: "Concepts"
     conversations: "Conversations"
-    messages: "Messages"
-    #metadata: "Metadata"
-    synchronization: "Sychronization"
-    deletion: "Deletion"
+    sending: "Sending"
+    deleting: "Deleting"
+
+advanced:
+  title: "Advanced"
+  platforms: true
+  section:
+    synchronization: "Synchronization"
     push-notifications: "Push Notifications"
-
-# Transition guide page
-transition:
-  title: "Transition"
-  platforms: true
-  section:
-    introduction: "Introduction"
-    sdk: "SDK"
-    deprecations: "Deprecations"
-    new-concepts: "New Concepts"
-    messaging: "Messaging"
-    conversations: "Conversations"
-    support: "Support"
-
-# Transition guide page
-resources:
-  title: "Resources"
-  platforms: true
-  section:
-    authentication-guide: "Authenticaton Guide"
     push-notification-guide: "Push Notification Guide"
+
+# Integration guide page
+# integration:
+#   title: "Integration"
+#   platforms: true
+#   section:
+#     installation: "Installation"
+#     initialization: "Initialization"
+#     authentication: "Authentication"
+#     concepts: "Concepts"
+#     conversations: "Conversations"
+#     messages: "Messages"
+#     #metadata: "Metadata"
+#     synchronization: "Sychronization"
+#     deletion: "Deletion"
+#     push-notifications: "Push Notifications"
+
+# Transition guide page
+# transition:
+  # title: "Transition"
+  # platforms: true
+  # section:
+  #   introduction: "Introduction"
+  #   sdk: "SDK"
+  #   deprecations: "Deprecations"
+  #   new-concepts: "New Concepts"
+  #   messaging: "Messaging"
+  #   conversations: "Conversations"
+  #   support: "Support"
+
+# Transition guide page
+# resources:
+#   title: "Resources"
+#   platforms: true
+#   section:
+#     authentication-guide: "Authenticaton Guide"
+#     push-notification-guide: "Push Notification Guide"
 
 # API Reference page
 api:
