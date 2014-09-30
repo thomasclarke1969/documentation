@@ -41,8 +41,8 @@ messaging:
   platforms: true
   section:
     concepts: "Concepts"
-    conversations: "Conversations"
     sending: "Sending"
+    fetching: "Fetching"
     deleting: "Deleting"
 
 advanced:
