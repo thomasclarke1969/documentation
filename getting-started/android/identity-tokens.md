@@ -6,8 +6,11 @@ To successfully authenticate, Layer requires that your backend application gener
 * [Python](https://github.com/progrium/pyjwt/)
 * [Ruby](https://github.com/progrium/ruby-jwt)
 
-To view a sample implementation please see the [Layer Node.js gist](https://gist.github.com/kcoleman731/246bacfe7f7bc3603f33).
+Sample backend implementations are available in:
 
+* Node.js - [Layer Node.js gist](https://gist.github.com/kcoleman731/246bacfe7f7bc3603f33)
+* Python - [Layer Python gist](https://gist.github.com/rroopan/82037dd295fdb2f26efa)
+* Ruby - [Layer Ruby gist](https://gist.github.com/rroopan/92438bea429c14756d74)
 
 ##Setup
 Before your backend application can begin generating `Identity Tokens` and authenticating Layer applications, some setup must be performed. A `Provider ID` and `Key ID` must be retained by your back end application and used in the generation of the token.
@@ -69,57 +72,6 @@ Included in the generation of the Layer `Identity Token` is your backend's ident
 
 ```emphasis
 This allows you to represent your users within the Layer service via your existing user identifiers. Participation in a Layer conversation is also represented by this same identifier.
-```
-
-##Layer's Identity Service
-For convenience, Layer also provides an Identity Service that can generate identity tokens on behalf of your application.
-
-```emphasis
-Please note, the Identity Service is only available for testing purposes and cannot be used in production applications.
-```
-
-The following code can be implemented in your application and can be used to generate identity tokens. This code uses the Layer Identity Service instead of your backend to generate a token and should only be used for testing purposes.
-
-```
-/*
- * 1. Implement `onAuthenticationChallenge` to acquire a nonce
- */
-@Override
-public void onAuthenticationChallenge(final LayerClient layerClient, final String nonce) {
-    String mUserId = "USER_ID_HERE";
-
-  /*
-   * 2. Acquire an identity token from the Layer Identity Service
-   */
-    (new AsyncTask<Void, Void, Void>() {
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                HttpPost post = new HttpPost("https://layer-identity-provider.herokuapp.com/identity_tokens");
-                post.setHeader("Content-Type", "application/json");
-                post.setHeader("Accept", "application/json");
-
-                JSONObject json = new JSONObject()
-                        .put("app_id", layerClient.getAppId())
-                        .put("user_id", mUserId)
-                        .put("nonce", nonce );
-                post.setEntity(new StringEntity(json.toString()));
-
-                HttpResponse response = (new DefaultHttpClient()).execute(post);
-                String eit = (new JSONObject(EntityUtils.toString(response.getEntity())))
-                        .optString("identity_token");
-
-        /*
-             * 3. Submit identity token to Layer for validation
-             */
-                layerClient.answerAuthenticationChallenge(eit);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }).execute();
-}
 ```
 
 ##Identity Token Validation
