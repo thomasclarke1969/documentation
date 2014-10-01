@@ -22,8 +22,14 @@ meta:
 #    getting-started: "Getting Started"
 
 #Overivew page
-overview:
-  title: "Overview"
+#overview:
+#  title: "Overview"
+#  section:
+#    what-is-layer: "What is Layer?"
+
+quick-start:
+  title: "Quick Start"
+  platforms: true
   section:
     what-is-layer: "What is Layer?"
 
@@ -45,8 +51,8 @@ messaging:
     fetching: "Fetching"
     deleting: "Deleting"
 
-advanced:
-  title: "Advanced"
+sync-n-push:
+  title: "Sync & Push"
   platforms: true
   section:
     synchronization: "Synchronization"

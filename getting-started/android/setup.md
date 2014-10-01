@@ -11,16 +11,16 @@ This key is specific to your application and should be kept private at all times
 ```java
 // Instatiates a LayerClient object
 UUID appID = UUID.fromString("%%C-INLINE-APPID%%")
-LayerClient client = LayerClient.newInstance(this, appID, "GCM ID");
+LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM ID");
 ```
 
 You can create additional Layer applications by visiting our [developer dashboard](/dashboard/apps/new).
 
 ## Listeners
-The `LayerClient` object leverages the listener pattern to notify your application to specific events. On launch, your application should register as a `LayerConnectionListener` and `LayerAuthenticationListener`.
+The `LayerClient` object leverages the listener pattern to notify your application to specific events. You will need to implement the `LayerConnectionListener` and `LayerAuthenticationListener' interfaces. Once implemented, register both on the 'layerClient' object.
 
 ```java
-client.registerConnectionListener(this).registerAuthenticationListener(this);
+layerClient.registerConnectionListener(this).registerAuthenticationListener(this);
 ```
 
 ## Connect The SDK
@@ -28,5 +28,5 @@ Once you have registered your listeners, you connect the SDK
 
 ```java
 // Asks the LayerSDK to establish a network connection with the Layer service
-client.connect();
+layerClient.connect();
 ```

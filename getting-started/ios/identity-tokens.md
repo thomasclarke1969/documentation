@@ -1,12 +1,16 @@
 #Identity Tokens
-Layer Authentication is designed to delegate the concerns of authentication and identity to an integrating partner via a simple, token based scheme. It requires that your backend application generate `Identity Tokens` on behalf of client applications. This token is simply a [JSON Web Signature](https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-32). There are libraries available in many popular languages for implementing JWS and generating `Identity Tokens`. A few are listed below
+To successfully authenticate, Layer requires that your backend application generate `Identity Tokens` on behalf of client applications. This token is simply a [JSON Web Signature](https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-32). There are libraries available in many popular languages for implementing JWS and generating `Identity Tokens`. A few are listed below
 
 * [Node.js](https://github.com/brianloveswords/node-jws)
 * [Go](https://github.com/dgrijalva/jwt-go)
 * [Python](https://github.com/progrium/pyjwt/)
 * [Ruby](https://github.com/progrium/ruby-jwt)
 
-To view a sample implementation please see the [Layer Node.js gist](https://gist.github.com/kcoleman731/246bacfe7f7bc3603f33).
+Sample backend implementations are available in:
+
+* Node.js - [Layer Node.js gist](https://gist.github.com/kcoleman731/246bacfe7f7bc3603f33)
+* Python - [Layer Python gist](https://gist.github.com/rroopan/82037dd295fdb2f26efa)
+* Ruby - [Layer Ruby gist](https://gist.github.com/rroopan/92438bea429c14756d74)
 
 ##Setup
 Before your backend application can begin generating `Identity Tokens` and authenticating Layer applications, some setup must be performed. A `Provider ID` and `Key ID` must be retained by your back end application and used in the generation of the token.
@@ -61,58 +65,6 @@ The full structure of the Layer Identity Token looks like the following:
 
 ```console
 (Base64URL JWS Header).(Base64URL JWS Claim).(Base64URL RSA Signature of ((Base64URL JWS Header).(Base64URL JWS Claim)))
-```
-
-##Layer Identity Service
-
-For convenience, Layer also provides an Identity Service that can generate identity tokens on behalf of your application.
-
-```emphasis
-Please note, the Identity Service is only available for testing purposes and cannot be used in production applications.
-```
-
-The following code can be implemented in your application and can be used to generate identity tokens.
-
-```
-NSString *userIDString = @"INSERT_USER_ID";
-
-/*
- * 1. Request Authentication Nonce From Layer
- */
-[layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
-
-    /*
-     * 2. Acquire identity Token from Layer Identity Service
-     */
-    NSURL *identityTokenURL = [NSURL URLWithString:@"https://layer-identity-provider.herokuapp.com/identity_tokens"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:identityTokenURL];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-
-    NSDictionary *parameters = @{ @"app_id": layerClient.appID, @"user_id": userIDString, @"nonce": nonce };
-    NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    request.HTTPBody = requestBody;
-
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-
-        // Deserialize the response
-        NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSString *identityToken = responseObject[@"identity_token"];
-
-        /*
-         * 3. Submit identity token to Layer for validation
-         */
-        [layerClient authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
-            if (authenticatedUserID) {
-                NSLog(@"Authenticated as User: %@", authenticatedUserID);
-            }
-        }];
-
-    }] resume];
-}];
 ```
 
 ##User Representation With Layer
