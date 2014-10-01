@@ -1,7 +1,4 @@
 #Connecting
-
-The `LayerClient` object represents the primary interface for interacting with the Layer service. Only one instance of `LayerClient` should be instantiated by your application and should be retained at all times. The object is initialized with a Context, and Application Key, and an GCM Sender ID.
-
 ```emphasis
 We have created an application for you titled %%C-INLINE-APPNAME%% and the sample code below contains your application's key.
 ```
@@ -15,13 +12,13 @@ LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM ID");
 ```
 
 ## Listeners
-The `LayerClient` object leverages the listener pattern to notify your application to specific events. You will need to implement the `LayerConnectionListener` and `LayerAuthenticationListener' interfaces. Once implemented, register both on the 'layerClient' object.
+The `LayerClient` object leverages the listener pattern to notify your application to specific events. You will need to implement the `LayerConnectionListener` and `LayerAuthenticationListener` interfaces. Once implemented, register both on the `layerClient` object.
 
 ```java
 layerClient.registerConnectionListener(this).registerAuthenticationListener(this);
 ```
 
-## Connect The SDK
+## Connect
 Once you have registered your listeners, you connect the SDK
 
 ```java
