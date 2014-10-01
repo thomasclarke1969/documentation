@@ -6,4 +6,3 @@ Layer handles the hard parts - sync of messages and message states across device
 
 The API reference details the full set of classes used to interact with the Layer SDK. For more information on how to get started with Layer, see the [Integration guide](/docs/integration/android).
 
-%%BETA-WARNING%%
