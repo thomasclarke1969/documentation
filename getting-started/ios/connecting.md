@@ -6,13 +6,13 @@ Import the LayerKit headers into your `AppDelegate.h`
 #import <LayerKit/LayerKit.h>
 ```
 
-The [LYRClient](docs/api/ios#lyrclient) object represents the primary interface for interacting with the Layer service. Your application should only instantiate one instance of [LYRClient](docs/api/ios#lyrclient) and should retain the instance at all times. The object is initialized with an application key.
+The [LYRClient](docs/api/ios#lyrclient) object is the primary interface for interacting with the Layer service. Only one instance of [LYRClient](docs/api/ios#lyrclient) should be instantiated and used at all times. The object is initialized with an application key.
 
 ```emphasis
 We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sample code below contains your application's key.
 ```
 
-This key is specific to your application and should be kept private at all times. Copy and paste the following into `application:DidFinishLaunchingWithOptions:` in your `AppDelegate`.
+Key's are application specific and should be kept private. Copy and paste the following into `application:DidFinishLaunchingWithOptions:` in your `AppDelegate`.
 
 ```objectivec
 // Initializes a LYRClient object
@@ -27,7 +27,7 @@ LYRClient *layerClient = [LYRClient clientWithAppID:appID];
 }];
 ```
 
-On subsequent application launches, `LayerKit` will attempt to establish a network connection on its own. You can inspect `LayerKit`'s connection state via the public property `isConnected` on [LYRClient](/docs/api/ios#lyrclient)
+You can inspect `LayerKit`'s connection state via the public property `isConnected` on [LYRClient](/docs/api/ios#lyrclient). This is useful on subsequent application launches.
 
 ```
 if (layerClient.isConnected) {

@@ -1,12 +1,12 @@
 #Connecting
 
-The `LayerClient` object represents the primary interface for interacting with the Layer service. Only one instance of `LayerClient` should be instantiated by your application and should be retained at all times. The object is initialized with a Context, and Application Key, and an GCM Sender ID.
+The `LayerClient` object is the primary interface for interacting with the Layer service. Only one instance of `LayerClient` should be instantiated and used at all times. The object is initialized with a Context, and Application Key, and an GCM Sender ID.
 
 ```emphasis
 We have created an application for you titled %%C-INLINE-APPNAME%% and the sample code below contains your application's key.
 ```
 
-This key is specific to your application and should be kept private at all times. Copy and paste the following code into your `Application` object's `onCreate()` method.
+Key's are application specific and should be kept private. Copy and paste the following code into your `Application` object's `onCreate()` method.
 
 ```java
 // Create a LayerClient object
