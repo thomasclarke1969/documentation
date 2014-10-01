@@ -94,7 +94,7 @@ We have created an application for you titled %%C-INLINE-APPNAME%% and the sampl
 This key is specific to your application and should be kept private at all times. Copy and paste the following code into your `Application` object's `onCreate()` method.
 
 ```java
-// Instatiates a LayerClient object
+// Create a LayerClient object
 UUID appID = UUID.fromString("%%C-INLINE-APPID%%")
 LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM ID");
 ```
@@ -106,7 +106,7 @@ The `LayerClient` object leverages the listener pattern to notify your applicati
 layerClient.registerConnectionListener(this).registerAuthenticationListener(this);
 ```
 
-## Connect The SDK
+## Connecting
 Once you have registered your listeners, you connect the SDK
 
 ```java
@@ -115,7 +115,7 @@ layerClient.connect();
 ```
 
 #Authenticate
-Once you have connected to Layer, the `onConnectionConnected()` method will be called, at which time you should call the `authenticate()` method on the layerClient.
+Once connected, the `onConnectionConnected()` method will be called, followed by the `authenticate()` method on the `layerClient`.
 
 ```java
  @Override
