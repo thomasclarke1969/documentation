@@ -23,13 +23,8 @@ Upon receipt of a call to the `onMainThreadChanges()` method, your application c
 
 ```java
 public void onEventMainThread(LayerChangeEvent event) {
-<<<<<<< HEAD
 	List<LayerChange> changes = event.getChanges();
 }        
-=======
-	List<Change> changes = event.getChanges();
-}
->>>>>>> 2e63b36f2f56cc4cb9735ed5d79129ef144d6f2b
 ```
 
 Change notifications occur for both `Message` and `Conversation` objects. Your application can retrieve the type of object upon which a change has occurred by calling getObjectType() on the change object.

@@ -33,35 +33,28 @@ We are using [marked](https://github.com/chjj/marked) parser which supports [bas
 iOS code snippet example:
 
     ```objectivec
-    EvernoteSession *session = [EvernoteSession sharedSession];
-    [session authenticateWithViewController:self completionHandler:^(NSError *error) {
-        if (error || !session.isAuthenticated) {
-            // authentication failed :(
-            // show an alert, etc
-            // ...
-        } else {
-            // authentication succeeded :)
-            // do something now that we're authenticated
-            // ... 
-        } 
+    // Initializes a LYRClient object
+    NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"APP ID"];
+    LYRClient *layerClient = [LYRClient clientWithAppID:appID];
+
+    // Tells LYRClient to establish a connection with the Layer service
+    [layerClient connectWithCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            NSLog(@"Client is Connected!");
+        }
     }];
     ```
 
 Android example:
 
     ```java
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-      super.onActivityResult(requestCode, resultCode, data);
-      switch(requestCode) {
-        // Update UI when oauth activity returns result
-        case EvernoteSession.REQUEST_CODE_OAUTH:
-          if (resultCode == Activity.RESULT_OK) {
-            // Authentication was successful, do what you need to do in your app
-          }
-          break;
-      }
-    }
+     @Override
+     // Called when the LayerClient establishes a network connection
+     public void onConnectionConnected(LayerClient client) {
+         // Ask the LayerClient to authenticate. If no auth credentials are present, 
+         // an authentication challenge is issued
+         client.authenticate();
+     }
     ```
 #### Supported syntax types
 
