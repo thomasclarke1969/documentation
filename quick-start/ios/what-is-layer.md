@@ -34,7 +34,7 @@ $ pod install --verbose
 
 Cocoapods will create a .xcworkspace project. Open up that new workspace file using XCode.
 
-#Initialize
+#Connecting
 Import the LayerKit headers into your `AppDelegate.h`
 
 ```objectivec
@@ -61,7 +61,7 @@ LYRClient *layerClient = [LYRClient clientWithAppID:appID];
 ```
 
 #Authenticate
-Once you have connected to Layer, you will need to add the following code to authenticate a user. Please supply the current User Id.
+Once connected, the authentication process starts. Insert the following code and replace `INSERT_USER_ID` with a valid User Id.
 
 ```emphasis
 Please note, the Identity Service is only available for testing purposes and cannot be used in production applications.

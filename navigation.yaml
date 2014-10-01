@@ -38,7 +38,7 @@ getting-started:
   platforms: true
   section:
     installation: "Installation"
-    setup: "Setup"
+    connecting: "Connecting"
     authentication: "Authentication"
     identity-tokens: "Identity Tokens"
 
