@@ -32,6 +32,10 @@ quick-start:
   platforms: true
   section:
     what-is-layer: "What is Layer?"
+    quick-start: "Quick Start"
+    connecting: "Connecting"
+    authenticate: "Authenticate"
+    send-a-message: "Send a Message"
 
 getting-started:
   title: "Getting Started"
@@ -39,8 +43,9 @@ getting-started:
   section:
     installation: "Installation"
     connecting: "Connecting"
+#    authentication: "Authentication"
+#    identity-tokens: "Identity Tokens"
     authentication: "Authentication"
-    identity-tokens: "Identity Tokens"
 
 messaging:
   title: "Messaging"

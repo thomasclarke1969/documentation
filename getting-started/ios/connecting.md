@@ -1,4 +1,4 @@
-# Setup
+#Connecting
 
 Import the LayerKit headers into your `AppDelegate.h`
 
@@ -34,5 +34,3 @@ if (layerClient.isConnected) {
 	// LayerKit is connected, no need to call connectWithCompletion:
 }
 ```
-
-You can create additional Layer applications by visiting our [developer dashboard](/dashboard/apps/new).
