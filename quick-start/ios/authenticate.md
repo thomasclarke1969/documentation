@@ -1,5 +1,5 @@
 #Authenticate
-Once connected, you will need to start the authentication process. The following code will complete the authentication process by connecting to the Layer Identity Serivce.
+Once connected, you will need to start the authentication process. The following implementation will perform the authentication process by connecting to the Layer Identity Service to get an Identity Token. It will then set the Identity Token on the `layerClient`
 You will need to replace `INSERT_USER_ID` with a valid User Id.
 
 ```emphasis

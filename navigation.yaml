@@ -43,8 +43,6 @@ getting-started:
   section:
     installation: "Installation"
     connecting: "Connecting"
-#    authentication: "Authentication"
-#    identity-tokens: "Identity Tokens"
     authentication: "Authentication"
 
 messaging:
@@ -60,8 +58,8 @@ sync-n-push:
   title: "Sync & Push"
   platforms: true
   section:
-    synchronization: "Synchronization"
     push-notifications: "Push Notifications"
+    synchronization: "Synchronization"
 
 # Integration guide page
 # integration:

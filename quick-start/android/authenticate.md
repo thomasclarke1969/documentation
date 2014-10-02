@@ -11,7 +11,7 @@ Once connected, the `onConnectionConnected()` method will be called, followed by
  }
 ```
 
-Once you have called the `authenticate()` method, your application will receive a call to your `LayerAuthenticationListener`'s `onAuthenticationChallenge()` method. The following code will connect to the Layer Identity service to get an Identity Token.
+Once you have called the `authenticate()` method, your application will receive a call to your `LayerAuthenticationListener`'s `onAuthenticationChallenge()` method. You can use the following implementation which will connect to the Layer Identity Service to get an Identity Token.
 
 ```emphasis
 Please note, the Identity Service is only available for testing purposes and cannot be used in production applications.

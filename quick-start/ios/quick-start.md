@@ -3,12 +3,16 @@ This quick start guide will get you up and running with sending messages as quic
 
 ##Install the Layer SDK libraries using CocoaPods
 
-```
-//Install cocoapods if you don't have it
-$ sudo gem install cocoapods
+Install Cocoapods via the following command if you don't already have it.
 
-//Navigate to your project's root directory and run `pod init` to create a `Podfile`.
-$ pod init
+```
+$ sudo gem install cocoapods
+```
+
+Navigate to your project's root directory and run `pod init` to create a `Podfile`.
+
+```
+pod init
 ```
 
 Open up the `Podfile` and add the following below your project's target
