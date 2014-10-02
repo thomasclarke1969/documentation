@@ -1,6 +1,36 @@
 {
   "classes" : [
     {
+      "declared" : "LYRClient.m",
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRClient.m",
+            "declaration" : "- (void)handleApplicationDidBecomeActiveNotification:(NSNotification *)notification",
+            "comment" : "When we are becoming active, re-open the SPDY push channel if we have a connection This should typically only kick in if we temporarily lost focus and are being restored to active",
+            "name" : "handleApplicationDidBecomeActiveNotification:",
+            "discussion" : "When we are becoming active, re-open the SPDY push channel if we have a connection This should typically only kick in if we temporarily lost focus and are being restored to active"
+          },
+          {
+            "declared" : "LYRClient.m",
+            "declaration" : "- (void)handleApplicationDidEnterBackgroundNotification:(NSNotification *)notification",
+            "comment" : "         NOTE: If we have transitioned into the active application with a transport connected but sync is not active then           we likely launched in response to a Push Notification. We must fire things up.          ",
+            "name" : "handleApplicationDidEnterBackgroundNotification:",
+            "discussion" : "         NOTE: If we have transitioned into the active application with a transport connected but sync is not active then           we likely launched in response to a Push Notification. We must fire things up.          "
+          },
+          {
+            "declared" : "LYRClient.m",
+            "declaration" : "- (void)handleApplicationWillResignActiveNotification:(NSNotification *)notification",
+            "comment" : "When we are resigning activity, stop synchronization and close the SPDY push channel so that pushes will fall back to APNS",
+            "name" : "handleApplicationWillResignActiveNotification:",
+            "discussion" : "When we are resigning activity, stop synchronization and close the SPDY push channel so that pushes will fall back to APNS"
+          }
+        ]
+      },
+      "name" : "LYRApplicationLifecycleObserver",
+      "inherits" : "NSObject"
+    },
+    {
       "declared" : "LYRClient.h<br \/>LYRClient.m",
       "properties" : [
         {
@@ -27,6 +57,12 @@
           "declaration" : "@property (nonatomic, readonly) BOOL isConnected",
           "comment" : "Returns a Boolean value that indicates if the client is connected to Layer.",
           "name" : "isConnected"
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly) BOOL isConnecting",
+          "comment" : "Returns a Boolean value that indicates if the client is in the process of connecting to Layer.",
+          "name" : "isConnecting"
         }
       ],
       "comment" : "The LYRClient class and related classes provide an API for rich messaging via the Layer platform. This API supports the exchange of multi-part Messages within multi-user Conversations and advanced features such\nas mutation of the participants, deletion of messages or the entire conversation, and the attachment of free-form user defined metadata. The API is sychronization based, fully supporting offline usage and providing full access\nto the history of messages across devices.\n\n\nThe filename to which session info is written into the application data directory.",
@@ -44,14 +80,14 @@
         "instance" : [
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)addParticipants:(NSArray *)participants toConversation:(LYRConversation *)conversation error:(NSError **)error",
+            "declaration" : "- (BOOL)addParticipants:(NSSet *)participants toConversation:(LYRConversation *)conversation error:(NSError **)error",
             "comment" : "Adds participants to a given conversation.",
             "name" : "addParticipants:toConversation:error:",
             "return" : "A Boolean value indicating if the operation of adding participants was successful.",
             "parameters" : [
               {
                 "name" : "participants",
-                "description" : "An array of providerUserID in a form of NSString objects."
+                "description" : "A set of providerUserID in a form of NSString objects."
               },
               {
                 "name" : "conversation",
@@ -97,31 +133,18 @@
             ]
           },
           {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (LYRConversation *)conversationForIdentifier:(NSURL *)identifier",
-            "comment" : "Returns an existing conversation with a given identifier or nil if none could be found.",
-            "name" : "conversationForIdentifier:",
-            "return" : "The conversation with the given identifier or nil if none could be found.",
             "parameters" : [
               {
                 "name" : "identifier",
                 "description" : "The identifier for an existing conversation."
               }
-            ]
-          },
-          {
-            "parameters" : [
-              {
-                "name" : "participants",
-                "description" : "An array of participants for which to query for a corresponding Conversation. Each element in the array is a string that corresponds to the user ID of the desired participant."
-              }
             ],
-            "return" : "The conversation with the given set of participants or nil if none could be found.",
-            "discussion" : "This method returns the first conversation with the given set of participants. Note that it is possible to create more than one Conversation with a given set of participants.",
+            "return" : "The conversation with the given identifier or nil if none could be found.",
+            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and nil will be returned.",
             "declared" : "LYRClient.h",
-            "comment" : "Returns an existing conversation with the given set of participants or nil if none could be found.",
-            "name" : "conversationForParticipants:",
-            "declaration" : "- (LYRConversation *)conversationForParticipants:(NSArray *)participants"
+            "comment" : "Returns an existing conversation with a given identifier or nil if none could be found.",
+            "name" : "conversationForIdentifier:",
+            "declaration" : "- (LYRConversation *)conversationForIdentifier:(NSURL *)identifier"
           },
           {
             "declared" : "LYRClient.h",
@@ -135,6 +158,20 @@
                 "description" : "The set of conversation identifiers for which to retrieve the corresponding set of conversation objects. Passing nil\nwill return all conversations."
               }
             ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "participants",
+                "description" : "A set of participants for which to query for a corresponding Conversation. Each element in the array is a string that corresponds to the user ID of the desired participant."
+              }
+            ],
+            "return" : "A set of conversations with the given set of participants or nil if none could be found.",
+            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and nil will be returned.",
+            "declared" : "LYRClient.h",
+            "comment" : "Returns existing conversations with the given set of participants or nil if none could be found.",
+            "name" : "conversationsForParticipants:",
+            "declaration" : "- (NSSet *)conversationsForParticipants:(NSSet *)participants"
           },
           {
             "declared" : "LYRClient.h",
@@ -229,14 +266,14 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)removeParticipants:(NSArray *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error",
+            "declaration" : "- (BOOL)removeParticipants:(NSSet *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error",
             "comment" : "Removes participants from a given conversation.",
             "name" : "removeParticipants:fromConversation:error:",
             "return" : "A Boolean value indicating if the operation of removing participants was successful.",
             "parameters" : [
               {
                 "name" : "participants",
-                "description" : "An array of providerUserID in a form of NSString objects."
+                "description" : "A set of providerUserID in a form of NSString objects."
               },
               {
                 "name" : "conversation",
@@ -297,11 +334,6 @@
             ]
           },
           {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void ( ^ ) ( UIBackgroundFetchResult fetchResult , NSError *error ))completion",
-            "comment" : "Inspects an incoming push notification and synchronizes the client if it was sent by Layer.",
-            "name" : "synchronizeWithRemoteNotification:completion:",
-            "return" : "A Boolean value that determines whether the push was handled. Will be NO if this was not a push notification meant for Layer.",
             "parameters" : [
               {
                 "name" : "userInfo",
@@ -311,7 +343,13 @@
                 "name" : "completion",
                 "description" : "The block that will be called once Layer has successfully downloaded new data associated with the userInfo dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with the given fetchResult."
               }
-            ]
+            ],
+            "return" : "A Boolean value that determines whether the push was handled. Will be NO if this was not a push notification meant for Layer.",
+            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and NO will be returned.",
+            "declared" : "LYRClient.h",
+            "comment" : "Inspects an incoming push notification and synchronizes the client if it was sent by Layer.",
+            "name" : "synchronizeWithRemoteNotification:completion:",
+            "declaration" : "- (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void ( ^ ) ( UIBackgroundFetchResult fetchResult , NSError *error ))completion"
           },
           {
             "parameters" : [
@@ -384,15 +422,15 @@
             "parameters" : [
               {
                 "name" : "participants",
-                "description" : "An array of participants with which to initialize the new Conversation."
+                "description" : "A set of participants with which to initialize the new Conversation."
               }
             ],
             "return" : "The newly created Conversation.",
-            "discussion" : "This method will create a new LYRConversation instance, creating new message instances with a new LYRConversation object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using LYRClient's conversationForParticipants: first.",
+            "discussion" : "This method will create a new LYRConversation instance, creating new message instances with a new LYRConversation object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using LYRClient's conversationsForParticipants: first.",
             "declared" : "LYRConversation.h",
             "comment" : "Creates a new Conversation with the given set of participants.",
             "name" : "conversationWithParticipants:",
-            "declaration" : "+ (instancetype)conversationWithParticipants:(NSArray *)participants"
+            "declaration" : "+ (instancetype)conversationWithParticipants:(NSSet *)participants"
           }
         ]
       },
@@ -526,7 +564,7 @@
             "declaration" : "+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType data:(NSData *)data",
             "comment" : "Creates a message part with the given MIME Type and data.",
             "name" : "messagePartWithMIMEType:data:",
-            "return" : "A new message part with the given MIME Type and data.",
+            "return" : "A new message part with the given MIME Type and data.\n@raises NSInvalidArgumentException Raised if MIME Type or data is nil.",
             "parameters" : [
               {
                 "name" : "MIMEType",
@@ -543,7 +581,7 @@
             "declaration" : "+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType stream:(NSInputStream *)stream",
             "comment" : "Creates a message part with the given MIME Type and stream of data.",
             "name" : "messagePartWithMIMEType:stream:",
-            "return" : "A new message part with the given MIME Type and stream of data.",
+            "return" : "A new message part with the given MIME Type and stream of data.\n@raises NSInvalidArgumentException Raised if MIME Type or stream is nil.",
             "parameters" : [
               {
                 "name" : "MIMEType",
@@ -562,7 +600,7 @@
                 "description" : "The plain text body of the new message part."
               }
             ],
-            "return" : "A new message part with the MIME Type text\/plain and a UTF-8 encoded representation of the given input text.",
+            "return" : "A new message part with the MIME Type text\/plain and a UTF-8 encoded representation of the given input text.\n@raises NSInvalidArgumentException Raised if text is nil.",
             "discussion" : "This is a convience accessor encapsulating the common operation of creating a message part\nwith a plain text data attachment in UTF-8 encoding. It is functionally equivalent to the following example code:\n\n[LYRMessagePart messagePartWithMIMEType:@\"text\/plain\" data:[text dataUsingEncoding:NSUTF8StringEncoding]];",
             "declared" : "LYRMessagePart.h",
             "comment" : "Create a message part with a string of text.",
@@ -683,6 +721,10 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRClientErrorInvalidAppID",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRClientErrorKeyPairNotFound",
           "declared" : "LYRErrors.h"
         },
@@ -699,7 +741,27 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRClientErrorNotAuthenticated",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorAlreadyAuthenticated",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRClientErrorDeviceTokenInvalid",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorUndefinedSyncFaliure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorDevicePersistenceFailure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorSynchronizationFailure",
           "declared" : "LYRErrors.h"
         }
       ]
@@ -726,6 +788,14 @@
         },
         {
           "name" : "LYRErrorDataLengthExceedsMaximum",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorMessageAlreadyMarkedAsRead",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorObjectNotSent",
           "declared" : "LYRErrors.h"
         }
       ]
