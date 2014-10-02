@@ -88,3 +88,5 @@ Notify the `layerClient` of the new identity token. Add the following code after
 ```java
   layerClient.answerAuthenticationChallenge("IDENTITY_TOKEN");
 ```
+
+You can validate your identity token by using our tool here - [identity token validation tool](/dashboard/account/tools).

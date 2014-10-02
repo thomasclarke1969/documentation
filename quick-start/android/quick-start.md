@@ -3,12 +3,27 @@ This quick start guide will get you up and running with sending messages as quic
 
 ##Install the Layer SDK Jar
 
+#### AAR (referenced by maven)
+Navigate to your `build.gradle` file and ensure that you include the following:
+
+```groovy
+repositories {
+    maven { url "https://raw.githubusercontent.com/layerhq/releases-android/master/releases/" }
+}
+
+dependencies {
+    compile 'com.layer.sdk:layer-sdk:0.7.16'
+    compile 'org.slf4j:slf4j-api:1.7.7'
+}
+```
+
 
 #### JAR (downloaded to local `libs` directory)
 
-1. Download the latest Layer SDK `layer-sdk-0.7.21.jar` JAR file from [Github](https://github.com/layerhq/releases-android)
-2. Add the JAR file into the /libs directory of your project
-3. Make sure the Jar file is added as a library that your project can reference. i.e in Android Studio, navigate to the JAR file and click on "Add As A Library..."
+1. Download the `layer-sdk-0.7.16.jar` JAR file from [Github](https://github.com/layerhq/releases-android)
+2. Drag the JAR file into the /libs directory of your Android Studio application
+3. Navigate to the JAR file in Android Studio navigator, right click and select "Add As A Library..."
+4. Navigate to your `build.gradle` file and ensure that you include the following:
 
 ```groovy
 dependencies {
@@ -70,6 +85,7 @@ Below is an example with a `com.myapp.newstandalone` package; replace with your 
         <receiver android:name=".LayerPushReceiver">
             <intent-filter>
                 <action android:name="com.layer.sdk.PUSH"/>
+                <category android:name="com.myapp.newstandalone"/>
             </intent-filter>
         </receiver>
 

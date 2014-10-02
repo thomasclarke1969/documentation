@@ -85,6 +85,7 @@ The Layer Android SDK requires some permissions and references from your app's `
         <receiver android:name=".LayerPushReceiver">
             <intent-filter>
                 <action android:name="com.layer.sdk.PUSH"/>
+                <category android:name="com.myapp.newstandalone"/>
             </intent-filter>
         </receiver>
 

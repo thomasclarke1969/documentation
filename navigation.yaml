@@ -62,7 +62,6 @@ sync-n-push:
   section:
     synchronization: "Synchronization"
     push-notifications: "Push Notifications"
-    push-notification-guide: "Push Notification Guide"
 
 # Integration guide page
 # integration:

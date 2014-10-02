@@ -1,5 +1,6 @@
 #Authenticate
-Once connected, the authentication process starts. Insert the following code and replace `INSERT_USER_ID` with a valid User Id.
+Once connected, you will need to start the authentication process. The following code will complete the authentication process by connecting to the Layer Identity Serivce.
+You will need to replace `INSERT_USER_ID` with a valid User Id.
 
 ```emphasis
 Please note, the following code is only for testing purposes. It connects to the Layer Identity Service which is only available for testing purposes and cannot be used in production applications. You will need to create your own backend controller to generate an Identity Token once you've finished testing.

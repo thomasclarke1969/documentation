@@ -76,3 +76,5 @@ Once you have received a valid Identity Token call the following code in the `re
      NSLog(@"Authenticated as %@", authenticatedUserID);
   }];
 ```
+
+You can validate your identity token by using our tool here - [identity token validation tool](/dashboard/account/tools).
