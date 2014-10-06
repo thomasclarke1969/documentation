@@ -23,8 +23,8 @@ quick-start:
       title: "What is Layer?"
     quick-start:
       title: "Quick Start"
-      sub:
-        test-sub-section: "Test Sub Section"
+#      sub:
+#        test-sub-section: "Test Sub Section"
     connecting:
       title: "Connecting"
     authenticate:
@@ -32,38 +32,61 @@ quick-start:
     send-a-message:
       title: "Send a Message"
 
-getting-started:
-  title: "Getting Started"
+guide:
+  title: "Guide"
   platforms: true
   section:
-    installation:
-      title: "Installation"
-    connecting:
-      title: "Connecting"
-    authentication:
-      title: "Authentication"
+    getting-started:
+      title: "Getting Started"
+      sub:
+        installation: "Installation"
+        connecting: "Connecting"
+        authentication: "Authentication"
+    messaging:
+      title: "Messaging"
+      sub:
+        concepts: "Concepts"
+        sending: "Sending"
+        fetching: "Fetching"
+        deleting: "Deleting"
+    sync-n-push:
+      title: "Sync & Push"
+      sub:
+        push-notifications: "Push Notifications"
+        synchronization: "Synchronization"
 
-messaging:
-  title: "Messaging"
-  platforms: true
-  section:
-    concepts:
-      title: "Concepts"
-    sending:
-      title: "Sending"
-    fetching:
-      title: "Fetching"
-    deleting:
-      title: "Deleting"
+# getting-started:
+#   title: "Getting Started"
+#   platforms: true
+#   section:
+#     installation:
+#       title: "Installation"
+#     connecting:
+#       title: "Connecting"
+#     authentication:
+#       title: "Authentication"
 
-sync-n-push:
-  title: "Sync & Push"
-  platforms: true
-  section:
-    push-notifications:
-      title: "Push Notifications"
-    synchronization:
-      title: "Synchronization"
+# messaging:
+#   title: "Messaging"
+#   platforms: true
+#   section:
+#     concepts:
+#       title: "Concepts"
+#     sending:
+#       title: "Sending"
+#     fetching:
+#       title: "Fetching"
+#     deleting:
+#       title: "Deleting"
+
+# sync-n-push:
+#   title: "Sync & Push"
+#   platforms: true
+#   section:
+#     push-notifications:
+#       title: "Push Notifications"
+#     synchronization:
+#       title: "Synchronization"
 
 # Introduction page
 #introduction:
