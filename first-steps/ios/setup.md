@@ -35,4 +35,4 @@ if (layerClient.isConnected) {
 }
 ```
 
-You can create additional Layer applications by visiting our [developer dashboard](/dashboard/apps/new).
+You can create additional Layer applications by visiting our [developer dashboard](/dashboard/project/new).

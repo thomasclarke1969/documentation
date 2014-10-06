@@ -14,7 +14,7 @@ UUID appID = UUID.fromString("%%C-INLINE-APPID%%")
 LayerClient client = LayerClient.newInstance(this, appID, "GCM ID");
 ```
 
-You can create additional Layer applications by visiting our [developer dashboard](/dashboard/apps/new).
+You can create additional Layer applications by visiting our [developer dashboard](/dashboard/project/new).
 
 ## Listeners
 The `LayerClient` object leverages the listener pattern to notify your application to specific events. On launch, your application should register as a `LayerConnectionListener` and `LayerAuthenticationListener`.
