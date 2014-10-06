@@ -23,8 +23,6 @@ quick-start:
       title: "What is Layer?"
     quick-start:
       title: "Quick Start"
-#      sub:
-#        test-sub-section: "Test Sub Section"
     connecting:
       title: "Connecting"
     authenticate:
