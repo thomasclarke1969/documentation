@@ -1,4 +1,5 @@
 #Authenticate
+
 Once connected, the `onConnectionConnected()` method will be called, followed by the `authenticate()` method on the `layerClient`.
 
 ```java

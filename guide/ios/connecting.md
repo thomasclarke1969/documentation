@@ -1,5 +1,9 @@
 #Connecting
 
+```emphasis
+Skip this section if you've already done it in the Quick Start guide.
+```
+
 Import the LayerKit headers into your `AppDelegate.h`
 
 ```objectivec

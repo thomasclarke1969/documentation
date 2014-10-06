@@ -1,4 +1,9 @@
 # Authentication
+
+```emphasis
+Once you are ready for production implementation, you will need to write your own backend controller to generate an identity token. You will not be able to use the authentication implemenation from the Quick Start guide.
+```
+
 To authenticate a user, the SDK requires that your backend server application generate an identity token and return it to your application.
 
 ##Step 1 - Backend Setup

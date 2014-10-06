@@ -1,5 +1,9 @@
 #Connecting
 
+```emphasis
+Skip this section if you've already done it in the Quick Start guide.
+```
+
 The `LayerClient` object is the primary interface for interacting with the Layer service. Only one instance of `LayerClient` should be instantiated and used at all times. The object is initialized with a Context, and Application Key, and an GCM Sender ID.
 
 ```emphasis
