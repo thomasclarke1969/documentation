@@ -21,8 +21,8 @@ quick-start:
   section:
     what-is-layer:
       title: "What is Layer?"
-    quick-start:
-      title: "Quick Start"
+    installation:
+      title: "Installation"
     connecting:
       title: "Connecting"
     authenticate:
