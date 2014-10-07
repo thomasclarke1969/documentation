@@ -7,7 +7,7 @@ You will need to replace `INSERT_USER_ID` with a valid User Id.
 Please note, the following code is only for testing purposes. It connects to the Layer Identity Service which is only available for testing purposes and cannot be used in production applications. You will need to create your own backend controller to generate an Identity Token once you've finished testing.
 ```
 
-```
+```objective-c
 NSString *userIDString = @"INSERT_USER_ID";
 
 /*
