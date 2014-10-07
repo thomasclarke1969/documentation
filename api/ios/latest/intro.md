@@ -4,4 +4,4 @@ Layer is the open communications layer for the Internet. A global communications
 
 Layer handles the hard parts - sync of messages and message states across devices, offline message support, push notifications and more.
 
-The API reference details the full set of classes used to interact with the Layer SDK. For more information on how to get started with Layer, see the [Integration guide](/docs/integration/ios).
+The API reference details the full set of classes used to interact with the Layer SDK. For more information on how to get started with Layer, see the [Quck Start](/docs/quick-start/ios) guide.

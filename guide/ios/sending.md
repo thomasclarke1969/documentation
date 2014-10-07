@@ -1,5 +1,5 @@
 # Sending Messages
-[LYRConversation](/docs/api/ios#lyrconversation) objects are created by calling the class method `conversationWithParticipants:`. The participants array is simply an array of user identifiers. As [Layer Authentication](/docs/resources#authentication-guide) allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a conversation is represented with that same user identifier.
+[LYRConversation](/docs/api/ios#lyrconversation) objects are created by calling the class method `conversationWithParticipants:`. The participants array is simply an array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a conversation is represented with that same user identifier.
 
 ```objectivec
 // Creates and returns a new conversation object with a participant identifier
