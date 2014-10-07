@@ -19,7 +19,7 @@ LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM ID");
 ```
 
 ## Listeners
-The `LayerClient` object leverages the listener pattern to notify your application to specific events. You will need to implement the `LayerConnectionListener` and `LayerAuthenticationListener' interfaces. Once implemented, register both on the 'layerClient' object.
+The `LayerClient` object leverages the listener pattern to notify your application to specific events. You will need to implement the `LayerConnectionListener` and `LayerAuthenticationListener` interfaces. Once implemented, register both on the `layerClient` object.
 
 ```java
 layerClient.registerConnectionListener(this).registerAuthenticationListener(this);

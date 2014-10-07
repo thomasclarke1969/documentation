@@ -12,7 +12,7 @@ Note, that it is not necessary to include the currently authenticated user in th
 
 ## Add/Remove Participants
 
-Once a conversation has been created, particiapnt lists remain mutable, meaning participants can be both added and removed. The Layer servivce does not enforce any ownership, so any client can both add and remove participants.
+Once a conversation has been created, participant lists remain mutable, meaning participants can be both added and removed. The Layer servivce does not enforce any ownership, so any client can both add and remove participants.
 
 ```java
 // Adds a participant to a given conversation
@@ -31,7 +31,7 @@ Layer does not place restrictions on the type of data you send through the servi
 The following demonstrates creating message parts with both text/plain and image/jpeg MIME types.
 
 ```java
-// Creates a message part with a string of next and text/plain MIMEtype.
+// Creates a message part with a string of next and text/plain MIME type.
 String messageText = "Hi! How are you";
 MessagePart messagePart = MessagePart.newInstance("text/plain", messageText.getBytes());
 

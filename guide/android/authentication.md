@@ -24,7 +24,7 @@ A `Provider ID` and `Key ID` must be retained by your back end application and u
 To manage your authentication keys please visit the [dashboard](/dashboard/account/auth).
 
 ##Step 2 - Start the Authentication process
-Once connected, the 'onConnectionConnected()' method will be called, at which time you should call the 'authenticate()' method on the `layerClient`.
+Once connected, the `onConnectionConnected()` method will be called, at which time you should call the 'authenticate()' method on the `layerClient`.
 
 ```java
  @Override

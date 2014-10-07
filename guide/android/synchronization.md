@@ -27,7 +27,7 @@ public void onEventMainThread(LayerChangeEvent event) {
 }
 ```
 
-Change notifications occur for both `Message` and `Conversation` objects. Your application can retrieve the type of object upon which a change has occurred by calling getObjectType() on the change object.
+Change notifications occur for both `Message` and `Conversation` objects. Your application can retrieve the type of object upon which a change has occurred by calling `getObjectType()` on the change object.
 
 ```java
 switch (change.getObjectType()) {
@@ -61,7 +61,7 @@ switch (change.getChangeType()) {
 break;
 ```
 
-Your application can acquire the actual object on which an update has occurred with change.getObject().
+Your application can acquire the actual object on which an update has occurred with `change.getObject()`.
 
 ```java
 Object changeObject = change.getObject();
