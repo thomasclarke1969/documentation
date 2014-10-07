@@ -36,7 +36,7 @@ Once connected, the `onConnectionConnected()` method will be called, at which ti
  }
 ```
 
-##Step 3 -  - POST the nonce and generate identity token
+##Step 3 - POST the nonce and generate identity token
 The main authentication logic will reside in the `onAuthenticationChallenge` method located in your implementation of the `LayerAuthenticationListener`
 
 ```java
