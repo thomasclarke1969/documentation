@@ -1,5 +1,5 @@
 # Sending Messages
-Conversation` objects are created by calling `Conversation.newInstance()`. This method takes a list of participant identifiers.  As Layer Authentication allows you to represent users within the Layer service via your backend’s federated identifier, participants are represented with those same user identifiers.
+Conversation objects are created by calling `Conversation.newInstance()`. This method takes a list of participant identifiers.  As Layer Authentication allows you to represent users within the Layer service via your backend’s federated identifier, participants are represented with those same user identifiers.
 
 ```java
 // Creates and returns a new conversation object with sample participant identifiers
@@ -26,9 +26,9 @@ The `Message` object represents an individual message within a conversation. A m
 
 ## MessagePart
 
-Layer does not place restrictions on the type of data you send through the service. As such, `MessagePart` objects are initialized with an `Byte` object and a MIME Type string. The MIME Type simply describes the type of content the `MessagePart` contains.
+Layer does not place restrictions on the type of data you send through the service. As such, `MessagePart` objects are initialized with a `byte` array and a MIME Type string. The MIME Type simply describes the type of content the `MessagePart` contains.
 
-The following demonstrates creating message parts with both text/plain and image/jpeg MIMEtypes.
+The following demonstrates creating message parts with both text/plain and image/jpeg MIME types.
 
 ```java
 // Creates a message part with a string of next and text/plain MIMEtype.
@@ -71,7 +71,7 @@ MessagePart locationPart = client.newMessagePart("text/location", locationData.t
 `Message` objects are initialized with an array of `MessagePart` objects and a `Conversation` object. The object is created by calling newInstance(). This creates a `Message` object that is ready to send.
 
 ```java
-Message message = Message.newInstace(conversation, Arrays.asList(messagePart))
+Message message = Message.newInstance(conversation, Arrays.asList(messagePart))
 ```
 
 ## Sending The Message

@@ -51,7 +51,7 @@ switch (change.getChangeType()) {
 	break;
 
 	case UPDATE:
-	// Object was update
+	// Object was updated
 	break;
 
 	case DELETE:
@@ -61,10 +61,10 @@ switch (change.getChangeType()) {
 break;
 ```
 
-Your application can acquire the actual object on which an update has occurred by retrieve the LYRObjectChangeObjectKey key from the change object.
+Your application can acquire the actual object on which an update has occurred with change.getObject().
 
 ```java
-id changeObject = change.getObject();
+Object changeObject = change.getObject();
 ```
 
 ##Synchronization Listener

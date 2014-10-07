@@ -24,7 +24,7 @@ dependencies {
 
 #### JAR (downloaded to local `libs` directory)
 
-1. Download the `layer-sdk-0.7.16.jar` JAR file from [Github](https://github.com/layerhq/releases-android)
+1. Download the latest Layer SDK JAR file from [Github](https://github.com/layerhq/releases-android/tree/master/releases/com/layer/sdk/layer-sdk)
 2. Drag the JAR file into the /libs directory of your Android Studio application
 3. Navigate to the JAR file in Android Studio navigatior, right click and select "Add As A Library..."
 4. Navigate to your `build.gradle` file and ensure that you include the following:

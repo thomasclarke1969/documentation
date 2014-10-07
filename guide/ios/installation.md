@@ -13,7 +13,7 @@ $ sudo gem install cocoapods
 Navigate to your project's root directory and run `pod init` to create a `Podfile`.
 
 ```
-pod init
+$ pod init
 ```
 
 Open up the `Podfile` and add the following below your project's target

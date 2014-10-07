@@ -10,7 +10,7 @@ Import the LayerKit headers into your `AppDelegate.h`
 We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sample code below contains your application's key.
 ```
 
-Copy and paste the following into `application:DidFinishLaunchingWithOptions:` in your `AppDelegate`.
+Copy and paste the following into `application:didFinishLaunchingWithOptions:` in your `AppDelegate`.
 
 ```objectivec
 // Initializes a LYRClient object

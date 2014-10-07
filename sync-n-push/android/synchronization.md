@@ -6,7 +6,7 @@ The Layer client provides a flexible notification system for informing applicati
 The Layer SDK leverages listeners to notify your application when changes occur. Your application should register as a `LayerChangeEventListener` in order to receive change notifications.
 
 ```java
-public class MyApplication extends Application implements LayerChangeEventListener {
+public class MyApplication extends Application implements LayerChangeEventListener.MainThread {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ switch (change.getChangeType()) {
 	break;
 
 	case UPDATE:
-	// Object was update
+	// Object was updated
 	break;
 
 	case DELETE:

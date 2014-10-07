@@ -66,7 +66,7 @@ LYRMessage *message = [LYRMessage messageWithConversation:conversation parts:@[m
 
 ## Sending The Message
 
-Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:error:` on `LYRClient`.
+Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:message` on `LYRClient`.
 
 ```objectivec
 //Sends the specified message

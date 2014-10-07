@@ -18,9 +18,9 @@ Once you have called the `authenticate()` method, your application will receive 
 Please note, the Identity Service is only available for testing purposes and cannot be used in production applications.
 ```
 
-```
+```java
 /*
- * 1. Implement `onAuthenticationChallenge` to acquire a nonce
+ * 1. Implement `onAuthenticationChallenge` in your Authentication Listener to acquire a nonce
  */
 @Override
 public void onAuthenticationChallenge(final LayerClient layerClient, final String nonce) {

@@ -16,7 +16,7 @@ A `Provider ID` and `Key ID` must be retained by your backend application and us
 %%C-PROVIDERID%%
 
 ```emphasis
-**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair by clicking the button below. Layer will upload the public portion to our service and the The private key will appear in a pop up. Please copy and save the private key as it must be retained by your backend application and used to sign Identity Tokens.
+**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair by clicking the button below. Layer will upload the public portion to our service and the  private key will appear in a pop up. Please copy and save the private key as it must be retained by your backend application and used to sign Identity Tokens.
 ```
 
 %%C-KEYID%%
@@ -39,7 +39,7 @@ The main logic will reside in the `requestAuthenticationNonceWithCompletion` met
 ##Step 3 - POST the nonce and generate identity token
 A nonce value will be passed into the `requestAuthenticationNonceWithCompletion` method. POST that value to your backend and sign it using JWT.
 
-`Identity Tokens` are a pair pair of JSON dictionary structures (the JWS Header and Claim) and a cryptographic signature generated over them. The structure is as follows:
+`Identity Tokens` are a pair of JSON dictionary structures (the JWS Header and Claim) and a cryptographic signature generated over them. The structure is as follows:
 
 ```
 // JWS Header
