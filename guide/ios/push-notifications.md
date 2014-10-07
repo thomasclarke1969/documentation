@@ -121,32 +121,32 @@ If the “Background Modes” on/off switch is toggled to “off”, make sure y
 
 Your application must register to receive for remote notifications. To support device registration for both iOS 7 and iOS 8, your application must implement the following. We recommend you do this in  `application:didFinishLaunchingWithOptions`.
 
-```
+```objective-c
 // Checking if app is running iOS 8
 if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
-		// Register device for iOS8
-		UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
+	// Register device for iOS8
+	UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
 																																														categories:nil];
-		[application registerUserNotificationSettings:notificationSettings];
-		[application registerForRemoteNotifications];
+	[application registerUserNotificationSettings:notificationSettings];
+	[application registerForRemoteNotifications];
 } else {
-		// Register device for iOS7
-		[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+	// Register device for iOS7
+	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
 }
 ```
 
 Your AppDelegate will be notified when your application has successfully registered with Apple’s Push Notification service via the following `UIApplicationDelegate` method. This method will provide a device token which must then be submitted to Layer. Copy and paste the following code into your AppDelegate.
 
-```
+```objective-c
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-		NSError *error;
-		BOOL success = [self.applicationController.layerClient updateRemoteNotificationDeviceToken:deviceToken error:&error];
-		if (success) {
-				NSLog(@"Application did register for remote notifications");
-		} else {
-				NSLog(@"Error updating Layer device token for push:%@", error);
-		}
+	NSError *error;
+	BOOL success = [self.applicationController.layerClient updateRemoteNotificationDeviceToken:deviceToken error:&error];
+	if (success) {
+		NSLog(@"Application did register for remote notifications");
+	} else {
+		NSLog(@"Error updating Layer device token for push:%@", error);
+	}
 }
 ```
 
@@ -156,7 +156,7 @@ By default, the Layer Push Notification service will deliver silent push notific
 
 The following demonstrates setting the alert text to be the same as the text of the message being sent.
 
-```
+```objective-c
 // Create a message with a string of text
 NSString *messageText = @"Hi how are you?"
 LYRMessagePart *part = [LYRMessagePart messagePartWithText:messageText];
@@ -171,16 +171,16 @@ NSError *error;
 
 Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
 
-```
+```objective-c
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NS
 Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-		NSError *error;
-		BOOL success = [layerClient synchronizeWithRemoteNotification:userInfo completion:^(UIBackgroundFetchResult fetchResult, NSError *error) {
-				if (!error) {
-					NSLog (@"Layer Client finished background sycn");
-				}
-				completionHandler(fetchResult);
-		}];
+	NSError *error;
+	BOOL success = [layerClient synchronizeWithRemoteNotification:userInfo completion:^(UIBackgroundFetchResult fetchResult, NSError *error) {
+		if (!error) {
+			NSLog (@"Layer Client finished background sycn");
+		}
+		completionHandler(fetchResult);
+	}];
 }
 ```
