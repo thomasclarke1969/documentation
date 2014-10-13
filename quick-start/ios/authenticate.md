@@ -8,7 +8,7 @@ Please note, the following code is only for testing purposes. It connects to the
 ```
 
 ```objective-c
-NSString *userIDString = @"INSERT_USER_ID";
+NSString *userIDString = @"//REPLACE_WITH_USER_ID";
 
 /*
  * 1. Request Authentication Nonce From Layer
@@ -24,7 +24,7 @@ NSString *userIDString = @"INSERT_USER_ID";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
-    NSDictionary *parameters = @{ @"app_id": layerClient.appID, @"user_id": userIDString, @"nonce": nonce };
+    NSDictionary *parameters = @{ @"app_id": [layerClient.appID UUIDString], @"user_id": userIDString, @"nonce": nonce };
     NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     request.HTTPBody = requestBody;
 
