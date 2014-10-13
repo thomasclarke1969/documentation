@@ -86,6 +86,7 @@ Sample backend implementations are available in:
 * Node.js - [Layer Node.js gist](https://gist.github.com/kcoleman731/246bacfe7f7bc3603f33)
 * Python - [Layer Python gist](https://gist.github.com/rroopan/82037dd295fdb2f26efa)
 * Ruby - [Layer Ruby gist](https://gist.github.com/rroopan/92438bea429c14756d74)
+* Parse - [Layer Parse module](https://github.com/layerhq/layer-parse-module)
 
 ##Step 5
 Notify the `layerClient` of the new identity token. Add the following code after the logic above.
