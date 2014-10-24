@@ -65,7 +65,7 @@
           "name" : "isConnecting"
         }
       ],
-      "comment" : "The LYRClient class and related classes provide an API for rich messaging via the Layer platform. This API supports the exchange of multi-part Messages within multi-user Conversations and advanced features such\nas mutation of the participants, deletion of messages or the entire conversation, and the attachment of free-form user defined metadata. The API is sychronization based, fully supporting offline usage and providing full access\nto the history of messages across devices.\n\n\nThe filename to which session info is written into the application data directory.",
+      "comment" : "The LYRClient class and related classes provide an API for rich messaging via the Layer platform. This API supports the exchange of multi-part Messages within multi-user Conversations and advanced features such\nas mutation of the participants, deletion of messages or the entire conversation, and the attachment of free-form user defined metadata. The API is sychronization based, fully supporting offline usage and providing full access\nto the history of messages across devices.",
       "name" : "LYRClient",
       "inherits" : "NSObject",
       "methods" : {
@@ -451,13 +451,6 @@
           "comment" : "The set of user identifiers's specifying who is participating in the conversation modeled by the receiver.",
           "name" : "participants",
           "discussion" : "Layer conversations are addressed using the user identifiers of the host application. These user ID's are transmitted to\nLayer as part of the Identity Token during authentication. User ID's are commonly modeled as the primary key, email address, or username\nof a given user withinin the backend application acting as the identity provider for the Layer-enabled mobile application."
-        },
-        {
-          "declared" : "LYRConversation+Internal.h",
-          "declaration" : "@property (nonatomic, readonly) NSDictionary *userInfo",
-          "comment" : "A dictionary of private, user-specific information about the conversation.",
-          "name" : "userInfo",
-          "discussion" : "The user info is a free-form structure for embedding data about the conversation that is synchronized between all the devices\nof the authenticated user, but is not shared with any other participants. For example, an applicatication may wish to designate certain\nconversations as being favorites of the current user or all the user to annotate the conversation with contextual notes for future reference."
         }
       ],
       "methods" : {
