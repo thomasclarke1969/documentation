@@ -191,17 +191,57 @@
               }
             ],
             "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
-            "discussion" : "This method deletes a conversation and all associated messages for all current participants.",
+            "discussion" : "This method deletes a conversation and all associated messages for all current participants.> %warning% > **Warning:** This method has been deprecated and will be removed in a future version. Use deleteConversation:mode:error: instead.",
             "declared" : "LYRClient.h",
             "comment" : "Deletes a conversation.",
             "name" : "deleteConversation:error:",
             "declaration" : "- (BOOL)deleteConversation:(LYRConversation *)conversation error:(NSError **)error"
           },
           {
+            "parameters" : [
+              {
+                "name" : "conversation",
+                "description" : "The conversation to be deleted."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              },
+              {
+                "name" : "mode",
+                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
+              }
+            ],
+            "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "discussion" : "This method deletes a conversation and all associated messages for all current participants.",
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)deleteMessage:(LYRMessage *)message error:(NSError **)error",
+            "comment" : "Deletes a conversation in the specified mode.",
+            "name" : "deleteConversation:mode:error:",
+            "declaration" : "- (BOOL)deleteConversation:(LYRConversation *)conversation mode:(LYRDeletionMode)deletionMode error:(NSError **)error"
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "message",
+                "description" : "The message to be deleted."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              }
+            ],
+            "return" : "A Boolean value indicating if the request to delete the message was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "discussion" : "> %warning% > **Warning:** This method has been deprecated and will be removed in a future version. Use deleteMessage:mode:error: instead.",
+            "declared" : "LYRClient.h",
             "comment" : "Deletes a message.",
             "name" : "deleteMessage:error:",
+            "declaration" : "- (BOOL)deleteMessage:(LYRMessage *)message error:(NSError **)error"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)deleteMessage:(LYRMessage *)message mode:(LYRDeletionMode)deletionMode error:(NSError **)error",
+            "comment" : "Deletes a message in the specified mode.",
+            "name" : "deleteMessage:mode:error:",
             "return" : "A Boolean value indicating if the request to delete the message was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
             "parameters" : [
               {
@@ -211,6 +251,10 @@
               {
                 "name" : "error",
                 "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              },
+              {
+                "name" : "mode",
+                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
               }
             ]
           },
@@ -341,11 +385,11 @@
               },
               {
                 "name" : "completion",
-                "description" : "The block that will be called once Layer has successfully downloaded new data associated with the userInfo dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with the given fetchResult."
+                "description" : "The block that will be called once Layer has successfully downloaded new data associated with the userInfo dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with the given fetchResult. Note that this block is only called if the method returns YES."
               }
             ],
-            "return" : "A Boolean value that determines whether the push was handled. Will be NO if this was not a push notification meant for Layer.",
-            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and NO will be returned.",
+            "return" : "A Boolean value that determines whether the push was handled. Will be NO if this was not a push notification meant for Layer and the completion block will not be called.",
+            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and NO will be returned. The completion is only invoked if the return value is YES.",
             "declared" : "LYRClient.h",
             "comment" : "Inspects an incoming push notification and synchronizes the client if it was sent by Layer.",
             "name" : "synchronizeWithRemoteNotification:completion:",
@@ -645,6 +689,22 @@
           },
           {
             "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didFailOperationWithError:(NSError *)error",
+            "comment" : "Tells the delegate that an operation encountered an error during a local mutation or synchronization activity.",
+            "name" : "layerClient:didFailOperationWithError:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that failed the operation."
+              },
+              {
+                "name" : "error",
+                "description" : "An error describing the nature of the operation failure."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
             "declaration" : "- (void)layerClient:(LYRClient *)client didFailSynchronizationWithError:(NSError *)error",
             "comment" : "Tells the delegate the client encountered an error during synchronization.",
             "name" : "layerClient:didFailSynchronizationWithError:",
@@ -677,6 +737,22 @@
           },
           {
             "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didLoseConnectionWithError:(NSError *)error",
+            "comment" : "Informs the delegate that the client has lost an established connection with Layer due to an error.",
+            "name" : "layerClient:didLoseConnectionWithError:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that lost the connection."
+              },
+              {
+                "name" : "error",
+                "description" : "The error that occurred."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
             "declaration" : "- (void)layerClient:(LYRClient *)client didReceiveAuthenticationChallengeWithNonce:(NSString *)nonce",
             "comment" : "Tells the delegate that the server has issued an authentication challenge to the client and a new Identity Token must be submitted.",
             "name" : "layerClient:didReceiveAuthenticationChallengeWithNonce:",
@@ -694,6 +770,58 @@
           },
           {
             "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client objectsDidChange:(NSArray *)changes",
+            "comment" : "Tells the delegate that objects associated with the client have changed due to local mutation or synchronization activities.",
+            "name" : "layerClient:objectsDidChange:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that received the changes."
+              },
+              {
+                "name" : "changes",
+                "description" : "An array of NSDictionary objects, each one describing a change."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client willAttemptToConnect:(NSUInteger)attemptNumber afterDelay:(NSTimeInterval)delayInterval maximumNumberOfAttempts:(NSUInteger)attemptLimit",
+            "comment" : "Informs the delegate that the client is making an attempt to connect to Layer.",
+            "name" : "layerClient:willAttemptToConnect:afterDelay:maximumNumberOfAttempts:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client attempting the connection."
+              },
+              {
+                "name" : "attemptNumber",
+                "description" : "The current attempt (of the attempt limit) that is being made."
+              },
+              {
+                "name" : "delayInterval",
+                "description" : "The delay, if any, before the attempt will actually be made."
+              },
+              {
+                "name" : "attemptLimit",
+                "description" : "The total number of attempts that will be made before the client gives up."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClientDidConnect:(LYRClient *)client",
+            "comment" : "Informs the delegate that the client has successfully connected to Layer.",
+            "name" : "layerClientDidConnect:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that made the connection."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
             "declaration" : "- (void)layerClientDidDeauthenticate:(LYRClient *)client",
             "comment" : "Tells the delegate that a client has been deauthenticated.",
             "name" : "layerClientDidDeauthenticate:",
@@ -702,6 +830,18 @@
               {
                 "name" : "client",
                 "description" : "The client that was deauthenticated."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClientDidDisconnect:(LYRClient *)client",
+            "comment" : "Informs the delegate that the client has disconnected from Layer.",
+            "name" : "layerClientDidDisconnect:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that has disconnected."
               }
             ]
           }
@@ -725,6 +865,10 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRClientErrorNetworkRequestFailed",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRClientErrorKeyPairNotFound",
           "declared" : "LYRErrors.h"
         },
@@ -734,10 +878,6 @@
         },
         {
           "name" : "LYRClientErrorIdentityNotFound",
-          "declared" : "LYRErrors.h"
-        },
-        {
-          "name" : "LYRClientErrorFailedToPersistSession",
           "declared" : "LYRErrors.h"
         },
         {
@@ -763,6 +903,22 @@
         {
           "name" : "LYRClientErrorSynchronizationFailure",
           "declared" : "LYRErrors.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRClient.h",
+      "name" : "LYRDeletionMode",
+      "values" : [
+        {
+          "name" : "LYRDeletionModeLocal",
+          "comment" : "Content deletion modes",
+          "declared" : "LYRClient.h"
+        },
+        {
+          "name" : "LYRDeletionModeAllParticipants",
+          "comment" : "Content deletion modes",
+          "declared" : "LYRClient.h"
         }
       ]
     },
