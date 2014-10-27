@@ -64,6 +64,8 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:@"Hi, how are you?"];
 LYRMessage *message = [LYRMessage messageWithConversation:conversation parts:@[messagePart]];
 ```
 
+The service declares 4 recipient states; Invalid, Sent, Delivered, and Read. The only state that we allow developers to set is Read. The system itself determines when to mark a message as Invalid, Sent or Delivered. Because of this, we also do not automatically mark messages as read for the sender. That is up to the developer to do so.
+
 ## Sending The Message
 
 Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:message` on `LYRClient`.

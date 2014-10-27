@@ -12,7 +12,7 @@ MessagePart messagePart = MessagePart.newInstance("text/plain", "Hi, how are you
 Message message = Message.newInstance(conversation, Arrays.asList(messagePart));
 
 //Sends the specified message
-client.sendMessage(message);
+layerClient.sendMessage(message);
 ```
 
 You can verify that your message has been sent by going to https://developer.layer.com/dashboard/apps

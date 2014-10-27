@@ -30,7 +30,7 @@ public class MyAuthenticationListener implements LayerAuthenticationListener {
 	}
 
 	@Override
-	public void onAuthenticationError(LayerClient layerClient, int arg1, String arg2) {
+	public void onAuthenticationError(LayerClient layerClient, LayerException e) {
 		// TODO Auto-generated method stub
 		System.out.println("There was an error authenticating");
 	}
@@ -58,7 +58,7 @@ public class MyConnectionListener implements LayerConnectionListener {
 	}
 
 	@Override
-	public void onConnectionError(LayerClient arg0, int arg1, String arg2) {
+	public void onConnectionError(LayerClient arg0, LayerException e) {
 		// TODO Auto-generated method stub
 
 	}
