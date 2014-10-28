@@ -74,6 +74,7 @@ Sample backend implementations are available in:
 * Ruby - [Layer Ruby gist](https://gist.github.com/rroopan/92438bea429c14756d74)
 * Parse - [Layer Parse module](https://github.com/layerhq/layer-parse-module)
 * Java - [Layer Java gist](https://gist.github.com/rroopan/1be144aa151f4567c5b5)
+* PHP - [Layer PHP gist](https://gist.github.com/rroopan/87e43512b26b0c8dd47e)
 
 ##Step 4 - Notify Layer Client when your backend returns the token
 Once you have received a valid Identity Token call the following code in the `requestAuthenticationNonceWithCompletion` method
