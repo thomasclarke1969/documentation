@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.layer.sdk:layer-sdk:0.7.16'
+    compile 'com.layer.sdk:layer-sdk:0.8.+'
     compile 'org.slf4j:slf4j-api:1.7.7'
 }
 ```
