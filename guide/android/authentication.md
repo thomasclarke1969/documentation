@@ -74,21 +74,24 @@ A nonce value will be passed into the `onAuthenticationChallenge` method. POST t
 }
 ```
 
-Libraries and sample backend implementations are available in the following languages to assist you. Please also contact support@layer.com if you have any questions.
+Prebuilt JWT Libraries are available for many languages:
 
 * [Node.js](https://github.com/brianloveswords/node-jws)
 * [Go](https://github.com/dgrijalva/jwt-go)
 * [Python](https://github.com/progrium/pyjwt/)
 * [Ruby](https://github.com/progrium/ruby-jwt)
 
-Sample backend implementations are available in:
+To assist in setting up a backend, Layer provides sample backend implementations for the following languages:
 
-* Node.js - [Layer Node.js gist](https://gist.github.com/kcoleman731/246bacfe7f7bc3603f33)
-* Python - [Layer Python gist](https://gist.github.com/rroopan/82037dd295fdb2f26efa)
-* Ruby - [Layer Ruby gist](https://gist.github.com/rroopan/92438bea429c14756d74)
-* Parse - [Layer Parse module](https://github.com/layerhq/layer-parse-module)
-* Java - [Layer Java gist](https://gist.github.com/rroopan/1be144aa151f4567c5b5)
-* PHP - [Layer PHP gist](https://gist.github.com/rroopan/87e43512b26b0c8dd47e)
+* [Node.js](https://github.com/layerhq/support/blob/master/identity-services-samples/nodejs/layer.js)
+* [Python](https://github.com/layerhq/support/blob/master/identity-services-samples/python/controller.py)
+* [Ruby](https://github.com/layerhq/support/tree/master/identity-services-samples/ruby)
+* [Java](https://github.com/layerhq/support/tree/master/identity-services-samples/java)
+* [PHP](https://github.com/layerhq/support/tree/master/identity-services-samples/php)
+
+There is also a sample backend available as a [Parse module](https://github.com/layerhq/layer-parse-module).
+
+Please also contact <support@layer.com> if you have any questions.
 
 ##Step 5
 Notify the `layerClient` of the new identity token. Add the following code after the logic above.
