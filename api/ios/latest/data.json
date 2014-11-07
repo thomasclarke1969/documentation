@@ -14,9 +14,9 @@
           {
             "declared" : "LYRClient.m",
             "declaration" : "- (void)handleApplicationDidEnterBackgroundNotification:(NSNotification *)notification",
-            "comment" : "         NOTE: If we have transitioned into the active application with a transport connected but sync is not active then           we likely launched in response to a Push Notification. We must fire things up.          ",
+            "comment" : "             NOTE: If we have transitioned into the active application with transport connected but sync is not active then              we likely launched in response to a Push Notification. We must fire things up.              ",
             "name" : "handleApplicationDidEnterBackgroundNotification:",
-            "discussion" : "         NOTE: If we have transitioned into the active application with a transport connected but sync is not active then           we likely launched in response to a Push Notification. We must fire things up.          "
+            "discussion" : "             NOTE: If we have transitioned into the active application with transport connected but sync is not active then              we likely launched in response to a Push Notification. We must fire things up.              "
           },
           {
             "declared" : "LYRClient.m",
@@ -172,6 +172,26 @@
             "comment" : "Returns existing conversations with the given set of participants or nil if none could be found.",
             "name" : "conversationsForParticipants:",
             "declaration" : "- (NSSet *)conversationsForParticipants:(NSSet *)participants"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (NSUInteger)countOfConversationsWithUnreadMessages",
+            "comment" : "Returns the number of conversations that have one or more unread messages.",
+            "name" : "countOfConversationsWithUnreadMessages",
+            "return" : "The number of conversations with unread messages."
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation",
+            "comment" : "Returns the number of unread messages in the given conversation.",
+            "name" : "countOfUnreadMessagesInConversation:",
+            "discussion" : "A count of unread messages across all conversations can be obtained by passing nil.",
+            "parameters" : [
+              {
+                "name" : "conversation",
+                "description" : "The conversation to count the unread messages for or nil to count across all conversations."
+              }
+            ]
           },
           {
             "declared" : "LYRClient.h",
@@ -359,6 +379,22 @@
             "comment" : "Sends the specified message.",
             "name" : "sendMessage:error:",
             "declaration" : "- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(LYRConversation *)conversation",
+            "comment" : "Sends a typing indicator to the specified conversation.",
+            "name" : "sendTypingIndicator:toConversation:",
+            "parameters" : [
+              {
+                "name" : "typingIndicator",
+                "description" : "An {@link LYRTypingIndicator} value indicating the change in typing state to be sent."
+              },
+              {
+                "name" : "conversation",
+                "description" : "The conversation that the typing indicator should be sent to."
+              }
+            ]
           },
           {
             "declared" : "LYRClient.h",
@@ -862,6 +898,10 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRClientErrorConnectionTimeout",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRClientErrorKeyPairNotFound",
           "declared" : "LYRErrors.h"
         },
@@ -990,6 +1030,27 @@
           "name" : "LYRRecipientStatusRead",
           "comment" : "The message has been marked as read by one of the recipient's devices.",
           "declared" : "LYRMessage.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRClient.h",
+      "name" : "LYRTypingIndicator",
+      "values" : [
+        {
+          "name" : "LYRTypingDidBegin",
+          "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
+          "declared" : "LYRClient.h"
+        },
+        {
+          "name" : "LYRTypingDidPause",
+          "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
+          "declared" : "LYRClient.h"
+        },
+        {
+          "name" : "LYRTypingDidFinish",
+          "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
+          "declared" : "LYRClient.h"
         }
       ]
     }
