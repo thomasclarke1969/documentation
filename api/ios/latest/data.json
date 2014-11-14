@@ -14,9 +14,9 @@
           {
             "declared" : "LYRClient.m",
             "declaration" : "- (void)handleApplicationDidEnterBackgroundNotification:(NSNotification *)notification",
-            "comment" : "             NOTE: If we have transitioned into the active application with transport connected but sync is not active then              we likely launched in response to a Push Notification. We must fire things up.              ",
+            "comment" : "             NOTE: If we have transitioned into the active application with transport connected but sync is not active then              we likely launched in response to a Push Notification. We must fire things up. If we see that the syncmanager              is running, we must also fire up the push channel.              ",
             "name" : "handleApplicationDidEnterBackgroundNotification:",
-            "discussion" : "             NOTE: If we have transitioned into the active application with transport connected but sync is not active then              we likely launched in response to a Push Notification. We must fire things up.              "
+            "discussion" : "             NOTE: If we have transitioned into the active application with transport connected but sync is not active then              we likely launched in response to a Push Notification. We must fire things up. If we see that the syncmanager              is running, we must also fire up the push channel.              "
           },
           {
             "declared" : "LYRClient.m",
