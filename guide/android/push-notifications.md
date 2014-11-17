@@ -14,7 +14,13 @@ Select your newly created project from the project menu and note the numeric `Pr
 
 ![image alt text](android-push-2.jpg)
 
-Next, you must create a new Server API key. To do so, on the left menu navigate to APIS & AUTH -> Credentials
+Under your Project Settings
+
+You must first turn on GCM for this project. To do so, on the left menu navigate to APIs & auth -> APIs.  Then find "Google Cloud Messaging for Android" and switch it from OFF to ON.
+
+![image alt text](android-push-gcm.jpg)
+
+Next, you must create a new Server API key under APIs & auth -> Credentials
 
 ![image alt text](android-push-3.jpg)
 
