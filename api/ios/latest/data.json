@@ -1,37 +1,7 @@
 {
   "classes" : [
     {
-      "declared" : "LYRClient.m",
-      "methods" : {
-        "instance" : [
-          {
-            "declared" : "LYRClient.m",
-            "declaration" : "- (void)handleApplicationDidBecomeActiveNotification:(NSNotification *)notification",
-            "comment" : "When we are becoming active, re-open the SPDY push channel if we have a connection This should typically only kick in if we temporarily lost focus and are being restored to active",
-            "name" : "handleApplicationDidBecomeActiveNotification:",
-            "discussion" : "When we are becoming active, re-open the SPDY push channel if we have a connection This should typically only kick in if we temporarily lost focus and are being restored to active"
-          },
-          {
-            "declared" : "LYRClient.m",
-            "declaration" : "- (void)handleApplicationDidEnterBackgroundNotification:(NSNotification *)notification",
-            "comment" : "             NOTE: If we have transitioned into the active application with transport connected but sync is not active then              we likely launched in response to a Push Notification. We must fire things up. If we see that the syncmanager              is running, we must also fire up the push channel.              ",
-            "name" : "handleApplicationDidEnterBackgroundNotification:",
-            "discussion" : "             NOTE: If we have transitioned into the active application with transport connected but sync is not active then              we likely launched in response to a Push Notification. We must fire things up. If we see that the syncmanager              is running, we must also fire up the push channel.              "
-          },
-          {
-            "declared" : "LYRClient.m",
-            "declaration" : "- (void)handleApplicationWillResignActiveNotification:(NSNotification *)notification",
-            "comment" : "When we are resigning activity, stop synchronization and close the SPDY push channel so that pushes will fall back to APNS",
-            "name" : "handleApplicationWillResignActiveNotification:",
-            "discussion" : "When we are resigning activity, stop synchronization and close the SPDY push channel so that pushes will fall back to APNS"
-          }
-        ]
-      },
-      "name" : "LYRApplicationLifecycleObserver",
-      "inherits" : "NSObject"
-    },
-    {
-      "declared" : "LYRClient.h<br \/>LYRClient.m",
+      "declared" : "LYRClient.h",
       "properties" : [
         {
           "declared" : "LYRClient.h",
@@ -329,6 +299,45 @@
             ]
           },
           {
+            "parameters" : [
+              {
+                "name" : "participants",
+                "description" : "A set of participants with which to initialize the new Conversation."
+              },
+              {
+                "name" : "options",
+                "description" : "A dictionary of options to apply to the conversation."
+              }
+            ],
+            "return" : "The newly created Conversation.",
+            "discussion" : "This method will create a new {@link LYRConversation} instance, creating new message instances with a new {@link LYRConversation} object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using conversationsForParticipants: first.",
+            "declared" : "LYRClient.h",
+            "comment" : "Creates a new Conversation with the given set of participants.",
+            "name" : "newConversationWithParticipants:options:error:",
+            "declaration" : "- (LYRConversation *)newConversationWithParticipants:(NSSet *)participants options:(NSDictionary *)options error:(NSError **)error"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (LYRMessage *)newMessageWithConversation:(LYRConversation *)conversation parts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error",
+            "comment" : "Creates and returns a new message with the given conversation and set of message parts.",
+            "name" : "newMessageWithConversation:parts:options:error:",
+            "return" : "A new message that is ready to be sent.\n@raises NSInvalidArgumentException Raised if conversation is nil or messageParts is empty.",
+            "parameters" : [
+              {
+                "name" : "conversation",
+                "description" : "The conversation that the message is a part of. Cannot be nil."
+              },
+              {
+                "name" : "messageParts",
+                "description" : "An array of {@link LYRMessagePart} objects specifying the content of the message. Cannot be nil or empty."
+              },
+              {
+                "name" : "options",
+                "description" : "A dictionary of options to apply to the message."
+              }
+            ]
+          },
+          {
             "declared" : "LYRClient.h",
             "declaration" : "- (BOOL)removeParticipants:(NSSet *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error",
             "comment" : "Removes participants from a given conversation.",
@@ -399,19 +408,9 @@
           {
             "declared" : "LYRClient.h",
             "declaration" : "- (BOOL)setMetadata:(NSDictionary *)metadata onObject:(id)object",
-            "comment" : "Sets the metadata associated with an object. The object must be of the type {@link LYRMessage} or {@link LYRConversation}.",
+            "comment" : "DEPRECATED: Sets the metadata on a Conversation or Message object.",
             "name" : "setMetadata:onObject:",
-            "return" : "YES if the metadata was set successfully.",
-            "parameters" : [
-              {
-                "name" : "metadata",
-                "description" : "The metadata to set on the object."
-              },
-              {
-                "name" : "object",
-                "description" : "The object on which to set the metadata."
-              }
-            ]
+            "discussion" : "This method has been replaced with two distinct implementations. For messages, the options dictionary can be used to configure the\nPush Notification text and sound. For conversations, use the metadata instance methods on the {@link LYRConversation} class."
           },
           {
             "parameters" : [
@@ -453,7 +452,7 @@
       }
     },
     {
-      "declared" : "LYRConversation.h<br \/>LYRConversation.m",
+      "declared" : "LYRConversation.h",
       "properties" : [
         {
           "declared" : "LYRConversation.h",
@@ -483,6 +482,13 @@
         },
         {
           "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) NSDictionary *metadata",
+          "comment" : "Returns the metadata associated with the conversation.",
+          "name" : "metadata",
+          "discussion" : "Metadata is a free form dictionary of string key-value pairs that allows arbitrary developer supplied information to be associated with the conversation and synchronized among the participants."
+        },
+        {
+          "declared" : "LYRConversation.h",
           "declaration" : "@property (nonatomic, readonly) NSSet *participants",
           "comment" : "The set of user identifiers's specifying who is participating in the conversation modeled by the receiver.",
           "name" : "participants",
@@ -490,20 +496,50 @@
         }
       ],
       "methods" : {
-        "class" : [
+        "instance" : [
           {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (void)deleteValueForMetadataAtKeyPath:(NSString *)keyPath",
+            "comment" : "Deletes a specific value by key path from the metadata dictionary.",
+            "name" : "deleteValueForMetadataAtKeyPath:",
             "parameters" : [
               {
-                "name" : "participants",
-                "description" : "A set of participants with which to initialize the new Conversation."
+                "name" : "keyPath",
+                "description" : "A key path into the metadata dictionary specifying the value to be deleted."
               }
-            ],
-            "return" : "The newly created Conversation.",
-            "discussion" : "This method will create a new LYRConversation instance, creating new message instances with a new LYRConversation object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using LYRClient's conversationsForParticipants: first.",
+            ]
+          },
+          {
             "declared" : "LYRConversation.h",
-            "comment" : "Creates a new Conversation with the given set of participants.",
-            "name" : "conversationWithParticipants:",
-            "declaration" : "+ (instancetype)conversationWithParticipants:(NSSet *)participants"
+            "declaration" : "- (void)setValue:(NSString *)value forMetadataAtKeyPath:(NSString *)keyPath",
+            "comment" : "Sets the value for the specified key path in the metadata dictionary.",
+            "name" : "setValue:forMetadataAtKeyPath:",
+            "parameters" : [
+              {
+                "name" : "value",
+                "description" : "The string value to set for the given key path in the metadata."
+              },
+              {
+                "name" : "keyPath",
+                "description" : "A key path into the metadata dictionary specifying where the value is to be set."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (void)setValuesForMetadataKeyPathsWithDictionary:(NSDictionary *)metadata merge:(BOOL)merge",
+            "comment" : "Sets multiple values on the metadata using an input dictionary, optionally merging with any existing values.",
+            "name" : "setValuesForMetadataKeyPathsWithDictionary:merge:",
+            "parameters" : [
+              {
+                "name" : "metadata",
+                "description" : "A dictionary of metadata to assign or merge with the existing metadata."
+              },
+              {
+                "name" : "merge",
+                "description" : "A Boolean flag that specifies whether the metadata is to be assigned directly or merged with any existing values."
+              }
+            ]
           }
         ]
       },
@@ -511,7 +547,7 @@
       "inherits" : "NSObject"
     },
     {
-      "declared" : "LYRMessage.h<br \/>LYRMessage.m",
+      "declared" : "LYRMessage.h",
       "properties" : [
         {
           "declared" : "LYRMessage.h",
@@ -576,25 +612,6 @@
         }
       ],
       "methods" : {
-        "class" : [
-          {
-            "declared" : "LYRMessage.h",
-            "declaration" : "+ (instancetype)messageWithConversation:(LYRConversation *)conversation parts:(NSArray *)messageParts",
-            "comment" : "Creates and returns a new message with the given conversation and set of message parts.",
-            "name" : "messageWithConversation:parts:",
-            "return" : "A new message that is ready to be sent.\n@raises NSInvalidArgumentException Raised if conversation is nil or messageParts is empty.",
-            "parameters" : [
-              {
-                "name" : "conversation",
-                "description" : "The conversation that the message is a part of. Cannot be nil."
-              },
-              {
-                "name" : "messageParts",
-                "description" : "An array of {@link LYRMessagePart} objects specifying the content of the message. Cannot be nil or empty."
-              }
-            ]
-          }
-        ],
         "instance" : [
           {
             "declared" : "LYRMessage.h",
@@ -615,7 +632,7 @@
       "inherits" : "NSObject"
     },
     {
-      "declared" : "LYRMessagePart.h<br \/>LYRMessagePart.m",
+      "declared" : "LYRMessagePart.h",
       "properties" : [
         {
           "declared" : "LYRMessagePart.h",
@@ -940,18 +957,18 @@
       ]
     },
     {
-      "declared" : "LYRClient.h",
+      "declared" : "LYRConstants.h",
       "name" : "LYRDeletionMode",
       "values" : [
         {
           "name" : "LYRDeletionModeLocal",
           "comment" : "Content deletion modes",
-          "declared" : "LYRClient.h"
+          "declared" : "LYRConstants.h"
         },
         {
           "name" : "LYRDeletionModeAllParticipants",
           "comment" : "Content deletion modes",
-          "declared" : "LYRClient.h"
+          "declared" : "LYRConstants.h"
         }
       ]
     },
@@ -986,24 +1003,32 @@
         {
           "name" : "LYRErrorObjectNotSent",
           "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorInvalidKey",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorInvalidValue",
+          "declared" : "LYRErrors.h"
         }
       ]
     },
     {
-      "declared" : "LYRObjectChangeConstants.h",
+      "declared" : "LYRConstants.h",
       "name" : "LYRObjectChangeType",
       "values" : [
         {
           "name" : "LYRObjectChangeTypeCreate",
-          "declared" : "LYRObjectChangeConstants.h"
+          "declared" : "LYRConstants.h"
         },
         {
           "name" : "LYRObjectChangeTypeUpdate",
-          "declared" : "LYRObjectChangeConstants.h"
+          "declared" : "LYRConstants.h"
         },
         {
           "name" : "LYRObjectChangeTypeDelete",
-          "declared" : "LYRObjectChangeConstants.h"
+          "declared" : "LYRConstants.h"
         }
       ]
     },
