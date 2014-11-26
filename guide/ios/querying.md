@@ -118,7 +118,7 @@ LYRCompoundPredicate *predicate = [LYRCompoundPredicate compoundPredicateWithTyp
 ### All Conversations
 
 ```
-// Fetches all `LYRConversation` objects
+// Fetches all LYRConversation objects
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 
 NSError *error;
@@ -133,7 +133,7 @@ if (!error) {
 ### All Messages
 
 ```
-// Fetches all `LYRMessage` objects
+// Fetches all LYRMessage objects
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 
 NSError *error;
