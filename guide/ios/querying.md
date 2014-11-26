@@ -25,9 +25,9 @@ LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 ```
 
 ##Applying Constraints
-The `LYRPredicate` object allows applications to apply constraints to a query results set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
+The `LYRPredicate` object allows applications to apply constraints to a query result set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
 
-The following `LYRPredicate` will constrain the query results set to LYRMessage objects who's `conversation` property is equal the supplied conversation object.
+The following `LYRPredicate` will constrain the query result set to LYRMessage objects whose `conversation` property is equal the supplied conversation object.
 
 ```
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
@@ -95,7 +95,7 @@ if (!error) {
 ##Compound Predicates
 For more sophisticated queries, applications can utilize the `LYRCompoundQuery` object to specify multiple constraints for a single query. Compound predicates consist of an array of `LYRPredicate` objects which represent individual constraints, in addition to a conjunction operator represented by an `LYRCompoundPredicateType`.
 
-The following demonstrates a compound predicate which will constrain the results set to objects that conform to the following criteria:
+The following demonstrates a compound predicate which will constrain the result set to objects that conform to the following criteria:
 
 1. The `conversation` property is equal to the supplied `LYRConversation` object
 2. The `sentByUserID` property is equal to the supplied `<USER_ID>` value.
@@ -209,8 +209,8 @@ if (!error) {
 #LYRQueryController
 The `LYRQueryController` class can be used to efficiently manage the results from an `LYRQuery` and provide that data to be used in a `UITableView` or `UICollectionView`. The object is similar in concept to an `NSFetchedResultsController` and provides the following functionality:
 
-1. Executes the actual query and caches the results set
-2. Monitors changes to objects in the results set and reports those changes to its delegate (see `LYRQueryControllerDelegate`).
+1. Executes the actual query and caches the result set
+2. Monitors changes to objects in the result set and reports those changes to its delegate (see `LYRQueryControllerDelegate`).
 3. Listens for newly created objects that fit the query criteria and notifies it's delegate on creation.
 
 The following demonstrates constructing a `LYRQueryController` that can be used to display a list of `LYRConversation` objects in a `UITableView`.
@@ -228,7 +228,7 @@ if (success) {
 }
 ```
 
-In order to acquire the number of objects in a results set, applications can call `numberOfObjectsInSection:`. This method can be used for the return value in the `UITableViewDataSource` method `numberOfRowsInSection:`
+In order to acquire the number of objects in a result set, applications can call `numberOfObjectsInSection:`. This method can be used for the return value in the `UITableViewDataSource` method `numberOfRowsInSection:`
 
 ```
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -252,7 +252,7 @@ In order to acquire an object for a given index, applications can call `objectAt
 ```
 
 #LYRQueryControllerDelegate
-The `LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. The `LYRQueryController` itself listens for changes that occur upon Layer model objects in response to synchronization by observing the `LYRClientObjectsDidChangeNotification` key. When changes occur which effect objects in the controllers results set, or new objects which fit the controller's query criteria are created, the controller will inform it's delegate. Application will then be able to update their UI in response to these changes. 
+The `LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. The `LYRQueryController` itself listens for changes that occur upon Layer model objects in response to synchronization by observing the `LYRClientObjectsDidChangeNotification` key. When changes occur which effect objects in the controllers result set, or new objects which fit the controller's query criteria are created, the controller will inform it's delegate. Application will then be able to update their UI in response to these changes. 
 
 The following represents the ideal implementation of the `LYRQueryControllerDelegate` methods for a `UITableViewController`. This implementation with handle animating a UITableView in response to changes on Layer model objects.
 
