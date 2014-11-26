@@ -84,7 +84,7 @@ Additionally, when querying for results with a `resultsType` of `LYRQueryResults
 
 ```
 NSError *error;
-NSUInteger *countOfMessages = [self.client countForQuery:query error:&error];
+NSUInteger countOfMessages = [self.client countForQuery:query error:&error];
 if (!error) {
     NSLog(@"%tu messages in conversation", countOfMessages);
 } else {
