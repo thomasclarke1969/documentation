@@ -101,9 +101,9 @@ The following demonstrates a compound predicate which will constrain the result 
 2. The `sentByUserID` property is equal to the supplied `<USER_ID>` value.
 
 ```
-LYRPredicate *conversationPred = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-LYRPredicate *userPred = [LYRPredicate predicateWithProperty:@"sentByUserID" operator:LYRPredicateOperatorIsEqualTo value:@"<USER_ID>"];
-LYRCompoundPredicate *predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[userPred, conversationPred]];
+LYRPredicate *conversationPredicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" operator:LYRPredicateOperatorIsEqualTo value:@"<USER_ID>"];
+LYRCompoundPredicate *predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[userPredicate, conversationPredicate]];
 ```
 
 ## Examples
@@ -145,11 +145,11 @@ if (!error) {
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 
 // Messages must be unread
-LYRPredicate *unreadPred =[LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
+LYRPredicate *unreadPredicate =[LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
 
 // Messages must not be sent by the authenticated user
-LYRPredicate *userPred = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.layerClient.authenticatedUserID];
-query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPred, userPred]];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.layerClient.authenticatedUserID];
+query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPredicate, userPredicate]];
 query.resultType = LYRQueryResultTypeCount;
 NSUInteger *unreadMessageCount = [self.layerClient countForQuery:query error:nil];
 ```
