@@ -21,7 +21,7 @@ A `Provider ID` and `Key ID` must be retained by your backend application and us
 
 %%C-KEYID%%
 
-To manage your authentication keys please visit the [Layer Dashboard](/dashboard/project).
+To manage your authentication keys please visit the [Layer Dashboard](/dashboard/projects).
 
 ##Step 2 - Start the Authentication process
 The main logic will reside in the `requestAuthenticationNonceWithCompletion` method.
@@ -88,4 +88,4 @@ Once you have received a valid Identity Token call the following code in the `re
   }];
 ```
 
-You can validate your identity token by using our tool here - [identity token validation tool](/dashboard/project).
+You can validate your identity token by using our tool here - [identity token validation tool](/dashboard/projects).

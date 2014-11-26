@@ -15,4 +15,4 @@ Message message = Message.newInstance(conversation, Arrays.asList(messagePart));
 layerClient.sendMessage(message);
 ```
 
-You can verify that your message has been sent by going to https://developer.layer.com/dashboard/apps
+You can verify that your message has been sent by looking at the logs inside [developer dashboard](/dashboard/projects).
