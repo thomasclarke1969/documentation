@@ -209,7 +209,7 @@ if (!error) {
 #LYRQueryController
 The `LYRQueryController` class can be used to efficiently manage the results from an `LYRQuery` and provide that data to be used in a `UITableView` or `UICollectionView`. The object is similar in concept to an `NSFetchedResultsController` and provides the following functionality:
 
-1. Executes the actual query and caches the result set
+1. Executes the actual query and caches the result set.
 2. Monitors changes to objects in the result set and reports those changes to its delegate (see `LYRQueryControllerDelegate`).
 3. Listens for newly created objects that fit the query criteria and notifies it's delegate on creation.
 
