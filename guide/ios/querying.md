@@ -18,7 +18,7 @@ if (!error) {
 ```
 
 ##Constructing A Query
-An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. LayerKit currenly supports querying for `LYRConversation` and `LYRMessage` objects.
+An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. LayerKit currently supports querying for `LYRConversation` and `LYRMessage` objects.
 
 ```
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
@@ -60,7 +60,7 @@ query.resultsType = LYRQueryResultTypeObjects;
 ```
 
 ##Executing The Query
-Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method takes an `LYRQuery` object and a pointer to an `NSError` object. If succcessful, the method will return an NSOrderedSet of objects which represent the results of the query. If an error occurs the supplied error pointer will set to an error object describing why execution failed.
+Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method takes an `LYRQuery` object and a pointer to an `NSError` object. If successful, the method will return an NSOrderedSet of objects which represent the results of the query. If an error occurs the supplied error pointer will set to an error object describing why execution failed.
 
 ```
 NSError *error;
@@ -72,7 +72,7 @@ if (!error) {
 }
 ```
 
-Aditionally, when querying results with a `resultsType` of `LYRQueryResultsTypeCount`, `LYRClient` declares a convenience method that returns an `NSUInteger`, `countForQuery:error:`.
+Additionally, when querying results with a `resultsType` of `LYRQueryResultsTypeCount`, `LYRClient` declares a convenience method that returns an `NSUInteger`, `countForQuery:error:`.
 
 ```
 NSError *error;
@@ -85,9 +85,9 @@ if (!error) {
 ```
 
 ##Compound Predicates
-For more sophisticated queries, applications can utilize the `LYRCompoundQuery` object to specify multiple constraints for a single query. Compound predicates consist of an array of `LYRPredicate` objects which represent individual constraints, in adition to a conjunction operator represented by an `LYRCompoundPredicateType`.
+For more sophisticated queries, applications can utilize the `LYRCompoundQuery` object to specify multiple constraints for a single query. Compound predicates consist of an array of `LYRPredicate` objects which represent individual constraints, in addition to a conjunction operator represented by an `LYRCompoundPredicateType`.
 
-The following demonstrates a compound predicate which will constrain the results set to objects that conform to the following critera:
+The following demonstrates a compound predicate which will constrain the results set to objects that conform to the following criteria:
 
 1. The `conversation` property is equal to the supplied `LYRConversation` object
 2. The `sentByUserID` property is equal to the supplied `<USER_ID>` value.
@@ -250,9 +250,9 @@ In order to acquire an object for a given index, applications can call `objectAt
 ```
 
 #LYRQueryControllerDelegate
-The `LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. The `LYRQueryController` itself listens for changes that occur upon Layer model objects in response to synchrnonization by observing the `LYRClientObjectsDidChangeNotification` key. When changes occur which effect objects in the controllers results set, or new objects which fit the controller's query criteria are created, the controller will inform it's delegate. Application will then be able to update their UI in response to these changes. 
+The `LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. The `LYRQueryController` itself listens for changes that occur upon Layer model objects in response to synchronization by observing the `LYRClientObjectsDidChangeNotification` key. When changes occur which effect objects in the controllers results set, or new objects which fit the controller's query criteria are created, the controller will inform it's delegate. Application will then be able to update their UI in response to these changes. 
 
-The following represents the ideal implementation of the `LYRQueryControllerDelegate` methods for a `UITableViewController`. This implmentation with handle animating a UITableView in response to changes on Layer model objects.
+The following represents the ideal implementation of the `LYRQueryControllerDelegate` methods for a `UITableViewController`. This implementation with handle animating a UITableView in response to changes on Layer model objects.
 
 ```
 - (void)queryControllerWillChangeContent:(LYRQueryController *)queryController
