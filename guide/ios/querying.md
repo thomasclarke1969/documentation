@@ -27,7 +27,7 @@ LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 ##Applying Constraints
 The `LYRPredicate` object allows applications to apply constraints to a query result set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
 
-The following `LYRPredicate` will constrain the query result set to LYRMessage objects whose `conversation` property is equal the supplied conversation object.
+The following `LYRPredicate` will constrain the query result set to `LYRMessage` objects whose `conversation` property is equal the supplied conversation object.
 
 ```
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
