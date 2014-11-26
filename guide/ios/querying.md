@@ -65,10 +65,10 @@ Query results can be returned as fully realized object instances, object identif
 // Fully realized objects
 query.resultType = LYRQueryResultTypeObjects;
 
-// Object Identifiers
+// Object identifiers
 query.resultType = LYRQueryResultTypeIdentifiers;
 
-// Count of Objects
+// Count of objects
 query.resultType = LYRQueryResultTypeCount;
 ```
 
