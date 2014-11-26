@@ -72,7 +72,6 @@ query.resultsType = LYRQueryResultsTypeIdentifiers;
 query.resultsType = LYRQueryResultsTypeCount;
 ```
 
-
 ##Executing The Query
 
 Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method takes an `LYRQuery` object and a pointer to an `NSError` object. If successful, the method will return an `NSOrderedSet` of objects which represent the results of the query. If an error occurs, the supplied error pointer will be set to an error object describing why execution failed.
@@ -271,7 +270,6 @@ The following represents the ideal implementation of the `LYRQueryControllerDele
 {
     [self.tableView beginUpdates];
 }
-
 
 - (void)queryController:(LYRQueryController *)controller
         didChangeObject:(id)object
