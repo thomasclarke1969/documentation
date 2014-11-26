@@ -252,7 +252,7 @@ In order to acquire an object for a given index, applications can call `objectAt
 ```
 
 #LYRQueryControllerDelegate
-The `LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. The `LYRQueryController` itself listens for changes that occur upon Layer model objects in response to synchronization by observing `LYRClientObjectsDidChangeNotification`. When changes occur which effect objects in the controllers result set, or new objects which fit the controller's query criteria are created, the controller will inform it's delegate. Application will then be able to update their UI in response to these changes. 
+`LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. `LYRQueryController` itself listens for changes that occur upon Layer model objects in response to synchronization by observing `LYRClientObjectsDidChangeNotification`. When changes occur which effect objects in the controllers result set, or new objects which fit the controller's query criteria are created, the controller will inform it's delegate. Application will then be able to update their UI in response to these changes. 
 
 The following represents the ideal implementation of the `LYRQueryControllerDelegate` methods for a `UITableViewController`. This implementation with handle animating a UITableView in response to changes on Layer model objects.
 
