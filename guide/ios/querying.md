@@ -1,5 +1,5 @@
 #Querying
-LayerKit provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed using the `LYRQuery` object. To demonstrate a simple example, the following queries LayerKit for the latest 20 messages in the given conversation.
+LayerKit provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with an `LYRQuery` object. To demonstrate a simple example, the following queries LayerKit for the latest 20 messages in the given conversation.
 
 ```
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
@@ -18,7 +18,7 @@ if (!error) {
 ```
 
 ##Constructing A Query
-An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. LayerKit currently supports querying for `LYRConversation` and `LYRMessage` objects.
+An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol. Currently, `LYRConversation` and `LYRMessage` are the only classes which conform the protocol.
 
 ```
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
@@ -27,7 +27,7 @@ LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 ##Applying Constraints
 The `LYRPredicate` object allows applications to apply constraints to a query results set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
 
-The following `LYRPredicate` will constrain the results set to LYRMessage objects who's `conversation` property is equal the supplied conversation object.
+The following `LYRPredicate` will constrain the query results set to LYRMessage objects who's `conversation` property is equal the supplied conversation object.
 
 ```
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
@@ -36,16 +36,16 @@ query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:L
 Properties that support querying are identified by the `LYR_QUERYABLE_PROPERTY` macro.
 
 ##Sorting Results
-Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the `sortDescriptor` property on `LYRQuery` objects. This value must be an instance of `NSSortDescriptor`.
+Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the `sortDescriptors` property on `LYRQuery` objects. This value must be an instance of `NSSortDescriptor`.
 
-The following sort descriptor dictates that results are returned in ascending order based on the `index` property of the `LYRMessage` objects.
+The following sort descriptor asks that results be returned in ascending order based on the `index` property of the `LYRMessage` objects.
 
 ```
-query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
 ```
 
 ##Limits and Offsets
-To facilitate pagination, queries may be further constrained by applying a limit and offset value.
+To facilitate pagination, queries may be further constrained by applying a limit and offset value. The limit onfigures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
 
 ```
 query.limit = 20;
@@ -53,14 +53,22 @@ query.offset = 0;
 ```
 
 ## Results Type
-Query results can be returned as either fully realized object instances, object identifiers, or as an aggregate count of the total number of objects matching the query. Applications determine their desired return type by setting a value for the `resultsType` property on the `LYRQuery` object. The default value is `LYRQueryResultsTypeObjects`.
+Query results can be returned as fully realized object instances, object identifiers, or as an aggregate count of the total number of objects matching the query. Applications determine their desired return type by optionally setting a value for the `resultsType` property on the `LYRQuery` object. The default value is `LYRQueryResultsTypeObjects`.
 
 ```
+// Fully realized objects
 query.resultsType = LYRQueryResultTypeObjects;
+
+// Object Identifers
+query.resultsType = LYRQueryResultsTypeIdentifiers;
+
+// Count of Objects
+query.resultsType = LYRQueryResultsTypeCount;
 ```
+
 
 ##Executing The Query
-Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method takes an `LYRQuery` object and a pointer to an `NSError` object. If successful, the method will return an NSOrderedSet of objects which represent the results of the query. If an error occurs the supplied error pointer will set to an error object describing why execution failed.
+Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method takes an `LYRQuery` object and a pointer to an `NSError` object. If successful, the method will return an `NSOrderedSet` of objects which represent the results of the query. If an error occurs, the supplied error pointer will be set to an error object describing why execution failed.
 
 ```
 NSError *error;
@@ -72,7 +80,7 @@ if (!error) {
 }
 ```
 
-Additionally, when querying results with a `resultsType` of `LYRQueryResultsTypeCount`, `LYRClient` declares a convenience method that returns an `NSUInteger`, `countForQuery:error:`.
+Additionally, when querying for results with a `resultsType` of `LYRQueryResultsTypeCount`, `LYRClient` declares a convenience method that returns an `NSUInteger`, `countForQuery:error:`.
 
 ```
 NSError *error;
@@ -141,14 +149,8 @@ LYRPredicate *unreadPred =[LYRPredicate predicateWithProperty:@"isUnread" operat
 
 // Messages must not be sent by the authenticated user
 LYRPredicate *userPred = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.layerClient.authenticatedUserID];
-
-// Create the compound predicate
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPred, userPred]];
-
-// Results type of count
 query.resultType = LYRQueryResultTypeCount;
-
-// Execute
 NSUInteger *unreadMessageCount = [self.layerClient countForQuery:query error:nil];
 ```
 
