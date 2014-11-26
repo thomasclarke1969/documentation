@@ -237,7 +237,7 @@ In order to acquire the number of objects in a result set, applications can call
 }
 ```
 
-In order to acquire an object for a given index, applications can call `objectAtIndexPath:`. This method can be used in your implementation of `cellForRow:atIndexPath:` in order to acquire the proper `LYRConversation` object that is to be displayed.
+In order to acquire an object for a given index, applications can call `objectAtIndexPath:`. This method can be used in your implementation of `cellForRow:atIndexPath:` in order to acquire the proper `LYRConversation` object to display.
 
 ```
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
