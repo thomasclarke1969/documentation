@@ -182,7 +182,7 @@ if (!error) {
 ### Conversations With A Specific User
 
 ```
-// Fetches all conversations between the supplied user and the authenticated user
+// Fetches all conversations between the authenticated user and the supplied user
 NSArray *participants = @[self.client.authenticatedUserID, @"<USER_ID>"];
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:participants];
