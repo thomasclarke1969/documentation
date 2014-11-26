@@ -219,7 +219,7 @@ The following demonstrates constructing a `LYRQueryController` that can be used 
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 LYRQueryController *queryController = [self.client queryControllerWithQuery:query];
 queryController.delegate = self;
-NSError *error = nil;
+NSError *error;
 BOOL success = [queryController execute:&error];
 if (success) {
     NSLog(@"Query fetched %tu conversation objects", [queryController numberOfObjectsInSection:0]);
