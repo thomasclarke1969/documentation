@@ -57,19 +57,19 @@ query.limit = 20;
 query.offset = 0;
 ```
 
-## Results Type
+## Result Types
 
-Query results can be returned as fully realized object instances, object identifiers, or as an aggregate count of the total number of objects matching the query. Applications determine their desired return type by optionally setting a value for the `resultsType` property on the `LYRQuery` object. The default value is `LYRQueryResultsTypeObjects`.
+Query results can be returned as fully realized object instances, object identifiers, or as an aggregate count of the total number of objects matching the query. Applications determine their desired return type by optionally setting a value for the `resultType` property on the `LYRQuery` object. The default value is `LYRQueryResultTypeObjects`.
 
 ```
 // Fully realized objects
-query.resultsType = LYRQueryResultTypeObjects;
+query.resultType = LYRQueryResultTypeObjects;
 
 // Object Identifers
-query.resultsType = LYRQueryResultsTypeIdentifiers;
+query.resultType = LYRQueryResultTypeIdentifiers;
 
 // Count of Objects
-query.resultsType = LYRQueryResultsTypeCount;
+query.resultType = LYRQueryResultTypeCount;
 ```
 
 ##Executing The Query
@@ -86,7 +86,7 @@ if (!error) {
 }
 ```
 
-Additionally, when querying for results with a `resultsType` of `LYRQueryResultsTypeCount`, `LYRClient` declares a convenience method that returns an `NSUInteger`, `countForQuery:error:`.
+Additionally, when querying for results with a `resultType` of `LYRQueryResultTypeCount`, `LYRClient` declares a convenience method that returns an `NSUInteger`, `countForQuery:error:`.
 
 ```
 NSError *error;
