@@ -156,6 +156,7 @@ LYRPredicate *unreadPredicate =[LYRPredicate predicateWithProperty:@"isUnread" o
 
 // Messages must not be sent by the authenticated user
 LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
+
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPredicate, userPredicate]];
 query.resultType = LYRQueryResultTypeCount;
 NSUInteger unreadMessageCount = [self.client countForQuery:query error:nil];
