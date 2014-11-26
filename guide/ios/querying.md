@@ -211,7 +211,7 @@ The `LYRQueryController` class can be used to efficiently manage the results fro
 
 1. Executes the actual query and caches the result set.
 2. Monitors changes to objects in the result set and reports those changes to its delegate (see `LYRQueryControllerDelegate`).
-3. Listens for newly created objects that fit the query criteria and notifies it's delegate on creation.
+3. Listens for newly created objects that fit the query criteria and notifies its delegate on creation.
 
 The following demonstrates constructing a `LYRQueryController` that can be used to display a list of `LYRConversation` objects in a `UITableView`.
 
