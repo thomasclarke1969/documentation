@@ -151,7 +151,7 @@ LYRPredicate *unreadPredicate =[LYRPredicate predicateWithProperty:@"isUnread" o
 LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPredicate, userPredicate]];
 query.resultType = LYRQueryResultTypeCount;
-NSUInteger *unreadMessageCount = [self.client countForQuery:query error:nil];
+NSUInteger unreadMessageCount = [self.client countForQuery:query error:nil];
 ```
 
 ### Messages For Conversation
