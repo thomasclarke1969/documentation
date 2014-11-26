@@ -1,0 +1,298 @@
+#Querying
+LayerKit provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed using the `LYRQuery` object. To demonstrate a simple example, the following queries LayerKit for the latest 20 messages in the given conversation.
+
+```
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+query.limit = 20;
+query.offset = 0;
+
+NSError *error;
+NSOrderedSet *messages = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu Messages in Conversation", messages.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+##Constructing A Query
+An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. LayerKit currenly supports querying for `LYRConversation` and `LYRMessage` objects.
+
+```
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+```
+
+##Applying Constraints
+The `LYRPredicate` object allows applications to apply constraints to a query results set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
+
+The following `LYRPredicate` will constrain the results set to LYRMessage objects who's `conversation` property is equal the supplied conversation object.
+
+```
+query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+```
+
+Properties that support querying are identified by the `LYR_QUERYABLE_PROPERTY` macro.
+
+##Sorting Results
+Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the `sortDescriptor` property on `LYRQuery` objects. This value must be an instance of `NSSortDescriptor`.
+
+The following sort descriptor dictates that results are returned in ascending order based on the `index` property of the `LYRMessage` objects.
+
+```
+query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+```
+
+##Limits and Offsets
+To facilitate pagination, queries may be further constrained by applying a limit and offset value.
+
+```
+query.limit = 20;
+query.offset = 0;
+```
+
+## Results Type
+Query results can be returned as either fully realized object instances, object identifiers, or as an aggregate count of the total number of objects matching the query. Applications determine their desired return type by setting a value for the `resultsType` property on the `LYRQuery` object. The default value is `LYRQueryResultsTypeObjects`.
+
+```
+query.resultsType = LYRQueryResultTypeObjects;
+```
+
+##Executing The Query
+Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method takes an `LYRQuery` object and a pointer to an `NSError` object. If succcessful, the method will return an NSOrderedSet of objects which represent the results of the query. If an error occurs the supplied error pointer will set to an error object describing why execution failed.
+
+```
+NSError *error;
+NSOrderedSet *messages = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu Messages in Conversation", messages.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+Aditionally, when querying results with a `resultsType` of `LYRQueryResultsTypeCount`, `LYRClient` declares a convenience method that returns an `NSUInteger`, `countForQuery:error:`.
+
+```
+NSError *error;
+NSUInteger *countOfMessages = [self.client countForQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu Messages in Conversation", countOfMessages);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+##Compound Predicates
+For more sophisticated queries, applications can utilize the `LYRCompoundQuery` object to specify multiple constraints for a single query. Compound predicates consist of an array of `LYRPredicate` objects which represent individual constraints, in adition to a conjunction operator represented by an `LYRCompoundPredicateType`.
+
+The following demonstrates a compound predicate which will constrain the results set to objects that conform to the following critera:
+
+1. The `conversation` property is equal to the supplied `LYRConversation` object
+2. The `sentByUserID` property is equal to the supplied `<USER_ID>` value.
+
+```
+LYRPredicate *conversationPred = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+LYRPredicate *userPred = [LYRPredicate predicateWithProperty:@"sentByUserID" operator:LYRPredicateOperatorIsEqualTo value:@"<USER_ID>"];
+LYRCompoundPredicate *predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[userPred, conversationPred]];
+```
+
+## Examples
+
+### All Conversations
+
+```
+// Fetches all `LYRConversation` objects
+LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+
+NSError *error;
+NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu Conversations", conversations.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+### All Messages
+
+```
+// Fetches all `LYRMessage` objects
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+
+NSError *error;
+NSOrderedSet *messages = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu Messages", messages.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+###Unread Message Count
+
+```
+// Fetches the count of all unread messages for the authenticated user
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+
+// Messages must be unread
+LYRPredicate *unreadPred =[LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
+
+// Messages must not be sent by the authenticated user
+LYRPredicate *userPred = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.layerClient.authenticatedUserID];
+
+// Create the compound predicate
+query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPred, userPred]];
+
+// Results type of count
+query.resultType = LYRQueryResultTypeCount;
+
+// Execute
+NSUInteger *unreadMessageCount = [self.layerClient countForQuery:query error:nil];
+```
+
+### Messages For Conversation
+
+```
+// Fetches all messages for a given conversation
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+
+NSError *error;
+NSOrderedSet *messages = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu Messages in Conversation", messages.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+### Conversations With A Specific User
+
+```
+// Fetches all conversations between the supplied user and the authenticated user
+NSArray *participants = @[self.client.authenticatedUserID, @"<USER_ID>"];
+LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:participants];
+
+NSError *error;
+NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu Conversations with Participants %@", conversations.count, participants);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+
+```
+
+### Messages From Last Week
+
+```
+// Fetches all messages sent in the last week
+NSDate *lastWeek = [[NSDate date] dateByAddingTimeInterval:-60*60*24*7]; // One Week Ago
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"sentAt" operator:LYRPredicateOperatorIsGreaterThan value:lastWeek];
+
+NSError *error;
+NSOrderedSet *messages = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu Messages in Conversation", messages.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+#LYRQueryController
+The `LYRQueryController` class can be used to efficiently manage the results from an `LYRQuery` and provide that data to be used in a `UITableView` or `UICollectionView`. The object is similar in concept to an `NSFetchedResultsController` and provides the following functionality:
+
+1. Executes the actual query and caches the results set
+2. Monitors changes to objects in the results set and reports those changes to its delegate (see `LYRQueryControllerDelegate`).
+3. Listens for newly created objects that fit the query criteria and notifies it's delegate on creation.
+
+The following demonstrates constructing a `LYRQueryController` that can be used to display a list of `LYRConversation` objects in a `UITableView`.
+
+```
+LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+LYRQueryController * queryController = [self.client queryControllerWithQuery:query];
+queryController.delegate = self;
+NSError *error = nil;
+BOOL success = [queryController execute:&error];
+if (success) {
+    NSLog(@"Query fetched %tu conversation objects", [queryController numberOfObjectsInSection:0]);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+In order to acquire the number of objects in a results set, applications can call `numberOfObjectsInSection:`. This method can be used for the return value in the `UITableViewDataSource` method `numberOfRowsInSection:`
+
+```
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.queryController numberOfObjectsInSection:section];
+}
+```
+
+In order to acquire an object for a given index, applications can call `objectAtIndexPath:`. This method can be used in your implementation of `cellForRow:atIndexPath:` in order to acquire the proper `LYRConversation` object that is to be displayed.
+
+```
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    LYRConversation *conversation = [self.queryController objectAtIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"<CELL_IDENTIFIER>"];
+    /**
+     Configure cell for conversation
+     */
+    return cell;
+}
+```
+
+#LYRQueryControllerDelegate
+The `LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. The `LYRQueryController` itself listens for changes that occur upon Layer model objects in response to synchrnonization by observing the `LYRClientObjectsDidChangeNotification` key. When changes occur which effect objects in the controllers results set, or new objects which fit the controller's query criteria are created, the controller will inform it's delegate. Application will then be able to update their UI in response to these changes. 
+
+The following represents the ideal implementation of the `LYRQueryControllerDelegate` methods for a `UITableViewController`. This implmentation with handle animating a UITableView in response to changes on Layer model objects.
+
+```
+- (void)queryControllerWillChangeContent:(LYRQueryController *)queryController
+{
+    [self.tableView beginUpdates];
+}
+
+
+- (void)queryController:(LYRQueryController *)controller
+        didChangeObject:(id)object
+            atIndexPath:(NSIndexPath *)indexPath
+          forChangeType:(LYRQueryControllerChangeType)type
+           newIndexPath:(NSIndexPath *)newIndexPath
+{
+    switch (type) {
+        case LYRQueryControllerChangeTypeInsert:
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case LYRQueryControllerChangeTypeUpdate:
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case LYRQueryControllerChangeTypeMove:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case LYRQueryControllerChangeTypeDelete:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)queryControllerDidChangeContent:(LYRQueryController *)queryController
+{
+    [self.tableView endUpdates];
+}
+```
