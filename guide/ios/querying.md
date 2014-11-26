@@ -50,7 +50,7 @@ query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascen
 
 ##Limits and Offsets
 
-To facilitate pagination, queries may be further constrained by applying a limit and offset value. The limit onfigures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
+To facilitate pagination, queries may be further constrained by applying limit and offset values. The limit onfigures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
 
 ```
 query.limit = 20;
