@@ -36,7 +36,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:L
 Properties that support querying are identified by the `LYR_QUERYABLE_PROPERTY` macro.
 
 ##Sorting Results
-Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the `sortDescriptors` property on `LYRQuery` objects. This value must be an instance of `NSSortDescriptor`.
+Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the `sortDescriptors` property on `LYRQuery` objects. This value must be an array of `NSSortDescriptor` instances.
 
 The following sort descriptor asks that results be returned in ascending order based on the `index` property of the `LYRMessage` objects.
 
