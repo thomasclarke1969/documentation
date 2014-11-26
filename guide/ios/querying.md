@@ -217,7 +217,7 @@ The following demonstrates constructing a `LYRQueryController` that can be used 
 
 ```
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-LYRQueryController * queryController = [self.client queryControllerWithQuery:query];
+LYRQueryController *queryController = [self.client queryControllerWithQuery:query];
 queryController.delegate = self;
 NSError *error = nil;
 BOOL success = [queryController execute:&error];
