@@ -104,7 +104,7 @@ For more sophisticated queries, applications can utilize the `LYRCompoundQuery` 
 
 The following demonstrates a compound predicate which will constrain the result set to objects that conform to the following criteria:
 
-1. The `conversation` property is equal to the supplied `LYRConversation` object
+1. The `conversation` property is equal to the supplied `LYRConversation` object.
 2. The `sentByUserID` property is equal to the supplied `<USER_ID>` value.
 
 ```
