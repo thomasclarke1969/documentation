@@ -160,7 +160,7 @@ NSUInteger unreadMessageCount = [self.client countForQuery:query error:nil];
 // Fetches all messages for a given conversation
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
 
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
