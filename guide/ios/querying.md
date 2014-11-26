@@ -290,7 +290,7 @@ The following represents the ideal implementation of the `LYRQueryControllerDele
         case LYRQueryControllerChangeTypeMove:
             [self.tableView deleteRowsAtIndexPaths:@[indexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath]
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case LYRQueryControllerChangeTypeDelete:
