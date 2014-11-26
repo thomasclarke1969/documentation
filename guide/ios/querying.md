@@ -11,7 +11,7 @@ query.offset = 0;
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu Messages in Conversation", messages.count);
+    NSLog(@"%tu messages in conversation", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
@@ -74,7 +74,7 @@ Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu Messages in Conversation", messages.count);
+    NSLog(@"%tu messages in conversation", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
@@ -86,7 +86,7 @@ Additionally, when querying for results with a `resultsType` of `LYRQueryResults
 NSError *error;
 NSUInteger *countOfMessages = [self.client countForQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu Messages in Conversation", countOfMessages);
+    NSLog(@"%tu messages in conversation", countOfMessages);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
@@ -117,7 +117,7 @@ LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 NSError *error;
 NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu Conversations", conversations.count);
+    NSLog(@"%tu conversations", conversations.count);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
@@ -132,7 +132,7 @@ LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu Messages", messages.count);
+    NSLog(@"%tu messages", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
@@ -165,7 +165,7 @@ query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" asce
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu Messages in Conversation", messages.count);
+    NSLog(@"%tu messages in conversation", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
@@ -182,7 +182,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:L
 NSError *error;
 NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu Conversations with Participants %@", conversations.count, participants);
+    NSLog(@"%tu conversations with participants %@", conversations.count, participants);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
@@ -200,7 +200,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"sentAt" operator:LYRPred
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu Messages in Conversation", messages.count);
+    NSLog(@"%tu messages in conversation", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
