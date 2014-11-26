@@ -1,4 +1,5 @@
 #Querying
+
 LayerKit provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with an `LYRQuery` object. To demonstrate a simple example, the following queries LayerKit for the latest 20 messages in the given conversation.
 
 ```
@@ -18,6 +19,7 @@ if (!error) {
 ```
 
 ##Constructing A Query
+
 An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol. Currently, `LYRConversation` and `LYRMessage` are the only classes which conform the protocol.
 
 ```
@@ -25,6 +27,7 @@ LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 ```
 
 ##Applying Constraints
+
 The `LYRPredicate` object allows applications to apply constraints to a query result set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
 
 The following `LYRPredicate` will constrain the query result set to `LYRMessage` objects whose `conversation` property is equal the supplied conversation object.
@@ -36,6 +39,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:L
 Properties that support querying are identified by the `LYR_QUERYABLE_PROPERTY` macro.
 
 ##Sorting Results
+
 Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the `sortDescriptors` property on `LYRQuery` objects. This value must be an array of `NSSortDescriptor` instances.
 
 The following sort descriptor asks that results be returned in ascending order based on the `index` property of the `LYRMessage` objects.
@@ -45,6 +49,7 @@ query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascen
 ```
 
 ##Limits and Offsets
+
 To facilitate pagination, queries may be further constrained by applying a limit and offset value. The limit onfigures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
 
 ```
@@ -53,6 +58,7 @@ query.offset = 0;
 ```
 
 ## Results Type
+
 Query results can be returned as fully realized object instances, object identifiers, or as an aggregate count of the total number of objects matching the query. Applications determine their desired return type by optionally setting a value for the `resultsType` property on the `LYRQuery` object. The default value is `LYRQueryResultsTypeObjects`.
 
 ```
@@ -68,6 +74,7 @@ query.resultsType = LYRQueryResultsTypeCount;
 
 
 ##Executing The Query
+
 Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method takes an `LYRQuery` object and a pointer to an `NSError` object. If successful, the method will return an `NSOrderedSet` of objects which represent the results of the query. If an error occurs, the supplied error pointer will be set to an error object describing why execution failed.
 
 ```
@@ -93,6 +100,7 @@ if (!error) {
 ```
 
 ##Compound Predicates
+
 For more sophisticated queries, applications can utilize the `LYRCompoundQuery` object to specify multiple constraints for a single query. Compound predicates consist of an array of `LYRPredicate` objects which represent individual constraints, in addition to a conjunction operator represented by an `LYRCompoundPredicateType`.
 
 The following demonstrates a compound predicate which will constrain the result set to objects that conform to the following criteria:
@@ -207,6 +215,7 @@ if (!error) {
 ```
 
 #LYRQueryController
+
 The `LYRQueryController` class can be used to efficiently manage the results from an `LYRQuery` and provide that data to be used in a `UITableView` or `UICollectionView`. The object is similar in concept to an `NSFetchedResultsController` and provides the following functionality:
 
 1. Executes the actual query and caches the result set.
@@ -252,6 +261,7 @@ In order to acquire an object for a given index, applications can call `objectAt
 ```
 
 #LYRQueryControllerDelegate
+
 `LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. `LYRQueryController` observes `LYRClientObjectsDidChangeNotification` to listen for changes to Layer model objects during synchronization. When changes occur which effect objects in the controller's result set, or new objects which fit the controller's query criteria are created, the controller will inform its delegate. The delegate will then be able to update its UI in response to these changes.
 
 The following represents the ideal implementation of the `LYRQueryControllerDelegate` methods for a `UITableViewController`. This implementation will handle animating a UITableView in response to changes on Layer model objects.
