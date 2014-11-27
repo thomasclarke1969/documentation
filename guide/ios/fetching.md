@@ -1,25 +1,62 @@
 #Fetching Data
+
+The [LYRQuery](/docs/api/ios#lyrquery) object exposes a simple API for fetching all messages or conversations given a particular criteria.
+
 ##Fetching Messages
 
-The [LYRClient](/docs/api/ios#lyrclient) object exposes a simple API for fetching all messages for a given conversation. This method will return an `NSOrderedSet of messages in descending order.
+To fetch all the message for a given conversation use:
 
 ```objectivec
-// Fetch all messages for a given conversation object
-NSOrderedSet *messages = [layerClient messagesForConversation:conversation];
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+
+NSError *error;
+NSOrderedSet *messages = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu messages in conversation", messages.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+Correspondingly, to fetch a specific message, that message’s identifier must be passed.
+
+```
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
+LYRMessage *message = [[self.layerClient executeQuery:query error:nil] lastObject];
 ```
 
 ##Fetching Conversations
 
-[LYRClient](/docs/api/ios#lyrclient) exposes a simple API for fetching conversations for an authenticated user. In order to fetch all conversations, call `conversationForIdentifiers:`, passing nil for identifiers.  
+To fetch all the conversations for the signed in user:
 
 ```objectivec
-// Returns an NSOrderedSet of all conversations for the signed in user
-NSSet *conversations = [layerClient conversationsForIdentifiers:nil];
+LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+
+NSError *error;
+NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu conversations", conversations.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
 ```
 
 Correspondingly, to fetch a specific conversation, that conversation’s identifier must be passed.
 
 ```objectivec
-// Returns an NSOrderedSet of all conversations for the given identifiers
-NSSet *conversations = [layerClient conversationsForIdentifiers:[NSSet setWithObject:@"CONVERSATION-IDENTIFER"]];
+LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
+LYRConversation *conversation = [[self.layerClient executeQuery:query error:nil] firstObject];
+```
+
+To fetch all the conversation for given participants
+```objectivec
+NSMutableSet *set = [NSMutableSet setWithObjects:@"USER-1", @"USER-2", nil];
+[set addObject:self.layerClient.authenticatedUserID];
+LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:set];
+return [[self.layerClient executeQuery:query error:nil] lastObject];
 ```

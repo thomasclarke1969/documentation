@@ -1,9 +1,9 @@
 # Sending Messages
-[LYRConversation](/docs/api/ios#lyrconversation) objects are created by calling the class method `conversationWithParticipants:`. The participants array is simply an array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a conversation is represented with that same user identifier.
+[LYRConversation](/docs/api/ios#lyrconversation) objects are created by calling `newConversationWithParticipants`on [LYRClient](/docs/api/ios#lyrclient). The participants array is simply an array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a conversation is represented with that same user identifier.
 
 ```objectivec
 // Creates and returns a new conversation object with a participant identifier
-LYRConversation *conversation = [LYRConversation conversationWithParticipants:@[@"USER-IDENTIFIER"]];
+LYRConversation *conversation = [layerClient newConversationWithParticipants:[NSSet setWithArray:@[@"USER-IDENTIFIER"]] options:nil error:nil];
 ```
 
 ```emphasis
@@ -17,12 +17,12 @@ Once a conversation has been created, participant lists remain mutable, meaning 
 ```objectivec
 // Adds a participant to an existing conversation
 // New participants will gain access to all previous messages in a conversation.
-[layerClient addParticipants:@[@"USER-IDENTIFIER"] toConversation:conversation error:nil];
+[conversation addParticipants:@[@"USER-IDENTIFIER"] error:nil];
 
 // Removes a participant from an existing conversation
 // Removed participants will only lose access to future content. They will retain access
 // to the conversation and all preceding content.
-[layerClient removeParticipants:@[@"USER-IDENTIFIER"] fromConversation:conversation error:nil];
+[conversation removeParticipants:@[@"USER-IDENTIFIER"] error:nil];
 ```
 
 The [LYRMessage](/docs/api/ios#lyrmessage) object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object.
@@ -57,24 +57,24 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:@"Hi, how are you?"];
 
 ## LYRMessage
 
-[LYRMessage](/docs/api/ios#lyrmessage) objects are initialized with an array of [LYRMessagePart](docs/api/ios#lyrmessagepart) objects and an [LYRConversation](/docs/api/ios#lyrconversation) object.  The object is created by calling `messageWithConversation:parts:` on [LYRMessage](/docs/api/ios#lyrmessage). This creates an [LYRMessage](/docs/api/ios#lyrmessage) object that is ready to be sent.
+[LYRMessage](/docs/api/ios#lyrmessage) objects are initialized with an array of [LYRMessagePart](docs/api/ios#lyrmessagepart) objects and an [LYRConversation](/docs/api/ios#lyrconversation) object.  The object is created by calling `newMessageWithParts` on [LYRClient](/docs/api/ios#lyrclient). This creates an [LYRMessage](/docs/api/ios#lyrmessage) object that is ready to be sent.
 
 ```objectivec
 // Creates and returns a new message object with the given conversation and array of message parts
-LYRMessage *message = [LYRMessage messageWithConversation:conversation parts:@[messagePart]];
+LYRMessage *message = [layerClient newMessageWithParts:@[messagePart] options:nil error:nil];
 ```
 
 The service declares 4 recipient states; Invalid, Sent, Delivered, and Read. The only state that we allow developers to set is Read. The system itself determines when to mark a message as Invalid, Sent or Delivered. Because of this, we also do not automatically mark messages as read for the sender. That is up to the developer to do so.
 
 ## Sending The Message
 
-Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:message` on `LYRClient`.
+Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:message` on `LYRConversation`.
 
 ```objectivec
 //Sends the specified message
-BOOL success = [layerClient sendMessage:message error:nil];
+BOOL success = [conversation sendMessage:message error:nil];
 if (success) {
-	NSLog(@"Message send successful");
+	NSLog(@"Message enqueued for delivery");
 } else {
 	NSLog(@"Message send failed");
 }

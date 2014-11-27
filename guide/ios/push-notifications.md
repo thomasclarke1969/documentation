@@ -91,6 +91,15 @@ You will then be asked to enter the admin password for your computer to complete
 
 ![image alt text](ios-push-upload11.jpg)
 
+##Creating/Refreshing a Provisioning Profile
+
+Navigate back to the Apple Developer Portal.  Select Provisioning Profiles.
+
+Click on the `+` button in the upper right corner to create a new provisioning profile.
+
+
+If you have already created a Provisioning Profile in the past you will need to refresh it once you've created your Push Certificate.
+
 ##Upload Your Certificate to Layer
 
 **Please note, Layer supports both production and development Apple Push Notifications. Only one certificate can be uploaded to the Layer developer portal at a time however, so please ensure that you have the correct certificate uploaded for your application at all times.**
@@ -116,6 +125,8 @@ Now that you have successfully uploaded your Apple Push Notification certificate
 Expand the section titled “Background Modes”.
 
 If the “Background Modes” on/off switch is toggled to “off”, make sure you toggle it to “ON”. Select the radio buttons next to “Background Fetch” and “Remote Notifications”. This will add the necessary background modes to your application’s Info.plist.
+
+![image alt text](ios-push-xcode-background.jpg)
 
 ##Register Your App to Receive Remote Notifications
 
@@ -152,7 +163,7 @@ Your AppDelegate will be notified when your application has successfully registe
 
 ##Triggering Alerts
 
-By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you can leverage the `Metadata` APIs on [LYRClient](/docs/api/ios#lyrclient) by setting a value for the `LYRMessagePushNotificationAlertMessageKey` key. This will tell the Layer Push Notification service to deliver a Text APN and trigger an alert for the user.
+By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you can leverage the `options` dictionary on [LYRMessage](/docs/api/ios#lyrmessage) by setting a value for the `LYRMessagePushNotificationAlertMessageKey` key. This will tell the Layer Push Notification service to deliver a Text APN and trigger an alert for the user.
 
 The following demonstrates setting the alert text to be the same as the text of the message being sent.
 
@@ -160,27 +171,49 @@ The following demonstrates setting the alert text to be the same as the text of 
 // Create a message with a string of text
 NSString *messageText = @"Hi how are you?"
 LYRMessagePart *part = [LYRMessagePart messagePartWithText:messageText];
-LYRMessage *message = [LYRMessage messageWithConversation:self.conversation parts:@[ part ]];
 
 // Configure the push notification text to be the same as the message text
-[self.layerClient setMetadata:@{LYRMessagePushNotificationAlertMessageKey: messageText} onObject:message];
+
+LYRMessage *message = [layerClient newMessageWithParts:@[part] options:@{LYRMessagePushNotificationAlertMessageKey: messageText} error:nil];
 
 NSError *error;
 [self.layerClient sendMessage:message error:&error];
 ```
 
-Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
+If options is `nil` then you will send a silent push notification. Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
 
 ```objective-c
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NS
 Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-	NSError *error;
-	BOOL success = [layerClient synchronizeWithRemoteNotification:userInfo completion:^(UIBackgroundFetchResult fetchResult, NSError *error) {
-		if (!error) {
-			NSLog (@"Layer Client finished background sycn");
-		}
-		completionHandler(fetchResult);
-	}];
+    NSError *error;
+    BOOL success = [viewController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(UIBackgroundFetchResult fetchResult, NSError *error) {
+        if (fetchResult == UIBackgroundFetchResultFailed) {
+            NSLog(@"Failed processing remote notification: %@", error);
+        }        
+        // Get the message from userInfo
+        message = [self messageFromRemoteNotification:userInfo];
+        NSString *alertString = [[NSString alloc] initWithData:[message.parts[0] data] encoding:NSUTF8StringEncoding]; 
+
+        // Show a local notification       
+        UILocalNotification *localNotification = [UILocalNotification new];
+        localNotification.alertBody = alertString;
+        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+        completionHandler(fetchResult);
+    }];
+    if (success) {
+        NSLog(@"Application did complete remote notification sync");
+    } else {
+        NSLog(@"Error handling push notification: %@", error);
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
+}
+- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
+{
+    // Fetch message object from LayerKit
+    NSURL *identifier = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.event_url"]];
+	LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+	query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
+	return [[self.layerClient executeQuery:query error:nil] lastObject];
 }
 ```
