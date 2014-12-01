@@ -1,6 +1,6 @@
 #LayerKit v0.9.0 Transition Guide
 
-## Breaking API changes
+## Breaking API Changes
 LayerKit v0.9.0 includes two breaking API changes. The initializer methods of both `LYRConversation` and `LYRMessage` objects have been moved from the model classes themselves onto the `LYRClient` object. 
 
 ```
@@ -14,41 +14,48 @@ LayerKit v0.9.0 includes two breaking API changes. The initializer methods of bo
 Both `LYRMessage` and `LYRConversation` objects are now initialized with an `options` dictionary. For conversation objects, this feature allows developers to attach `metadata` to the conversation. For messages, this feature allows developers to set `push notification options`. 
 
 ## New Model Object Methods
-Methods that allow applications to take action upon Layer model object (such as sending or deleting messages) have been moved from the `LYRClient` object onto the models themselves.  
+Methods that allow applications to take action upon Layer model objects (such as sending or deleting messages) have been moved from the `LYRClient` object onto the models themselves.  
 
-Methods removed from `LYRClient`to `LYRConversation` include the following:
+Methods moved from `LYRClient`to `LYRConversation`:
 
 ```
+// Sends a message to the conversation
 - (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error;
 
+// Adds a participant(s) to the conversation
 - (BOOL)addParticipants:(NSSet *)participants error:(NSError **)error;
 
+// Removes a participant(s) from a conversation
 - (BOOL)removeParticipants:(NSSet *)participants error:(NSError **)error;
 
+// Deletes the conversation
 - (BOOL)delete:(LYRDeletionMode)delete;
- 
+
+// Sends a typing indicator to the conversation
 - (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator;
 ```
 
-Methods removed from `LYRClient` to `LYRMessage` include the following.
+Methods moved from `LYRClient` to `LYRMessage`:
 
 ```
+// Deletes the message
 - (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error;
 
+// Marks the message as read
 - (BOOL)markAsRead:(NSError **)error; 
 ```
 
 ## Typing Indicators
 Typing indicators are a common UI element in messaging applications. LayerKit now provides platform support for implementing typing indicators across Android and iOS applications. 
 
-Applications can broadcast typing indicators by calling `sendTypingIndicator:` on an `LYRConversation` object. This method will broadcast a typing indicator event on behalf of the currently authenticated user. Each participant in the conversation will recieve a typing indicator notification.
+Applications can broadcast typing indicators by calling `sendTypingIndicator:` on a `LYRConversation` object. This method will broadcast a typing indicator on behalf of the currently authenticated user. Each participant in the conversation will recieve a typing indicator notification.
 
 ```
 // Sends a typing indicator event to a specific conversation
 [self.conversation sentTypingIndicator:LYRTypingDidBegin];
 ```
 
-Applications are notified to incoming typing indicator events via an `NSNotification`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` key to receive typing indicator notifications. 
+Applications are notified to incoming typing indicators via an `NSNotification`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` key to receive typing indicator notifications. 
 
 ```
 // Registers and object for typing indicator notifications.
@@ -93,18 +100,18 @@ NSString *title = [self.conversation.metadata valueForKey:@"title"];
 Prior to LayerKit v0.9.0, applications could set push notification options, such as the push text or push sound, by setting `metadata` values on `LYRMessage` objects. Going forward, applications should set push notification options via the `options` parameter in the `LYRMessage` object's designated initializer method. 
 
 ```
- NSDictionary *pushOptions = @{LYRMessagePushNotificationAlertMessageKey : @"Some Push Text",
-                                  LYRMessagePushNotificationSoundNameKey : @"default"};
- NSError *error;
- LYRMessage *message = [self.client newMessageWithParts:@[parts]
-                                                options:pushOptions
-                                                  error:&error];
+NSDictionary *pushOptions = @{LYRMessagePushNotificationAlertMessageKey : @"Some Push Text",
+                                 LYRMessagePushNotificationSoundNameKey : @"default"};
+NSError *error;
+LYRMessage *message = [self.client newMessageWithParts:@[parts]
+                                               options:pushOptions
+                                                 error:&error];
 ```
 
 ## Querying
-One of the major feature releases that accompanies our v0.9.0 release is that `LYRQuery` object. This object provides application developers with a flexible and expressive interface with which they can query LayerKit for messaging content. All `LYRClient` methods which previously allowed applications to fetch content from the LayerKit have been deprecated. Developers can now leverage the `LYRQuery` object in order to fetch the content their application needs.  
+One of the major feature releases that accompanies our v0.9.0 release is the introduction of the `LYRQuery` object. This object provides application developers with a flexible and expressive interface with which they can query LayerKit for messaging content. All `LYRClient` methods which previously allowed applications to fetch content from the SDK have been deprecated. Developers should now leverage the `LYRQuery` object in order to fetch only the specific content their application needs.  
 
-Below are the deprecated `LYRClient` methods with the corresponding query that can be used in its place. 
+Below are the deprecated `LYRClient` methods with the corresponding query that can be used in their place. 
 
 ####- (LYRConversation *)conversationsForIdentifiers:(NSSet *)identifiers;
 
@@ -213,4 +220,29 @@ if (!error) {
     NSLog(@"Query failed with error %@", error);
 }
 ```
+##LYRQueryController
+The `LYRQueryController` class can be used to efficiently manage the results from an `LYRQuery` and provide that data to be used in a `UITableView` or `UICollectionView`. The object is similar in concept to an `NSFetchedResultsController` and provides the following functionality:
 
+1. Executes the actual query and caches the result set.
+2. Monitors changes to objects in the result set and reports those changes to its delegate (see `LYRQueryControllerDelegate`).
+3. Listens for newly created objects that fit the query criteria and notifies its delegate on creation.
+
+The following demonstrates constructing a `LYRQueryController` that can be used to display a list of `LYRConversation` objects in a `UITableView`.
+
+```
+LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+LYRQueryController *queryController = [self.client queryControllerWithQuery:query];
+queryController.delegate = self;
+NSError *error;
+BOOL success = [queryController execute:&error];
+if (success) {
+    NSLog(@"Query fetched %tu conversation objects", [queryController numberOfObjectsInSection:0]);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+#LYRQueryControllerDelegate
+
+`LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. `LYRQueryController` observes `LYRClientObjectsDidChangeNotification` to listen for changes to Layer model objects during synchronization. When changes occur which effect objects in the controller's result set, or new objects which fit the controller's query criteria are created, the controller will inform its delegate. The delegate will then be able to update its UI in response to these changes.
+
+For more information on using the `LYRQueryControllerDelegate` with a `UITableViewController`, please see the `LYRQueryController` guide. 
