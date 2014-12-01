@@ -3,7 +3,7 @@
 ## Breaking API Changes
 LayerKit v0.9.0 includes two breaking API changes. The initializer methods of both `LYRConversation` and `LYRMessage` objects have been moved from the model classes themselves onto the `LYRClient` object. 
 
-```
+```objective-c
 // Instantiates a new LYRConversation object
 - (LYRConversation *)newConversationWithParticipants:(NSSet *)participants options:(NSDictionary *)options error:(NSError **)error;
 
@@ -18,7 +18,7 @@ Methods that allow applications to take action upon Layer model objects (such as
 
 Methods moved from `LYRClient`to `LYRConversation`:
 
-```
+```objective-c
 // Sends a message to the conversation
 - (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error;
 
@@ -37,7 +37,7 @@ Methods moved from `LYRClient`to `LYRConversation`:
 
 Methods moved from `LYRClient` to `LYRMessage`:
 
-```
+```objective-c
 // Deletes the message
 - (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error;
 
@@ -46,7 +46,7 @@ Methods moved from `LYRClient` to `LYRMessage`:
 ```
 
 In addition to the model API changes, a new method for marking all unread messages as read for a given conversation has been introduced to the `LYRConversation` class:
-```
+```objective-c
 // Marks all unread messages as read
 - (BOOL)markAllMessagesAsRead:(NSError **)error;
 ```
@@ -56,14 +56,14 @@ Typing indicators are a common UI element in messaging applications. LayerKit no
 
 Applications can broadcast typing indicators by calling `sendTypingIndicator:` on a `LYRConversation` object. This method will broadcast a typing indicator on behalf of the currently authenticated user. Each participant in the conversation will recieve a typing indicator notification.
 
-```
+```objective-c
 // Sends a typing indicator event to a specific conversation
 [self.conversation sentTypingIndicator:LYRTypingDidBegin];
 ```
 
 Applications are notified to incoming typing indicators via an `NSNotification`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` key to receive typing indicator notifications.
 
-```
+```objective-c
 // Registers and object for typing indicator notifications.
 [[NSNotificationCenter defaultCenter] addObserver:self
                                          selector:@selector(didReceiveTypingIndicator:)
@@ -81,7 +81,7 @@ Metadata is a new feature which provides an elegant mechanism for expressing and
 3. Attaching dates or tags to the Conversation.
 4. Storing a reference to a background image URL for the Conversation.
 
-```
+```objective-c
 NSDictionary *metadata = @{@"title" : @"My Conversation",
                            @"participants" : @{
                                    @"0000001" : @"Greg Thompson",
@@ -94,20 +94,20 @@ NSDictionary *metadata = @{@"title" : @"My Conversation",
 
 For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (.) delimited string that identifies a series of nested keys leading to a leaf value. For example, given the above metadata structure, an application could change the name of a participant via the following: 
 
-```
+```objective-c
 [self.converation setValue:@"Tom Douglas" forMetadataAtKeyPath:@"participants.0000003"];
 ```
 
 Applications can fetch metadata for a given conversation by accessing the public `metadata` property on `LYRConversation` objects. 
 
-```
+```objective-c
 NSString *title = [self.conversation.metadata valueForKey:@"title"];
 ```
 
 ## Push Notification Options
 Prior to LayerKit v0.9.0, applications could set push notification options, such as the push text or push sound, by setting `metadata` values on `LYRMessage` objects. Going forward, applications should set push notification options via the `options` parameter in the `LYRMessage` object's designated initializer method. 
 
-```
+```objective-c
 NSDictionary *pushOptions = @{LYRMessagePushNotificationAlertMessageKey : @"Some Push Text",
                                  LYRMessagePushNotificationSoundNameKey : @"default"};
 NSError *error;
@@ -123,7 +123,7 @@ Below are the deprecated `LYRClient` methods with the corresponding query that c
 
 ####- (LYRConversation *)conversationsForIdentifiers:(NSSet *)identifiers;
 
-```
+```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsIn value:identifiers];
 
@@ -138,7 +138,7 @@ if (!error) {
 
 ####- (NSSet *)messagesForIdentifiers:(NSSet *)messageIdentifiers;
 
-```
+```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsIn value:identifiers];
 
@@ -153,7 +153,7 @@ if (!error) {
 
 ####- (LYRConversation *)conversationForIdentifier:(NSURL *)identifier;
 
-```
+```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
 
@@ -167,7 +167,8 @@ if (!error) {
 ```
 
 ####- (NSSet *)conversationsForParticipants:(NSSet *)participants;
-```
+
+```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:participants];
 
@@ -182,7 +183,7 @@ if (!error) {
 
 ####- (NSOrderedSet *)messagesForConversation:(LYRConversation *)conversation 
 
-```
+```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
 query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
@@ -197,7 +198,7 @@ if (!error) {
 
 ####- (NSUInteger)countOfConversationsWithUnreadMessages
 
-```
+```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 query.predic
 ate = [LYRPredicate predicateWithProperty:@"hasUnreadMessages" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
@@ -213,7 +214,7 @@ if (!error) {
 
 #####- (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation
 
-```
+```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 LYRPredicate *conversationPredicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
 LYRPredicate *unreadPredicate = [LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
@@ -228,6 +229,7 @@ if (!error) {
     NSLog(@"Query failed with error %@", error);
 }
 ```
+
 ##LYRQueryController
 The `LYRQueryController` class can be used to efficiently manage the results from an `LYRQuery` and provide that data to be used in a `UITableView` or `UICollectionView`. The object is similar in concept to an `NSFetchedResultsController` and provides the following functionality:
 
@@ -237,7 +239,7 @@ The `LYRQueryController` class can be used to efficiently manage the results fro
 
 The following demonstrates constructing a `LYRQueryController` that can be used to display a list of `LYRConversation` objects in a `UITableView`.
 
-```
+```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 LYRQueryController *queryController = [self.client queryControllerWithQuery:query];
 queryController.delegate = self;
