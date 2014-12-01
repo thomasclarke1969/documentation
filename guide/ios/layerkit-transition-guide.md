@@ -61,7 +61,7 @@ Applications can broadcast typing indicators by calling `sendTypingIndicator:` o
 [self.conversation sentTypingIndicator:LYRTypingDidBegin];
 ```
 
-Applications are notified to incoming typing indicators via an `NSNotification`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` key to receive typing indicator notifications. 
+Applications are notified to incoming typing indicators via an `NSNotification`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` key to receive typing indicator notifications.
 
 ```
 // Registers and object for typing indicator notifications.
@@ -70,6 +70,8 @@ Applications are notified to incoming typing indicators via an `NSNotification`.
                                              name:LYRConversationDidReceiveTypingIndicatorNotification 
                                            object:nil];
 ```
+
+Passing a `nil` value to the `object:` argument of the `addObserver:selector:name:object` method will make the observer listen for typing indicators of **all the conversations**. To receive typing indicators for a specific conversation, a `LYRConversation` instance should be passed as an `object:` argument.
 
 ##Metadata
 Metadata is a new feature which provides an elegant mechanism for expressing and synchronizing contextual information about Conversations. This is implemented as a free-form structure of string key-value pairs that is automatically synchronized among the participants in a conversation. A few use cases for metadata may include:
