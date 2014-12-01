@@ -1,7 +1,7 @@
 #LayerKit v0.9.0 Transition Guide
 
 ## Breaking API changes
-LayerKit v0.9.0 includes two breaking API changes. The initializer methods of both `LYRConversation` and `LYRMessage` objects have been moved from the model classes themselves onto the actual `LYRClient` object. 
+LayerKit v0.9.0 includes two breaking API changes. The initializer methods of both `LYRConversation` and `LYRMessage` objects have been moved from the model classes themselves onto the `LYRClient` object. 
 
 ```
 // Instantiates a new LYRConversation object
@@ -13,10 +13,10 @@ LayerKit v0.9.0 includes two breaking API changes. The initializer methods of bo
 
 Both `LYRMessage` and `LYRConversation` objects are now initialized with an `options` dictionary. For conversation objects, this feature allows developers to attach `metadata` to the conversation. For messages, this feature allows developers to set `push notification options`. 
 
-## Model Object Methods
-Methods that allow applications to take action upon Layer model object (such as sending or deleting) have been moved onto the models themselves.  
+## New Model Object Methods
+Methods that allow applications to take action upon Layer model object (such as sending or deleting messages) have been moved from the `LYRClient` object onto the models themselves.  
 
-Methods removed from the `LYRClient` object to the `LYRConversation` object include the following.
+Methods removed from `LYRClient`to `LYRConversation` include the following:
 
 ```
 - (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error;
@@ -30,7 +30,7 @@ Methods removed from the `LYRClient` object to the `LYRConversation` object incl
 - (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator;
 ```
 
-Methods removed from the `LYRClient` object to the `LYRMessage` object include the following.
+Methods removed from `LYRClient` to `LYRMessage` include the following.
 
 ```
 - (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error;
@@ -39,16 +39,16 @@ Methods removed from the `LYRClient` object to the `LYRMessage` object include t
 ```
 
 ## Typing Indicators
-Typing indicators are a common UI element in messaging applications. They notify the user that another user (or users) in a conversation is currently typing. LayerKit now provides platform support for implementing typing indicators. 
+Typing indicators are a common UI element in messaging applications. LayerKit now provides platform support for implementing typing indicators across Android and iOS applications. 
 
-Applications can broadcast typing indicators by calling `sendTypingIndicator:` on `LYRConversation`. This method will broadcast a typing indicator event on behalf of the currently authenticated user. 
+Applications can broadcast typing indicators by calling `sendTypingIndicator:` on an `LYRConversation` object. This method will broadcast a typing indicator event on behalf of the currently authenticated user. Each participant in the conversation will recieve a typing indicator notification.
 
 ```
 // Sends a typing indicator event to a specific conversation
 [self.conversation sentTypingIndicator:LYRTypingDidBegin];
 ```
 
-Applications are notified to incoming typing indicator events via `NSNotification`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` key. 
+Applications are notified to incoming typing indicator events via an `NSNotification`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` key to receive typing indicator notifications. 
 
 ```
 // Registers and object for typing indicator notifications.
@@ -77,7 +77,7 @@ NSDictionary *metadata = @{@"title" : @"My Conversation",
 [self.conversation setValuesForKeysWithDictionary:metadata];
 ```
 
-For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (.) delimited string that identifies a series of nested keys leading to a leaf value. For example, given the above metadata structure, an application could change the name of a participant via the following 
+For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (.) delimited string that identifies a series of nested keys leading to a leaf value. For example, given the above metadata structure, an application could change the name of a participant via the following: 
 
 ```
 [self.converation setValue:@"Tom Douglas" forMetadataAtKeyPath:@"participants.0000003"];
@@ -90,7 +90,7 @@ NSString *title = [self.conversation.metadata valueForKey:@"title"];
 ```
 
 ## Push Notification Options
-Prior to LayerKit v0.9.0, applications would set push notification options, such as the push text or push sound, by setting metadata values on `LYRMessage` objects. Going forward, applicaitons should set push notification options via the `options` paramater in the `LYRMessage` object' designated initializer method. 
+Prior to LayerKit v0.9.0, applications could set push notification options, such as the push text or push sound, by setting `metadata` values on `LYRMessage` objects. Going forward, applications should set push notification options via the `options` parameter in the `LYRMessage` object's designated initializer method. 
 
 ```
  NSDictionary *pushOptions = @{LYRMessagePushNotificationAlertMessageKey : @"Some Push Text",
@@ -102,7 +102,9 @@ Prior to LayerKit v0.9.0, applications would set push notification options, such
 ```
 
 ## Querying
-One of the major feature releases that accompanies our v0.9.0 release is that `LYRQuery` object. This object provides application developers with a flexible and expressive interface with which they can query the LayerSDK for messaging content. All methods which fetched content from the Layer SDK have been deprecated as developers can now leverage the query object in order to acquire content from layer. Below are the deprecated methods with the corresponding query that can be used in it's place. 
+One of the major feature releases that accompanies our v0.9.0 release is that `LYRQuery` object. This object provides application developers with a flexible and expressive interface with which they can query LayerKit for messaging content. All `LYRClient` methods which previously allowed applications to fetch content from the LayerKit have been deprecated. Developers can now leverage the `LYRQuery` object in order to fetch the content their application needs.  
+
+Below are the deprecated `LYRClient` methods with the corresponding query that can be used in its place. 
 
 ####- (LYRConversation *)conversationsForIdentifiers:(NSSet *)identifiers;
 
