@@ -30,7 +30,7 @@ LYRMessage *message = [[self.layerClient executeQuery:query error:nil] lastObjec
 
 ##Fetching Conversations
 
-To fetch all the conversations for the signed in user:
+To fetch all the conversations for the currently authenticated user:
 
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
