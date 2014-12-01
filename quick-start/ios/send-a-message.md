@@ -3,7 +3,7 @@ Insert the following code somewhere in your application's logic to send a messag
 
 ```objectivec
 
-// Creates and returns a new conversation object with the signed in user and a single participant represented by
+// Creates and returns a new conversation object with the currently authenticated user and a single participant represented by
 // your backend's user identifier for the participant
 LYRConversation *conversation = [layerClient newConversationWithParticipants:[NSSet setWithArray:@[@"USER-IDENTIFIER"]] options:nil error:nil];
 
