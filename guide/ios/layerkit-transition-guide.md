@@ -11,7 +11,7 @@ LayerKit v0.9.0 includes two breaking API changes. The initializer methods of bo
 - (LYRMessage *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error;
 ```
 
-Both `LYRMessage` and `LYRConversation` objects are now initialized with an `options` dictionary. For conversation objects, this feature allows developers to attach `metadata` to the conversation. For messages, this feature allows developers to set `push notification options`. 
+Both `LYRMessage` and `LYRConversation` objects are now initialized with an `options` dictionary. For conversation objects, this feature allows developers to attach `metadata` to the conversation. For messages, this feature allows developers to set [push notification options](#push-notification-options). 
 
 ## New Model Object Methods
 Methods that allow applications to take action upon Layer model objects (such as sending or deleting messages) have been moved from the `LYRClient` object onto the models themselves.  
