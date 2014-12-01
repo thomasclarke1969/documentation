@@ -42,7 +42,13 @@ Methods moved from `LYRClient` to `LYRMessage`:
 - (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error;
 
 // Marks the message as read
-- (BOOL)markAsRead:(NSError **)error; 
+- (BOOL)markAsRead:(NSError **)error;
+```
+
+In addition to the model API changes, a new method for marking all unread messages as read for a given conversation has been introduced to the `LYRConversation` class:
+```
+// Marks all unread messages as read
+- (BOOL)markAllMessagesAsRead:(NSError **)error;
 ```
 
 ## Typing Indicators
