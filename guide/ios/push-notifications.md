@@ -97,6 +97,17 @@ Navigate back to the Apple Developer Portal.  Select Provisioning Profiles.
 
 Click on the `+` button in the upper right corner to create a new provisioning profile.
 
+Select "iOS App Development" as your profile if you are still in development.  If you are ready to submit you will need to select "Ad Hoc" or "App Store".
+
+Select the App ID for your application.
+
+Add the appropriate test devices to the profile.
+
+Name the provisioning profile.  We just using a descriptive name such as "<app name> <profile type>".
+
+Generate the profile, and download it to your local machine.
+
+Double click on the downloaded profile to install it.
 
 If you have already created a Provisioning Profile in the past you will need to refresh it once you've created your Push Certificate.
 
@@ -163,7 +174,7 @@ Your AppDelegate will be notified when your application has successfully registe
 
 ##Triggering Alerts
 
-By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you can leverage the `options` dictionary on [LYRMessage](/docs/api/ios#lyrmessage) by setting a value for the `LYRMessagePushNotificationAlertMessageKey` key. This will tell the Layer Push Notification service to deliver a Text APN and trigger an alert for the user.
+By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you set the `options` dictionary when initializing the [LYRMessage](/docs/api/ios#lyrmessage) object.  In the `options` dictionary you will need to set push text as the value for the `LYRMessagePushNotificationAlertMessageKey` key. This will tell the Layer Push Notification service to deliver a Text APN and trigger an alert for the user.
 
 The following demonstrates setting the alert text to be the same as the text of the message being sent.
 
@@ -180,7 +191,7 @@ NSError *error;
 [self.layerClient sendMessage:message error:&error];
 ```
 
-If options is `nil` then you will send a silent push notification. Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
+If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification. Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
 
 ```objective-c
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NS
