@@ -1,0 +1,1086 @@
+{
+  "classes" : [
+    {
+      "declared" : "LYRClient.h",
+      "properties" : [
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, copy, readonly) NSUUID *appID",
+          "comment" : "The app key.",
+          "name" : "appID"
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly) NSString *authenticatedUserID",
+          "comment" : "Returns a string object specifying the user ID of the currently authenticated user or nil if the client is not authenticated.",
+          "name" : "authenticatedUserID",
+          "discussion" : "A client is considered authenticated if it has previously established identity via the submission of an identity token\nand the token has not yet expired. The Layer server may at any time issue an authentication challenge and deauthenticate the client."
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, weak) id<LYRClientDelegate> delegate",
+          "comment" : "The object that acts as the delegate of the receiving client.",
+          "name" : "delegate"
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly) BOOL isConnected",
+          "comment" : "Returns a Boolean value that indicates if the client is connected to Layer.",
+          "name" : "isConnected"
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly) BOOL isConnecting",
+          "comment" : "Returns a Boolean value that indicates if the client is in the process of connecting to Layer.",
+          "name" : "isConnecting"
+        }
+      ],
+      "comment" : "The LYRClient class and related classes provide an API for rich messaging via the Layer platform. This API supports the exchange of multi-part Messages within multi-user Conversations and advanced features such\nas mutation of the participants, deletion of messages or the entire conversation, and the attachment of free-form user defined metadata. The API is sychronization based, fully supporting offline usage and providing full access\nto the history of messages across devices.",
+      "name" : "LYRClient",
+      "inherits" : "NSObject",
+      "methods" : {
+        "class" : [
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "+ (instancetype)clientWithAppID:(NSUUID *)appID",
+            "comment" : "Creates and returns a new Layer client instance.",
+            "name" : "clientWithAppID:"
+          }
+        ],
+        "instance" : [
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)addParticipants:(NSSet *)participants toConversation:(LYRConversation *)conversation error:(NSError **)error",
+            "comment" : "Adds participants to a given conversation.",
+            "name" : "addParticipants:toConversation:error:",
+            "return" : "A Boolean value indicating if the operation of adding participants was successful.",
+            "parameters" : [
+              {
+                "name" : "participants",
+                "description" : "A set of providerUserID in a form of NSString objects."
+              },
+              {
+                "name" : "conversation",
+                "description" : "The conversation which to add the participants. Cannot be nil."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be added to the conversation."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "identityToken",
+                "description" : "A string object encoding a JSON Web Signature that asserts a set of claims about the identity of the client. Must be obtained from a remote identity\nprovider and include a nonce value that was previously obtained by a call to requestAuthenticationNonceWithCompletion: or via a server initiated authentication challenge."
+              },
+              {
+                "name" : "completion",
+                "description" : "A block to be called upon completion of the asynchronous request for authentication. The block takes two parameters: a string encoding the remote user ID that\nwas authenticated (or nil if authentication was unsuccessful) and an error object that upon failure describes the nature of the failure."
+              }
+            ],
+            "discussion" : "Authenticating a Layer client requires the submission of an Identity Token from a remote backend application that has been designated to act as an\nIdentity Provider on behalf of your application. The Identity Token is a JSON Web Signature (JWS) string that encodes a cryptographically signed set of claims\nabout the identity of a Layer client. An Identity Token must be obtained from your provider via an application defined mechanism (most commonly a JSON over HTTP\nrequest). Once an Identity Token has been obtained, it must be submitted to Layer via this method in ordr to authenticate the client and begin utilizing communication\nservices. Upon successful authentication, the client remains in an authenticated state until explicitly deauthenticated by a call to deauthenticateWithCompletion: or\nvia a server-issued authentication challenge.",
+            "declared" : "LYRClient.h",
+            "see" : [
+              "{@link http:\/\/tools.ietf.org\/html\/draft-ietf-jose-json-web-signature-25}"
+            ],
+            "comment" : "Authenticates the client by submitting an Identity Token to Layer for evaluation.",
+            "name" : "authenticateWithIdentityToken:completion:",
+            "declaration" : "- (void)authenticateWithIdentityToken:(NSString *)identityToken completion:(void ( ^ ) ( NSString *authenticatedUserID , NSError *error ))completion"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)connectWithCompletion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
+            "comment" : "Signals the receiver to establish a network connection and initiate synchronization.",
+            "name" : "connectWithCompletion:",
+            "discussion" : "If the client has previously established an authenticated identity then the session is resumed and synchronization is activated.",
+            "parameters" : [
+              {
+                "name" : "completion",
+                "description" : "An optional block to be executed once connection state is determined. The block has no return value and accepts two arguments: a Boolean value indicating if the connection was made\nsuccessfully and an error object that, upon failure, indicates the reason that connection was unsuccessful."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "identifier",
+                "description" : "The identifier for an existing conversation."
+              }
+            ],
+            "return" : "The conversation with the given identifier or nil if none could be found.",
+            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and nil will be returned.",
+            "declared" : "LYRClient.h",
+            "comment" : "Returns an existing conversation with a given identifier or nil if none could be found.",
+            "name" : "conversationForIdentifier:",
+            "declaration" : "- (LYRConversation *)conversationForIdentifier:(NSURL *)identifier"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (NSSet *)conversationsForIdentifiers:(NSSet *)conversationIdentifiers",
+            "comment" : "Retrieves a collection of conversation objects from the persistent store for the given list of conversation identifiers.",
+            "name" : "conversationsForIdentifiers:",
+            "return" : "A set of conversations objects for the given array of identifiers.",
+            "parameters" : [
+              {
+                "name" : "conversationIdentifiers",
+                "description" : "The set of conversation identifiers for which to retrieve the corresponding set of conversation objects. Passing nil\nwill return all conversations."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "participants",
+                "description" : "A set of participants for which to query for a corresponding Conversation. Each element in the array is a string that corresponds to the user ID of the desired participant."
+              }
+            ],
+            "return" : "A set of conversations with the given set of participants or nil if none could be found.",
+            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and nil will be returned.",
+            "declared" : "LYRClient.h",
+            "comment" : "Returns existing conversations with the given set of participants or nil if none could be found.",
+            "name" : "conversationsForParticipants:",
+            "declaration" : "- (NSSet *)conversationsForParticipants:(NSSet *)participants"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (NSUInteger)countOfConversationsWithUnreadMessages",
+            "comment" : "Returns the number of conversations that have one or more unread messages.",
+            "name" : "countOfConversationsWithUnreadMessages",
+            "return" : "The number of conversations with unread messages."
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation",
+            "comment" : "Returns the number of unread messages in the given conversation.",
+            "name" : "countOfUnreadMessagesInConversation:",
+            "discussion" : "A count of unread messages across all conversations can be obtained by passing nil.",
+            "parameters" : [
+              {
+                "name" : "conversation",
+                "description" : "The conversation to count the unread messages for or nil to count across all conversations."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)deauthenticateWithCompletion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
+            "comment" : "Deauthenticates the client, disposing of any previously established user identity and disallowing access to the Layer communication services until a new identity is established. All existing messaging data is purged from the database.",
+            "name" : "deauthenticateWithCompletion:"
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "conversation",
+                "description" : "The conversation to be deleted."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              }
+            ],
+            "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "discussion" : "This method deletes a conversation and all associated messages for all current participants.> %warning% > **Warning:** This method has been deprecated and will be removed in a future version. Use deleteConversation:mode:error: instead.",
+            "declared" : "LYRClient.h",
+            "comment" : "Deletes a conversation.",
+            "name" : "deleteConversation:error:",
+            "declaration" : "- (BOOL)deleteConversation:(LYRConversation *)conversation error:(NSError **)error"
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "conversation",
+                "description" : "The conversation to be deleted."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              },
+              {
+                "name" : "mode",
+                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
+              }
+            ],
+            "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "discussion" : "This method deletes a conversation and all associated messages for all current participants.",
+            "declared" : "LYRClient.h",
+            "comment" : "Deletes a conversation in the specified mode.",
+            "name" : "deleteConversation:mode:error:",
+            "declaration" : "- (BOOL)deleteConversation:(LYRConversation *)conversation mode:(LYRDeletionMode)deletionMode error:(NSError **)error"
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "message",
+                "description" : "The message to be deleted."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              }
+            ],
+            "return" : "A Boolean value indicating if the request to delete the message was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "discussion" : "> %warning% > **Warning:** This method has been deprecated and will be removed in a future version. Use deleteMessage:mode:error: instead.",
+            "declared" : "LYRClient.h",
+            "comment" : "Deletes a message.",
+            "name" : "deleteMessage:error:",
+            "declaration" : "- (BOOL)deleteMessage:(LYRMessage *)message error:(NSError **)error"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)deleteMessage:(LYRMessage *)message mode:(LYRDeletionMode)deletionMode error:(NSError **)error",
+            "comment" : "Deletes a message in the specified mode.",
+            "name" : "deleteMessage:mode:error:",
+            "return" : "A Boolean value indicating if the request to delete the message was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "parameters" : [
+              {
+                "name" : "message",
+                "description" : "The message to be deleted."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              },
+              {
+                "name" : "mode",
+                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)disconnect",
+            "comment" : "Signals the receiver to end the established network connection.",
+            "name" : "disconnect"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)markMessageAsRead:(LYRMessage *)message error:(NSError **)error",
+            "comment" : "Marks a message as being read by the current user.",
+            "name" : "markMessageAsRead:error:",
+            "return" : "YES if the message was marked as read or NO if the message was already marked as read.",
+            "parameters" : [
+              {
+                "name" : "message",
+                "description" : "The message to be marked as read."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "conversation",
+                "description" : "The conversation to retrieve the set of messages for."
+              }
+            ],
+            "return" : "An set of messages for the given conversation.",
+            "discussion" : "Messages are returned in chronological order in the Conversation.",
+            "declared" : "LYRClient.h",
+            "comment" : "Returns the collection of messages in a given conversation.",
+            "name" : "messagesForConversation:",
+            "declaration" : "- (NSOrderedSet *)messagesForConversation:(LYRConversation *)conversation"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (NSSet *)messagesForIdentifiers:(NSSet *)messageIdentifiers",
+            "comment" : "Retrieves a collection of message objects from the persistent store for the given list of message identifiers.",
+            "name" : "messagesForIdentifiers:",
+            "return" : "An set of message objects for the given array of identifiers.",
+            "parameters" : [
+              {
+                "name" : "messageIdentifiers",
+                "description" : "The set of message identifiers for which to retrieve the corresponding set of message objects. Passing nil\nwill return all messages."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "participants",
+                "description" : "A set of participants with which to initialize the new Conversation."
+              },
+              {
+                "name" : "options",
+                "description" : "A dictionary of options to apply to the conversation."
+              }
+            ],
+            "return" : "The newly created Conversation.",
+            "discussion" : "This method will create a new {@link LYRConversation} instance, creating new message instances with a new {@link LYRConversation} object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using conversationsForParticipants: first.",
+            "declared" : "LYRClient.h",
+            "comment" : "Creates a new Conversation with the given set of participants.",
+            "name" : "newConversationWithParticipants:options:error:",
+            "declaration" : "- (LYRConversation *)newConversationWithParticipants:(NSSet *)participants options:(NSDictionary *)options error:(NSError **)error"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (LYRMessage *)newMessageWithConversation:(LYRConversation *)conversation parts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error",
+            "comment" : "Creates and returns a new message with the given conversation and set of message parts.",
+            "name" : "newMessageWithConversation:parts:options:error:",
+            "return" : "A new message that is ready to be sent.\n@raises NSInvalidArgumentException Raised if conversation is nil or messageParts is empty.",
+            "parameters" : [
+              {
+                "name" : "conversation",
+                "description" : "The conversation that the message is a part of. Cannot be nil."
+              },
+              {
+                "name" : "messageParts",
+                "description" : "An array of {@link LYRMessagePart} objects specifying the content of the message. Cannot be nil or empty."
+              },
+              {
+                "name" : "options",
+                "description" : "A dictionary of options to apply to the message."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)removeParticipants:(NSSet *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error",
+            "comment" : "Removes participants from a given conversation.",
+            "name" : "removeParticipants:fromConversation:error:",
+            "return" : "A Boolean value indicating if the operation of removing participants was successful.",
+            "parameters" : [
+              {
+                "name" : "participants",
+                "description" : "A set of providerUserID in a form of NSString objects."
+              },
+              {
+                "name" : "conversation",
+                "description" : "The conversation from which to remove the participants. Cannot be nil."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be removed from the conversation."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)requestAuthenticationNonceWithCompletion:(void ( ^ ) ( NSString *nonce , NSError *error ))completion",
+            "comment" : "Requests an authentication nonce from Layer.",
+            "name" : "requestAuthenticationNonceWithCompletion:",
+            "discussion" : "Authenticating a Layer client requires that an Identity Token be obtained from a remote backend application that has been designated to act as an\nIdentity Provider on behalf of your application. When requesting an Identity Token from a provider, you are required to provide a nonce value that will be included\nin the cryptographically signed data that comprises the Identity Token. This method asynchronously requests such a nonce value from Layer.> %warning% > **Warning:** Nonce values can be issued by Layer at any time in the form of an authentication challenge. You must be prepared to handle server issued nonces as well as those\nexplicitly requested by a call to requestAuthenticationNonceWithCompletion:.",
+            "parameters" : [
+              {
+                "name" : "completion",
+                "description" : "A block to be called upon completion of the asynchronous request for a nonce. The block takes two parameters: the nonce value that was obtained (or nil\nin the case of failure) and an error object that upon failure describes the nature of the failure."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "message",
+                "description" : "The message to be sent. Cannot be nil."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent."
+              }
+            ],
+            "return" : "A Boolean value indicating if the message passed validation and was enqueued for delivery.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "discussion" : "The message is enqueued for delivery during the next synchronization after basic local validation of the message state is performed. Validation\nthat may be performed includes checking that the maximum number of participants has not been execeeded and that parts of the message do not have an aggregate\nsize in excess of the maximum for a message.",
+            "declared" : "LYRClient.h",
+            "comment" : "Sends the specified message.",
+            "name" : "sendMessage:error:",
+            "declaration" : "- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(LYRConversation *)conversation",
+            "comment" : "Sends a typing indicator to the specified conversation.",
+            "name" : "sendTypingIndicator:toConversation:",
+            "parameters" : [
+              {
+                "name" : "typingIndicator",
+                "description" : "An {@link LYRTypingIndicator} value indicating the change in typing state to be sent."
+              },
+              {
+                "name" : "conversation",
+                "description" : "The conversation that the typing indicator should be sent to."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)setMetadata:(NSDictionary *)metadata onObject:(id)object",
+            "comment" : "DEPRECATED: Sets the metadata on a Conversation or Message object.",
+            "name" : "setMetadata:onObject:",
+            "discussion" : "This method has been replaced with two distinct implementations. For messages, the options dictionary can be used to configure the\nPush Notification text and sound. For conversations, use the metadata instance methods on the {@link LYRConversation} class."
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "userInfo",
+                "description" : "The user info dictionary received from the UIApplicaton delegate method application:didReceiveRemoteNotification:fetchCompletionHandler:'s userInfo parameter."
+              },
+              {
+                "name" : "completion",
+                "description" : "The block that will be called once Layer has successfully downloaded new data associated with the userInfo dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with the given fetchResult. Note that this block is only called if the method returns YES."
+              }
+            ],
+            "return" : "A Boolean value that determines whether the push was handled. Will be NO if this was not a push notification meant for Layer and the completion block will not be called.",
+            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and NO will be returned. The completion is only invoked if the return value is YES.",
+            "declared" : "LYRClient.h",
+            "comment" : "Inspects an incoming push notification and synchronizes the client if it was sent by Layer.",
+            "name" : "synchronizeWithRemoteNotification:completion:",
+            "declaration" : "- (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void ( ^ ) ( UIBackgroundFetchResult fetchResult , NSError *error ))completion"
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "deviceToken",
+                "description" : "An NSData object containing the device token."
+              },
+              {
+                "name" : "error",
+                "description" : "A reference to an NSError object that will contain error information in case the action was not successful."
+              }
+            ],
+            "return" : "A Boolean value that determines whether the action was successful.",
+            "discussion" : "The device token is expected to be an NSData object returned by the method application:didRegisterForRemoteNotificationsWithDeviceToken:. The device token is cached locally and is sent to Layer cloud automatically when the connection is established.",
+            "declared" : "LYRClient.h",
+            "comment" : "Tells the receiver to update the device token used to deliver Push Notificaitons to the current device via the Apple Push Notification Service.",
+            "name" : "updateRemoteNotificationDeviceToken:error:",
+            "declaration" : "- (BOOL)updateRemoteNotificationDeviceToken:(NSData *)deviceToken error:(NSError **)error"
+          }
+        ]
+      }
+    },
+    {
+      "declared" : "LYRConversation.h",
+      "properties" : [
+        {
+          "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) NSDate *createdAt",
+          "comment" : "The date and time that the conversation was created.",
+          "name" : "createdAt",
+          "discussion" : "This value specifies the time that receiver was locally created and will vary across devices."
+        },
+        {
+          "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) NSURL *identifier",
+          "comment" : "A unique identifier assigned to every conversation by Layer.",
+          "name" : "identifier"
+        },
+        {
+          "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) BOOL isDeleted",
+          "comment" : "Returns a Boolean value that indicates if the receiver has been deleted.",
+          "name" : "isDeleted"
+        },
+        {
+          "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) LYRMessage *lastMessage",
+          "comment" : "Returns the last Message recevied or sent in this Conversation.",
+          "name" : "lastMessage",
+          "discussion" : "May be nil, if no messages exist in the conversation."
+        },
+        {
+          "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) NSDictionary *metadata",
+          "comment" : "Returns the metadata associated with the conversation.",
+          "name" : "metadata",
+          "discussion" : "Metadata is a free form dictionary of string key-value pairs that allows arbitrary developer supplied information to be associated with the conversation and synchronized among the participants."
+        },
+        {
+          "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) NSSet *participants",
+          "comment" : "The set of user identifiers's specifying who is participating in the conversation modeled by the receiver.",
+          "name" : "participants",
+          "discussion" : "Layer conversations are addressed using the user identifiers of the host application. These user ID's are transmitted to\nLayer as part of the Identity Token during authentication. User ID's are commonly modeled as the primary key, email address, or username\nof a given user withinin the backend application acting as the identity provider for the Layer-enabled mobile application."
+        }
+      ],
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (void)deleteValueForMetadataAtKeyPath:(NSString *)keyPath",
+            "comment" : "Deletes a specific value by key path from the metadata dictionary.",
+            "name" : "deleteValueForMetadataAtKeyPath:",
+            "parameters" : [
+              {
+                "name" : "keyPath",
+                "description" : "A key path into the metadata dictionary specifying the value to be deleted."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (void)setValue:(NSString *)value forMetadataAtKeyPath:(NSString *)keyPath",
+            "comment" : "Sets the value for the specified key path in the metadata dictionary.",
+            "name" : "setValue:forMetadataAtKeyPath:",
+            "parameters" : [
+              {
+                "name" : "value",
+                "description" : "The string value to set for the given key path in the metadata."
+              },
+              {
+                "name" : "keyPath",
+                "description" : "A key path into the metadata dictionary specifying where the value is to be set."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (void)setValuesForMetadataKeyPathsWithDictionary:(NSDictionary *)metadata merge:(BOOL)merge",
+            "comment" : "Sets multiple values on the metadata using an input dictionary, optionally merging with any existing values.",
+            "name" : "setValuesForMetadataKeyPathsWithDictionary:merge:",
+            "parameters" : [
+              {
+                "name" : "metadata",
+                "description" : "A dictionary of metadata to assign or merge with the existing metadata."
+              },
+              {
+                "name" : "merge",
+                "description" : "A Boolean flag that specifies whether the metadata is to be assigned directly or merged with any existing values."
+              }
+            ]
+          }
+        ]
+      },
+      "name" : "LYRConversation",
+      "inherits" : "NSObject"
+    },
+    {
+      "declared" : "LYRMessage.h",
+      "properties" : [
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) LYRConversation *conversation",
+          "comment" : "The conversation that the receiver is a part of.",
+          "name" : "conversation"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) NSURL *identifier",
+          "comment" : "A unique identifier for the message.",
+          "name" : "identifier"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) NSUInteger index",
+          "comment" : "Object index dictating message order in a conversation.",
+          "name" : "index",
+          "discussion" : "Unsent messages have index value of NSNotFound."
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) BOOL isDeleted",
+          "comment" : "Returns a Boolean value that indicates if the receiver has been deleted.",
+          "name" : "isDeleted"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) BOOL isSent",
+          "comment" : "Returns a Boolean value that is true when the receiver has been sent by a client and posted to the Layer services.",
+          "name" : "isSent"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) NSArray *parts",
+          "comment" : "An array of message parts (modeled by the {@link LYRMessagePart} class) that provide access to the content of the receiver.",
+          "name" : "parts"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) NSDate *receivedAt",
+          "comment" : "The date and time that the message was received by the authenticated user or nil if the current user sent the message.",
+          "name" : "receivedAt"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) NSDictionary *recipientStatusByUserID",
+          "comment" : "Returns a dictionary keyed the user ID of all participants in the Conversation that the receiver belongs to and whose\nvalues are an NSNumber representation of the receipient status ({@link LYRRecipientStatus} value) for their corresponding key.",
+          "name" : "recipientStatusByUserID"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) NSDate *sentAt",
+          "comment" : "The date and time that the message was originally sent.",
+          "name" : "sentAt"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) NSString *sentByUserID",
+          "comment" : "The user ID of the user who sent the message.",
+          "name" : "sentByUserID"
+        }
+      ],
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRMessage.h",
+            "declaration" : "- (LYRRecipientStatus)recipientStatusForUserID:(NSString *)userID",
+            "comment" : "Retrieves the message state for a given participant in the conversation.",
+            "name" : "recipientStatusForUserID:",
+            "return" : "An {@link LYRRecipientStatus} value specifying the message status for the given participant or LYRRecipientStatusInvalid if the specified user is not a participant in the conversation.",
+            "parameters" : [
+              {
+                "name" : "userID",
+                "description" : "The user ID to retrieve the message status for."
+              }
+            ]
+          }
+        ]
+      },
+      "name" : "LYRMessage",
+      "inherits" : "NSObject"
+    },
+    {
+      "declared" : "LYRMessagePart.h",
+      "properties" : [
+        {
+          "declared" : "LYRMessagePart.h",
+          "declaration" : "@property (nonatomic, readonly) NSString *MIMEType",
+          "comment" : "The MIME Type of the content represented by the receiver.",
+          "name" : "MIMEType"
+        },
+        {
+          "declared" : "LYRMessagePart.h",
+          "declaration" : "@property (nonatomic, readonly) NSData *data",
+          "comment" : "The content of the receiver as a data object.",
+          "name" : "data"
+        }
+      ],
+      "methods" : {
+        "class" : [
+          {
+            "declared" : "LYRMessagePart.h",
+            "declaration" : "+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType data:(NSData *)data",
+            "comment" : "Creates a message part with the given MIME Type and data.",
+            "name" : "messagePartWithMIMEType:data:",
+            "return" : "A new message part with the given MIME Type and data.\n@raises NSInvalidArgumentException Raised if MIME Type or data is nil.",
+            "parameters" : [
+              {
+                "name" : "MIMEType",
+                "description" : "A MIME Type identifying the type of data contained in the given data object."
+              },
+              {
+                "name" : "data",
+                "description" : "The data to be embedded in the mesage part."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRMessagePart.h",
+            "declaration" : "+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType stream:(NSInputStream *)stream",
+            "comment" : "Creates a message part with the given MIME Type and stream of data.",
+            "name" : "messagePartWithMIMEType:stream:",
+            "return" : "A new message part with the given MIME Type and stream of data.\n@raises NSInvalidArgumentException Raised if MIME Type or stream is nil.",
+            "parameters" : [
+              {
+                "name" : "MIMEType",
+                "description" : "A MIME Type identifying the type of data contained in the given data object."
+              },
+              {
+                "name" : "stream",
+                "description" : "A stream from which to read the data for the message part."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "text",
+                "description" : "The plain text body of the new message part."
+              }
+            ],
+            "return" : "A new message part with the MIME Type text\/plain and a UTF-8 encoded representation of the given input text.\n@raises NSInvalidArgumentException Raised if text is nil.",
+            "discussion" : "This is a convience accessor encapsulating the common operation of creating a message part\nwith a plain text data attachment in UTF-8 encoding. It is functionally equivalent to the following example code:\n\n[LYRMessagePart messagePartWithMIMEType:@\"text\/plain\" data:[text dataUsingEncoding:NSUTF8StringEncoding]];",
+            "declared" : "LYRMessagePart.h",
+            "comment" : "Create a message part with a string of text.",
+            "name" : "messagePartWithText:",
+            "declaration" : "+ (instancetype)messagePartWithText:(NSString *)text"
+          }
+        ],
+        "instance" : [
+          {
+            "declared" : "LYRMessagePart.h",
+            "declaration" : "- (NSInputStream *)inputStream",
+            "comment" : "Returns a new input stream object for reading the content of the receiver as a stream.",
+            "name" : "inputStream",
+            "return" : "A new, unopened input stream object configured for reading the content of the part represented by the receiver."
+          }
+        ]
+      },
+      "name" : "LYRMessagePart",
+      "inherits" : "NSObject"
+    }
+  ],
+  "protocols" : [
+    {
+      "declared" : "LYRClient.h",
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didAuthenticateAsUserID:(NSString *)userID",
+            "comment" : "Tells the delegate that a client has successfully authenticated with Layer.",
+            "name" : "layerClient:didAuthenticateAsUserID:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that has authenticated successfully."
+              },
+              {
+                "name" : "userID",
+                "description" : "The user identifier in Identity Provider from which the Identity Token was obtained. Typically the primary key, username, or email\n    of the user that was authenticated."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didFailOperationWithError:(NSError *)error",
+            "comment" : "Tells the delegate that an operation encountered an error during a local mutation or synchronization activity.",
+            "name" : "layerClient:didFailOperationWithError:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that failed the operation."
+              },
+              {
+                "name" : "error",
+                "description" : "An error describing the nature of the operation failure."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didFailSynchronizationWithError:(NSError *)error",
+            "comment" : "Tells the delegate the client encountered an error during synchronization.",
+            "name" : "layerClient:didFailSynchronizationWithError:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that failed synchronization."
+              },
+              {
+                "name" : "error",
+                "description" : "An error describing the nature of the sync failure."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didFinishSynchronizationWithChanges:(NSArray *)changes",
+            "comment" : "Tells the delegate that a client has finished synchronization and applied a set of changes.",
+            "name" : "layerClient:didFinishSynchronizationWithChanges:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that received the changes."
+              },
+              {
+                "name" : "changes",
+                "description" : "An array of NSDictionary objects, each one describing a change."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didLoseConnectionWithError:(NSError *)error",
+            "comment" : "Informs the delegate that the client has lost an established connection with Layer due to an error.",
+            "name" : "layerClient:didLoseConnectionWithError:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that lost the connection."
+              },
+              {
+                "name" : "error",
+                "description" : "The error that occurred."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didReceiveAuthenticationChallengeWithNonce:(NSString *)nonce",
+            "comment" : "Tells the delegate that the server has issued an authentication challenge to the client and a new Identity Token must be submitted.",
+            "name" : "layerClient:didReceiveAuthenticationChallengeWithNonce:",
+            "discussion" : "At any time during the lifecycle of a Layer client session the server may issue an authentication challenge and require that\nthe client confirm its identity. When such a challenge is encountered, the client will immediately become deauthenticated and will no\nlonger be able to interact with communication services until reauthenticated. The nonce value issued with the challenge must be submitted\nto the remote identity provider in order to obtain a new Identity Token.",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that received the authentication challenge."
+              },
+              {
+                "name" : "nonce",
+                "description" : "The nonce value associated with the challenge."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client objectsDidChange:(NSArray *)changes",
+            "comment" : "Tells the delegate that objects associated with the client have changed due to local mutation or synchronization activities.",
+            "name" : "layerClient:objectsDidChange:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that received the changes."
+              },
+              {
+                "name" : "changes",
+                "description" : "An array of NSDictionary objects, each one describing a change."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client willAttemptToConnect:(NSUInteger)attemptNumber afterDelay:(NSTimeInterval)delayInterval maximumNumberOfAttempts:(NSUInteger)attemptLimit",
+            "comment" : "Informs the delegate that the client is making an attempt to connect to Layer.",
+            "name" : "layerClient:willAttemptToConnect:afterDelay:maximumNumberOfAttempts:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client attempting the connection."
+              },
+              {
+                "name" : "attemptNumber",
+                "description" : "The current attempt (of the attempt limit) that is being made."
+              },
+              {
+                "name" : "delayInterval",
+                "description" : "The delay, if any, before the attempt will actually be made."
+              },
+              {
+                "name" : "attemptLimit",
+                "description" : "The total number of attempts that will be made before the client gives up."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClientDidConnect:(LYRClient *)client",
+            "comment" : "Informs the delegate that the client has successfully connected to Layer.",
+            "name" : "layerClientDidConnect:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that made the connection."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClientDidDeauthenticate:(LYRClient *)client",
+            "comment" : "Tells the delegate that a client has been deauthenticated.",
+            "name" : "layerClientDidDeauthenticate:",
+            "discussion" : "The client may become deauthenticated either by an explicit call to deauthenticateWithCompletion: or by encountering an authentication challenge.",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that was deauthenticated."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClientDidDisconnect:(LYRClient *)client",
+            "comment" : "Informs the delegate that the client has disconnected from Layer.",
+            "name" : "layerClientDidDisconnect:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that has disconnected."
+              }
+            ]
+          }
+        ]
+      },
+      "name" : "LYRClientDelegate",
+      "conforms" : "NSObject"
+    }
+  ],
+  "constants" : [
+    {
+      "declared" : "LYRErrors.h",
+      "name" : "LYRClientError",
+      "values" : [
+        {
+          "name" : "LYRClientErrorAlreadyConnected",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorInvalidAppID",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorNetworkRequestFailed",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorConnectionTimeout",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorKeyPairNotFound",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorCertificateNotFound",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorIdentityNotFound",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorNotAuthenticated",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorAlreadyAuthenticated",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorDeviceTokenInvalid",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorUndefinedSyncFaliure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorDevicePersistenceFailure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorSynchronizationFailure",
+          "declared" : "LYRErrors.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRConstants.h",
+      "name" : "LYRDeletionMode",
+      "values" : [
+        {
+          "name" : "LYRDeletionModeLocal",
+          "comment" : "Content deletion modes",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRDeletionModeAllParticipants",
+          "comment" : "Content deletion modes",
+          "declared" : "LYRConstants.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRErrors.h",
+      "name" : "LYRError",
+      "values" : [
+        {
+          "name" : "LYRErrorUnknownError",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorUnauthenticated",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorInvalidMessage",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorTooManyParticipants",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorDataLengthExceedsMaximum",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorMessageAlreadyMarkedAsRead",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorObjectNotSent",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorInvalidKey",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorInvalidValue",
+          "declared" : "LYRErrors.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRConstants.h",
+      "name" : "LYRObjectChangeType",
+      "values" : [
+        {
+          "name" : "LYRObjectChangeTypeCreate",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRObjectChangeTypeUpdate",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRObjectChangeTypeDelete",
+          "declared" : "LYRConstants.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRMessage.h",
+      "name" : "LYRRecipientStatus",
+      "values" : [
+        {
+          "name" : "LYRRecipientStatusInvalid",
+          "comment" : "Status for the recipient cannot be determined because the message is not in a state in which recipient status can be evaluated or the user is not a participant in the Conversation.",
+          "declared" : "LYRMessage.h"
+        },
+        {
+          "name" : "LYRRecipientStatusSent",
+          "comment" : "The message has been transported to Layer and is awaiting synchronization by the recipient's devices.",
+          "declared" : "LYRMessage.h"
+        },
+        {
+          "name" : "LYRRecipientStatusDelivered",
+          "comment" : "The message has been synchronized to at least one device for a recipient but has not been marked as read.",
+          "declared" : "LYRMessage.h"
+        },
+        {
+          "name" : "LYRRecipientStatusRead",
+          "comment" : "The message has been marked as read by one of the recipient's devices.",
+          "declared" : "LYRMessage.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRClient.h",
+      "name" : "LYRTypingIndicator",
+      "values" : [
+        {
+          "name" : "LYRTypingDidBegin",
+          "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
+          "declared" : "LYRClient.h"
+        },
+        {
+          "name" : "LYRTypingDidPause",
+          "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
+          "declared" : "LYRClient.h"
+        },
+        {
+          "name" : "LYRTypingDidFinish",
+          "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
+          "declared" : "LYRClient.h"
+        }
+      ]
+    }
+  ],
+  "categories" : [
+
+  ]
+}

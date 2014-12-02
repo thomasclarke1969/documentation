@@ -1,20 +1,20 @@
 #Send a Message
-Insert the following code somewhere in your application's logic to send a message.
+The following demonstrates the logic needed to create a conversations and send a message. 
 
 ```objectivec
 
 // Creates and returns a new conversation object with a single participant represented by
 // your backend's user identifier for the participant
-LYRConversation *conversation = [LYRConversation conversationWithParticipants:[NSSet setWithArray:@[@"USER-IDENTIFIER"]]];
+LYRConversation *conversation = [layerClient newConversationWithParticipants:[NSSet setWithArray:@[@"USER-IDENTIFIER"]] options:nil error:nil];
 
 // Creates a message part with text/plain MIME Type
 LYRMessagePart *messagePart = [LYRMessagePart messagePartWithText:@"Hi, how are you?"];
 
 // Creates and returns a new message object with the given conversation and array of message parts
-LYRMessage *message = [LYRMessage messageWithConversation:conversation parts:@[messagePart]];
+LYRMessage *message = [layerClient newMessageWithParts:@[messagePart] options:nil error:nil];
 
 // Sends the specified message
-[layerClient sendMessage:message error:nil];
+[conversation sendMessage:message error:nil];
 ```
 
 You can verify that your message has been sent by looking at the logs inside [developer dashboard](/dashboard/projects).

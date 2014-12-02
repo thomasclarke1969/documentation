@@ -6,6 +6,7 @@ meta:
   platforms:
     - ios
     - android
+# Developer portal /docs navigation definition file
 
 # Navigation starts here (order matters)
 #
@@ -15,43 +16,74 @@ meta:
 #  - Section keys must be unique, lower case, no spaces. Keys map directly to file names (minus .md extension)
 #  - If you must use multiple words for keys use a dash '-' as a separator
 
+
+# Layer SDK GuickStart Guide
 quick-start:
   title: "Quick Start"
   platforms: true
   section:
-    what-is-layer:
-      title: "What is Layer?"
-    installation:
-      title: "Installation"
-    connecting:
-      title: "Connecting"
+    install:
+      title: "Install"
+    connect:
+      title: "Connect"
     authenticate:
       title: "Authenticate"
     send-a-message:
       title: "Send a Message"
 
-guide:
-  title: "Guide"
+# Layer SDK Functionality Guide
+integration:
+  title: "Integration"
   platforms: true
   section:
-    getting-started:
-      title: "Getting Started"
-      sub:
-        installation: "Installation"
-        connecting: "Connecting"
-        authentication: "Authentication"
-    messaging:
-      title: "Messaging"
-      sub:
-        concepts: "Concepts"
-        sending: "Sending"
-        fetching: "Fetching"
-        deleting: "Deleting"
-    sync-n-push:
-      title: "Sync & Push"
-      sub:
-        push-notifications: "Push Notifications"
-        synchronization: "Synchronization"
+    installation-and-setup:
+      title: "Installation and Setup"
+    authentication:
+      title: "Authentication"
+    concepts:
+      title: "Concepts"
+    sending:
+      title: "Sending"
+    querying:
+      title: "Querying"
+    metadata:
+      title: "Metadata"
+    typing-indicator:
+      title: "Typing Indicator"
+    synchronization:
+      title: "Synchronization"
+    deleting:
+      title: "Deleting"
+
+# Layer SDK Tutorial Guides
+guides:
+  title: "Guides"
+  platforms: true
+  section:
+    authentication:
+      title: "Authentication"
+    push-notification:
+      title: "Push Notifications"
+    metadata:
+      title: "Metadata"
+    advanced-querying:
+      title: "Advanced Querying"
+  	# local-notifications:
+  	# 	title: "Local Notification Guide"
+  	# conversation-view:
+  	# 	title: "Displaying A Conversation Guide"
+  	# badge-management:
+  	# 	title: "Managing The Application Badge"
+
+# Transition Guide
+transtition:
+  title: "Transition"
+  platforms: true
+
+# Change Log
+changelog:
+  title: "Changelog"
+  platforms: true
 
 # API Reference page
 api:
