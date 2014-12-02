@@ -121,3 +121,13 @@ Additionally, applications can mark a conversation as read which marks all unrea
 NSError *error;
 [conversation markAllMessagesAsRead:&error];
 ```
+
+## Confirming Message Delivery
+
+There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](https://developer.layer.com/dashboard/projects/layer-sample/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
+
+```
+Dec 02 2014 02:34:27pmSync: User <USER_IDENTIFIER> created a message in conversation <CONVERSATION_IDENTIFIER>.
+``` 
+
+Aditionally, developers can leverage both the [`LYRQueryController`](#query) object or register as an observer for the [`LYRClientObjectsDidChangeNotification`](#sync-notifications) key via NSNotification center to be notified of incoming messages. Both are discussed in detail below. 
