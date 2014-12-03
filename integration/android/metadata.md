@@ -19,7 +19,7 @@ participants.put("0000003","Tom Jones");
 json.put("participants", participants);
 
 json.put("created_at", "Dec, 01, 2014");
-json.put("img_url" , @"/path/to/img/url");
+json.put("img_url" , "/path/to/img/url");
 
 Map<String, Object> metadata = toMetadata(json);
 layerClient.putMetadata(mConversation, metadata, false);
