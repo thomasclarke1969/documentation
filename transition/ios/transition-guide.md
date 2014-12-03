@@ -160,7 +160,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYR
 NSError *error;
 NSOrderedSet *conversation = [self.client executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"Fetched %tu messages", [conversation objectAtIndex:0]);
+    NSLog(@"Fetched conversation");
 } else {
     NSLog(@"Query failed with error %@", error);
 }
@@ -187,6 +187,7 @@ if (!error) {
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
 query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
 if (!error) {
@@ -218,7 +219,7 @@ if (!error) {
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 LYRPredicate *conversationPredicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
 LYRPredicate *unreadPredicate = [LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
-LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sendByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[conversationPredicate, unreadPredicate, userPredicate]];
 
 NSError *error;
@@ -243,6 +244,7 @@ The following demonstrates constructing a `LYRQueryController` that can be used 
 LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
 LYRQueryController *queryController = [self.client queryControllerWithQuery:query];
 queryController.delegate = self;
+
 NSError *error;
 BOOL success = [queryController execute:&error];
 if (success) {
