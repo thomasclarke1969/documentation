@@ -119,7 +119,7 @@ Additionally, applications can mark a conversation as read which marks all unrea
 
 ```objectivec
 NSError *error;
-[conversation markAllMessagesAsRead:&error];
+[conversation markAllMessagesAsRead:&error];  
 ```
 
 ## Confirming Message Delivery

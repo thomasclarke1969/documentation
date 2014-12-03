@@ -76,14 +76,20 @@ guides:
   	# 	title: "Managing The Application Badge"
 
 # Transition Guide
-transtition:
+transition:
   title: "Transition"
   platforms: true
-
+  section:
+    transition-guide:
+      title: "Transition Guide"
+      
 # Change Log
 changelog:
   title: "Changelog"
   platforms: true
+  section:
+   changelog:
+      title: "Changelog"
 
 # API Reference page
 api:
