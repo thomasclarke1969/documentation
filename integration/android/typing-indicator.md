@@ -1,8 +1,8 @@
 #Typing Indicator
-LayerKit provides a simple API which allows applications to both broadcast and receive typing indicator events. This functionality allows Layer powered applications to implement dynamic UI in response to typing events. 
+The Layer SDK provides a simple API which allows applications to both broadcast and receive typing indicator events. This functionality allows Layer powered applications to implement dynamic UI in response to typing events. 
 
 ##Broadcasting
-Applications can broadcast typing events by calling `sendTypingIndicator(conversation, TypingIndicator.indicator)` on `LayerClient`. This will send a typing indicator event on behalf of the currently authenticated user. All participants in the conversation will receive the typing indicator. LayerKit supports three typing indicatory states: `TypingIndicator.STARTED`, `TypingIndicator.PAUSED`, `TypingIndicator.FINISHED`. 
+Applications can broadcast typing events by calling `sendTypingIndicator(conversation, TypingIndicator.indicator)` on `LayerClient`. This will send a typing indicator event on behalf of the currently authenticated user. All participants in the conversation will receive the typing indicator.  The Layer SDK supports three typing indicatory states: `TypingIndicator.STARTED`, `TypingIndicator.PAUSED`, `TypingIndicator.FINISHED`. 
 
 ```
 // Sends a typing indicator event to the given conversation.
@@ -61,9 +61,9 @@ Upon receipt of a typing indicator event, applications can check the conversatio
 ```
 
 ## Intended Use
-Typing indicator events are ephemeral, meaning they are not persisted by Layer. Applications are free to call `sendTypingIndicator(conversation, TypingIndicator.indicator)` as often as they would like. LayerKit will coalesce the calls internally and efficiently send typing indicator events as needed. 
+Typing indicator events are ephemeral, meaning they are not persisted by Layer. Applications are free to call `sendTypingIndicator(conversation, TypingIndicator.indicator)` as often as they would like.  The Layer SDK will coalesce the calls internally and efficiently send typing indicator events as needed. 
 
-After calling `sendTypingIndicator(conversation, TypingIndicator.indicator)` with the `TypingIndicator.STARTED` state,  if 10 seconds go by without an update, LayerKit will automatically send an `TypingIndicator.PAUSED` event. If another 10 seconds go without an update, LayerKit will send an `TypingIndicator.FINISHED` event. 
+After calling `sendTypingIndicator(conversation, TypingIndicator.indicator)` with the `TypingIndicator.STARTED` state, if a few seconds go by without an update, the Layer SDK will automatically send an `TypingIndicator.PAUSED` event. If a few more seconds go without an update, the Layer SDK will send an `TypingIndicator.FINISHED` event. 
 
 
 
