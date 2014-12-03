@@ -1,86 +1,69 @@
-# Sending Messages
-Conversation objects are created by calling `Conversation.newInstance()`. This method takes a list of participant identifiers.  As Layer Authentication allows you to represent users within the Layer service via your backend’s federated identifier, participants are represented with those same user identifiers.
+#Typing Indicator
+LayerKit provides a simple API which allows applications to both broadcast and receive typing indicator events. This functionality allows Layer powered applications to implement dynamic UI in response to typing events. 
 
-```java
-// Creates and returns a new conversation object with sample participant identifiers
-Conversation conversation = Conversation.newInstance(Arrays.asList("USER-IDENTIFIER"));
+##Broadcasting
+Applications can broadcast typing events by calling `sendTypingIndicator(conversation, TypingIndicator.indicator)` on `LayerClient`. This will send a typing indicator event on behalf of the currently authenticated user. All participants in the conversation will receive the typing indicator. LayerKit supports three typing indicatory states: `TypingIndicator.STARTED`, `TypingIndicator.PAUSED`, `TypingIndicator.FINISHED`. 
+
+```
+// Sends a typing indicator event to the given conversation.
+ layerClient.sendTypingIndicator(mConversation, TypingIndicator.STARTED);
 ```
 
-```emphasis
-Note, that it is not necessary to include the currently authenticated user in the participant array. They are added to new conversations automatically when the first message gets sent to that conversation.
+##Receiving 
+Applications are notified of typing indicator events via `LayerTypingIndicatorListener`. Applications should register as a `LayerTypingIndicatorListener` in order to be notified when another device is typing.
+
+```
+public class MyApplication extends Application implements LayerTypingIndicatorListener {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register this Activity to receive remote typing indications from Layer
+        layerClient.registerTypingIndicator(this);
+    }
+ 
+     @Override
+    protected void onPause() {
+        // Stop receiving remote typing indications from Layer when this Activity pauses
+        mClient.unregisterTypingIndicator(this);
+        super.onPause();
+    }
+     
+}
 ```
 
-## Add/Remove Participants
+Upon receipt of a typing indicator event, applications can check the conversation, userId, and indicator for information about the typing event.
 
-Once a conversation has been created, participant lists remain mutable, meaning participants can be both added and removed. The Layer servivce does not enforce any ownership, so any client can both add and remove participants.
-
-```java
-// Adds a participant to a given conversation
-client.addParticipants(conversation, Arrays.asList("948374848"));
-
-// Removes a participant from a given conversation
-client.removeParticipants(conversation, Arrays.asList("948374848"));
+```
+   @Override
+    public void onTypingIndicator(LayerClient client, Conversation conversation, String userId, TypingIndicator indicator) {
+ 
+        switch (indicator) {
+            case STARTED:
+                // This user started typing, so add them to the typing list.
+                mTypers.add(userId);
+                break;
+ 
+            case PAUSED:
+                // Ignore pause, since we only show who is and is not typing.
+                break;
+ 
+            case FINISHED:
+                // This user isn't typing anymore, so remove them from the list.
+                mTypers.remove(userId);
+                break;
+        }
+ 
+        // Update the current-typers UI.
+        mTyperTextView.setText(TextUtils.join(", ", mTypers));
+    }
+}
 ```
 
-The `Message` object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the `MessagePart` object.
+## Intended Use
+Typing indicator events are ephemeral, meaning they are not persisted by Layer. Applications are free to call `sendTypingIndicator(conversation, TypingIndicator.indicator)` as often as they would like. LayerKit will coalesce the calls internally and efficiently send typing indicator events as needed. 
 
-## MessagePart
+After calling `sendTypingIndicator(conversation, TypingIndicator.indicator)` with the `TypingIndicator.STARTED` state,  if 10 seconds go by without an update, LayerKit will automatically send an `TypingIndicator.PAUSED` event. If another 10 seconds go without an update, LayerKit will send an `TypingIndicator.FINISHED` event. 
 
-Layer does not place restrictions on the type of data you send through the service. As such, `MessagePart` objects are initialized with a `byte` array and a MIME Type string. The MIME Type simply describes the type of content the `MessagePart` contains.
 
-The following demonstrates creating message parts with both text/plain and image/jpeg MIME types.
 
-```java
-// Creates a message part with a string of next and text/plain MIME type.
-String messageText = "Hi! How are you";
-MessagePart messagePart = MessagePart.newInstance("text/plain", messageText.getBytes());
-
-// Creates a message part with an image
-Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.back_icon);
-ByteArrayOutputStream stream = new ByteArrayOutputStream();
-imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-byte[] imageData = stream.toByteArray();
-MessagePart messagePart = MessagePart.newInstance("image/jpeg", imageData);
-```
-
-The MessagePart object also declares a convenience method for creating messages with text/plain MIME type:
-
-```java
-String messageText = "Hi! How are you";
-MessagePart messagePart = MessagePart.newInstance(messageText);
-```
-
-Your application can declare additional MIME types that it wishes to support. The following demonstrates sending location data.
-
-```java
-// Creates a HashMap with latitude and longitude
-HashMap location = new HashMap<String, String>();
-location.put("lat", "25.43567");
-location.put("lon", "123.54383");
-
-//Convert the location to data
-ByteArrayOutputStream locationData = new ByteArrayOutputStream();
-ObjectOutputStream outputStream = new ObjectOutputStream(locationData);
-outputStream.writeObject(location);
-
-MessagePart locationPart = client.newMessagePart("text/location", locationData.toByteArray());
-```
-
-## Message
-
-`Message` objects are initialized with an array of `MessagePart` objects and a `Conversation` object. The object is created by calling newInstance(). This creates a `Message` object that is ready to send.
-
-```java
-Message message = Message.newInstance(conversation, Arrays.asList(messagePart))
-```
-
-The service declares 4 recipient states; Invalid, Sent, Delivered, and Read. The only state that we allow developers to set is Read. The system itself determines when to mark a message as Invalid, Sent or Delivered. Because of this, we also do not automatically mark messages as read for the sender. That is up to the developer to do so.
-
-## Sending The Message
-
-Once an `Message` object is initialized, it is ready for sending. The message is sent by calling `sendMessage()` on `LayerClient`.
-
-```java
-// Sends the specified message
-client.sendMessage(message);
-```
