@@ -11,11 +11,16 @@ The following demonstrates setting `metadata` on a conversation:
 ```java
 JSONObject json = new JSONObject();
 json.put("title", "My Conversation");
-JSONObject participants = new JSONArray();
+
+JSONObject participants = new JSONObject();
 participants.put("0000001","Greg Thompson");
 participants.put("0000002","Sally Price");
 participants.put("0000003","Tom Jones");
 json.put("participants", participants);
+
+json.put("created_at", "Dec, 01, 2014");
+json.put("img_url" , @"/path/to/img/url");
+
 Map<String, Object> metadata = toMetadata(json);
 layerClient.putMetadata(mConversation, metadata, false);
 ```
