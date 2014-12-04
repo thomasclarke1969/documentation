@@ -1,5 +1,5 @@
 #Send a Message
-Insert the following code somewhere in your application's logic to send a message.
+The following demonstrates the logic needed to create a conversations and send a message. 
 
 ```objectivec
 

@@ -1,6 +1,6 @@
-#Authenticate
+#Authentication
 
-Once connected, it is time to authenticate the  `LYRClient` object. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this. 
+Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client application. For testing purposes, Layer provides a sample backend that takes care of this. 
 
 The following code snippet connects to the sample `Layer Identity Service`,  generates an `Identity Token` on behalf your applicaion, and authenticates the `LYRClient`. Copy and paste the entire snippet into your application. You will need to replace `REPLACE_WITH_USER_ID` with `string` of your chosing (typically a user identifier).
 
@@ -49,3 +49,4 @@ NSString *userIDString = @"REPLACE_WITH_USER_ID";
 ```emphasis
 Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](#authentication-guide) for information on doing so.
 ```
+
