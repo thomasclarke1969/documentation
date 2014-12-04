@@ -11,7 +11,7 @@ LayerKit v0.9.0 includes two breaking API changes. The initializer methods of bo
 - (LYRMessage *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error;
 ```
 
-Both `LYRMessage` and `LYRConversation` objects are now initialized with an `options` dictionary. For conversation objects, this feature allows developers to attach `metadata` to the conversation. For messages, this feature allows developers to set [push notification options](#push-notification-options). 
+Both `LYRMessage` and `LYRConversation` objects are now initialized with an `options` dictionary. This mechanism allows applications to supply initialization options to the model objects they are creating. For the time being, the only option available to conversation objects is to attach `metadata` to the conversation. For messages, this feature allows developers to set [push notification options](#push-notification-options). 
 
 ## New Model Object Methods
 Methods that allow applications to take action upon Layer model objects (such as sending or deleting messages) have been moved from the `LYRClient` object onto the models themselves.  
@@ -54,7 +54,7 @@ In addition to the model API changes, a new method for marking all unread messag
 ## Typing Indicators
 Typing indicators are a common UI element in messaging applications. LayerKit now provides platform support for implementing typing indicators across Android and iOS applications. 
 
-Applications can broadcast typing indicators by calling `sendTypingIndicator:` on a `LYRConversation` object. This method will broadcast a typing indicator on behalf of the currently authenticated user. Each participant in the conversation will recieve a typing indicator notification.
+Applications can broadcast typing indicators by calling `sendTypingIndicator:` on a `LYRConversation` object. This method will broadcast a typing indicator on behalf of the currently authenticated user. Each participant in the conversation will receive a typing indicator notification.
 
 ```objective-c
 // Sends a typing indicator event to a specific conversation
