@@ -1,4 +1,4 @@
-#Querying
+# Querying
 
 LayerKit provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with an `LYRQuery` object. To demonstrate a simple example, the following queries LayerKit for the latest 20 messages in the given conversation.
 
@@ -18,7 +18,7 @@ if (!error) {
 }
 ```
 
-##Constructing A Query
+## Constructing A Query
 
 An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol. Currently, `LYRConversation` and `LYRMessage` are the only classes which conform to the protocol.
 
@@ -26,7 +26,7 @@ An instance of an `LYRQuery` object is initialized with a `Class` object represe
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 ```
 
-##Applying Constraints
+## Applying Constraints
 
 The `LYRPredicate` object allows applications to apply constraints to a query result set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
 
@@ -48,7 +48,7 @@ The following sort descriptor asks that results be returned in ascending order b
 query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
 ```
 
-##Limits and Offsets
+## Limits and Offsets
 
 To facilitate pagination, queries may be further constrained by applying limit and offset values. The limit onfigures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
 
@@ -72,7 +72,7 @@ query.resultType = LYRQueryResultTypeIdentifiers;
 query.resultType = LYRQueryResultTypeCount;
 ```
 
-##Executing The Query
+## Executing The Query
 
 Queries are executed by calling `executeQuery:error:` on `LYRClient`. The method takes an `LYRQuery` object and a pointer to an `NSError` object. If successful, the method will return an `NSOrderedSet` of objects which represent the results of the query. If an error occurs, the supplied error pointer will be set to an error object describing why execution failed.
 
@@ -102,7 +102,7 @@ if (!error) {
 For many more query examples, please see our Advanced Querying Guide.
 ```
 
-#LYRQueryController
+# LYRQueryController
 
 The `LYRQueryController` can be used to efficiently manage the results from an `LYRQuery` and provide that data to be used in a `UITableView`. The object is similar in concept to an `NSFetchedResultsController` and provides the following functionality:
 
@@ -148,7 +148,7 @@ In order to acquire an object for a given index, applications can call `objectAt
 }
 ```
 
-#LYRQueryControllerDelegate
+# LYRQueryControllerDelegate
 
 `LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. `LYRQueryController` observes `LYRClientObjectsDidChangeNotification` to listen for changes to Layer model objects during synchronization. When changes occur which effect objects in the controller's result set, or new objects which fit the controller's query criteria are created, the controller will inform its delegate. The delegate will then be able to update its UI in response to these changes.
 

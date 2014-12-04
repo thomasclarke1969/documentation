@@ -1,7 +1,7 @@
 # Authentication
 
 ```emphasis
-Once you are ready for production implementation, you will need to write your own backend controller to generate an identity token. You will not be able to use the authentication implemenation from the Quick Start guide.
+Once you are ready for production implementation, you will need to write your own backend controller to generate identity tokens. You will not be able to use the identity provider from the Quick Start guide.
 ```
 
 To authenticate a user, the SDK requires that your backend server application generate an identity token and return it to your application.
@@ -31,18 +31,18 @@ The main logic will reside in the `requestAuthenticationNonceWithCompletion` met
    NSLog(@"Authentication nonce %@", nonce);
 
    /*
-    *  CODE goes here. POST the nonce to your backend, sign it using JWT and return an identity token  
+    *  CODE goes here. POST the nonce to your backend, generate and return a JWT identity token  
     */
 }];
 ```
 
 ##Step 3 - POST the nonce and generate identity token
-A nonce value will be passed into the `requestAuthenticationNonceWithCompletion` method. POST that value to your backend and sign it using JWT.
+A nonce value will be obtained from Layer and passed into the completion block of the `requestAuthenticationNonceWithCompletion` method. POST this value to your backend and use it to generate a JWT identity token.
 
-`Identity Tokens` are a pair of JSON dictionary structures (the JWS Header and Claim) and a cryptographic signature generated over them. The structure is as follows:
+A Layer `Identity Token` is a JSON Web Token (JWT) structure that encodes a cryptographically signed set of claims that assert the identity of a particular user within your application. A JWT is transmitted as a compact string value that is formed by concatenating a pair of JSON dictionary structures (the JOSE Header and JWT Claims Set) and a cryptographic signature generated over them. The structure is as follows:
 
 ```
-// JWS Header
+// JOSE Header
 {
     "typ": "JWS", // String - Expresses a MIME Type of application/JWS
     "alg": "RS256" // String - Expresses the type of algorithm used to sign the token, must be RS256
@@ -50,7 +50,7 @@ A nonce value will be passed into the `requestAuthenticationNonceWithCompletion`
     "kid": "%%C-INLINE-KEYID%%" // String - Layer Key ID used to sign the token. This is your actual Key ID
 }
 
-// JWS Claim
+// JWT Claims Set
 {
     "iss": "%%C-INLINE-PROVIDERID%%", // String - The Layer Provider ID, this is your actual provider ID
     "prn": "APPLICATION USER ID", // String - Provider's internal ID for the authenticating user
@@ -59,6 +59,8 @@ A nonce value will be passed into the `requestAuthenticationNonceWithCompletion`
     "nce": "LAYER ISSUED NONCE" // The nonce obtained via the Layer client SDK.
 }
 ```
+
+You can learn more about the JSON Web Token standard draft from [jwt.io](http://jwt.io) or by consulting the [specification](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html) directly.
 
 Prebuilt JWT Libraries are available for many languages:
 

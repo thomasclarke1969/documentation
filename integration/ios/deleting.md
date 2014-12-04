@@ -10,8 +10,10 @@ LayerKit supports 2 deletion modes: Local and All Participants:
 
 ```objectivec
 // Deletes a conversation
-[conversation delete:LYRDeletionModeAllParticipants error:nil];
+NSError *error = nil;
+BOOL success = [conversation delete:LYRDeletionModeAllParticipants error:&error];
 
 // Deletes a message
-[message delete:LYRDeletionModeAllParticipants error:nil];
+NSError *error = nil;
+BOOL success = [message delete:LYRDeletionModeAllParticipants error:&error];
 ```
