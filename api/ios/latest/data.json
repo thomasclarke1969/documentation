@@ -49,27 +49,6 @@
         ],
         "instance" : [
           {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)addParticipants:(NSSet *)participants toConversation:(LYRConversation *)conversation error:(NSError **)error",
-            "comment" : "Adds participants to a given conversation.",
-            "name" : "addParticipants:toConversation:error:",
-            "return" : "A Boolean value indicating if the operation of adding participants was successful.",
-            "parameters" : [
-              {
-                "name" : "participants",
-                "description" : "A set of providerUserID in a form of NSString objects."
-              },
-              {
-                "name" : "conversation",
-                "description" : "The conversation which to add the participants. Cannot be nil."
-              },
-              {
-                "name" : "error",
-                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be added to the conversation."
-              }
-            ]
-          },
-          {
             "parameters" : [
               {
                 "name" : "identityToken",
@@ -103,63 +82,19 @@
             ]
           },
           {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (NSUInteger)countForQuery:(LYRQuery *)query error:(NSError **)error",
+            "comment" : "Executes the given query and returns a count of the number of results.",
+            "name" : "countForQuery:error:",
+            "return" : "A count of the number of results or NSUIntegerMax if an error occurred.",
             "parameters" : [
               {
-                "name" : "identifier",
-                "description" : "The identifier for an existing conversation."
-              }
-            ],
-            "return" : "The conversation with the given identifier or nil if none could be found.",
-            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and nil will be returned.",
-            "declared" : "LYRClient.h",
-            "comment" : "Returns an existing conversation with a given identifier or nil if none could be found.",
-            "name" : "conversationForIdentifier:",
-            "declaration" : "- (LYRConversation *)conversationForIdentifier:(NSURL *)identifier"
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (NSSet *)conversationsForIdentifiers:(NSSet *)conversationIdentifiers",
-            "comment" : "Retrieves a collection of conversation objects from the persistent store for the given list of conversation identifiers.",
-            "name" : "conversationsForIdentifiers:",
-            "return" : "A set of conversations objects for the given array of identifiers.",
-            "parameters" : [
+                "name" : "query",
+                "description" : "The query to execute. Cannot be nil."
+              },
               {
-                "name" : "conversationIdentifiers",
-                "description" : "The set of conversation identifiers for which to retrieve the corresponding set of conversation objects. Passing nil\nwill return all conversations."
-              }
-            ]
-          },
-          {
-            "parameters" : [
-              {
-                "name" : "participants",
-                "description" : "A set of participants for which to query for a corresponding Conversation. Each element in the array is a string that corresponds to the user ID of the desired participant."
-              }
-            ],
-            "return" : "A set of conversations with the given set of participants or nil if none could be found.",
-            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and nil will be returned.",
-            "declared" : "LYRClient.h",
-            "comment" : "Returns existing conversations with the given set of participants or nil if none could be found.",
-            "name" : "conversationsForParticipants:",
-            "declaration" : "- (NSSet *)conversationsForParticipants:(NSSet *)participants"
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (NSUInteger)countOfConversationsWithUnreadMessages",
-            "comment" : "Returns the number of conversations that have one or more unread messages.",
-            "name" : "countOfConversationsWithUnreadMessages",
-            "return" : "The number of conversations with unread messages."
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation",
-            "comment" : "Returns the number of unread messages in the given conversation.",
-            "name" : "countOfUnreadMessagesInConversation:",
-            "discussion" : "A count of unread messages across all conversations can be obtained by passing nil.",
-            "parameters" : [
-              {
-                "name" : "conversation",
-                "description" : "The conversation to count the unread messages for or nil to count across all conversations."
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why execution failed."
               }
             ]
           },
@@ -167,84 +102,11 @@
             "declared" : "LYRClient.h",
             "declaration" : "- (void)deauthenticateWithCompletion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
             "comment" : "Deauthenticates the client, disposing of any previously established user identity and disallowing access to the Layer communication services until a new identity is established. All existing messaging data is purged from the database.",
-            "name" : "deauthenticateWithCompletion:"
-          },
-          {
+            "name" : "deauthenticateWithCompletion:",
             "parameters" : [
               {
-                "name" : "conversation",
-                "description" : "The conversation to be deleted."
-              },
-              {
-                "name" : "error",
-                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
-              }
-            ],
-            "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
-            "discussion" : "This method deletes a conversation and all associated messages for all current participants.> %warning% > **Warning:** This method has been deprecated and will be removed in a future version. Use deleteConversation:mode:error: instead.",
-            "declared" : "LYRClient.h",
-            "comment" : "Deletes a conversation.",
-            "name" : "deleteConversation:error:",
-            "declaration" : "- (BOOL)deleteConversation:(LYRConversation *)conversation error:(NSError **)error"
-          },
-          {
-            "parameters" : [
-              {
-                "name" : "conversation",
-                "description" : "The conversation to be deleted."
-              },
-              {
-                "name" : "error",
-                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
-              },
-              {
-                "name" : "mode",
-                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
-              }
-            ],
-            "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
-            "discussion" : "This method deletes a conversation and all associated messages for all current participants.",
-            "declared" : "LYRClient.h",
-            "comment" : "Deletes a conversation in the specified mode.",
-            "name" : "deleteConversation:mode:error:",
-            "declaration" : "- (BOOL)deleteConversation:(LYRConversation *)conversation mode:(LYRDeletionMode)deletionMode error:(NSError **)error"
-          },
-          {
-            "parameters" : [
-              {
-                "name" : "message",
-                "description" : "The message to be deleted."
-              },
-              {
-                "name" : "error",
-                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
-              }
-            ],
-            "return" : "A Boolean value indicating if the request to delete the message was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
-            "discussion" : "> %warning% > **Warning:** This method has been deprecated and will be removed in a future version. Use deleteMessage:mode:error: instead.",
-            "declared" : "LYRClient.h",
-            "comment" : "Deletes a message.",
-            "name" : "deleteMessage:error:",
-            "declaration" : "- (BOOL)deleteMessage:(LYRMessage *)message error:(NSError **)error"
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)deleteMessage:(LYRMessage *)message mode:(LYRDeletionMode)deletionMode error:(NSError **)error",
-            "comment" : "Deletes a message in the specified mode.",
-            "name" : "deleteMessage:mode:error:",
-            "return" : "A Boolean value indicating if the request to delete the message was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
-            "parameters" : [
-              {
-                "name" : "message",
-                "description" : "The message to be deleted."
-              },
-              {
-                "name" : "error",
-                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
-              },
-              {
-                "name" : "mode",
-                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
+                "name" : "completiuon",
+                "description" : "A block to be executed when the deauthentication operation has completed. The block has no return value and has two arguments: a Boolean value indicating if deauthentication was successful and an error describing the failure if it was not."
               }
             ]
           },
@@ -256,45 +118,18 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)markMessageAsRead:(LYRMessage *)message error:(NSError **)error",
-            "comment" : "Marks a message as being read by the current user.",
-            "name" : "markMessageAsRead:error:",
-            "return" : "YES if the message was marked as read or NO if the message was already marked as read.",
+            "declaration" : "- (NSOrderedSet *)executeQuery:(LYRQuery *)query error:(NSError **)error",
+            "comment" : "Executes the given query and returns an ordered set of results.",
+            "name" : "executeQuery:error:",
+            "return" : "An ordered set of query results or nil if an error occurred.",
             "parameters" : [
               {
-                "name" : "message",
-                "description" : "The message to be marked as read."
+                "name" : "query",
+                "description" : "The query to execute. Cannot be nil."
               },
               {
                 "name" : "error",
-                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent."
-              }
-            ]
-          },
-          {
-            "parameters" : [
-              {
-                "name" : "conversation",
-                "description" : "The conversation to retrieve the set of messages for."
-              }
-            ],
-            "return" : "An set of messages for the given conversation.",
-            "discussion" : "Messages are returned in chronological order in the Conversation.",
-            "declared" : "LYRClient.h",
-            "comment" : "Returns the collection of messages in a given conversation.",
-            "name" : "messagesForConversation:",
-            "declaration" : "- (NSOrderedSet *)messagesForConversation:(LYRConversation *)conversation"
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (NSSet *)messagesForIdentifiers:(NSSet *)messageIdentifiers",
-            "comment" : "Retrieves a collection of message objects from the persistent store for the given list of message identifiers.",
-            "name" : "messagesForIdentifiers:",
-            "return" : "An set of message objects for the given array of identifiers.",
-            "parameters" : [
-              {
-                "name" : "messageIdentifiers",
-                "description" : "The set of message identifiers for which to retrieve the corresponding set of message objects. Passing nil\nwill return all messages."
+                "description" : "A pointer to an error that upon failure is set to an error object describing why execution failed."
               }
             ]
           },
@@ -318,15 +153,11 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (LYRMessage *)newMessageWithConversation:(LYRConversation *)conversation parts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error",
-            "comment" : "Creates and returns a new message with the given conversation and set of message parts.",
-            "name" : "newMessageWithConversation:parts:options:error:",
+            "declaration" : "- (LYRMessage *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error",
+            "comment" : "Creates and returns a new message with the given set of message parts.",
+            "name" : "newMessageWithParts:options:error:",
             "return" : "A new message that is ready to be sent.\n@raises NSInvalidArgumentException Raised if conversation is nil or messageParts is empty.",
             "parameters" : [
-              {
-                "name" : "conversation",
-                "description" : "The conversation that the message is a part of. Cannot be nil."
-              },
               {
                 "name" : "messageParts",
                 "description" : "An array of {@link LYRMessagePart} objects specifying the content of the message. Cannot be nil or empty."
@@ -339,22 +170,14 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)removeParticipants:(NSSet *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error",
-            "comment" : "Removes participants from a given conversation.",
-            "name" : "removeParticipants:fromConversation:error:",
-            "return" : "A Boolean value indicating if the operation of removing participants was successful.",
+            "declaration" : "- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query",
+            "comment" : "Creates and returns a new query controller with the given query.",
+            "name" : "queryControllerWithQuery:",
+            "return" : "A newly created query controller.",
             "parameters" : [
               {
-                "name" : "participants",
-                "description" : "A set of providerUserID in a form of NSString objects."
-              },
-              {
-                "name" : "conversation",
-                "description" : "The conversation from which to remove the participants. Cannot be nil."
-              },
-              {
-                "name" : "error",
-                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be removed from the conversation."
+                "name" : "query",
+                "description" : "The query to create a controller with."
               }
             ]
           },
@@ -370,47 +193,6 @@
                 "description" : "A block to be called upon completion of the asynchronous request for a nonce. The block takes two parameters: the nonce value that was obtained (or nil\nin the case of failure) and an error object that upon failure describes the nature of the failure."
               }
             ]
-          },
-          {
-            "parameters" : [
-              {
-                "name" : "message",
-                "description" : "The message to be sent. Cannot be nil."
-              },
-              {
-                "name" : "error",
-                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent."
-              }
-            ],
-            "return" : "A Boolean value indicating if the message passed validation and was enqueued for delivery.\n@raises NSInvalidArgumentException Raised if message is nil.",
-            "discussion" : "The message is enqueued for delivery during the next synchronization after basic local validation of the message state is performed. Validation\nthat may be performed includes checking that the maximum number of participants has not been execeeded and that parts of the message do not have an aggregate\nsize in excess of the maximum for a message.",
-            "declared" : "LYRClient.h",
-            "comment" : "Sends the specified message.",
-            "name" : "sendMessage:error:",
-            "declaration" : "- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error"
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(LYRConversation *)conversation",
-            "comment" : "Sends a typing indicator to the specified conversation.",
-            "name" : "sendTypingIndicator:toConversation:",
-            "parameters" : [
-              {
-                "name" : "typingIndicator",
-                "description" : "An {@link LYRTypingIndicator} value indicating the change in typing state to be sent."
-              },
-              {
-                "name" : "conversation",
-                "description" : "The conversation that the typing indicator should be sent to."
-              }
-            ]
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)setMetadata:(NSDictionary *)metadata onObject:(id)object",
-            "comment" : "DEPRECATED: Sets the metadata on a Conversation or Message object.",
-            "name" : "setMetadata:onObject:",
-            "discussion" : "This method has been replaced with two distinct implementations. For messages, the options dictionary can be used to configure the\nPush Notification text and sound. For conversations, use the metadata instance methods on the {@link LYRConversation} class."
           },
           {
             "parameters" : [
@@ -452,20 +234,45 @@
       }
     },
     {
+      "declared" : "LYRPredicate.h",
+      "properties" : [
+        {
+          "declared" : "LYRPredicate.h",
+          "declaration" : "@property (nonatomic, readonly) LYRCompoundPredicateType compoundPredicateType",
+          "comment" : "The compound predicate type for the receiver.",
+          "name" : "compoundPredicateType"
+        },
+        {
+          "declared" : "LYRPredicate.h",
+          "declaration" : "@property (nonatomic, readonly) NSArray *subpredicates",
+          "comment" : "The receiver's subpredicates;",
+          "name" : "subpredicates"
+        }
+      ],
+      "methods" : {
+        "class" : [
+          {
+            "declared" : "LYRPredicate.h",
+            "declaration" : "+ (instancetype)compoundPredicateWithType:(LYRCompoundPredicateType)compoundPredicateType subpredicates:(NSArray *)subpredicates",
+            "comment" : "Creates and returns a new compound predicate with the given type and subpredicates in a given array.\n@property compoundPredicateType Compound predicate type, @see {@link LYRCompoundPredicateType}.\n@property subpredicates An array of {@link LYRPredicate} instances.",
+            "name" : "compoundPredicateWithType:subpredicates:",
+            "return" : "A newly created compound predicate object."
+          }
+        ]
+      },
+      "name" : "LYRCompoundPredicate",
+      "inherits" : "LYRPredicate : NSObject",
+      "conforms" : "NSCoding<br \/>NSCopying"
+    },
+    {
       "declared" : "LYRConversation.h",
       "properties" : [
         {
           "declared" : "LYRConversation.h",
-          "declaration" : "@property (nonatomic, readonly) NSDate *createdAt",
-          "comment" : "The date and time that the conversation was created.",
-          "name" : "createdAt",
-          "discussion" : "This value specifies the time that receiver was locally created and will vary across devices."
-        },
-        {
-          "declared" : "LYRConversation.h",
-          "declaration" : "@property (nonatomic, readonly) NSURL *identifier",
+          "declaration" : "@property (nonatomic, readonly) NSURL *LYR_QUERYABLE_PROPERTY",
           "comment" : "A unique identifier assigned to every conversation by Layer.",
-          "name" : "identifier"
+          "name" : "LYR_QUERYABLE_PROPERTY",
+          "discussion" : "The identifier property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotEqualTo operators."
         },
         {
           "declared" : "LYRConversation.h",
@@ -475,28 +282,49 @@
         },
         {
           "declared" : "LYRConversation.h",
-          "declaration" : "@property (nonatomic, readonly) LYRMessage *lastMessage",
-          "comment" : "Returns the last Message recevied or sent in this Conversation.",
-          "name" : "lastMessage",
-          "discussion" : "May be nil, if no messages exist in the conversation."
-        },
-        {
-          "declared" : "LYRConversation.h",
           "declaration" : "@property (nonatomic, readonly) NSDictionary *metadata",
           "comment" : "Returns the metadata associated with the conversation.",
           "name" : "metadata",
           "discussion" : "Metadata is a free form dictionary of string key-value pairs that allows arbitrary developer supplied information to be associated with the conversation and synchronized among the participants."
-        },
-        {
-          "declared" : "LYRConversation.h",
-          "declaration" : "@property (nonatomic, readonly) NSSet *participants",
-          "comment" : "The set of user identifiers's specifying who is participating in the conversation modeled by the receiver.",
-          "name" : "participants",
-          "discussion" : "Layer conversations are addressed using the user identifiers of the host application. These user ID's are transmitted to\nLayer as part of the Identity Token during authentication. User ID's are commonly modeled as the primary key, email address, or username\nof a given user withinin the backend application acting as the identity provider for the Layer-enabled mobile application."
         }
       ],
       "methods" : {
         "instance" : [
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (BOOL)addParticipants:(NSSet *)participants error:(NSError **)error",
+            "comment" : "Adds participants to a given conversation.",
+            "name" : "addParticipants:error:",
+            "return" : "A Boolean value indicating if the operation of adding participants was successful.",
+            "parameters" : [
+              {
+                "name" : "participants",
+                "description" : "A set of providerUserID in a form of NSString objects."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be added to the conversation."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              },
+              {
+                "name" : "mode",
+                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
+              }
+            ],
+            "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "discussion" : "This method deletes a conversation and all associated messages for all current participants.",
+            "declared" : "LYRConversation.h",
+            "comment" : "Deletes a conversation in the specified mode.",
+            "name" : "delete:error:",
+            "declaration" : "- (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error"
+          },
           {
             "declared" : "LYRConversation.h",
             "declaration" : "- (void)deleteValueForMetadataAtKeyPath:(NSString *)keyPath",
@@ -506,6 +334,66 @@
               {
                 "name" : "keyPath",
                 "description" : "A key path into the metadata dictionary specifying the value to be deleted."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (BOOL)markAllMessagesAsRead:(NSError **)error",
+            "comment" : "Marks all messages in the receiver as being read by the current user.",
+            "name" : "markAllMessagesAsRead:",
+            "return" : "YES if all unread messages were marked as read or NO if an error occurred.",
+            "parameters" : [
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the messages could not be marked as read."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (BOOL)removeParticipants:(NSSet *)participants error:(NSError **)error",
+            "comment" : "Removes participants from a given conversation.",
+            "name" : "removeParticipants:error:",
+            "return" : "A Boolean value indicating if the operation of removing participants was successful.",
+            "parameters" : [
+              {
+                "name" : "participants",
+                "description" : "A set of providerUserID in a form of NSString objects."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be removed from the conversation."
+              }
+            ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "message",
+                "description" : "The message to be sent. Cannot be nil."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent."
+              }
+            ],
+            "return" : "A Boolean value indicating if the message passed validation and was enqueued for delivery.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "discussion" : "The message is enqueued for delivery during the next synchronization after basic local validation of the message state is performed. Validation\nthat may be performed includes checking that the maximum number of participants has not been execeeded and that parts of the message do not have an aggregate\nsize in excess of the maximum for a message.",
+            "declared" : "LYRConversation.h",
+            "comment" : "Sends the specified message.",
+            "name" : "sendMessage:error:",
+            "declaration" : "- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error"
+          },
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator",
+            "comment" : "Sends a typing indicator to the conversation.",
+            "name" : "sendTypingIndicator:",
+            "parameters" : [
+              {
+                "name" : "typingIndicator",
+                "description" : "An {@link LYRTypingIndicator} value indicating the change in typing state to be sent."
               }
             ]
           },
@@ -544,29 +432,18 @@
         ]
       },
       "name" : "LYRConversation",
-      "inherits" : "NSObject"
+      "inherits" : "NSObject",
+      "conforms" : "LYRQueryable"
     },
     {
       "declared" : "LYRMessage.h",
       "properties" : [
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) LYRConversation *conversation",
-          "comment" : "The conversation that the receiver is a part of.",
-          "name" : "conversation"
-        },
-        {
-          "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSURL *identifier",
+          "declaration" : "@property (nonatomic, readonly) NSURL *LYR_QUERYABLE_PROPERTY",
           "comment" : "A unique identifier for the message.",
-          "name" : "identifier"
-        },
-        {
-          "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSUInteger index",
-          "comment" : "Object index dictating message order in a conversation.",
-          "name" : "index",
-          "discussion" : "Unsent messages have index value of NSNotFound."
+          "name" : "LYR_QUERYABLE_PROPERTY",
+          "discussion" : "The identifier property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotEqualTo operators."
         },
         {
           "declared" : "LYRMessage.h",
@@ -576,43 +453,49 @@
         },
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) BOOL isSent",
-          "comment" : "Returns a Boolean value that is true when the receiver has been sent by a client and posted to the Layer services.",
-          "name" : "isSent"
-        },
-        {
-          "declared" : "LYRMessage.h",
           "declaration" : "@property (nonatomic, readonly) NSArray *parts",
           "comment" : "An array of message parts (modeled by the {@link LYRMessagePart} class) that provide access to the content of the receiver.",
           "name" : "parts"
         },
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSDate *receivedAt",
-          "comment" : "The date and time that the message was received by the authenticated user or nil if the current user sent the message.",
-          "name" : "receivedAt"
-        },
-        {
-          "declared" : "LYRMessage.h",
           "declaration" : "@property (nonatomic, readonly) NSDictionary *recipientStatusByUserID",
           "comment" : "Returns a dictionary keyed the user ID of all participants in the Conversation that the receiver belongs to and whose\nvalues are an NSNumber representation of the receipient status ({@link LYRRecipientStatus} value) for their corresponding key.",
           "name" : "recipientStatusByUserID"
-        },
-        {
-          "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSDate *sentAt",
-          "comment" : "The date and time that the message was originally sent.",
-          "name" : "sentAt"
-        },
-        {
-          "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSString *sentByUserID",
-          "comment" : "The user ID of the user who sent the message.",
-          "name" : "sentByUserID"
         }
       ],
       "methods" : {
         "instance" : [
+          {
+            "declared" : "LYRMessage.h",
+            "declaration" : "- (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error",
+            "comment" : "Deletes a message in the specified mode.",
+            "name" : "delete:error:",
+            "return" : "A Boolean value indicating if the request to delete the message was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "parameters" : [
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              },
+              {
+                "name" : "mode",
+                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRMessage.h",
+            "declaration" : "- (BOOL)markAsRead:(NSError **)error",
+            "comment" : "Marks the message as being read by the current user.",
+            "name" : "markAsRead:",
+            "return" : "YES if the message was marked as read or NO if the message was already marked as read.",
+            "parameters" : [
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent."
+              }
+            ]
+          },
           {
             "declared" : "LYRMessage.h",
             "declaration" : "- (LYRRecipientStatus)recipientStatusForUserID:(NSString *)userID",
@@ -629,7 +512,8 @@
         ]
       },
       "name" : "LYRMessage",
-      "inherits" : "NSObject"
+      "inherits" : "NSObject",
+      "conforms" : "LYRQueryable"
     },
     {
       "declared" : "LYRMessagePart.h",
@@ -709,6 +593,198 @@
         ]
       },
       "name" : "LYRMessagePart",
+      "inherits" : "NSObject"
+    },
+    {
+      "declared" : "LYRPredicate.h",
+      "properties" : [
+        {
+          "declared" : "LYRPredicate.h",
+          "declaration" : "@property (nonatomic, readonly) LYRPredicateOperator predicateOperator",
+          "comment" : "Returns the predicate operator that specifies how the property's value will be compared against the reference value.",
+          "name" : "predicateOperator"
+        },
+        {
+          "declared" : "LYRPredicate.h",
+          "declaration" : "@property (nonatomic, copy, readonly) NSString *property",
+          "comment" : "Returns the property whose value the receiver will compare against the reference value.",
+          "name" : "property"
+        },
+        {
+          "declared" : "LYRPredicate.h",
+          "declaration" : "@property (nonatomic, readonly) id value",
+          "comment" : "Returns the reference value used for comparison.",
+          "name" : "value"
+        }
+      ],
+      "methods" : {
+        "class" : [
+          {
+            "declared" : "LYRPredicate.h",
+            "declaration" : "+ (instancetype)predicateWithProperty:(NSString *)property operator:(LYRPredicateOperator)predicateOperator value:(id)value",
+            "comment" : "Creates and returns a new predicate with the given property, operator, and value.\n@property property The property whose value is to be compared.\n@property predicateOperator The operator that determines how the property's value is compared to the reference value.\n@property value The reference value to use in the comparison.",
+            "name" : "predicateWithProperty:operator:value:",
+            "return" : "A newly created predicate object."
+          }
+        ]
+      },
+      "name" : "LYRPredicate",
+      "inherits" : "NSObject",
+      "conforms" : "NSCoding<br \/>NSCopying"
+    },
+    {
+      "declared" : "LYRQuery.h",
+      "inherits" : "NSObject",
+      "conforms" : "NSCoding<br \/>NSCopying",
+      "properties" : [
+        {
+          "declared" : "LYRQuery.h",
+          "declaration" : "@property (nonatomic) NSUInteger limit",
+          "comment" : "The limit configures the maximum number of objects to be returned when the query is executed.",
+          "name" : "limit",
+          "discussion" : "A value of NSUIntegerMax (the default) indicates that no limit should be applied."
+        },
+        {
+          "declared" : "LYRQuery.h",
+          "declaration" : "@property (nonatomic) NSUInteger offset",
+          "comment" : "The offset configures the number of rows that are to be skipped in the result set before results are returned.",
+          "name" : "offset",
+          "discussion" : "The default value is zero. When used in conjunction with limit the offset property can be used to implement pagination."
+        },
+        {
+          "declared" : "LYRQuery.h",
+          "declaration" : "@property (nonatomic) LYRPredicate *predicate",
+          "comment" : "The predicate of the receiver.",
+          "name" : "predicate"
+        },
+        {
+          "declared" : "LYRQuery.h",
+          "declaration" : "@property (nonatomic, readonly) Class<LYRQueryable> queryableClass",
+          "comment" : "Returns the queryable class that the receiver is bound to.",
+          "name" : "queryableClass"
+        },
+        {
+          "declared" : "LYRQuery.h",
+          "declaration" : "@property (nonatomic) LYRQueryResultType resultType",
+          "comment" : "Configures how results are returned when the receiver is executed.",
+          "name" : "resultType",
+          "discussion" : "The default is LYRQueryResultTypeObjects."
+        },
+        {
+          "declared" : "LYRQuery.h",
+          "declaration" : "@property (nonatomic) NSArray *sortDescriptors",
+          "comment" : "Configures the sort descriptors used to order the result set.",
+          "name" : "sortDescriptors",
+          "discussion" : "The sort descriptors specify how the objects returned when the query is executed should be ordered (for example by creation date or index). The sort descriptors are\napplied in the order in which they appear in the sortDescriptors array. A value of nil (the default) means that no explicit sorting is applied and the results are returned in database row order."
+        }
+      ],
+      "comment" : "Instances of LYRQuery are used to query the local database for messaging content. Queries target a specific queryable class\nand apply a predicate that constrains the search. Predicates are expressed in terms of a public property (such as createdAt or isUnread), an operator\n(such as 'is equal to' or 'is greater than or equal to'), and a comparison value. The sort order of the results can be affected by applying one or more\nsort descriptors which also bind to a public property and are applied in either ascending or descending order. To facilitate pagination, queries may be further\nconstrained by applying a limit and offset value. Query results can be returned as either fully realized object instances, object identifiers, or as an aggregate\ncount of the total number of objects matching the query.",
+      "name" : "LYRQuery",
+      "methods" : {
+        "class" : [
+          {
+            "declared" : "LYRQuery.h",
+            "declaration" : "+ (instancetype)queryWithClass:(Class<LYRQueryable>)queryableClass",
+            "comment" : "Creates and returns a new query object for the given queryable class.",
+            "name" : "queryWithClass:",
+            "return" : "A newly created query object.",
+            "parameters" : [
+              {
+                "name" : "queryableClass",
+                "description" : "A class that conforms to the {@link LYRQueryable} protocol that is to be queried."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "declared" : "LYRQueryController.h",
+      "properties" : [
+        {
+          "declared" : "LYRQueryController.h",
+          "declaration" : "@property (nonatomic, weak) id<LYRQueryControllerDelegate> delegate",
+          "comment" : "Accesses the receiver's delegate.",
+          "name" : "delegate"
+        },
+        {
+          "declared" : "LYRQueryController.h",
+          "declaration" : "@property (nonatomic, readonly) LYRQuery *query",
+          "comment" : "Returns the query of the receiver.",
+          "name" : "query"
+        }
+      ],
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (NSUInteger)count",
+            "comment" : "Returns the total number of objects in the result set.",
+            "name" : "count",
+            "return" : "The number of objects in the result set."
+          },
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (BOOL)execute:(NSError **)error",
+            "comment" : "Executes the query and loads a result set into the receiver.",
+            "name" : "execute:",
+            "return" : "A Boolean value that indicates if execution of the query was successful.",
+            "parameters" : [
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that upon failure is set to an error object that describes\nthe nature of the failure."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (NSIndexPath *)indexPathForObject:(id<LYRQueryable>)object",
+            "comment" : "Returns the index path for the given object in the result set.",
+            "name" : "indexPathForObject:",
+            "return" : "The index path for the given object or nil if it does not exist in the result set.",
+            "parameters" : [
+              {
+                "name" : "object",
+                "description" : "The object to retrieve the index path for."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (NSUInteger)numberOfObjectsInSection:(NSUInteger)section",
+            "comment" : "Returns the number of objects in the given section in the result set.",
+            "name" : "numberOfObjectsInSection:",
+            "return" : "The number of objects in the specified section of the result set.",
+            "parameters" : [
+              {
+                "name" : "section",
+                "description" : "The section to return the number of objects for."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (NSUInteger)numberOfSections",
+            "comment" : "Returns the number of sections in the result set.",
+            "name" : "numberOfSections",
+            "return" : "The number of sections in the receiver's result set."
+          },
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (id)objectAtIndexPath:(NSIndexPath *)indexPath",
+            "comment" : "Returns the object for the given index path from the result set.",
+            "name" : "objectAtIndexPath:",
+            "return" : "The object at the specified index or nil if none could be found.",
+            "parameters" : [
+              {
+                "name" : "indexPath",
+                "description" : "The index path for the object to retrieve."
+              }
+            ]
+          }
+        ]
+      },
+      "name" : "LYRQueryController",
       "inherits" : "NSObject"
     }
   ],
@@ -895,6 +971,80 @@
       },
       "name" : "LYRClientDelegate",
       "conforms" : "NSObject"
+    },
+    {
+      "declared" : "LYRQueryController.h",
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (void)queryController:(LYRQueryController *)controller didChangeObject:(id)object atIndexPath:(NSIndexPath *)indexPath forChangeType:(LYRQueryControllerChangeType)type newIndexPath:(NSIndexPath *)newIndexPath",
+            "comment" : "Tells the delegate that a particular object in the result set of query controller has changed.",
+            "name" : "queryController:didChangeObject:atIndexPath:forChangeType:newIndexPath:",
+            "parameters" : [
+              {
+                "name" : "object",
+                "description" : "The object that has changed in the result set."
+              },
+              {
+                "name" : "indexPath",
+                "description" : "The index path of the object or nil if the change is an insert."
+              },
+              {
+                "name" : "type",
+                "description" : "An enumerated value that specifies the type of change that is occurring."
+              },
+              {
+                "name" : "newIndexPath",
+                "description" : "The new index path for the object or nil if the change is an update or delete."
+              },
+              {
+                "name" : "The",
+                "description" : "query controller that is changing."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (void)queryControllerDidChangeContent:(LYRQueryController *)queryController",
+            "comment" : "Tells the delegate that the result set of query controller has changed.",
+            "name" : "queryControllerDidChangeContent:",
+            "parameters" : [
+              {
+                "name" : "The",
+                "description" : "query controller that has changed."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (void)queryControllerWillChangeContent:(LYRQueryController *)queryController",
+            "comment" : "Tells the delegate that the result set of query controller is about to change.",
+            "name" : "queryControllerWillChangeContent:",
+            "parameters" : [
+              {
+                "name" : "The",
+                "description" : "query controller that is changing."
+              }
+            ]
+          }
+        ]
+      },
+      "name" : "LYRQueryControllerDelegate",
+      "conforms" : "NSObject"
+    },
+    {
+      "declared" : "LYRQuery.h",
+      "properties" : [
+        {
+          "declared" : "LYRQuery.h",
+          "declaration" : "@property (nonatomic, readonly) NSURL *identifier",
+          "comment" : "Returns the unique identifier for the receiver as a URL.",
+          "name" : "identifier"
+        }
+      ],
+      "name" : "LYRQueryable",
+      "conforms" : "NSObject"
     }
   ],
   "constants" : [
@@ -957,17 +1107,38 @@
       ]
     },
     {
+      "declared" : "LYRPredicate.h",
+      "name" : "LYRCompoundPredicateType",
+      "values" : [
+        {
+          "name" : "LYRCompoundPredicateTypeAnd",
+          "comment" : "A logical AND compound predicate type.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRCompoundPredicateTypeOr",
+          "comment" : "A logical OR compound predicate type.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRCompoundPredicateTypeNot",
+          "comment" : "A logical NOT compound predicate type.",
+          "declared" : "LYRPredicate.h"
+        }
+      ]
+    },
+    {
       "declared" : "LYRConstants.h",
       "name" : "LYRDeletionMode",
       "values" : [
         {
           "name" : "LYRDeletionModeLocal",
-          "comment" : "Content deletion modes",
+          "comment" : "Content is deleted from the current device only. This is an unsynchronized delete and content\n     will be synchronized to other devices and will be resynchronized if the client is deauthenticated.\n     ",
           "declared" : "LYRConstants.h"
         },
         {
           "name" : "LYRDeletionModeAllParticipants",
-          "comment" : "Content deletion modes",
+          "comment" : "Content is deleted from all devices of all participants. This is a synchronized, permanent delete\n     that results in content being deleted from the devices of existing users who have previously synchronized and\n     makes the content unavailable for synchronization to new participants or devices.\n     *",
           "declared" : "LYRConstants.h"
         }
       ]
@@ -1033,6 +1204,120 @@
       ]
     },
     {
+      "declared" : "LYRPredicate.h",
+      "name" : "LYRPredicateOperator",
+      "values" : [
+        {
+          "name" : "LYRPredicateOperatorIsEqualTo",
+          "comment" : "The property's value is equal to the given value.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRPredicateOperatorIsNotEqualTo",
+          "comment" : "The property's value is not equal to the given value.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRPredicateOperatorIsLessThan",
+          "comment" : "The property's value is less than the given value.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRPredicateOperatorIsLessThanOrEqualTo",
+          "comment" : "The property's value is less than or equal to the given value.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRPredicateOperatorIsGreaterThan",
+          "comment" : "The property's value is greater than the given value.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRPredicateOperatorIsGreaterThanOrEqualTo",
+          "comment" : "The property's value is greater than or equal to the given value.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRPredicateOperatorIsIn",
+          "comment" : "The property's value is contained in the given collection of values.\n     ",
+          "declared" : "LYRPredicate.h"
+        },
+        {
+          "name" : "LYRPredicateOperatorIsNotIn",
+          "comment" : "The property's value is not contained in the given collection of values.\n     ",
+          "declared" : "LYRPredicate.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRQueryController.h",
+      "name" : "LYRQueryControllerChangeType",
+      "values" : [
+        {
+          "name" : "LYRQueryControllerChangeTypeInsert",
+          "comment" : "An object is being inserted into the result set.\n     ",
+          "declared" : "LYRQueryController.h"
+        },
+        {
+          "name" : "LYRQueryControllerChangeTypeDelete",
+          "comment" : "An object is being deleted from the result set.\n     ",
+          "declared" : "LYRQueryController.h"
+        },
+        {
+          "name" : "LYRQueryControllerChangeTypeMove",
+          "comment" : "An object is being moved within the result set.\n     ",
+          "declared" : "LYRQueryController.h"
+        },
+        {
+          "name" : "LYRQueryControllerChangeTypeUpdate",
+          "comment" : "An object is being deleted from the result set.\n     ",
+          "declared" : "LYRQueryController.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRQuery.h",
+      "name" : "LYRQueryError",
+      "values" : [
+        {
+          "name" : "LYRQueryErrorUnqueryableProperty",
+          "comment" : "Codes for errors in the LYRQueryingErrorDomain error domain.",
+          "declared" : "LYRQuery.h"
+        },
+        {
+          "name" : "LYRQueryErrorUnsupportedPredicate",
+          "comment" : "Codes for errors in the LYRQueryingErrorDomain error domain.",
+          "declared" : "LYRQuery.h"
+        },
+        {
+          "name" : "LYRQueryErrorUnsupportedSortDescriptor",
+          "comment" : "Codes for errors in the LYRQueryingErrorDomain error domain.",
+          "declared" : "LYRQuery.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRQuery.h",
+      "name" : "LYRQueryResultType",
+      "values" : [
+        {
+          "name" : "LYRQueryResultTypeObjects",
+          "comment" : "The query is to return fully realized object instances.\n     ",
+          "declared" : "LYRQuery.h"
+        },
+        {
+          "name" : "LYRQueryResultTypeIdentifiers",
+          "comment" : "The query is to return object identifier URL objects.\n     ",
+          "declared" : "LYRQuery.h"
+        },
+        {
+          "name" : "LYRQueryResultTypeCount",
+          "comment" : "The query is to return a count of the number of results it would return if executed.\n     ",
+          "declared" : "LYRQuery.h"
+        }
+      ]
+    },
+    {
       "declared" : "LYRMessage.h",
       "name" : "LYRRecipientStatus",
       "values" : [
@@ -1059,23 +1344,23 @@
       ]
     },
     {
-      "declared" : "LYRClient.h",
+      "declared" : "LYRConstants.h",
       "name" : "LYRTypingIndicator",
       "values" : [
         {
           "name" : "LYRTypingDidBegin",
           "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
-          "declared" : "LYRClient.h"
+          "declared" : "LYRConstants.h"
         },
         {
           "name" : "LYRTypingDidPause",
           "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
-          "declared" : "LYRClient.h"
+          "declared" : "LYRConstants.h"
         },
         {
           "name" : "LYRTypingDidFinish",
           "comment" : "The {@link LYRTypingIndicator} enumeration describes the states of a typing status of a participant in a conversation.",
-          "declared" : "LYRClient.h"
+          "declared" : "LYRConstants.h"
         }
       ]
     }
