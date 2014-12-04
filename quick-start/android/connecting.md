@@ -21,7 +21,6 @@ public class MyAuthenticationListener implements LayerAuthenticationListener {
 	@Override
 	public void onAuthenticated(LayerClient client, String arg1) {
 		System.out.println("Authentication successful");
-
 	}
 
 	@Override
@@ -38,7 +37,6 @@ public class MyAuthenticationListener implements LayerAuthenticationListener {
 	@Override
 	public void onDeauthenticated(LayerClient client) {
 		// TODO Auto-generated method stub
-
 	}
 }
 ```
@@ -54,13 +52,11 @@ public class MyConnectionListener implements LayerConnectionListener {
 	@Override
 	public void onConnectionDisconnected(LayerClient arg0) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onConnectionError(LayerClient arg0, LayerException e) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

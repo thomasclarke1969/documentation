@@ -47,7 +47,7 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
                 String eit = (new JSONObject(EntityUtils.toString(response.getEntity())))
                         .optString("identity_token");
 
-        /*
+            /*
              * 3. Submit identity token to Layer for validation
              */
                 layerClient.answerAuthenticationChallenge(eit);
