@@ -74,12 +74,12 @@ Applications are notified to incoming typing indicators via an `NSNotification`.
 Passing a `nil` value to the `object:` argument of the `addObserver:selector:name:object` method will make the observer listen for typing indicators of **all the conversations**. To receive typing indicators for a specific conversation, a `LYRConversation` instance should be passed as an `object:` argument.
 
 ##Metadata
-Metadata is a new feature which provides an elegant mechanism for expressing and synchronizing contextual information about Conversations. This is implemented as a free-form structure of string key-value pairs that is automatically synchronized among the participants in a conversation. A few use cases for metadata may include:
+Metadata is a new feature which provides an elegant mechanism for expressing and synchronizing contextual information about conversations. This is implemented as a free-form structure of string key-value pairs that is automatically synchronized among the participants in a conversation. A few use cases for metadata may include:
 
 1. Setting a conversation title.
-2. Storing information about participants within the Conversation.
-3. Attaching dates or tags to the Conversation.
-4. Storing a reference to a background image URL for the Conversation.
+2. Storing information about participants within the conversation.
+3. Attaching dates or tags to the conversation.
+4. Storing a reference to a background image URL for the conversation.
 
 ```objective-c
 NSDictionary *metadata = @{@"title" : @"My Conversation",
@@ -253,6 +253,6 @@ if (success) {
 ```
 #LYRQueryControllerDelegate
 
-`LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. `LYRQueryController` observes `LYRClientObjectsDidChangeNotification` to listen for changes to Layer model objects during synchronization. When changes occur which effect objects in the controller's result set, or new objects which fit the controller's query criteria are created, the controller will inform its delegate. The delegate will then be able to update its UI in response to these changes.
+`LYRQueryController` declares the `LYRQueryControllerDelegate` protocol. `LYRQueryController` observes `LYRClientObjectsDidChangeNotification` to listen for changes to Layer model objects during synchronization. When changes occur which affect objects in the controller's result set, or new objects which fit the controller's query criteria are created, the controller will inform its delegate. The delegate will then be able to update its UI in response to these changes.
 
 For more information on using the `LYRQueryControllerDelegate` with a `UITableViewController`, please see the `LYRQueryController` guide. 
