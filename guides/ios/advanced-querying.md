@@ -23,7 +23,7 @@ The following examples demonstrate multiple common queryies that can be utilized
 
 ### Conversation Queries
 
-#### All Conversations
+#### Fetching all Conversations
 
 ```objectivec
 // Fetches all LYRConversation objects
@@ -38,7 +38,7 @@ if (!error) {
 }
 ```
 
-### Conversations With A Specific User
+### Fetching Conversations with a specific set of Participants
 
 ```objectivec
 // Fetches all conversations between the authenticated user and the supplied user
@@ -57,7 +57,7 @@ if (!error) {
 
 ### Message Queries
 
-#### All Messages
+#### Fetching all Messages
 
 ```objectivec
 // Fetches all LYRMessage objects
@@ -72,7 +72,7 @@ if (!error) {
 }
 ```
 
-#### Unread Message Count
+#### Counting Unread Messages
 
 ```objectivec
 // Fetches the count of all unread messages for the authenticated user
@@ -89,7 +89,7 @@ query.resultType = LYRQueryResultTypeCount;
 NSUInteger unreadMessageCount = [self.client countForQuery:query error:nil];
 ```
 
-#### All Messages IN Conversation
+#### Fetching all Messages in a specific Conversation
 
 ```objectivec
 // Fetches all messages for a given conversation
@@ -106,7 +106,7 @@ if (!error) {
 }
 ```
 
-### Messages From Last Week
+### Fetching Messages sent in the last week
 
 ```objectivec
 // Fetches all messages sent in the last week
@@ -145,4 +145,3 @@ if (!error) {
     NSLog(@"Query failed with error %@", error);
 }
 ```
-

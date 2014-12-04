@@ -6,7 +6,7 @@ Metadata provides an elegant mechanism for expressing and synchronizing contextu
 3. Attaching dates or tags to the Conversation.
 4. Storing a reference to a background image URL for the Conversation.
 
-The following demonstrates setting `metadata` on a conversation: 
+The following demonstrates setting `metadata` on a conversation:
 
 ```objective-c
 NSDictionary *metadata = @{@"title" : @"My Conversation",
@@ -16,19 +16,19 @@ NSDictionary *metadata = @{@"title" : @"My Conversation",
                                    @"0000003" : @"Tom Jones"},
                            @"created_at" : @"Dec, 01, 2014",
                            @"img_url" : @"/path/to/img/url"};
-[self.conversation setValuesForKeysWithDictionary:metadata];
+[conversation setValuesForKeysWithDictionary:metadata];
 ```
 
-For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (.) delimited string that identifies a series of nested keys leading to a leaf value. For example, given the above metadata structure, an application could change the name of a participant via the following: 
+For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (.) delimited string that identifies a series of nested keys leading to a leaf value. For example, given the above metadata structure, an application could change the name of a participant via the following:
 
 ```objective-c
-[self.converation setValue:@"Tom Douglas" forMetadataAtKeyPath:@"participants.0000003"];
+[conversation setValue:@"Tom Douglas" forMetadataAtKeyPath:@"participants.0000003"];
 ```
 
-Applications can fetch metadata for a given conversation by accessing the public `metadata` property on `LYRConversation` objects. 
+Applications can fetch metadata for a given conversation by accessing the public `metadata` property on `LYRConversation` objects.
 
 ```objective-c
-NSString *title = [self.conversation.metadata valueForKey:@"title"];
+NSString *title = [conversation.metadata valueForKey:@"title"];
 ```
 
 While this feature is both powerful and convenient, it is not designed to serve as a general purpose data store. It's important to understand the intended use cases and limitations associated with the feature to ensure an ideal user experience. Please see the [Metadata Guide](#metadata) for more detail.
