@@ -15,15 +15,16 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 
 // Creates and returns a new conversation object with a single participant represented by
 // your backend's user identifier for the participant
-LYRConversation *conversation = [layerClient newConversationWithParticipants:[NSSet setWithArray:@[@"USER-IDENTIFIER"]] options:nil error:nil];
+NSError *error = nil;
+LYRConversation *conversation = [layerClient newConversationWithParticipants:[NSSet setWithArray:@[@"USER-IDENTIFIER"]] options:nil error:&error];
 
 // Creates a message part with a text/plain MIMEType
 NSData *messageData = [@"Hi, how are you?" dataUsingEncoding:NSUTF8StringEncoding];
 LYRMessagePart *messagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeTextPlain data:messageData];
 
 // Creates and returns a new message object with the given conversation and array of message parts
-LYRMessage *message = [layerClient newMessageWithParts:@[messagePart] options:nil error:nil];
+LYRMessage *message = [layerClient newMessageWithParts:@[ messagePart ] options:nil error:&error];
 
 // Sends the specified message
-[conversation sendMessage:message error:nil];
+BOOL success = [conversation sendMessage:message error:&error];
 ```
