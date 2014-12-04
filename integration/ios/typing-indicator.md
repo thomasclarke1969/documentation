@@ -1,10 +1,10 @@
-# Typing Indicator
+# Typing indicator
 
 LayerKit provides a simple API which allows applications to both broadcast and receive typing indicator events. This functionality allows Layer powered applications to implement user interfaces to inform users that another participant is actively engaged in communicating with them.
 
 ## Broadcasting
 
-Applications can broadcast typing events by calling `sendTypingIndicator:` on `LYRConversation` objects. This will send a typing indicator event on behalf of the currently authenticated user. All participants in the conversation who are currently online will receive the typing indicator. LayerKit supports three typing indicatory states: `LYRTypingDidBegin`, `LYRTypingDidPause`, and `LYRTypingDidFinish`.
+Applications can broadcast typing events by calling `sendTypingIndicator:` on `LYRConversation` objects. This will send a typing indicator event on behalf of the currently authenticated user. All participants in the conversation who are currently online will receive the typing indicator. LayerKit supports three typing indicator states: `LYRTypingDidBegin`, `LYRTypingDidPause`, and `LYRTypingDidFinish`.
 
 ```
 // Sends a typing indicator event to the given conversation.
@@ -35,7 +35,7 @@ Upon receipt of a typing indicator event, applications can inspect properties of
 }
 ```
 
-## Intended Use
+## Intended use
 
 Typing indicator events are ephemeral, meaning they are not persisted by Layer. Applications are free to call `sendTypingIndicator:toConversation` as often as they would like. LayerKit will coalesce the calls internally and efficiently send typing indicator events as needed.
 
