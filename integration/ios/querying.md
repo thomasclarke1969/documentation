@@ -18,7 +18,7 @@ if (!error) {
 }
 ```
 
-## Constructing A Query
+## Constructing a query
 
 An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol. Currently, `LYRConversation` and `LYRMessage` are the only classes which conform to the protocol.
 
@@ -26,7 +26,7 @@ An instance of an `LYRQuery` object is initialized with a `Class` object represe
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 ```
 
-## Applying Constraints
+## Applying constraints
 
 The `LYRPredicate` object allows applications to apply constraints to a query result set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
 
@@ -38,7 +38,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:L
 
 Properties that support querying are identified by the `LYR_QUERYABLE_PROPERTY` macro.
 
-##Sorting Results
+##Sorting results
 
 Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the `sortDescriptors` property on `LYRQuery` objects. This value must be an array of `NSSortDescriptor` instances.
 
@@ -48,7 +48,7 @@ The following sort descriptor asks that results be returned in ascending order b
 query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
 ```
 
-## Limits and Offsets
+## Limits and offsets
 
 To facilitate pagination, queries may be further constrained by applying limit and offset values. The limit onfigures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
 
@@ -57,7 +57,7 @@ query.limit = 20;
 query.offset = 0;
 ```
 
-## Result Types
+## Result types
 
 Query results can be returned as fully realized object instances, object identifiers, or as an aggregate count of the total number of objects matching the query. Applications determine their desired return type by optionally setting a value for the `resultType` property on the `LYRQuery` object. The default value is `LYRQueryResultTypeObjects`.
 
