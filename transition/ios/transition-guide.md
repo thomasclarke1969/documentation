@@ -263,4 +263,4 @@ if (success) {
 
 For more information on using the `LYRQueryControllerDelegate` with a `UITableViewController`, please see the `LYRQueryController` guide. 
 
-More information on [Querying](/integration/ios/querying.md) can be found in our Integration Guide.
+More information on [Querying](/integration/ios#querying) can be found in our Integration Guide.
