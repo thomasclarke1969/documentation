@@ -1,6 +1,6 @@
 # Deleting Messages
 
-LayerKit supports the deletion of both conversations and messages. Deletion of a conversation deletes the conversation object and all associated messages. Deletion of a messages only affects that individual message and it's parts.
+LayerKit supports the deletion of both conversations and messages. Deletion of a conversation deletes the conversation object and all associated messages. Deletion of a messages only affects that individual message and its parts.
 
 LayerKit supports 2 deletion modes: Local and All Participants:
 
