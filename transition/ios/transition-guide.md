@@ -118,7 +118,7 @@ LYRMessage *message = [self.client newMessageWithParts:@[parts]
                                                  error:&error];
 ```
 
-More information on [Metadata](/integration/ios/metadata.md) can be found in our Integration Guide.
+More information on [Metadata](/integration/ios#metadata) can be found in our Integration Guide.
 
 ## Querying
 One of the major feature releases that accompanies our v0.9.0 release is the introduction of the `LYRQuery` object. This object provides application developers with a flexible and expressive interface with which they can query LayerKit for messaging content. All `LYRClient` methods which previously allowed applications to fetch content from the SDK have been deprecated. Developers should now leverage the `LYRQuery` object in order to fetch only the specific content their application needs.  
