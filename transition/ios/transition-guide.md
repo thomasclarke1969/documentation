@@ -73,7 +73,7 @@ Applications are notified to incoming typing indicators via an `NSNotification`.
 
 Passing a `nil` value to the `object:` argument of the `addObserver:selector:name:object` method will make the observer listen for typing indicators of **all the conversations**. To receive typing indicators for a specific conversation, a `LYRConversation` instance should be passed as an `object:` argument.
 
-More information on [Typing Indicators](/integration/ios#typing-indicator) can be found in our Integration Guide.
+More information on [Typing Indicators](/docs/integration/ios#typing-indicator) can be found in our Integration Guide.
 
 ##Metadata
 Metadata is a new feature which provides an elegant mechanism for expressing and synchronizing contextual information about conversations. This is implemented as a free-form structure of string key-value pairs that is automatically synchronized among the participants in a conversation. A few use cases for metadata may include:
@@ -118,7 +118,7 @@ LYRMessage *message = [self.client newMessageWithParts:@[parts]
                                                  error:&error];
 ```
 
-More information on [Metadata](/integration/ios#metadata) can be found in our Integration Guide.
+More information on [Metadata](/docs/integration/ios#metadata) can be found in our Integration Guide.
 
 ## Querying
 One of the major feature releases that accompanies our v0.9.0 release is the introduction of the `LYRQuery` object. This object provides application developers with a flexible and expressive interface with which they can query LayerKit for messaging content. All `LYRClient` methods which previously allowed applications to fetch content from the SDK have been deprecated. Developers should now leverage the `LYRQuery` object in order to fetch only the specific content their application needs.  
@@ -263,4 +263,4 @@ if (success) {
 
 For more information on using the `LYRQueryControllerDelegate` with a `UITableViewController`, please see the `LYRQueryController` guide. 
 
-More information on [Querying](/integration/ios#querying) can be found in our Integration Guide.
+More information on [Querying](/docs/integration/ios#querying) can be found in our Integration Guide.
