@@ -21,46 +21,45 @@ synchronization.
 
 ## Public API
 
-Metadata access and mutation is performed via public instance methods on the Conversation model objects.
+Metadata access is performed via public instance methods on the Conversation model objects:
 
 ```java
+/**
+ * Returns the metadata associated with this Conversation.
+ *
+ * @return the metadata associated with this Conversation
+ */
+public abstract Map<String, Object> getMetadata();
+```
 
-Conversation:
+Mutation is done through the LayerClient:
+
+```java
+/**
+ * Puts the given value in the Conversation's metadata at the given key path.  If a value
+ * already exists, it is overwritten with the new value.
+ *
+ * @param keyPath key path to set.
+ * @param value   value to put at the given key path.
+ */
+public abstract void putMetadataAtKeyPath(Conversation conversation, String keyPath, String value);
 
 /**
- @abstract Sets the value for a particular metadata key path to the given value.
- @return the metadata for the conversation
+ * Puts the given metadata map into the Conversation's metadata, either merging the provided
+ * metadata map with the existing metadata, or replacing (if `isMerge` is false).  When merging,
+ * a `null` value removes any existing value for that key path.
+ *
+ * @param metadata metadata map to apply or merge.
+ * @param isMerge  merge if true, replace if false.
  */
-   public abstract java.util.Map<java.lang.String,java.lang.Object> getMetadata();
-
-LayerClient:	
-/**
- @abstract Replaces or merges the current metadata with a new map of values.
- @param conversation The conversation the metadata should be applied.
- @param metadata The metadata to be assigned or merged.
- @param merge A Boolean value that determines if the given value should be assigned or merged.
- */
-    public abstract void putMetadata(com.layer.sdk.messaging.Conversation conversation, java.util.Map<java.lang.String,java.lang.Object> metadata, boolean merge);
-
+public abstract void putMetadata(Conversation conversation, Map<String, Object> metadata, boolean isMerge);
 
 /**
- @abstract Sets the value for a particular metadata key path to the given value.
- @param conversation The conversation the metadata should be applied.
- @param keyPath The key-path to the metadata to be created or merged.
- @param value The value that should be stored at the keyPath.
+ * Removes the given key path from the Conversation's metadata.
+ *
+ * @param keyPath key path to remove from this Conversation's metadata.
  */
-    public abstract void putMetadataAtKeyPath(com.layer.sdk.messaging.Conversation conversation, java.lang.String keyPath, java.lang.String value);
-
-
-/**
- @abstract Deletes existing values for the specified key-paths from the metadata.
- @param conversation The conversation the metadata should be applied.
- @param keyPath The key-path to the metadata to be deleted.
- */
-    public abstract void removeMetadataAtKeyPath(com.layer.sdk.messaging.Conversation conversation, java.lang.String keyPath);
-
-
-@end
+public abstract void removeMetadataAtKeyPath(Conversation conversation, String keyPath);
 
 ```
 
@@ -84,6 +83,6 @@ of nested keys leading to a leaf value. For example, given a metadata structure 
 
 We could change the `screen_name` of user `"12345"` from `"El Diablo"` to `"El Toro"` by referencing it as a keypath:
 
-```objc
-layerClient.putMetadataAtKeyPath(conversation, ""my_app.user_info.12345.screen_name", "El Toro");
+```java
+layerClient.putMetadataAtKeyPath(conversation, "my_app.user_info.12345.screen_name", "El Toro");
 ```
