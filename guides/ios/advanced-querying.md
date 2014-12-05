@@ -38,7 +38,16 @@ if (!error) {
 }
 ```
 
-### Fetching Conversations with a specific set of Participants
+#### Fetching a Conversation with a specific identifier
+
+```objectivec
+// Fetches conversation with a specific identifier
+LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
+LYRConversation *conversation = [[self.layerClient executeQuery:query error:nil] firstObject];
+```
+
+#### Fetching Conversations with a specific set of Participants
 
 ```objectivec
 // Fetches all conversations between the authenticated user and the supplied user
