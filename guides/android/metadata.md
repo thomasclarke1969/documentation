@@ -23,34 +23,42 @@ synchronization.
 
 Metadata access and mutation is performed via public instance methods on the Conversation model objects.
 
-```objc
+```java
 
-@interface LYRConversation (Metadata)
+Conversation:
 
-/**
- @abstract Returns the metadata associated with the Conversation.
- */
-@property (nonatomic, readonly) NSDictionary *metadata;
-	
 /**
  @abstract Sets the value for a particular metadata key path to the given value.
- @param value The value to assign to the keypath.
- @param keyPath A key-path to the metadata to be assigned a new value.
+ @return the metadata for the conversation
  */
-- (void)setValue:(NSString *)value forMetadataAtKeyPath:(NSString *)keyPath;
+   public abstract java.util.Map<java.lang.String,java.lang.Object> getMetadata();
 
+LayerClient:	
 /**
- @abstract Replaces or merges the current metadata with a new dictionary of values.
+ @abstract Replaces or merges the current metadata with a new map of values.
+ @param conversation The conversation the metadata should be applied.
  @param metadata The metadata to be assigned or merged.
  @param merge A Boolean value that determines if the given value should be assigned or merged.
  */
-- (void)setValuesForMetadataKeyPathsWithDictionary:(NSDictionary *)metadata merge:(BOOL)merge;
+    public abstract void putMetadata(com.layer.sdk.messaging.Conversation conversation, java.util.Map<java.lang.String,java.lang.Object> metadata, boolean merge);
+
 
 /**
- @abstraxct Deletes existing values for the specified key-paths from the metadata.
- @param keyPaths The key-path to the metadata to be deleted.
+ @abstract Sets the value for a particular metadata key path to the given value.
+ @param conversation The conversation the metadata should be applied.
+ @param keyPath The key-path to the metadata to be created or merged.
+ @param value The value that should be stored at the keyPath.
  */
-- (void)deleteValuesForMetadataAtKeyPaths:(NSArray *)keyPaths;
+    public abstract void putMetadataAtKeyPath(com.layer.sdk.messaging.Conversation conversation, java.lang.String keyPath, java.lang.String value);
+
+
+/**
+ @abstract Deletes existing values for the specified key-paths from the metadata.
+ @param conversation The conversation the metadata should be applied.
+ @param keyPath The key-path to the metadata to be deleted.
+ */
+    public abstract void removeMetadataAtKeyPath(com.layer.sdk.messaging.Conversation conversation, java.lang.String keyPath);
+
 
 @end
 
@@ -77,5 +85,5 @@ of nested keys leading to a leaf value. For example, given a metadata structure 
 We could change the `screen_name` of user `"12345"` from `"El Diablo"` to `"El Toro"` by referencing it as a keypath:
 
 ```objc
-[converation setValue:@"El Toro" forMetadataAtKeyPath:@"my_app.user_info.12345.screen_name"];
+layerClient.putMetadataAtKeyPath(conversation, ""my_app.user_info.12345.screen_name", "El Toro");
 ```
