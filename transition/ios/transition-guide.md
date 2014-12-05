@@ -73,7 +73,7 @@ Applications are notified to incoming typing indicators via an `NSNotification`.
 
 Passing a `nil` value to the `object:` argument of the `addObserver:selector:name:object` method will make the observer listen for typing indicators of **all the conversations**. To receive typing indicators for a specific conversation, a `LYRConversation` instance should be passed as an `object:` argument.
 
-More information on [Typing Indicators](/integration/ios/typing-indicator.md) can be found in our Integration Guide.
+More information on [Typing Indicators](/integration/ios#typing-indicator) can be found in our Integration Guide.
 
 ##Metadata
 Metadata is a new feature which provides an elegant mechanism for expressing and synchronizing contextual information about conversations. This is implemented as a free-form structure of string key-value pairs that is automatically synchronized among the participants in a conversation. A few use cases for metadata may include:
