@@ -14,9 +14,6 @@ Once connected, the `onConnectionConnected()` method will be called, followed by
 
 Once you have called the `authenticate()` method, your application will receive a call to your `LayerAuthenticationListener`'s `onAuthenticationChallenge()` method. You can use the following implementation which will connect to the Layer Identity Service to get an Identity Token.
 
-```emphasis
-Please note, the Identity Service is only available for testing purposes and cannot be used in production applications.
-```
 
 ```java
 /*
@@ -58,4 +55,8 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
         }
     }).execute();
 }
+```
+
+```emphasis
+Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](https://developer.layer.com/docs/guides/android#authentication) for information on doing so.
 ```

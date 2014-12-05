@@ -47,5 +47,5 @@ NSString *userIDString = @"REPLACE_WITH_USER_ID";
 ```
 
 ```emphasis
-Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](#authentication-guide) for information on doing so.
+Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](https://developer.layer.com/docs/guides/ios#authentication) for information on doing so.
 ```
