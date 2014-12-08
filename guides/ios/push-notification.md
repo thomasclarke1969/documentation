@@ -222,7 +222,7 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
 - (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
 {
     // Fetch message object from LayerKit
-    NSURL *identifier = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.event_url"]];
+    NSURL *identifier = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.message_identifier"]];
 	LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 	query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
 	return [[self.layerClient executeQuery:query error:nil] lastObject];
