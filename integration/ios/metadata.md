@@ -16,7 +16,7 @@ NSDictionary *metadata = @{@"title" : @"My Conversation",
                                    @"0000003" : @"Tom Jones"},
                            @"created_at" : @"Dec, 01, 2014",
                            @"img_url" : @"/path/to/img/url"};
-[conversation setValuesForKeysWithDictionary:metadata];
+[self.conversation setValuesForMetadataKeyPathsWithDictionary:metadata merge:YES];
 ```
 
 For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (.) delimited string that identifies a series of nested keys leading to a leaf value. For example, given the above metadata structure, an application could change the name of a participant via the following:
