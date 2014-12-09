@@ -58,7 +58,7 @@ Applications can broadcast typing indicators by calling `sendTypingIndicator:` o
 
 ```objective-c
 // Sends a typing indicator event to a specific conversation
-[self.conversation sentTypingIndicator:LYRTypingDidBegin];
+[self.conversation sendTypingIndicator:LYRTypingDidBegin];
 ```
 
 Applications are notified to incoming typing indicators via an `NSNotification`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` key to receive typing indicator notifications.
@@ -110,8 +110,8 @@ NSString *title = [self.conversation.metadata valueForKey:@"title"];
 Prior to LayerKit v0.9.0, applications could set push notification options, such as the push text or push sound, by setting `metadata` values on `LYRMessage` objects. Going forward, applications should set push notification options via the `options` parameter in the `LYRMessage` object's designated initializer method. 
 
 ```objective-c
-NSDictionary *pushOptions = @{LYRMessagePushNotificationAlertMessageKey : @"Some Push Text",
-                                 LYRMessagePushNotificationSoundNameKey : @"default"};
+NSDictionary *pushOptions = @{LYRMessageOptionsPushNotificationAlertKey : @"Some Push Text",
+                                 LYRMessageOptionsPushNotificationSoundNameKey : @"default"};
 NSError *error;
 LYRMessage *message = [self.client newMessageWithParts:@[parts]
                                                options:pushOptions
@@ -223,7 +223,7 @@ if (!error) {
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 LYRPredicate *conversationPredicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
 LYRPredicate *unreadPredicate = [LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
-LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[conversationPredicate, unreadPredicate, userPredicate]];
 
 NSError *error;

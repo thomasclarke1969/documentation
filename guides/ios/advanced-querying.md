@@ -91,7 +91,7 @@ LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 LYRPredicate *unreadPredicate =[LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
 
 // Messages must not be sent by the authenticated user
-LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserId" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
 
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPredicate, userPredicate]];
 query.resultType = LYRQueryResultTypeCount;
