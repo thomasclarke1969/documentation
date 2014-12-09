@@ -93,27 +93,22 @@ You will then be asked to enter the admin password for your computer to complete
 
 ##Creating/Refreshing a Provisioning Profile
 
-Navigate back to the Apple Developer Portal.  Select Provisioning Profiles.
-
-Click on the `+` button in the upper right corner to create a new provisioning profile.
-
-Select "iOS App Development" as your profile if you are still in development.  If you are ready to submit you will need to select "Ad Hoc" or "App Store".
-
-Select the App ID for your application.
-
-Add the appropriate test devices to the profile.
-
-Name the provisioning profile.  We just using a descriptive name such as "<app name> <profile type>".
-
-Generate the profile, and download it to your local machine.
-
-Double click on the downloaded profile to install it.
+ 1. Navigate back to the Apple Developer Portal.  Select Provisioning Profiles.
+ 2. Click on the `+` button in the upper right corner to create a new provisioning profile.
+ 3. Select "iOS App Development" as your profile if you are still in development.  If you are ready to submit you will need to select "Ad Hoc" or "App Store".
+ 4. Select the App ID for your application.
+ 5. Add the appropriate test devices to the profile.
+ 6. Name the provisioning profile.  We just using a descriptive name such as "<app name> <profile type>".
+ 7. Generate the profile, and download it to your local machine.
+ 8. Double click on the downloaded profile to install it.
 
 If you have already created a Provisioning Profile in the past you will need to refresh it once you've created your Push Certificate.
 
 ##Upload Your Certificate to Layer
 
-**Please note, Layer supports both production and development Apple Push Notifications. Only one certificate can be uploaded to the Layer developer portal at a time however, so please ensure that you have the correct certificate uploaded for your application at all times.**
+```emphasis
+Please note, Layer supports both production and development Apple Push Notifications. Only one certificate can be uploaded to the Layer developer portal at a time however, so please ensure that you have the correct certificate uploaded for your application at all times.
+```
 
 Navigate to the [Layer Developer Portal](https://preview.layer.com ) and login with your credentials. Select the application for which you would like to upload certificates from the Application drop-down menu. Click on the “Push” section of the left hand navigation.
 
