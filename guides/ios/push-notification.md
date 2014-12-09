@@ -147,8 +147,7 @@ Your application must register to receive for remote notifications. To support d
 // Checking if app is running iOS 8
 if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
 	// Register device for iOS8
-	UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound
-																																														categories:nil];
+	UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
 	[application registerUserNotificationSettings:notificationSettings];
 	[application registerForRemoteNotifications];
 } else {
