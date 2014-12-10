@@ -29,9 +29,14 @@ Upon receipt of a typing indicator event, applications can inspect properties of
 - (void)didReceiveTypingIndicator:(NSNotification *)notification
 {
     NSString *participantID = notification.userInfo[LYRTypingIndicatorParticipantUserInfoKey];
-    LYRTypingIndicator typingIndicator = (LYRTypingIndicator)[notification[LYRTypingIndicatorValueUserInfoKey] unsignedIntegerValue];
-    LYRConversation *conversation = (LYRConversation) [notification object];
-    NSLog(@“Received typing indicator from %@ for conversation %@”, participantID, conversation);
+    LYRTypingIndicator typingIndicator = [notification.userInfo[LYRTypingIndicatorValueUserInfoKey] unsignedIntegerValue];
+    
+    if (typingIndicator == LYRTypingDidBegin) {
+        NSLog(@"Typing Started");
+    }
+    else {
+        NSLog(@"Typing Stopped");
+    }
 }
 ```
 
