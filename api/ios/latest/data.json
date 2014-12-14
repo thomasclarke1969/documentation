@@ -272,7 +272,7 @@
           "declaration" : "@property (nonatomic, readonly) NSURL *LYR_QUERYABLE_PROPERTY",
           "comment" : "A unique identifier assigned to every conversation by Layer.",
           "name" : "LYR_QUERYABLE_PROPERTY",
-          "discussion" : "The identifier property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotEqualTo operators."
+          "discussion" : "The identifier property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotIn operators."
         },
         {
           "declared" : "LYRConversation.h",
@@ -399,13 +399,13 @@
           },
           {
             "declared" : "LYRConversation.h",
-            "declaration" : "- (void)setValue:(NSString *)value forMetadataAtKeyPath:(NSString *)keyPath",
+            "declaration" : "- (void)setValue:(id)value forMetadataAtKeyPath:(NSString *)keyPath",
             "comment" : "Sets the value for the specified key path in the metadata dictionary.",
             "name" : "setValue:forMetadataAtKeyPath:",
             "parameters" : [
               {
                 "name" : "value",
-                "description" : "The string value to set for the given key path in the metadata."
+                "description" : "The string or dictionary value to set for the given key path in the metadata."
               },
               {
                 "name" : "keyPath",
@@ -440,10 +440,17 @@
       "properties" : [
         {
           "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) NSDate *LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM ( LYRConversation )",
+          "comment" : "The date and time that the message was received by the authenticated user.",
+          "name" : ")",
+          "discussion" : "For messages sent by the current user the receivedAt value will be equal to sentAt. The receivedAt property is queryable using all predicate operators."
+        },
+        {
+          "declared" : "LYRMessage.h",
           "declaration" : "@property (nonatomic, readonly) NSURL *LYR_QUERYABLE_PROPERTY",
           "comment" : "A unique identifier for the message.",
           "name" : "LYR_QUERYABLE_PROPERTY",
-          "discussion" : "The identifier property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotEqualTo operators."
+          "discussion" : "The identifier property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotIn operators."
         },
         {
           "declared" : "LYRMessage.h",
