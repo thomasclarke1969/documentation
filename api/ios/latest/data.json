@@ -118,6 +118,30 @@
           },
           {
             "declared" : "LYRClient.h",
+            "declaration" : "- (void)downloadContentForPartsOfMessages:(NSArray *)messages withMIMETypes:(NSArray *)MIMETypes progress:(NSProgress *__autoreleasing *)progress completion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
+            "comment" : "Tells the receiver to download the content for all parts of the given messages with the given set of MIME Types, optionally reporting progress and invoking a block upon completion.",
+            "name" : "downloadContentForPartsOfMessages:withMIMETypes:progress:completion:",
+            "parameters" : [
+              {
+                "name" : "messages",
+                "description" : "The set of messages for which content is to be downloaded. Cannot be nil or empty."
+              },
+              {
+                "name" : "MIMETypes",
+                "description" : "A set of MIME Types specifying the type of content that should be downloaded for the specified messages. If nil then all content will be downloaded for the specified messages."
+              },
+              {
+                "name" : "progress",
+                "description" : "A pointer to a progress object that upon return can be used to monitor and control the progress of the download operation."
+              },
+              {
+                "name" : "compeltion",
+                "description" : "An optional block to be executed upon successful completion of the download process. The block has no return value and accepts two arguments: a Boolean value indicating if the operation\ncompleted successfully and an error object that upon failure indicates the reason the operation was unsuccessful.\n@internal Do not use this method in"
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
             "declaration" : "- (NSOrderedSet *)executeQuery:(LYRQuery *)query error:(NSError **)error",
             "comment" : "Executes the given query and returns an ordered set of results.",
             "name" : "executeQuery:error:",
@@ -536,6 +560,18 @@
           "declaration" : "@property (nonatomic, readonly) NSData *data",
           "comment" : "The content of the receiver as a data object.",
           "name" : "data"
+        },
+        {
+          "declared" : "LYRMessagePart.h",
+          "declaration" : "@property (nonatomic, readonly) BOOL isDownloaded",
+          "comment" : "The indicator that tells if the content is available for user consuption.",
+          "name" : "isDownloaded"
+        },
+        {
+          "declared" : "LYRMessagePart.h",
+          "declaration" : "@property (nonatomic, readonly) NSUInteger size",
+          "comment" : "The size of the content in bytes.",
+          "name" : "size"
         }
       ],
       "methods" : {
@@ -1131,6 +1167,56 @@
           "name" : "LYRCompoundPredicateTypeNot",
           "comment" : "A logical NOT compound predicate type.",
           "declared" : "LYRPredicate.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRConstants.h",
+      "name" : "LYRConnectionOptions",
+      "values" : [
+        {
+          "name" : "LYRConnectionTypeEthernet",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionTypeWiFi",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionTypeCellular",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionSpeedHigh",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionSpeedMedium",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionSpeedLow",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionProfileDefault",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionProfileWiFi",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionProfileHighSpeedCellular",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionProfileMediumSpeedCellular",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRConnectionProfileLowSpeedCellular",
+          "declared" : "LYRConstants.h"
         }
       ]
     },
