@@ -101,8 +101,7 @@ if (!error) {
 ```emphasis
 For many more query examples, please see our Advanced Querying Guide.
 ```
-
-# LYRQueryController
+# <a name="LYRQueryController"></a>LYRQueryController
 
 The `LYRQueryController` can be used to efficiently manage the results from an `LYRQuery` and provide that data to be used in a `UITableView`. The object is similar in concept to an `NSFetchedResultsController` and provides the following functionality:
 

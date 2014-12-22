@@ -30,6 +30,8 @@ quick-start:
       title: "Authenticate"
     send-a-message:
       title: "Send a Message"
+    display-messages:
+      title: "Display Messages"      
 
 # Layer SDK Functionality Guide
 integration:

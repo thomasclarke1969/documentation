@@ -1,5 +1,11 @@
 #Installation
 
+This quick start guide will get you up and running with sending messages as quickly as possible. 
+
+```emphasis
+Before you get started, we highly recommend that you download the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios).
+```
+
 The simplest way to install LayerKit is with [CocoaPods](http://cocoapods.org). If you have yet to install Cocoapods, you can do so via the following command.
 
 ```console
