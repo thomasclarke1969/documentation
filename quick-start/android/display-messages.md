@@ -1,0 +1,2 @@
+#Display Messages
+This section is coming soon! Take a look at the [Synchronization](https://developer.layer.com/docs/integration/android#synchronization) and the [API Reference](https://developer.layer.com/docs/api/android) for more information about retrieving and displaying messages.
