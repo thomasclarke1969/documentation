@@ -69,6 +69,20 @@
             "declaration" : "- (void)authenticateWithIdentityToken:(NSString *)identityToken completion:(void ( ^ ) ( NSString *authenticatedUserID , NSError *error ))completion"
           },
           {
+            "parameters" : [
+              {
+                "name" : "identifier",
+                "description" : "The object identifier for which to return the canonical identifier."
+              }
+            ],
+            "return" : "The canonical object identifier for the given input identifier or nil if none could be computed.",
+            "discussion" : "This method enables the migration of object identifiers created by LayerKit < v0.9.0 to the canonical\nformat emitted by v0.9.0 and higher clients. If the given identifier already is a new style identifier, then it is returned. If\nthe input identifier is a legacy identifier, then the canonical identifier is computed and returned. If no conversation or message can\nbe found by treating the identifier as a legacy or canonical identifier then nil is returned (typically indicating that the content has\nnot yet been synchronized).",
+            "declared" : "LYRClient.h",
+            "comment" : "Returns the canonical object identifier for a given identifier.",
+            "name" : "canonicalObjectIdentifierForIdentifier:",
+            "declaration" : "- (NSURL *)canonicalObjectIdentifierForIdentifier:(NSURL *)identifier"
+          },
+          {
             "declared" : "LYRClient.h",
             "declaration" : "- (void)connectWithCompletion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
             "comment" : "Signals the receiver to establish a network connection and initiate synchronization.",
@@ -115,30 +129,6 @@
             "declaration" : "- (void)disconnect",
             "comment" : "Signals the receiver to end the established network connection.",
             "name" : "disconnect"
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (void)downloadContentForPartsOfMessages:(NSArray *)messages withMIMETypes:(NSArray *)MIMETypes progress:(NSProgress *__autoreleasing *)progress completion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
-            "comment" : "Tells the receiver to download the content for all parts of the given messages with the given set of MIME Types, optionally reporting progress and invoking a block upon completion.",
-            "name" : "downloadContentForPartsOfMessages:withMIMETypes:progress:completion:",
-            "parameters" : [
-              {
-                "name" : "messages",
-                "description" : "The set of messages for which content is to be downloaded. Cannot be nil or empty."
-              },
-              {
-                "name" : "MIMETypes",
-                "description" : "A set of MIME Types specifying the type of content that should be downloaded for the specified messages. If nil then all content will be downloaded for the specified messages."
-              },
-              {
-                "name" : "progress",
-                "description" : "A pointer to a progress object that upon return can be used to monitor and control the progress of the download operation."
-              },
-              {
-                "name" : "compeltion",
-                "description" : "An optional block to be executed upon successful completion of the download process. The block has no return value and accepts two arguments: a Boolean value indicating if the operation\ncompleted successfully and an error object that upon failure indicates the reason the operation was unsuccessful.\n@internal Do not use this method in"
-              }
-            ]
           },
           {
             "declared" : "LYRClient.h",
@@ -560,18 +550,6 @@
           "declaration" : "@property (nonatomic, readonly) NSData *data",
           "comment" : "The content of the receiver as a data object.",
           "name" : "data"
-        },
-        {
-          "declared" : "LYRMessagePart.h",
-          "declaration" : "@property (nonatomic, readonly) BOOL isDownloaded",
-          "comment" : "The indicator that tells if the content is available for user consuption.",
-          "name" : "isDownloaded"
-        },
-        {
-          "declared" : "LYRMessagePart.h",
-          "declaration" : "@property (nonatomic, readonly) NSUInteger size",
-          "comment" : "The size of the content in bytes.",
-          "name" : "size"
         }
       ],
       "methods" : {
@@ -1167,56 +1145,6 @@
           "name" : "LYRCompoundPredicateTypeNot",
           "comment" : "A logical NOT compound predicate type.",
           "declared" : "LYRPredicate.h"
-        }
-      ]
-    },
-    {
-      "declared" : "LYRConstants.h",
-      "name" : "LYRConnectionOptions",
-      "values" : [
-        {
-          "name" : "LYRConnectionTypeEthernet",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionTypeWiFi",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionTypeCellular",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionSpeedHigh",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionSpeedMedium",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionSpeedLow",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionProfileDefault",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionProfileWiFi",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionProfileHighSpeedCellular",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionProfileMediumSpeedCellular",
-          "declared" : "LYRConstants.h"
-        },
-        {
-          "name" : "LYRConnectionProfileLowSpeedCellular",
-          "declared" : "LYRConstants.h"
         }
       ]
     },
