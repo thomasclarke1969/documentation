@@ -13,7 +13,7 @@ We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sam
 Copy and paste the following into `application:didFinishLaunchingWithOptions:` in your `AppDelegate`.
 
 ```objectivec
-NSUUID *appID = [[NSUUID alloc] initWithUUIDString:"@%%C-INLINE-APPID%%"];
+NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"%%C-INLINE-APPID%%"];
 self.layerClient = [LYRClient clientWithAppID:appID];
 [self.layerClient connectWithCompletion:^(BOOL success, NSError *error) {
     if (!success) {
@@ -32,5 +32,5 @@ self.layerClient = [LYRClient clientWithAppID:appID];
 ```
 
 ```emphasis
-Please note, the source for `authenticateLayerWithUserID` is included in the next step in [Quick Start](https://developer.layer.com/docs/quick-start/ios#authenticate).
+Please note, `self.layerClient` is a property of the AppDelegate in the above example. The source for `authenticateLayerWithUserID` is included in the next step in [Quick Start](https://developer.layer.com/docs/quick-start/ios#authenticate).
 ```

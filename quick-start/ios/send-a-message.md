@@ -6,7 +6,7 @@ The following demonstrates the logic needed to create a conversations and send a
     // If no conversations exist, create a new conversation object with a single participant
     if (!self.conversation) {
         NSError *error = nil;
-        self.conversation = [self.layerClient newConversationWithParticipants:[NSSet setWithArray:@[ LQSParticipantUserID ]] options:nil error:&error];
+        self.conversation = [self.layerClient newConversationWithParticipants:[NSSet setWithArray:@[ @"<PARTICIPANT>" ]] options:nil error:&error];
         if (!self.conversation) {
             NSLog(@"New Conversation creation failed: %@", error);
         }

@@ -3,6 +3,9 @@ The following demonstrates the logic needed to display messages from the last co
 
 Initial setup for your View Controller:
 ```objectivec
+//Import the LayerKit headers into your ViewController.h
+#import <LayerKit/LayerKit.h>
+
 //The ViewController needs to implements LYRQueryControllerDelegate
 @interface ViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource,LYRQueryControllerDelegate>
 
@@ -132,12 +135,12 @@ The following methods are the Table View Data Source Methods.  These methods han
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(LQSChatMessageCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Get Message Object from queryController
     LYRMessage *message = [self.queryController objectAtIndexPath:indexPath];
     
-    // Set cell text to "<Sender>: <Message Contents>""
+    // Set cell text to "<Sender>: <Message Contents>"
     LYRMessagePart *messagePart = message.parts[0];
     cell.textLabel.text = [NSString stringWithFormat:@"%@:%@",[message sentByUserID], [[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding]];
  }
