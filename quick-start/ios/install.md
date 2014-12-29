@@ -12,6 +12,12 @@ The simplest way to install LayerKit is with [CocoaPods](http://cocoapods.org). 
 $ sudo gem install cocoapods
 ```
 
+If this is your first time running Cocoapods, execute the setup command.
+
+```console
+$ pod setup
+```
+
 Next, create a [`Podfile`](http://guides.cocoapods.org/syntax/podfile.html) in the root of your project directory. Navigate to your project's root directory and run `pod init`. This will create `Podfile` for you.
 
 ```console
