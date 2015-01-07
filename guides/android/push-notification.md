@@ -1,6 +1,9 @@
 # Push Notification
 The Layer Android SDK receives pushes through both the Layer push protocol and Google Cloud Messaging (GCM), depending on usage and other conditions. In order to enable your application to receive GCM push notifications, some setup must be performed in both the Google Developer Console and the Layer developer portal.
 
+# Generating Google Cloud Messaging Credentials
+If you do not already have an API Key and Project Number from Google for your app press the button below to learn how to retrieve them from Google.
+```collapse
 ## Setup Google Cloud Messaging on the Web
 Go to the [Google Developer Console](https://console.developers.google.com) and click `Create Project`.
 
@@ -40,8 +43,8 @@ Type `0.0.0.0/0` in the "Accept requests from these server IP addresses" field, 
 Note the alphanumeric `API Key`. You will need to input this key into the Layer Dashboard.
 
 ![image alt text](android-push-7.jpg)
-
-## Setup Google Cloud Messaging in the Layer Dashboard
+```
+# Setup Google Cloud Messaging in the Layer Dashboard
 
 Navigate to the Layer Developer Portal and login with your credentials. Select the application for which you would like to upload certificates from the Application drop-down menu. Click on the “Push” section of the left hand navigation.
 

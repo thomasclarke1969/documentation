@@ -1,6 +1,9 @@
 #Push Notifications
 The Layer Push Notification Service can be used to keep your application’s data up to date at all times. This guide will walk you through integrating the Layer Push Notification service into your application.
 
+#Generating Apple Push Certificate
+If you do not already have a .p12 certificate press the button below to learn how to generate them from Apple.
+```collapse
 ##Enable Your App for Push notifications
 Navigate to the [Apple Developer Portal](https://developer.apple.com/) and Log In. Select Certificates, Identifiers, & Profiles on the right side of the page.
 
@@ -103,8 +106,8 @@ You will then be asked to enter the admin password for your computer to complete
  8. Double click on the downloaded profile to install it.
 
 If you have already created a Provisioning Profile in the past you will need to refresh it once you've created your Push Certificate.
-
-##Upload Your Certificate to Layer
+```
+#Upload Your Certificate to Layer
 
 ```emphasis
 Please note, Layer supports both production and development Apple Push Notifications. Only one certificate can be uploaded to the Layer developer portal at a time however, so please ensure that you have the correct certificate uploaded for your application at all times.
