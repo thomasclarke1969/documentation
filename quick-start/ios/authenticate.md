@@ -53,7 +53,7 @@ Layer will cache authentication details so you only need authenticate users if y
     }];
 }
 ```
-The following code snippet connects to the sample `Layer Identity Service`,  generates an `Identity Token` on behalf your applicaion, and authenticates the `LYRClient`. Copy and paste the entire snippet into your application.
+The following code snippet connects to the sample `Layer Identity Service`,  generates an `Identity Token` on behalf your application, and authenticates the `LYRClient`. Copy and paste the entire snippet into your application.
 ```objective-c
 - (void)requestIdentityTokenForUserID:(NSString *)userID appID:(NSString *)appID nonce:(NSString *)nonce completion:(void(^)(NSString *identityToken, NSError *error))completion
 {
