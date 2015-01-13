@@ -16,3 +16,5 @@ layerClient.sendMessage(message);
 ```
 
 You can verify that your message has been sent by looking at the logs inside [developer dashboard](/dashboard/projects).
+
+%%C-CHATWIDGET%%
