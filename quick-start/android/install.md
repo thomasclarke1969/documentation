@@ -94,6 +94,10 @@ Below is an example with a `com.myapp.newstandalone` package; replace with your 
                 <action android:name="com.layer.sdk.PUSH"/>
                 <category android:name="com.myapp.newstandalone"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="com.myapp.newstandalone"/>
+            </intent-filter>
         </receiver>
 
     </application>

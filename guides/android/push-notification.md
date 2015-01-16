@@ -113,6 +113,11 @@ import com.layer.sdk.messaging.Message;
 public class LayerPushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        //Don't show a notification on boot
+        if(intent.getAction() == Intent.ACTION_BOOT_COMPLETED)
+            return;
+
         // Get notification content
         Bundle extras = intent.getExtras();
         String message = "";
@@ -148,7 +153,7 @@ public class LayerPushReceiver extends BroadcastReceiver {
 }
 ```
 
-Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action.  One way to do so is through your app's AndroidManifest.xml:
+Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action.  To ensure that the reciever is activated on device start (not just after app launch), you can also filter for the `android.intent.action.BOOT_COMPLETED` action. One way to do so is through your app's AndroidManifest.xml (replace `com.myapp.newstandalone` with your own package name):
 
 ``` xml
 <application ... >
@@ -156,6 +161,10 @@ Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action
     <receiver android:name=".LayerPushReceiver">
         <intent-filter>
             <action android:name="com.layer.sdk.PUSH"/>
+            <category android:name="com.myapp.newstandalone"/>
+        </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED"/>
             <category android:name="com.myapp.newstandalone"/>
         </intent-filter>
     </receiver>

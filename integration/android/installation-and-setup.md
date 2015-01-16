@@ -92,6 +92,10 @@ The Layer Android SDK requires some permissions and references from your app's `
                 <action android:name="com.layer.sdk.PUSH"/>
                 <category android:name="com.myapp.newstandalone"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="com.myapp.newstandalone"/>
+            </intent-filter>
         </receiver>
 
     </application>
