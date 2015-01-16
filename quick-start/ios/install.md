@@ -1,6 +1,6 @@
 #Installation
 
-This quick start guide will get you up and running with sending messages as quickly as possible. 
+This Quick Start guide will get you up and running with sending messages as quickly as possible. 
 
 ```emphasis
 Before you get started, we highly recommend that you download the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios).
