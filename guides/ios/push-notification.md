@@ -195,27 +195,32 @@ If the options parameter is `nil`, the Layer push notification service will deli
 Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     NSError *error;
-    BOOL success = [viewController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(UIBackgroundFetchResult fetchResult, NSError *error) {
-        if (fetchResult == UIBackgroundFetchResultFailed) {
-            NSLog(@"Failed processing remote notification: %@", error);
-        }        
-        // Get the message from userInfo
-        message = [self messageFromRemoteNotification:userInfo];
-        NSString *alertString = [[NSString alloc] initWithData:[message.parts[0] data] encoding:NSUTF8StringEncoding]; 
+    
+    BOOL success = [self.applicationController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
+        [self setApplicationBadgeNumber];
+        if (changes) {
+            if ([changes count]) {
+                [self processLayerBackgroundChanges:changes];
+        	// Get the message from userInfo
+        	message = [self messageFromRemoteNotification:userInfo];
+        	NSString *alertString = [[NSString alloc] initWithData:[message.parts[0] data] encoding:NSUTF8StringEncoding]; 
 
-        // Show a local notification       
-        UILocalNotification *localNotification = [UILocalNotification new];
-        localNotification.alertBody = alertString;
-        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-        completionHandler(fetchResult);
+        	// Show a local notification       
+        	UILocalNotification *localNotification = [UILocalNotification new];
+        	localNotification.alertBody = alertString;
+        	[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+            completionHandler(UIBackgroundFetchResultNewData);
+            } else {
+                completionHandler(UIBackgroundFetchResultNoData);
+            }
+        } else {
+            completionHandler(UIBackgroundFetchResultFailed);
+        }
     }];
-    if (success) {
-        NSLog(@"Application did complete remote notification sync");
-    } else {
-        NSLog(@"Error handling push notification: %@", error);
+    if (!success) {
         completionHandler(UIBackgroundFetchResultNoData);
     }
-}
+    
 - (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
 {
     // Fetch message object from LayerKit

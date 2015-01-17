@@ -1,5 +1,28 @@
-#LayerKit v0.9.0 Transition Guide
+#LayerKit v0.9.4 Transition Guide
+## Breaking API Changes
 
+The completion block of `LYRClient synchronizeWithRemoteNotification:completion:` has been changed. Instead of invoking the completion handler with a `UIBackgroundFetchResult` and an `NSError`, an `NSArray` of object changes and an `NSError` are now given. The `NSArray` contains `NSDictionary` instances that detail the exact changes made to the object model.
+
+```objective-c
+    BOOL success = [self.applicationController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
+        [self setApplicationBadgeNumber];
+        if (changes) {
+            if ([changes count]) {
+                [self processLayerBackgroundChanges:changes];
+                completionHandler(UIBackgroundFetchResultNewData);
+            } else {
+                completionHandler(UIBackgroundFetchResultNoData);
+            }
+        } else {
+            completionHandler(UIBackgroundFetchResultFailed);
+        }
+    }];
+    if (!success) {
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
+```    
+
+#LayerKit v0.9.0 Transition Guide
 ## Breaking API Changes
 LayerKit v0.9.0 includes two breaking API changes. The initializer methods of both `LYRConversation` and `LYRMessage` objects have been moved from the model classes themselves onto the `LYRClient` object. 
 
