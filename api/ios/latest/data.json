@@ -290,6 +290,13 @@
         },
         {
           "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) BOOL deliveryReceiptsEnabled",
+          "comment" : "Returns a Boolean value that indicates if delivery receipts are enabled. When YES, clients will write delivery receipts and a delineation will be made between LYRRecipientStatusSent\nand LYRRecipientStatusDelivered. When NO, messages will remain in the LYRRecipientStatusSent state until explicitly marked as read.",
+          "name" : "deliveryReceiptsEnabled",
+          "discussion" : "When delivery receipts are enabled, client devices will acknowledge delivery of messages by writing a synchronized delivery receipt. This provides more granular message\nstatus, but results in more synchronization activity. Developers are encouraged to disabled delivery receipts if the delivery status is unimportant or unused."
+        },
+        {
+          "declared" : "LYRConversation.h",
           "declaration" : "@property (nonatomic, readonly) BOOL isDeleted",
           "comment" : "Returns a Boolean value that indicates if the receiver has been deleted.",
           "name" : "isDeleted"
