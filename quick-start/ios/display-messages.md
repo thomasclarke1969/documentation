@@ -29,8 +29,9 @@ The following methods fetch the last conversation, and populate the query contro
 - (void)fetchLayerConversation
 {    
     LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:@[ @"<PARTICIPANT>" ]];
-    query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES] ];
+    query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:@[ @"Device", @"Simulator", @"Dashboard" ]];
+
+    query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO] ];
     
     NSError *error;
     NSOrderedSet *conversations = [self.layerClient executeQuery:query error:&error];

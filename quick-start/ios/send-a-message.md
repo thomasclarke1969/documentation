@@ -1,12 +1,12 @@
 #Send a Message
-The following demonstrates the logic needed to create a conversations and send a message. 
+The following demonstrates the logic needed to create a conversation and send a message between 3 users named "Device", "Simulator", and "Dashboard". 
 
 ```objectivec
 - (void)sendMessage:(NSString *)messageText{
-    // If no conversations exist, create a new conversation object with a single participant
+    // If no conversations exist, create a new conversation object with two participants
     if (!self.conversation) {
         NSError *error = nil;
-        self.conversation = [self.layerClient newConversationWithParticipants:[NSSet setWithArray:@[ @"<PARTICIPANT>" ]] options:nil error:&error];
+        self.conversation = [self.layerClient newConversationWithParticipants:[NSSet setWithArray:@[ @"Simulator", @ "Dashboard" ]] options:nil error:&error];
         if (!self.conversation) {
             NSLog(@"New Conversation creation failed: %@", error);
         }
