@@ -68,6 +68,7 @@ Prebuilt JWT Libraries are available for many languages:
 * [Go](https://github.com/dgrijalva/jwt-go)
 * [Python](https://github.com/progrium/pyjwt/)
 * [Ruby](https://github.com/progrium/ruby-jwt)
+* [Go](github.com/dgrijalva/jwt-go)
 
 To assist in setting up a backend, Layer provides sample backend implementations for the followin languages:
 
@@ -76,6 +77,7 @@ To assist in setting up a backend, Layer provides sample backend implementations
 * [Ruby](https://github.com/layerhq/support/tree/master/identity-services-samples/ruby)
 * [Java](https://github.com/layerhq/support/tree/master/identity-services-samples/java)
 * [PHP](https://github.com/layerhq/support/tree/master/identity-services-samples/php)
+*  [Go](https://github.com/layerhq/support/tree/master/identity-services-samples/go)
 
 There is also a sample backend available as a [Parse module](https://github.com/layerhq/layer-parse-module).
 
