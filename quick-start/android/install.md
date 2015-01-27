@@ -2,6 +2,10 @@
 
 This quick start guide will get you up and running with sending messages as quickly as possible. However, once you have tested out Layer using this guide, you will need to alter how authentication is done by creating your own backend controller that generates an Identity Token.
 
+```emphasis
+Before you get started, we highly recommend that you download the [Quick Start Android Studio project](https://github.com/layerhq/quick-start-android).
+```
+
 Download the Quick Start Android code by running the following command.
 
 ```console

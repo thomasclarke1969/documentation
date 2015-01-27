@@ -20,3 +20,9 @@ Message message = Message.newInstance(conversation, Arrays.asList(messagePart));
 //Sends the specified message
 client.sendMessage(message);
 ```
+
+```emphasis
+**Best Practice**
+
+Check to see if a conversastion between specific participants already exists before trying to create a new one. [Click here](https://support.layer.com/hc/en-us/articles/203303290-What-happens-if-2-separate-devices-create-conversations-with-identical-participant-sets-) to learn more.
+```

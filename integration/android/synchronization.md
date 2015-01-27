@@ -91,3 +91,9 @@ public class MyApplication extends Application implements LayerSyncListener {
     }
 }
 ```
+
+```emphasis
+**Best Practice**
+
+For conversations with over 5 participants, you should disable delivery and read receipts to speed up syncing and improve overall performance. [Click here](https://support.layer.com/hc/en-us/articles/204144590-How-do-delivery-and-read-receipts-work-) to learn more.
+```

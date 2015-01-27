@@ -136,3 +136,9 @@ Dec 02 2014 02:34:27pmSync: User <USER_IDENTIFIER> created a message in conversa
 ```
 
 Additionally, developers can leverage both the [`LYRQueryController`](#query) object or register as an observer for the [`LYRClientObjectsDidChangeNotification`](#sync-notifications) key via `NSNotificationCenter` to be notified of incoming messages. Both are discussed in detail below.
+
+```emphasis
+**Best Practice**
+
+Layer supports both textual and silent push on iOS. However, textual pushes are more expedient, predictable, and reliable. [Click here](https://support.layer.com/hc/en-us/articles/203174610-Can-I-send-regular-push-notifications-) to learn more. 
+```
