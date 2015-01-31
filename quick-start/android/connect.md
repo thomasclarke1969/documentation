@@ -64,10 +64,15 @@ public class MyConnectionListener implements LayerConnectionListener {
 
 Once implemented, register both on the `LayerClient` object.
 
-
 ```java
-layerClient.registerConnectionListener(new MyConnectionListener());
-layerClient.registerAuthenticationListener(new MyAuthenticationListener());
+MyConnectionListener connectionListener = new MyConnectionListener();
+MyAuthenticationListener authenticationListener = new MyAuthenticationListener();
+
+//Note: It is possible to register more than one listener for an activity. If you 
+// execute this code more than once in your app, pass in the same listener to avoid 
+// memory leaks and multiple callbacks.
+layerClient.registerConnectionListener(connectionListener);
+layerClient.registerAuthenticationListener(authenticationListner);
 ```
 
 ## Connect

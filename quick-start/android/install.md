@@ -3,16 +3,18 @@
 This quick start guide will get you up and running with sending messages as quickly as possible. However, once you have tested out Layer using this guide, you will need to alter how authentication is done by creating your own backend controller that generates an Identity Token.
 
 ```emphasis
-Before you get started, we highly recommend that you download the [Quick Start Android Studio project](https://github.com/layerhq/quick-start-android).
+Before you get started, we highly recommend that you download the [Android Quick Start project](https://github.com/layerhq/quick-start-android).
 ```
 
-Download the Quick Start Android code by running the following command.
+You can download the Quick Start Android source code by running the following command:
 
 ```console
 $ git clone https://github.com/layerhq/quick-start-android.git
 ```
 
 ##Install the Layer SDK Jar
+
+When building your project, you can include the Layer SDK through maven, or link directly to the JAR file.
 
 #### AAR (referenced by maven)
 Navigate to your `build.gradle` file and ensure that you include the following:
