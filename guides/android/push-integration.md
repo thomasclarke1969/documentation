@@ -1,4 +1,4 @@
-#Layer Push Integration
+#Initializing GCM in your Android App
 Use the "Project Number" from your Google Developers Console project as your GCM Sender ID when creating new LayerClient instances:
 
 ``` java

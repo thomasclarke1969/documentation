@@ -125,3 +125,12 @@ Click on the `Choose File` button and select the certificate you saved to your d
 ![image alt text](ios-push-uploadCert5.jpg)
 
 You will be prompted by Layer to input your certificate password. This is the same password you chose when you exported your certificate from the KeyChain Access application.
+
+##Layer Push Integration
+Now that you have successfully uploaded your Apple Push Notification certificate to Layer, it is time to configure your application to support push notifications in XCode. Open your application in XCode and navigate to Project Settings → your application Target → Capabilities.
+
+Expand the section titled “Background Modes”.
+
+If the “Background Modes” on/off switch is toggled to “off”, make sure you toggle it to “ON”. Select the radio buttons next to “Background Fetch” and “Remote Notifications”. This will add the necessary background modes to your application’s Info.plist.
+
+![image alt text](ios-push-xcode-background.jpg)
