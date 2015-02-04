@@ -1,4 +1,4 @@
-# Push Notification
+# Push Notifications
 The Layer Android SDK receives pushes through both the Layer push protocol and Google Cloud Messaging (GCM), depending on usage and other conditions. In order to enable your application to receive GCM push notifications, some setup must be performed in both the Google Developer Console and the Layer developer portal.
 
 # Generating Google Cloud Messaging Credentials

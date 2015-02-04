@@ -1,13 +1,4 @@
-#Layer Push Integration
-Now that you have successfully uploaded your Apple Push Notification certificate to Layer, it is time to configure your application to support push notifications in XCode. Open your application in XCode and navigate to Project Settings → your application Target → Capabilities.
-
-Expand the section titled “Background Modes”.
-
-If the “Background Modes” on/off switch is toggled to “off”, make sure you toggle it to “ON”. Select the radio buttons next to “Background Fetch” and “Remote Notifications”. This will add the necessary background modes to your application’s Info.plist.
-
-![image alt text](ios-push-xcode-background.jpg)
-
-##Register Your App to Receive Remote Notifications
+#Register Your App to Receive Remote Notifications
 
 Your application must register to receive for remote notifications. To support device registration for both iOS 7 and iOS 8, your application must implement the following. We recommend you do this in  `application:didFinishLaunchingWithOptions`.
 
