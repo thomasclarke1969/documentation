@@ -4,6 +4,7 @@ The following demonstrates the logic needed to create a conversation and send a 
 ```objectivec
 - (void)sendMessage:(NSString *)messageText{
     // If no conversations exist, create a new conversation object with two participants
+     // For the purposes of this Quick Start project, the 3 participants in this conversation are 'Device'  (the authenticated user id), 'Simulator', and 'Dashboard'.
     if (!self.conversation) {
         NSError *error = nil;
         self.conversation = [self.layerClient newConversationWithParticipants:[NSSet setWithArray:@[ @"Simulator", @ "Dashboard" ]] options:nil error:&error];

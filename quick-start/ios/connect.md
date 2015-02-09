@@ -19,7 +19,8 @@ self.layerClient = [LYRClient clientWithAppID:appID];
     if (!success) {
         NSLog(@"Failed to connect to Layer: %@", error);
     } else {
-        NSString *userIDString = @"REPLACE_WITH_YOUR_USER_ID";
+    	  // For the purposes of this Quick Start project, let's authenticate as a user named 'Device'.  Alternatively, you can authenticate as a user named 'Simulator' if you're running on a Simulator.
+        NSString *userIDString = @"Device";
         // Once connected, authenticate user.  
         // Check Authenticate step for authenticateLayerWithUserID source
         [self authenticateLayerWithUserID:userIDString completion:^(BOOL success, NSError *error) {

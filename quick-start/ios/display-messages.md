@@ -28,6 +28,7 @@ The following methods fetch the last conversation, and populate the query contro
 ```objectivec
 - (void)fetchLayerConversation
 {    
+     // For the purposes of this Quick Start project, we want fetch any conversations with these 3 users 'Device' (the authenticated user id), 'Simulator', and 'Dashboard'.
     LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
     query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:@[ @"Device", @"Simulator", @"Dashboard" ]];
 
@@ -36,7 +37,7 @@ The following methods fetch the last conversation, and populate the query contro
     NSError *error;
     NSOrderedSet *conversations = [self.layerClient executeQuery:query error:&error];
     if (!error) {
-        NSLog(@"%tu conversations with participants %@", conversations.count, @[ @"<PARTICIPANT>" ]);
+        NSLog(@"%tu conversations found", conversations.count);
     } else {
         NSLog(@"Query failed with error %@", error);
     }
