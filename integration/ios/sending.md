@@ -96,6 +96,12 @@ The `sendMessage:error` method returns a boolean value which indicates if the me
 
 [LYRMessage](/docs/api/ios#lyrmessage) objects declare a boolean property, `isSent`, which tells your application if the message was successfully sent from your device and synchronized with the Layer service.
 
+```emphasis
+**Best Practice**
+
+Conversations are not pushed to other participants, and are not queryable, until the first message is sent. Depending on your app's flow, you can use an invitation MIME Type to notify all participants that a new conversation has been created. [Click here](https://support.layer.com/hc/en-us/articles/204193200-Why-can-t-participants-query-a-newly-created-conversation-) to learn more.
+```
+
 ### Recipient Status
 
 Layer declares 4 recipient statuses which allows applications to monitor the actual status of a message for every individual participants in a conversation. The states are the following:

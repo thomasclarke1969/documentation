@@ -9,16 +9,16 @@ The Layer service introduces three concepts which facilitate all messaging. The 
 
 ```java
 // Creates and returns a new conversation object with sample participant identifiers
-Conversation conversation = Conversation.newInstance(Arrays.asList("948374839"));
+Conversation conversation = layerClient.newConversation(Arrays.asList("948374839"));
 
 // Create a message part with a string of text
-MessagePart messagePart = MessagePart.newInstance("text/plain", "Hi, how are you?".getBytes());
+MessagePart messagePart = layerClient.newMessagePart("text/plain", "Hi, how are you?".getBytes());
 
 // Creates and returns a new message object with the given conversation and array of message parts
-Message message = Message.newInstance(conversation, Arrays.asList(messagePart));
+Message message = layerClient.newMessage(conversation, Arrays.asList(messagePart));
 
-//Sends the specified message
-client.sendMessage(message);
+//Sends the specified message to the conversation
+conversation.send(message);
 ```
 
 ```emphasis
