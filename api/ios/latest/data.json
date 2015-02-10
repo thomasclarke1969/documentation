@@ -33,6 +33,12 @@
           "declaration" : "@property (nonatomic, readonly) BOOL isConnecting",
           "comment" : "Returns a Boolean value that indicates if the client is in the process of connecting to Layer.",
           "name" : "isConnecting"
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly) NSOrderedSet *policies",
+          "comment" : "Returns the ordered set of {@link LYRPolicy} objects governing the behavior of the client.\n",
+          "name" : "policies"
         }
       ],
       "comment" : "The LYRClient class and related classes provide an API for rich messaging via the Layer platform. This API supports the exchange of multi-part Messages within multi-user Conversations and advanced features such\nas mutation of the participants, deletion of messages or the entire conversation, and the attachment of free-form user defined metadata. The API is sychronization based, fully supporting offline usage and providing full access\nto the history of messages across devices.",
@@ -48,6 +54,22 @@
           }
         ],
         "instance" : [
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)addPolicy:(LYRPolicy *)policy error:(NSError **)error",
+            "comment" : "Adds the given policy to the receiver.",
+            "name" : "addPolicy:error:",
+            "parameters" : [
+              {
+                "name" : "policy",
+                "description" : "The policy to be added to the client."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing the policy could not be added."
+              }
+            ]
+          },
           {
             "parameters" : [
               {
@@ -148,6 +170,26 @@
             ]
           },
           {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)insertPolicy:(LYRPolicy *)policy atIndex:(NSUInteger)index error:(NSError **)error",
+            "comment" : "Inserts the given policy in the receiver's policy set at the specified index.",
+            "name" : "insertPolicy:atIndex:error:",
+            "parameters" : [
+              {
+                "name" : "policy",
+                "description" : "The policy to be added to the client."
+              },
+              {
+                "name" : "index",
+                "description" : "The index at which to insert the policy."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing the policy could not be added."
+              }
+            ]
+          },
+          {
             "parameters" : [
               {
                 "name" : "participants",
@@ -192,6 +234,23 @@
               {
                 "name" : "query",
                 "description" : "The query to create a controller with."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)removePolicy:(LYRPolicy *)policy error:(NSError **)error",
+            "comment" : "Removes the specified policy from the receiver.",
+            "name" : "removePolicy:error:",
+            "return" : "A Boolean value that indicates if the given policy was removed.",
+            "parameters" : [
+              {
+                "name" : "policy",
+                "description" : "The policy to be removed from the client."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing the policy could not be added."
               }
             ]
           },
@@ -243,6 +302,23 @@
             "comment" : "Tells the receiver to update the device token used to deliver Push Notificaitons to the current device via the Apple Push Notification Service.",
             "name" : "updateRemoteNotificationDeviceToken:error:",
             "declaration" : "- (BOOL)updateRemoteNotificationDeviceToken:(NSData *)deviceToken error:(NSError **)error"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)validatePolicy:(LYRPolicy *)policy error:(NSError **)error",
+            "comment" : "Validates the given policy to determine if it represents a valid configuration that can be added to the receiver.",
+            "name" : "validatePolicy:error:",
+            "return" : "A Boolean value that indicates if the given policy is valid or not.",
+            "parameters" : [
+              {
+                "name" : "policy",
+                "description" : "The policy to validate."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why validation was unsuccessful."
+              }
+            ]
           }
         ]
       }
@@ -622,6 +698,45 @@
       },
       "name" : "LYRMessagePart",
       "inherits" : "NSObject"
+    },
+    {
+      "declared" : "LYRPolicy.h",
+      "inherits" : "NSObject",
+      "conforms" : "NSCoding<br \/>NSCopying",
+      "properties" : [
+        {
+          "declared" : "LYRPolicy.h",
+          "declaration" : "@property (nonatomic, copy) NSString *sentByUserID",
+          "comment" : "Specifies the sender of the content that the policy applies to. If nil, the policy applies to all senders.",
+          "name" : "sentByUserID"
+        },
+        {
+          "declared" : "LYRPolicy.h",
+          "declaration" : "@property (nonatomic, readonly) LYRPolicyType type",
+          "comment" : "Returns the type of the receiver.",
+          "name" : "type"
+        }
+      ],
+      "comment" : "It is important that you configure your LYRPolicy object appropriately before adding it to a client. Layer client objects make a copy of the policy you provide and use the copy for evaluation and enforcement. The policy objects maintained by the client are immutable and cannot be reconfigured. If you need to modify a policy, then you must make a copy of it, apply the appropriate changes, add the updated policy object to the client and remove the original policy (if appropriate).",
+      "name" : "LYRPolicy",
+      "methods" : {
+        "class" : [
+          {
+            "parameters" : [
+              {
+                "name" : "type",
+                "description" : "The type of policy to create and return."
+              }
+            ],
+            "return" : "A newly created policy object with the given type.",
+            "discussion" : "Upon return, the policy will contain new constraints and as such will apply globally.",
+            "declared" : "LYRPolicy.h",
+            "comment" : "Creates and returns a new policy with the given type.",
+            "name" : "policyWithType:",
+            "declaration" : "+ (instancetype)policyWithType:(LYRPolicyType)type"
+          }
+        ]
+      }
     },
     {
       "declared" : "LYRPredicate.h",
@@ -1142,7 +1257,7 @@
           "declared" : "LYRErrors.h"
         },
         {
-          "name" : "LYRClientErrorUndefinedSyncFaliure",
+          "name" : "LYRClientErrorUndefinedSyncFailure",
           "declared" : "LYRErrors.h"
         },
         {
@@ -1231,6 +1346,14 @@
         {
           "name" : "LYRErrorInvalidValue",
           "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorPolicyValidationFailure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorPolicyNotFound",
+          "declared" : "LYRErrors.h"
         }
       ]
     },
@@ -1249,6 +1372,17 @@
         {
           "name" : "LYRObjectChangeTypeDelete",
           "declared" : "LYRConstants.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRPolicy.h",
+      "name" : "LYRPolicyType",
+      "values" : [
+        {
+          "name" : "LYRPolicyTypeBlock",
+          "comment" : "Defines a policy which will block a matching entity from communicating with the target.\n     ",
+          "declared" : "LYRPolicy.h"
         }
       ]
     },
