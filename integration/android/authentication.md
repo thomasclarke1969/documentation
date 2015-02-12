@@ -59,3 +59,9 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
     }).execute();
 }
 ```
+
+```emphasis
+**Best Practice**
+
+If your app supports multiple users on a given device, Layer allows each user to send and receive their own messages. Just make sure you deauthenticate when a user logs out and wait for the appropriate callback before authenticating another user. [Click here](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) to learn more.
+```

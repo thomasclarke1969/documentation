@@ -4,6 +4,10 @@ Layer authentication requires that a backend server generate an `Identity Token`
 
 The following code snippet connects to the sample `Layer Identity Service`,  generates an `Identity Token` on behalf your application, and authenticates the `LYRClient`. Copy and paste the entire snippet into your application. You will need to replace `REPLACE_WITH_USER_ID` with `string` of your chosing (typically a user identifier).
 
+```emphasis
+Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](#authentication-guide) for information on doing so.
+```
+
 ```objective-c
 NSString *userIDString = @"REPLACE_WITH_USER_ID";
 
@@ -47,6 +51,8 @@ NSString *userIDString = @"REPLACE_WITH_USER_ID";
 ```
 
 ```emphasis
-Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](#authentication-guide) for information on doing so.
+**Best Practice**
+
+If your app supports multiple users on a given device, Layer allows each user to send and receive their own messages. Just make sure you deauthenticate when a user logs out and wait for the appropriate callback before authenticating another user. [Click here](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) to learn more.
 ```
 
