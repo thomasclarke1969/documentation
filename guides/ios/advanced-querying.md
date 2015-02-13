@@ -21,9 +21,9 @@ if (!error) {
 
 The following examples demonstrate multiple common queryies that can be utilized by applications.
 
-### Conversation Queries
+## Conversation Queries
 
-#### Fetching all Conversations
+### Fetching all Conversations
 
 ```objectivec
 // Fetches all LYRConversation objects
@@ -38,7 +38,7 @@ if (!error) {
 }
 ```
 
-#### Fetching a Conversation with a specific identifier
+### Fetching a Conversation with a specific identifier
 
 ```objectivec
 // Fetches conversation with a specific identifier
@@ -47,7 +47,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYR
 LYRConversation *conversation = [[self.layerClient executeQuery:query error:nil] firstObject];
 ```
 
-#### Fetching Conversations with a specific set of Participants
+### Fetching Conversations with a specific set of Participants
 
 ```objectivec
 // Fetches all conversations between the authenticated user and the supplied user
@@ -64,9 +64,9 @@ if (!error) {
 }
 ```
 
-### Message Queries
+## Message Queries
 
-#### Fetching all Messages
+### Fetching all Messages
 
 ```objectivec
 // Fetches all LYRMessage objects
@@ -81,7 +81,7 @@ if (!error) {
 }
 ```
 
-#### Counting Unread Messages
+### Counting Unread Messages
 
 ```objectivec
 // Fetches the count of all unread messages for the authenticated user
@@ -98,7 +98,7 @@ query.resultType = LYRQueryResultTypeCount;
 NSUInteger unreadMessageCount = [self.client countForQuery:query error:nil];
 ```
 
-#### Fetching all Messages in a specific Conversation
+### Fetching all Messages in a specific Conversation
 
 ```objectivec
 // Fetches all messages for a given conversation
@@ -115,7 +115,7 @@ if (!error) {
 }
 ```
 
-### Fetching Messages sent in the last week
+## Fetching Messages sent in the last week
 
 ```objectivec
 // Fetches all messages sent in the last week
@@ -132,7 +132,7 @@ if (!error) {
 }
 ```
 
-### Compound Predicates
+## Compound Predicates
 
 For more sophisticated queries, applications can utilize the `LYRCompoundQuery` object to specify multiple constraints for a single query. Compound predicates consist of an array of `LYRPredicate` objects which represent individual constraints, in addition to a conjunction operator represented by an `LYRCompoundPredicateType`.
 

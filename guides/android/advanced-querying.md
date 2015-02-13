@@ -15,9 +15,9 @@ List<Conversation> results = layerClient.executeQuery(query);
 
 The following examples demonstrate multiple common queryies that can be utilized by applications.
 
-###Conversation Queries
+##Conversation Queries
 
-####Fetching all Conversations
+###Fetching all Conversations
 ```java
 //Fetch all conversations, sorted by latest message received first
 Query query = Query.builder(Conversation.class)
@@ -26,7 +26,7 @@ Query query = Query.builder(Conversation.class)
 List<Conversation> results = layerClient.executeQuery(query);
 ```
 
-####Fetching a Conversation with a specific identifier
+###Fetching a Conversation with a specific identifier
 ```java
 // Fetches conversation with a specific identifier
 Query query = Query.builder(Conversation.class)
@@ -35,7 +35,7 @@ Query query = Query.builder(Conversation.class)
 List<Conversation> results = layerClient.executeQuery(query);
 ```
 
-####Fetching Conversations with a specific set of Participants
+###Fetching Conversations with a specific set of Participants
 ```java
 // Fetches all conversations between these users
 List<String> participants = Arrays.asList(layerClient.getAuthenticatedUserId(), "User 1", "User 2");
@@ -46,9 +46,9 @@ Query query = Query.builder(Conversation.class)
 List<Conversation> results = layerClient.executeQuery(query);
 ```
 
-###Message Queries
+##Message Queries
 
-####Fetching all Messages
+###Fetching all Messages
 ```java
 // Fetches all Message objects in random order
 Query query = Query.builder(Message.class);
@@ -56,7 +56,7 @@ Query query = Query.builder(Message.class);
 List<Message> results = layerClient.executeQuery(query);
 ```
 
-####Counting Unread Messages
+###Counting Unread Messages
 ```java
 // Fetches the count of all unread messages for the authenticated user
 Query query = Query.builder(Message.class)
@@ -66,7 +66,7 @@ List<int> resultArray = (List<int>)layerClient.executeQuery(query, Query.ResultT
 int count = resultArray.get(0);
 ```
 
-####Fetching all Messages in a specific Conversation
+###Fetching all Messages in a specific Conversation
 ```java
 // Fetches all messages for a given conversation
 Query query = Query.builder(Message.class)
@@ -76,7 +76,7 @@ Query query = Query.builder(Message.class)
 List<Message> results = layerClient.executeQuery(query);
 ```
 
-####Fetching Messages sent in the last week
+###Fetching Messages sent in the last week
 ```java
 long DAY_IN_MS = 1000 * 60 * 60 * 24;
 Date lastWeek = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS))
@@ -88,7 +88,7 @@ Query query = Query.builder(Message.class)
 List<Message> results = layerClient.executeQuery(query);
 ```
 
-###Compound Predicates
+##Compound Predicates
 For more sophisticated queries, applications can utilize the CompoundQuery object to specify multiple constraints for a single query. Compound predicates consist of an array of Predicate objects which represent individual constraints, in addition to a conjunction operator represented by an CompoundPredicate.Type.
 
 The following demonstrates a compound predicate which will constrain the result set to Message objects that conform to the following criteria:
