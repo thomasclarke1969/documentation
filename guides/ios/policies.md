@@ -18,7 +18,7 @@ for (LYRPolicy *policy in filteredPolicies.array) {
 
 ##Blocking
 
-Block is a user policy that defines how two users in your app can communicate. The action of blocking a user results in the Blockee losing certain privileges in relation to the Blocker.
+Block is a user policy that defines how two users in your app can communicate. The action of blocking a user results in the Blockee losing certain privileges in relation to the Blocker. For more in-depth information about blocking check out [What happens when I apply a Block policy?](https://support.layer.com/hc/en-us/articles/204050814)
 
 To block a user:
 ```objc
