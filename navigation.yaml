@@ -70,6 +70,8 @@ guides:
       title: "Metadata"
     advanced-querying:
       title: "Advanced Querying"
+    policies:
+      title: "Policies"      
   	# local-notifications:
   	# 	title: "Local Notification Guide"
   	# conversation-view:
