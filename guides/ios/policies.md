@@ -4,7 +4,7 @@ Very often you will want control how your users communicate with each other or h
 
 ##Fetching Policies
 
-To retrieve all the policies, access `policies` object of `LYRClient`. To find all the policies between the authenticated user and a specific participant you can filter by using a `NSPredicate`:
+To acquire all the policies, access `policies` property of `LYRClient`. To acquire all polices applied to an individual participant you can filter by using a `NSPredicate`:
 
 ```objc
 NSOrderedSet *policies = self.layerClient.policies;
