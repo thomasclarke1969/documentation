@@ -127,7 +127,6 @@ Click on the `Choose File` button and select the certificate you saved to your d
 You will be prompted by Layer to input your certificate password. This is the same password you chose when you exported your certificate from the KeyChain Access application.
 
 ##Layer Push Integration
-
 Now that you have successfully uploaded your Apple Push Notification certificate to Layer, it is time to configure your application to support push notifications in XCode. Open your application in XCode and navigate to Project Settings → your application Target → Capabilities.
 
 Expand the section titled “Background Modes”.
@@ -135,97 +134,3 @@ Expand the section titled “Background Modes”.
 If the “Background Modes” on/off switch is toggled to “off”, make sure you toggle it to “ON”. Select the radio buttons next to “Background Fetch” and “Remote Notifications”. This will add the necessary background modes to your application’s Info.plist.
 
 ![image alt text](ios-push-xcode-background.jpg)
-
-##Register Your App to Receive Remote Notifications
-
-Your application must register to receive for remote notifications. To support device registration for both iOS 7 and iOS 8, your application must implement the following. We recommend you do this in  `application:didFinishLaunchingWithOptions`.
-
-```objective-c
-// Checking if app is running iOS 8
-if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
-	// Register device for iOS8
-	UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-	[application registerUserNotificationSettings:notificationSettings];
-	[application registerForRemoteNotifications];
-} else {
-	// Register device for iOS7
-	[application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
-}
-```
-
-Your AppDelegate will be notified when your application has successfully registered with Apple’s Push Notification service via the following `UIApplicationDelegate` method. This method will provide a device token which must then be submitted to Layer. Copy and paste the following code into your AppDelegate.
-
-```objective-c
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-	NSError *error;
-	BOOL success = [self.applicationController.layerClient updateRemoteNotificationDeviceToken:deviceToken error:&error];
-	if (success) {
-		NSLog(@"Application did register for remote notifications");
-	} else {
-		NSLog(@"Error updating Layer device token for push:%@", error);
-	}
-}
-```
-
-##Triggering Alerts
-
-By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you set the `options` dictionary when initializing the [LYRMessage](/docs/api/ios#lyrmessage) object.  In the `options` dictionary you will need to set push text as the value for the `LYRMessagePushNotificationAlertMessageKey` key. This will tell the Layer Push Notification service to deliver a Text APN and trigger an alert for the user.
-
-The following demonstrates setting the alert text to be the same as the text of the message being sent.
-
-```objective-c
-// Create a message with a string of text
-NSString *messageText = @"Hi how are you?"
-LYRMessagePart *part = [LYRMessagePart messagePartWithText:messageText];
-
-// Configure the push notification text to be the same as the message text
-
-LYRMessage *message = [layerClient newMessageWithParts:@[part] options:@{LYRMessagePushNotificationAlertMessageKey: messageText} error:nil];
-
-NSError *error;
-[self.layerClient sendMessage:message error:&error];
-```
-
-If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification. Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
-
-```objective-c
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NS
-Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    NSError *error;
-
-    BOOL success = [self.applicationController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
-        [self setApplicationBadgeNumber];
-        if (changes) {
-            if ([changes count]) {
-                [self processLayerBackgroundChanges:changes];
-        	// Get the message from userInfo
-        	message = [self messageFromRemoteNotification:userInfo];
-        	NSString *alertString = [[NSString alloc] initWithData:[message.parts[0] data] encoding:NSUTF8StringEncoding];
-
-        	// Show a local notification
-        	UILocalNotification *localNotification = [UILocalNotification new];
-        	localNotification.alertBody = alertString;
-        	[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-            completionHandler(UIBackgroundFetchResultNewData);
-            } else {
-                completionHandler(UIBackgroundFetchResultNoData);
-            }
-        } else {
-            completionHandler(UIBackgroundFetchResultFailed);
-        }
-    }];
-    if (!success) {
-        completionHandler(UIBackgroundFetchResultNoData);
-    }
-
-- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
-{
-    // Fetch message object from LayerKit
-    NSURL *identifier = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.message_identifier"]];
-	LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-	query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
-	return [[self.layerClient executeQuery:query error:nil] lastObject];
-}
-```
