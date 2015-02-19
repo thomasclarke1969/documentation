@@ -9,7 +9,7 @@ Query query = Query.builder(Message.class)
     .limit(20)
     .build();
 
-List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
+List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ##Examples
@@ -18,9 +18,9 @@ The following examples demonstrate multiple common queryies that can be utilized
 
 ##Conversation Queries
 
-###Fetching all Conversations
+###Fetching all Conversations Sorted by Last Message Received
 ```java
-//Fetch all conversations, sorted by latest message received first
+//Fetch all conversations, sorted by latest message received
 Query query = Query.builder(Conversation.class)
     .sortDescriptor(new SortDescriptor(Conversation.Property.LAST_MESSAGE_RECEIVED_AT, SortDescriptor.Order.DESCENDING))
     .build();

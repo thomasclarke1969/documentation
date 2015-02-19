@@ -53,7 +53,7 @@ conversation.putMetadata(metadata, doMerge);
 conversation.send(TypingIndicator.STARTED);
 
 //layerClient.getUnreadMessageCount(conversation) will need to be replaced by a query
-public void getUnreadMessageCount(Conversation conversation){
+public int getUnreadMessageCount(Conversation conversation){
     Query query = Query.builder(Message.class)
         .predicate(new CompoundPredicate(CompoundPredicate.Type.AND,
             new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, conversation),
