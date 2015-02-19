@@ -14,11 +14,20 @@ The sending client can now generate push notifications by specifying special met
 
 ``` java
 private void sendTextMessage(String text) {
-    Message message = Message.newInstance(mConversation, MessagePart.newInstance("text/plain", text.getBytes()));
-    Map<String, String> metadata = new HashMap<String, String>();
-    metadata.put("layer-push-message", text);
-    mLayerClient.setMetadata(message, metadata);
-    mLayerClient.sendMessage(message);
+    
+    //Put the text into a message part, which has a MIME type of "text/plain" by default
+    MessagePart messagePart = layerClient.newMessagePart(text);
+
+    //Creates and returns a new message containing the message parts
+    Message message = layerClient.newMessage(Arrays.asList(messagePart));
+
+    //Formats the push notification that the other participants will receive
+    Map<String, String> metadata = new HashMap<>();
+    metadata.put("layer-push-message", senderID + ": " + text);
+    message.setMetadata(metadata);
+
+    //Sends the message
+    mConversation.send(message);
 }
 ```
 

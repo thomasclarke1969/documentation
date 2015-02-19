@@ -9,9 +9,9 @@ The Layer SDK supports 2 deletion modes: Local and All Participants
 * `DeletionMode.ALL_PARTICIPANTS` will tombstone the deleted object from all devices of all participants. The deleted object can be considered to be completely deleted.
 
 ```java
-// Deletes a messages.
-layerClient.deleteMessage(Message message, DeletionMode deletionMode);
+// Deletes a message
+message.delete(DeletionMode deletionMode);
 
 // Deletes a conversation.
-layerClient.deleteConversation(Conversation conversation, DeletionMode deletionMode);
+conversation.delete(DeletionMode deletionMode);
 ```

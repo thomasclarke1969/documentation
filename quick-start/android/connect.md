@@ -9,7 +9,7 @@ This key is specific to your application and should be kept private at all times
 ```java
 // Create a LayerClient object
 UUID appID = UUID.fromString("%%C-INLINE-APPID%%");
-LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM ID");
+LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM Project Number");
 ```
 
 ## Listeners

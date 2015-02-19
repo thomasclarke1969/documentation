@@ -119,7 +119,7 @@ Key's are application specific and should be kept private. Copy and paste the fo
 ```java
 // Create a LayerClient object
 UUID appID = UUID.fromString("%%C-INLINE-APPID%%")
-LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM ID");
+LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM Project Number");
 ```
 
 ## Listeners

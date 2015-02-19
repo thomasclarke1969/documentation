@@ -24,43 +24,25 @@ synchronization.
 Metadata access is performed via public instance methods on the Conversation model objects:
 
 ```java
-/**
- * Returns the metadata associated with this Conversation.
- *
- * @return the metadata associated with this Conversation
- */
-public abstract Map<String, Object> getMetadata();
-```
+//Puts the metadata into this conversation. The 
+Map<String, Object> newData = new HashMap<String, Object>();
+newData.put(key, value);
 
-Mutation is done through the LayerClient:
+//Puts the given metadata map into the Conversation's metadata, either merging the provided
+// metadata map with the existing metadata, or replacing (if `isMerge` is false).  When merging,
+// a `null` value removes any existing value for that key path.
+mConversation.putMetadata(newData, false);
 
-```java
-/**
- * Puts the given value in the Conversation's metadata at the given key path.  If a value
- * already exists, it is overwritten with the new value.
- *
- * @param keyPath key path to set.
- * @param value   value to put at the given key path.
- */
-public abstract void putMetadataAtKeyPath(Conversation conversation, String keyPath, String value);
 
-/**
- * Puts the given metadata map into the Conversation's metadata, either merging the provided
- * metadata map with the existing metadata, or replacing (if `isMerge` is false).  When merging,
- * a `null` value removes any existing value for that key path.
- *
- * @param metadata metadata map to apply or merge.
- * @param isMerge  merge if true, replace if false.
- */
-public abstract void putMetadata(Conversation conversation, Map<String, Object> metadata, boolean isMerge);
+//Returns the metadata associated with this Conversation.
+Map<String, Object> metadata = mConversation.getMetadata();
 
-/**
- * Removes the given key path from the Conversation's metadata.
- *
- * @param keyPath key path to remove from this Conversation's metadata.
- */
-public abstract void removeMetadataAtKeyPath(Conversation conversation, String keyPath);
+//Puts the given value in the Conversation's metadata at the given key path.  
+// If a value already exists, it is overwritten with the new value.
+mConversation.putMetadataAtKeyPath(key, value);
 
+//Removes the given key path from the Conversation's metadata.
+mConversation.removeMetadataAtKeyPath(key);
 ```
 
 ## Metadata Key Paths
@@ -84,5 +66,5 @@ of nested keys leading to a leaf value. For example, given a metadata structure 
 We could change the `screen_name` of user `"12345"` from `"El Diablo"` to `"El Toro"` by referencing it as a keypath:
 
 ```java
-layerClient.putMetadataAtKeyPath(conversation, "my_app.user_info.12345.screen_name", "El Toro");
+mConversation.putMetadataAtKeyPath("my_app.user_info.12345.screen_name", "El Toro");
 ```

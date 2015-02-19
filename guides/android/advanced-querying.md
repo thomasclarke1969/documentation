@@ -6,9 +6,10 @@ Layer provides a flexible and expressive interface with which applications can q
 Query query = Query.builder(Message.class)
     .predicate(new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, myConversation))
     .sortDescriptor(new SortDescriptor(Message.Property.SENT_AT, SortDescriptor.Order.DESCENDING))
-    .limit(20);
+    .limit(20)
+    .build();
 
-List<Conversation> results = layerClient.executeQuery(query);
+List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ##Examples
@@ -21,29 +22,30 @@ The following examples demonstrate multiple common queryies that can be utilized
 ```java
 //Fetch all conversations, sorted by latest message received first
 Query query = Query.builder(Conversation.class)
-    .sortDescriptor(new SortDescriptor(Conversation.property.LAST_MESSAGE_RECEIVED_AT, SortDescriptor.Order.DESCENDING));
+    .sortDescriptor(new SortDescriptor(Conversation.Property.LAST_MESSAGE_RECEIVED_AT, SortDescriptor.Order.DESCENDING))
+    .build();
 
-List<Conversation> results = layerClient.executeQuery(query);
+List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ###Fetching a Conversation with a specific identifier
 ```java
 // Fetches conversation with a specific identifier
 Query query = Query.builder(Conversation.class)
-    .predicate(new Predicate(Conversation.Property.ID, Predicate.Operator.EQUAL_TO, identifer));
+    .predicate(new Predicate(Conversation.Property.ID, Predicate.Operator.EQUAL_TO, identifer))
+    .build();
 
-List<Conversation> results = layerClient.executeQuery(query);
+List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ###Fetching Conversations with a specific set of Participants
 ```java
 // Fetches all conversations between these users
-List<String> participants = Arrays.asList(layerClient.getAuthenticatedUserId(), "User 1", "User 2");
-
 Query query = Query.builder(Conversation.class)
-    .predicate(new Predicate(Conversation.Property.PARTICIPANTS, Predicate.Operator.IN, participants));
+    .predicate(new Predicate(Conversation.Property.PARTICIPANTS, Predicate.Operator.IN, participants))
+    .build();
 
-List<Conversation> results = layerClient.executeQuery(query);
+List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ##Message Queries
@@ -51,29 +53,31 @@ List<Conversation> results = layerClient.executeQuery(query);
 ###Fetching all Messages
 ```java
 // Fetches all Message objects in random order
-Query query = Query.builder(Message.class);
+Query query = Query.builder(Message.class).build();
 
-List<Message> results = layerClient.executeQuery(query);
+List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ###Counting Unread Messages
 ```java
 // Fetches the count of all unread messages for the authenticated user
 Query query = Query.builder(Message.class)
-    .predicate(new Predicate(Message.Property.IS_UNREAD, Predicate.Operator.EQUAL_TO, true));
+    .predicate(new Predicate(Message.Property.IS_UNREAD, Predicate.Operator.EQUAL_TO, true))
+    .build();
 
-List<int> resultArray = (List<int>)layerClient.executeQuery(query, Query.ResultType.COUNT);
-int count = resultArray.get(0);
+List<Integer> resultArray = layerClient.executeQuery(query, Query.ResultType.COUNT);
+int count = resultArray.get(0).intValue();
 ```
 
 ###Fetching all Messages in a specific Conversation
 ```java
-// Fetches all messages for a given conversation
+// Fetches all messages for a given conversation, most recent first
 Query query = Query.builder(Message.class)
     .predicate(new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, myConversation))
-    .sortDescriptor(new SortDescriptor(Message.Property.SENT_AT, SortDescriptor.Order.DESCENDING));
+    .sortDescriptor(new SortDescriptor(Message.Property.INDEX, SortDescriptor.Order.DESCENDING))
+    .build();
 
-List<Message> results = layerClient.executeQuery(query);
+List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ###Fetching Messages sent in the last week
@@ -83,9 +87,10 @@ Date lastWeek = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS))
 
 Query query = Query.builder(Message.class)
     .predicate(new Predicate(Message.Property.SENT_AT, Predicate.Operator.GREATER_THAN_OR_EQUAL_TO, lastWeek))
-    .sortDescriptor(new SortDescriptor(Message.Property.SENT_AT, SortDescriptor.Order.DESCENDING));
+    .sortDescriptor(new SortDescriptor(Message.Property.SENT_AT, SortDescriptor.Order.DESCENDING))
+    .build();
 
-List<Message> results = layerClient.executeQuery(query);
+List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ##Compound Predicates
@@ -101,7 +106,8 @@ Query query = Query.builder(Message.class)
     .predicate(new CompoundPredicate(CompoundPredicate.Type.AND,
         new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, conversation),
         new Predicate(Message.Property.SENT_BY_USER_ID, Predicate.Operator.EQUAL_TO, userID)))
-    .sortDescriptor(new SortDescriptor(Message.Property.SENT_AT, SortDescriptor.Order.DESCENDING));
+    .sortDescriptor(new SortDescriptor(Message.Property.SENT_AT, SortDescriptor.Order.DESCENDING))
+    .build();
 
-List<Message> results = layerClient.executeQuery(query);
+List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```

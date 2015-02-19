@@ -6,16 +6,17 @@ Layer provides a flexible and expressive interface with which applications can q
 Query query = Query.builder(Message.class)
     .predicate(new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, myConversation))
     .sortDescriptor(new SortDescriptor(Message.Property.SENT_AT, SortDescriptor.Order.DESCENDING))
-    .limit(20);
+    .limit(20)
+    .build();
 
-List<Message> recentMessages = layerClient.executeQuery(query);
+List<Message> recentMessages = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ##Constructing a query
 The Query object is built with a Class object representing the class upon which the query will be performed. Querying is available on classes that conform to the Queryable protocol. Currently, Conversation and Message are the only classes which conform to the protocol.
 
 ```java
-Query query = Query.builder(Conversation.class);
+Query query = Query.builder(Conversation.class).build();
 ```
 
 ##Applying constraints
@@ -25,7 +26,8 @@ The following Predicate will constrain the query to Message objects whose conver
 
 ```java
 Query query = Query.builder(Message.class)
-    .predicate(new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, myConversation));
+    .predicate(new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, myConversation))
+    .build();
 ```
 
 Fields that support querying can be found in Message.Property and Conversation.Property, respectively.
@@ -37,7 +39,8 @@ The following sort descriptor asks that results be returned in ascending order b
 
 ```java
 Query query = Query.builder(Message.class)
-    .sortDescriptor(new SortDescriptor(Message.Property.INDEX, SortDescriptor.Order.ASCENDING));
+    .sortDescriptor(new SortDescriptor(Message.Property.INDEX, SortDescriptor.Order.ASCENDING))
+    .build();
 ```
 
 ##Limits and offsets
@@ -46,7 +49,8 @@ To facilitate pagination, queries may be further constrained by applying limit a
 ```java
 Query query = Query.builder(Conversation.class)
     .limit(20)
-    .offset(0);
+    .offset(0)
+    .build();
 ```
 
 ##Result types
@@ -60,7 +64,7 @@ List<Message> results = (List<Message>)layerClient.executeQuery(query, Query.Res
 List<URI> results = (List<URI>)layerClient.executeQuery(query, Query.ResultType.IDENTIFIERS);
 
 // Count of objects
-List<int> resultArray = (List<int>)layerClient.executeQuery(query, Query.ResultType.COUNT);
+List<Integer> resultArray = (List<Integer>)layerClient.executeQuery(query, Query.ResultType.COUNT);
 int count = resultArray.get(0);
 ```
 
@@ -73,11 +77,12 @@ Queries are executed by calling executeQuery on a LayerClient object. The method
 Query query = Query.builder(Conversation.class)
     .predicate(new Predicate(Conversation.Property.HAS_UNREAD_MESSAGES, Predicate.Operator.EQUAL_TO, true))
     .sortDescriptor(new SortDescriptor(Conversation.Property.LAST_MESSAGE_RECEIVED_AT, SortDescriptor.Order.DESCENDING))
-    .limit(10);
+    .limit(10)
+    .build();
 
-List<Conversation> results = layerClient.executeQuery(query);
+List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
 ```
 
 ```emphasis
-For many more query examples, please see our Advanced Querying Guide.
+For many more query examples, please see the [Advanced Querying Guide](https://developer.layer.com/docs/guides#advanced-querying).
 ```

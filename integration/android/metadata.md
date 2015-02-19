@@ -21,13 +21,16 @@ metadata.put("participants", participants);
 metadata.put("created_at", "Dec, 01, 2014");
 metadata.put("img_url", "/path/to/img/url");
 
-mLayerClient.putMetadata(mConversation, metadata, false);
+//Assign the metadata to the converation. 
+//Pass in 'true' to merge the HashMaps (all old keys will be preserved and new values will be set) 
+// or 'false' to replace the existing HashMap (all old key/pairs will be lost) 
+mConversation.putMetadata(metadata, false);
 ```
 
 For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (.) delimited string that identifies a series of nested keys leading to a leaf value. For example, given the above metadata structure, an application could change the name of a participant via the following: 
 
 ```java
-mLayerClient.putMetadataAtKeyPath(mConversation, "participants.0000003", "Tom Douglas");
+mConversation.putMetadataAtKeyPath("participants.0000003", "Tom Douglas");
 ```
 
 Applications can fetch metadata for a given conversation by accessing the public `metadata` property on `Conversation` objects. 

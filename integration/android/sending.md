@@ -16,10 +16,10 @@ Once a conversation has been created, participant lists remain mutable, meaning 
 
 ```java
 // Adds a participant to a given conversation
-client.addParticipants(conversation, Arrays.asList("948374848"));
+conversation.addParticipants(Arrays.asList("948374848"));
 
 // Removes a participant from a given conversation
-client.removeParticipants(conversation, Arrays.asList("948374848"));
+conversation.removeParticipants(Arrays.asList("948374848"));
 ```
 
 The `Message` object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the `MessagePart` object.

@@ -12,7 +12,7 @@ public class MyApplication extends Application implements LayerChangeEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LayerClient client = LayerClient.newClient(this, "%%C-INLINE-APPID%%", "GCM ID");
+        LayerClient client = LayerClient.newClient(this, "%%C-INLINE-APPID%%", "GCM Project Number");
         client.registerEventListener(this);
 
     }
@@ -77,7 +77,7 @@ public class MyApplication extends Application implements LayerSyncListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LayerClient client = LayerClient.newClient(this, "%%C-INLINE-APPID%%", "GCM ID");
+        LayerClient client = LayerClient.newClient(this, "%%C-INLINE-APPID%%", "GCM Project Number");
         client.registerSyncListener(this);
 
     }
