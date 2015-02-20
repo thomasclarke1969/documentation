@@ -77,6 +77,12 @@ NSError *error = nil;
 LYRMessage *message = [layerClient newMessageWithParts:@[ messagePart ] options:nil error:&error];
 ```
 
+```emphasis
+**IMPORTANT**
+
+By default, LayerKit will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2k like images or movies, please read the [Rich Content](/docs/guides#richcontent) guide.
+```
+
 ## Sending The Message
 
 Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:error` on `LYRConversation`.

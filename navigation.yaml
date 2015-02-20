@@ -64,6 +64,8 @@ guides:
   section:
     authentication:
       title: "Authentication"
+    richcontent:
+      title: "Rich Content"            
     push-notification:
       title: "Push Notifications"
     push-integration:

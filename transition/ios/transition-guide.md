@@ -1,3 +1,12 @@
+#LayerKit v0.10.0 Transition Guide
+## Behavior Change
+
+Prior to v0.10.0, Messages had combined size limit of 64KB.  With v0.10.0, Layer has removed that limit, and you can now send much larger files.  Caveat: If you have been sending along Message Parts greater than 2KB they will no longer be downloaded automatically by default unless you explicitly set `self.layerClient.autodownloadMaximumContentSize`.  For more details, please read our new  [Rich Content](/docs/guides#richcontent) guide. 
+
+## Compatibility
+
+If an app with v0.10.0 Layer SDK  sends content over 64k to an app with old >v0.10.x Layer SDK then the app with the old Layer SDK will not receive that message. When user updates to the app with new Layer SDK then that message will appear.
+
 #LayerKit v0.9.4 Transition Guide
 ## Breaking API Changes
 
