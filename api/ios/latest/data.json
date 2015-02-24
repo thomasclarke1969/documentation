@@ -1,6 +1,35 @@
 {
   "classes" : [
     {
+      "declared" : "LYRProgress.h",
+      "methods" : {
+        "class" : [
+          {
+            "declared" : "LYRProgress.h",
+            "declaration" : "+ (instancetype)aggregateProgressWithProgresses:(NSArray *)progresses",
+            "comment" : "Returns a new instance of aggregate progress object.",
+            "name" : "aggregateProgressWithProgresses:",
+            "parameters" : [
+              {
+                "name" : "progresses",
+                "description" : "An array of {@link LYRProgress} instances."
+              }
+            ]
+          }
+        ],
+        "instance" : [
+          {
+            "declared" : "LYRProgress.h",
+            "declaration" : "- (void)addProgress:(LYRProgress *)progress",
+            "comment" : "progress An instance of {@link LYRProgress} to add to the aggregate.",
+            "name" : "addProgress:"
+          }
+        ]
+      },
+      "name" : "LYRAggregateProgress",
+      "inherits" : "LYRProgress : NSObject"
+    },
+    {
       "declared" : "LYRClient.h",
       "properties" : [
         {
@@ -18,9 +47,44 @@
         },
         {
           "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic) NSSet *autodownloadMIMETypes",
+          "comment" : "Configures the set of MIME Types for {@link LYRMessagePart} objects that will be automatically downloaded upon synchronization.",
+          "name" : "autodownloadMIMETypes",
+          "discussion" : "A value of nil indicates that all content is to be downloaded automatically and an empty NSSet indicates that no content should be. The default value is a set containing the MIME Type @\"text\/plain\"."
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic) NSUInteger autodownloadMaximumContentSize",
+          "comment" : "Configures the maximum size (in bytes) for {@link LYRMessagePart} objects that will be automatically downloaded upon synchronization.",
+          "name" : "autodownloadMaximumContentSize",
+          "discussion" : "The default value is 0."
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic) BOOL backgroundContentTransferEnabled",
+          "comment" : "A Boolean value that determines whether or not the client will execute content transfers while the application is in a background state.",
+          "name" : "backgroundContentTransferEnabled",
+          "discussion" : "In order to utilize background transfers your application must implement the UIApplicateDelegate method application:handleEventsForBackgroundURLSession:completionHandler: and forward calls to the LYRClient method handleBackgroundContentTransfersForSessionWithIdentifier:completion:.> %note% > **Note:** Changes to this flag will not affect any transfers already in progress."
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly) NSUInteger currentDiskUtilization",
+          "comment" : "Returns the amount of disk space currently being utilized for the storage of downloaded message part content.",
+          "name" : "currentDiskUtilization",
+          "discussion" : "> %note% > **Note:** The property is not updated in real-time, it may time some amount of time for it to update.Utilization may periodically peak above the configured diskCapacity while synchronization or downloads are in progress, but will be rebalanced once all operations\nhave completed."
+        },
+        {
+          "declared" : "LYRClient.h",
           "declaration" : "@property (nonatomic, weak) id<LYRClientDelegate> delegate",
           "comment" : "The object that acts as the delegate of the receiving client.",
           "name" : "delegate"
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, assign) NSUInteger diskCapacity",
+          "comment" : "Specifies the maximum amount of disk space (in bytes) that may be utilized for storing downloaded message part content. A value of zero (the default) indicates that\nan unlimited amount of disk space may be utilized.",
+          "name" : "diskCapacity",
+          "discussion" : "Once current disk utilization of downloaded message part content exceeds the maximum capacity the system will delete content on a least recently used basis until\nthe total utilization is 80% of the configured disk capacity. Note that auto-downloaded content that gets deleted is not automatically downloaded again."
         },
         {
           "declared" : "LYRClient.h",
@@ -141,7 +205,7 @@
             "name" : "deauthenticateWithCompletion:",
             "parameters" : [
               {
-                "name" : "completiuon",
+                "name" : "completion",
                 "description" : "A block to be executed when the deauthentication operation has completed. The block has no return value and has two arguments: a Boolean value indicating if deauthentication was successful and an error describing the failure if it was not."
               }
             ]
@@ -168,6 +232,24 @@
                 "description" : "A pointer to an error that upon failure is set to an error object describing why execution failed."
               }
             ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "sessionIdentifier",
+                "description" : "URL session identifier handed by the application:handleEventsForBackgroundURLSession:completionHandler:."
+              },
+              {
+                "name" : "completion",
+                "description" : "The block that will be called once Layer has successfully handled content transfers. It is your responsibility to call the UIApplication delegate method's completion handler. Note that this block is only called if the method returns YES."
+              }
+            ],
+            "return" : "A Boolean value that indicates whether or not the client handled the content transfers for the given background session identifier. YES will be returned if the session identifier refers to a background session that was created by the Layer client, else NO.",
+            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and NO will be returned. The completion is only invoked if the return value is YES.",
+            "declared" : "LYRClient.h",
+            "comment" : "Handles content transfer events from iOS and synchronizes the client if required.",
+            "name" : "handleBackgroundContentTransfersForSession:completion:",
+            "declaration" : "- (BOOL)handleBackgroundContentTransfersForSession:(NSString *)sessionIdentifier completion:(void ( ^ ) ( NSArray *changes , NSError *error ))completion"
           },
           {
             "declared" : "LYRClient.h",
@@ -299,7 +381,7 @@
             "return" : "A Boolean value that determines whether the action was successful.",
             "discussion" : "The device token is expected to be an NSData object returned by the method application:didRegisterForRemoteNotificationsWithDeviceToken:. The device token is cached locally and is sent to Layer cloud automatically when the connection is established.",
             "declared" : "LYRClient.h",
-            "comment" : "Tells the receiver to update the device token used to deliver Push Notificaitons to the current device via the Apple Push Notification Service.",
+            "comment" : "Tells the receiver to update the device token used to deliver Push Notifications to the current device via the Apple Push Notification Service.",
             "name" : "updateRemoteNotificationDeviceToken:error:",
             "declaration" : "- (BOOL)updateRemoteNotificationDeviceToken:(NSData *)deviceToken error:(NSError **)error"
           },
@@ -537,10 +619,10 @@
       "properties" : [
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSDate *LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM ( LYRConversation )",
-          "comment" : "The date and time that the message was received by the authenticated user.",
+          "declaration" : "@property (nonatomic, readonly) LYRConversation *LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM ( LYRMessagePart )",
+          "comment" : "The conversation that the receiver is a part of.",
           "name" : ")",
-          "discussion" : "For messages sent by the current user the receivedAt value will be equal to sentAt. The receivedAt property is queryable using all predicate operators."
+          "discussion" : "The conversation property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotIn operators."
         },
         {
           "declared" : "LYRMessage.h",
@@ -624,15 +706,36 @@
       "properties" : [
         {
           "declared" : "LYRMessagePart.h",
-          "declaration" : "@property (nonatomic, readonly) NSString *MIMEType",
+          "declaration" : "@property (nonatomic, readonly) NSString *LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM ( LYRMessage )",
           "comment" : "The MIME Type of the content represented by the receiver.",
-          "name" : "MIMEType"
+          "name" : ")"
+        },
+        {
+          "declared" : "LYRMessagePart.h",
+          "declaration" : "@property (nonatomic, readonly) NSURL *LYR_QUERYABLE_PROPERTY",
+          "comment" : "A unique identifier for the message part.",
+          "name" : "LYR_QUERYABLE_PROPERTY"
         },
         {
           "declared" : "LYRMessagePart.h",
           "declaration" : "@property (nonatomic, readonly) NSData *data",
           "comment" : "The content of the receiver as a data object.",
-          "name" : "data"
+          "name" : "data",
+          "discussion" : "Property will be nil if content is not availble. Note that this operation might be expensive if trying to read large data."
+        },
+        {
+          "declared" : "LYRMessagePart.h",
+          "declaration" : "@property (nonatomic, readonly) NSURL *fileURL",
+          "comment" : "Returns a NSURL object to the filesystem location of the receiver’s content or nil if the content is not available locally or was transmitted inline.",
+          "name" : "fileURL",
+          "discussion" : "Property will be nil if content is not availble."
+        },
+        {
+          "declared" : "LYRMessagePart.h",
+          "declaration" : "@property (nonatomic, readonly) LYRProgress *progress",
+          "comment" : "Progress of the current transfer state.",
+          "name" : "progress",
+          "discussion" : "Property will return a new instance, if previous one has been released from the memory."
         }
       ],
       "methods" : {
@@ -689,15 +792,42 @@
         "instance" : [
           {
             "declared" : "LYRMessagePart.h",
+            "declaration" : "- (LYRProgress *)downloadContent:(NSError **)error",
+            "comment" : "Tells the receiver to schedule a download of the content, optionally reporting progress.",
+            "name" : "downloadContent:",
+            "return" : "An {@link LYRProgress} object that reports the progress of the download operation or nil if the content cannot be downloaded.",
+            "parameters" : [
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that upon failure will be set to an object that indicates why the download could not be started."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRMessagePart.h",
             "declaration" : "- (NSInputStream *)inputStream",
             "comment" : "Returns a new input stream object for reading the content of the receiver as a stream.",
             "name" : "inputStream",
-            "return" : "A new, unopened input stream object configured for reading the content of the part represented by the receiver."
+            "return" : "A new, unopened input stream object configured for reading the content of the part represented by the receiver, if the content is available, otherwise nil."
+          },
+          {
+            "declared" : "LYRMessagePart.h",
+            "declaration" : "- (LYRProgress *)purgeContent:(NSError **)error",
+            "comment" : "Tells the receiver to schedule a purge of the content, optionally reporting progress.",
+            "name" : "purgeContent:",
+            "return" : "An {@link LYRProgress} object that reports the progress of the content purging operation or nil if the content cannot be purged.",
+            "parameters" : [
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that upon failure will be set to an object that indicates why the content could not be purged."
+              }
+            ]
           }
         ]
       },
       "name" : "LYRMessagePart",
-      "inherits" : "NSObject"
+      "inherits" : "NSObject",
+      "conforms" : "LYRQueryable"
     },
     {
       "declared" : "LYRPolicy.h",
@@ -774,6 +904,28 @@
       "name" : "LYRPredicate",
       "inherits" : "NSObject",
       "conforms" : "NSCoding<br \/>NSCopying"
+    },
+    {
+      "declared" : "LYRProgress.h",
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRProgress.h",
+            "declaration" : "- (void)cancel",
+            "comment" : "Cancels the current operation and its descendants (if cancellable).",
+            "name" : "cancel"
+          },
+          {
+            "declared" : "LYRProgress.h",
+            "declaration" : "- (void)pause",
+            "comment" : "Pauses the current operation and its descendants (if cancellable).",
+            "name" : "pause"
+          }
+        ]
+      },
+      "comment" : "> %warning% > **Warning:** Please note that when integrating an LYRProgress with a user interface you must take care to ensure that the updates are processed on the main thread. For performance reasons LYRProgress objects do not provide any guarantees about the thread context on which notifications will be delivered.",
+      "name" : "LYRProgress",
+      "inherits" : "NSObject"
     },
     {
       "declared" : "LYRQuery.h",
@@ -1007,6 +1159,26 @@
           },
           {
             "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client didFinishContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(id)object",
+            "comment" : "Tells the delegate that a content transfer has finished.",
+            "name" : "layerClient:didFinishContentTransfer:ofObject:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that will begin the content transfer."
+              },
+              {
+                "name" : "contentTransferType",
+                "description" : "Type enum representing the content transfer type."
+              },
+              {
+                "name" : "object",
+                "description" : "Object whose content did finish transfering."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
             "declaration" : "- (void)layerClient:(LYRClient *)client didFinishSynchronizationWithChanges:(NSArray *)changes",
             "comment" : "Tells the delegate that a client has finished synchronization and applied a set of changes.",
             "name" : "layerClient:didFinishSynchronizationWithChanges:",
@@ -1096,6 +1268,30 @@
           },
           {
             "declared" : "LYRClient.h",
+            "declaration" : "- (void)layerClient:(LYRClient *)client willBeginContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(id)object withProgress:(LYRProgress *)progress",
+            "comment" : "Tells the delegate that a content transfer will begin.",
+            "name" : "layerClient:willBeginContentTransfer:ofObject:withProgress:",
+            "parameters" : [
+              {
+                "name" : "client",
+                "description" : "The client that will begin the content transfer."
+              },
+              {
+                "name" : "contentTransferType",
+                "description" : "Type enum representing the content transfer type."
+              },
+              {
+                "name" : "object",
+                "description" : "Object whose content will begin transfering."
+              },
+              {
+                "name" : "progress",
+                "description" : "The {@link LYRProgress} instance that tracks the progress of the object."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
             "declaration" : "- (void)layerClientDidConnect:(LYRClient *)client",
             "comment" : "Informs the delegate that the client has successfully connected to Layer.",
             "name" : "layerClientDidConnect:",
@@ -1134,6 +1330,22 @@
         ]
       },
       "name" : "LYRClientDelegate",
+      "conforms" : "NSObject"
+    },
+    {
+      "declared" : "LYRProgress.h",
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRProgress.h",
+            "declaration" : "- (void)progressDidChange:(LYRProgress *)progress",
+            "comment" : "Tells the delegate that the progress instance has changed.",
+            "name" : "progressDidChange:",
+            "discussion" : "Progress is observed via instance's fractionCompleted or completedUnitCount properties."
+          }
+        ]
+      },
+      "name" : "LYRProgressDelegate",
       "conforms" : "NSObject"
     },
     {
@@ -1292,6 +1504,53 @@
       ]
     },
     {
+      "declared" : "LYRMessagePart.h",
+      "name" : "LYRContentTransferStatus",
+      "values" : [
+        {
+          "name" : "LYRContentTransferAwaitingUpload",
+          "comment" : "Content is available locally and is yet to be uploaded.",
+          "declared" : "LYRMessagePart.h"
+        },
+        {
+          "name" : "LYRContentTransferUploading",
+          "comment" : "Content is available locally and is in a state of uploading.",
+          "declared" : "LYRMessagePart.h"
+        },
+        {
+          "name" : "LYRContentTransferReadyForDownload",
+          "comment" : "Content is not available locally but it is ready for download.",
+          "declared" : "LYRMessagePart.h"
+        },
+        {
+          "name" : "LYRContentTransferDownloading",
+          "comment" : "Content is not yet avaiable locally and is in a state of downloading.",
+          "declared" : "LYRMessagePart.h"
+        },
+        {
+          "name" : "LYRContentTransferComplete",
+          "comment" : "This state is expected when the transfer completes.\n     ",
+          "declared" : "LYRMessagePart.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRConstants.h",
+      "name" : "LYRContentTransferType",
+      "values" : [
+        {
+          "name" : "LYRContentTransferTypeDownload",
+          "comment" : "The {@link LYRContentTransferType} values describe the type of a transfer. Used when {@link LYRClient} calls to the delegate via layerClient:willBeginContentTransfer:ofObject:withProgress and layerClient:didFinishContentTransfer:ofObject: methods.",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRContentTransferTypeUpload",
+          "comment" : "The {@link LYRContentTransferType} values describe the type of a transfer. Used when {@link LYRClient} calls to the delegate via layerClient:willBeginContentTransfer:ofObject:withProgress and layerClient:didFinishContentTransfer:ofObject: methods.",
+          "declared" : "LYRConstants.h"
+        }
+      ]
+    },
+    {
       "declared" : "LYRConstants.h",
       "name" : "LYRDeletionMode",
       "values" : [
@@ -1337,6 +1596,18 @@
         },
         {
           "name" : "LYRErrorObjectNotSent",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorMessagePartContentAlreadyAvailable",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorMessagePartContentAlreadyPurged",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorMessagePartContentInlined",
           "declared" : "LYRErrors.h"
         },
         {
