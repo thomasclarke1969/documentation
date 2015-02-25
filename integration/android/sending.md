@@ -76,6 +76,12 @@ Message message = layerClient.newMessage(Arrays.asList(messagePart))
 
 The service declares 4 recipient states; Invalid, Sent, Delivered, and Read. The only state that we allow developers to set is Read. The system itself determines when to mark a message as Invalid, Sent or Delivered. Because of this, we also do not automatically mark messages as read for the sender. That is up to the developer to do so.
 
+```emphasis
+**IMPORTANT**
+
+By default, Layer will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2k like images or movies, please read the [Rich Content](/docs/guides#richcontent) guide.
+```
+
 ## Sending The Message
 
 Once an `Message` object is initialized, it is ready for sending. The message is sent by calling `send()` on the `Conversation` object.
