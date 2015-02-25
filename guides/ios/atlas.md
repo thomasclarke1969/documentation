@@ -47,7 +47,7 @@ Atlas takes advantage of Apple's [UIAppearance](https://developer.apple.com/libr
 
 The follow is a list of all Atlas properties conforming to `UIAppearance`:
 
-### ATLMessageCollectionViewCell 
+### ATLMessageCollectionViewCell
 ##### (ATLOutgoingMessageCollectionViewCell and ATLIncomingMessageCollectionViewCell extend this class)
 ```objc
 @property (nonatomic) UIFont *messageTextFont
@@ -78,7 +78,7 @@ The follow is a list of all Atlas properties conforming to `UIAppearance`:
 @property (nonatomic) UIColor *participantLabelTextColor
 ```
 
-### ATLConversationTableViewCell - 
+### ATLConversationTableViewCell
 ```objc
 @property (nonatomic) UIFont *conversationTitleLabelFont
 @property (nonatomic) UIColor *conversationTitleLabelColor
