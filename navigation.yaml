@@ -75,7 +75,9 @@ guides:
     advanced-querying:
       title: "Advanced Querying"
     policies:
-      title: "Policies"      
+      title: "Policies"
+    atlas:
+      title: "Atlas"        
   	# local-notifications:
   	# 	title: "Local Notification Guide"
   	# conversation-view:
