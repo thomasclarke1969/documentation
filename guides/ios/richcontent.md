@@ -19,7 +19,7 @@ The following example demonstrates how an application can configure Layer to aut
 self.layerClient.autodownloadMIMETypes = [NSSet setWithObjects:@"image/jpeg", nil];
 ```
 
-### On-Demand Downloads and Progress Feedback
+### On-Demand Downloads
 `LYRMessagePart` content can also be downloaded on an on-demand basis. This is done via a call to the `downloadContent:` method on `LYRMessagePart`. Method returns a `LYRProgress` that reports progress of the download transfer.
 
 ```objc
@@ -32,6 +32,19 @@ if (error) {
 }
 ```
 
+###Progress Feedback
+
+Both auto-download and on-demand download report progress of the download transfer through `LYRProgress` which can be accessed depending on download type.
+```objc
+LYRMessagePart *messagePart = self.message.parts.firstObject;
+
+//auto-download
+LYRProgress *progress1 = messagePart.progress;
+
+//on-demand download
+NSError *error;
+LYRProgress *progress2 = [messagePart downloadContent:&error];
+```
 The `LYRProgress` object allows applications to observe and track the download or upload status of a message part. The `fractionCompleted` property of `LYRProgress` objects informs applications as to the percentage of the content transfer operation that has completed. The `LYRProgress` object also declares the `LYRProgressDelegate` protocol which applications can implement in order to be notified of progress changes. 
 
 ```objc
@@ -46,6 +59,7 @@ The `LYRProgress` object allows applications to observe and track the download o
     NSLog(@"Transfer progress changed %@", progress.fractionCompleted);
 }
 ```
+Note: Because the `LYRProgress` object has no reference to it's messagePart, it's best practice to set the `LYRProgress` object's delegate as the cell that it will update.
 
 ### LYRAggregateProgress 
 Applications can also observe the aggregate progress of multiple content transfer operations by combining `LYRProgress` objects into an `LYRAggregateProgress` object. 
