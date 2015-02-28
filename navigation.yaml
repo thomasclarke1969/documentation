@@ -1,26 +1,11 @@
 # Developer portal /docs navigation definition file
-
-# Metadata (not part of the navigation structure)
-meta:
-  # Avaliable platforms
-  platforms:
-    - ios
-    - android
-# Developer portal /docs navigation definition file
-
-# Navigation starts here (order matters)
-#
 #  - Page keys must be unique, lower case, no spaces.
-#  - If page is multi platform add 'platforms: true' to it. (platform sub-folders are expected in this case)
-#
 #  - Section keys must be unique, lower case, no spaces. Keys map directly to file names (minus .md extension)
 #  - If you must use multiple words for keys use a dash '-' as a separator
-
 
 # Layer SDK GuickStart Guide
 quick-start:
   title: "Quick Start"
-  platforms: true
   section:
     install:
       title: "Install"
@@ -36,7 +21,6 @@ quick-start:
 # Layer SDK Functionality Guide
 integration:
   title: "Integration"
-  platforms: true
   section:
     installation-and-setup:
       title: "Installation and Setup"
@@ -60,12 +44,11 @@ integration:
 # Layer SDK Tutorial Guides
 guides:
   title: "Guides"
-  platforms: true
   section:
     authentication:
       title: "Authentication"
     richcontent:
-      title: "Rich Content"            
+      title: "Rich Content"
     push-notification:
       title: "Push Notifications"
     push-integration:
@@ -77,7 +60,7 @@ guides:
     policies:
       title: "Policies"
     atlas:
-      title: "Atlas"        
+      title: "Atlas"
   	# local-notifications:
   	# 	title: "Local Notification Guide"
   	# conversation-view:
@@ -88,7 +71,6 @@ guides:
 # Transition Guide
 transition:
   title: "Transition"
-  platforms: true
   section:
     transition-guide:
       title: "Transition Guide"
@@ -96,7 +78,6 @@ transition:
 # Change Log
 changelog:
   title: "Changelog"
-  platforms: true
   section:
    changelog:
       title: "Changelog"
@@ -104,4 +85,3 @@ changelog:
 # API Reference page
 api:
   title: "API Reference"
-  platforms: true
