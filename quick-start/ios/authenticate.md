@@ -7,30 +7,31 @@ Layer will cache authentication details so you only need authenticate users if y
 ```objective-c
 - (void)authenticateLayerWithUserID:(NSString *)userID completion:(void (^)(BOOL success, NSError * error))completion
 {
-    // If the user is authenticated and the newly requested userID matches, you don't need to reauthenticate.
-    if (self.layerClient.authenticatedUserID && [self.layerClient.authenticatedUserID isEqualToString:userID]) {
-        NSLog(@"Layer Authenticated as User %@", self.layerClient.authenticatedUserID);
-        if (completion) completion(YES, nil);
-        return;
-    }
-    // If the user is authenticated but the userIDs don't match, then deauthenticate the client before reauthentication.
-    else if (self.layerClient.authenticatedUserID && ![self.layerClient.authenticatedUserID isEqualToString:userID]){
-        [self.layerClient deauthenticateWithCompletion:^(BOOL success, NSError *error) {
-            if (!error){
-                [self authenticationTokenWithUserId:userID completion:^(BOOL success, NSError *error) {
+    // Check to see if the layerClient is already authenticated.
+    if (self.layerClient.authenticatedUserID) {
+        //If the layerClient is authenticated with the requested userID, complete the authentication process.
+        if ([self.layerClient.authenticatedUserID isEqualToString:userID]){
+            NSLog(@"Layer Authenticated as User %@", self.layerClient.authenticatedUserID);
+            if (completion) completion(YES, nil);
+            return;
+        } else {
+            //If the authenticated userID is different, then deauthenticate the current client and re-authenticate with the new userID.
+            [self.layerClient deauthenticateWithCompletion:^(BOOL success, NSError *error) {
+                if (!error){
+                    [self authenticationTokenWithUserId:userID completion:^(BOOL success, NSError *error) {
+                        if (completion){
+                            completion(success, error);
+                        }
+                    }];
+                } else {
                     if (completion){
-                        completion(success, error);
+                        completion(NO, error);
                     }
-                }];
-            } else {
-                if (completion){
-                    completion(NO, error);
                 }
-            }
-        }];     
-    } 
-    // If the user isn't authenticated, then authenicate normally.
-    else {
+            }];
+        }
+    } else {
+        //If the layerClient isn't already authenticated, then authenticate.
         [self authenticationTokenWithUserId:userID completion:^(BOOL success, NSError *error) {
             if (completion){
                 completion(success, error);
