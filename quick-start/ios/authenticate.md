@@ -2,18 +2,46 @@
 
 Once connected, it is time to authenticate the  `LYRClient` object. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this.
 
-Layer will cache authentication details so you only need authenticate users if you de-authenticate the current user (when a user logs out for example) or receive an authentication challenge. 
+Layer will cache authentication details so you only need authenticate users if you de-authenticate the current user (when a user logs out for example) or receive an authentication challenge. The code below adds a check on login for authenticated users sessions.
 
 ```objective-c
 - (void)authenticateLayerWithUserID:(NSString *)userID completion:(void (^)(BOOL success, NSError * error))completion
 {
-    // If the user is authenticated you don't need to re-authenticate.
+    // Check to see if the layerClient is already authenticated.
     if (self.layerClient.authenticatedUserID) {
-        NSLog(@"Layer Authenticated as User %@", self.layerClient.authenticatedUserID);
-        if (completion) completion(YES, nil);
-        return;
+        // If the layerClient is authenticated with the requested userID, complete the authentication process.
+        if ([self.layerClient.authenticatedUserID isEqualToString:userID]){
+            NSLog(@"Layer Authenticated as User %@", self.layerClient.authenticatedUserID);
+            if (completion) completion(YES, nil);
+            return;
+        } else {
+            //If the authenticated userID is different, then deauthenticate the current client and re-authenticate with the new userID.
+            [self.layerClient deauthenticateWithCompletion:^(BOOL success, NSError *error) {
+                if (!error){
+                    [self authenticationTokenWithUserId:userID completion:^(BOOL success, NSError *error) {
+                        if (completion){
+                            completion(success, error);
+                        }
+                    }];
+                } else {
+                    if (completion){
+                        completion(NO, error);
+                    }
+                }
+            }];
+        }
+    } else {
+        // If the layerClient isn't already authenticated, then authenticate.
+        [self authenticationTokenWithUserId:userID completion:^(BOOL success, NSError *error) {
+            if (completion){
+                completion(success, error);
+            }
+        }];
     }
+}
 
+- (void)authenticationTokenWithUserId:(NSString *)userID completion:(void (^)(BOOL success, NSError* error))completion{
+    
     /*
      * 1. Request an authentication Nonce from Layer
      */
