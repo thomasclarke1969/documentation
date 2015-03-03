@@ -9,7 +9,7 @@ Layer will cache authentication details so you only need authenticate users if y
 {
     // Check to see if the layerClient is already authenticated.
     if (self.layerClient.authenticatedUserID) {
-        //If the layerClient is authenticated with the requested userID, complete the authentication process.
+        // If the layerClient is authenticated with the requested userID, complete the authentication process.
         if ([self.layerClient.authenticatedUserID isEqualToString:userID]){
             NSLog(@"Layer Authenticated as User %@", self.layerClient.authenticatedUserID);
             if (completion) completion(YES, nil);
@@ -31,7 +31,7 @@ Layer will cache authentication details so you only need authenticate users if y
             }];
         }
     } else {
-        //If the layerClient isn't already authenticated, then authenticate.
+        // If the layerClient isn't already authenticated, then authenticate.
         [self authenticationTokenWithUserId:userID completion:^(BOOL success, NSError *error) {
             if (completion){
                 completion(success, error);
