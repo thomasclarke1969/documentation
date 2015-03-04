@@ -1,11 +1,6 @@
 # Rich Content
 Rich Content will be coming to Android in version v0.10
 
-```emphasis
-Please be aware, since Android does not have "Rich Content" support yet, messages sent from iOS that are over 64kb will not be visible to the current Android SDK.
-```
-
-<!--- 
 # Rich Content
 The Layer messaging service allows developers to send messages with a maximum aggregate content size of up to 2GB. To help applications effectively manage bandwidth and battery concerns when transferring large messages, Layer allows developers to specify the size of `MessageParts` and/or the types of content that should be automatically downloaded. Alternatively, applications can choose to download large message parts only when needed via on-demand downloads. 
 
@@ -91,4 +86,3 @@ long usage = layerClient.getDiskUtilization();
 //You can always choose to delete a Message Part (locally only - the server is not affected) 
 layerClient.deleteLocalMessageData(messagePart);
 ```
---->
