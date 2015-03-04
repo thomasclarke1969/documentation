@@ -1,7 +1,4 @@
 # Rich Content
-Rich Content will be coming to Android in version v0.10
-
-# Rich Content
 The Layer messaging service allows developers to send messages with a maximum aggregate content size of up to 2GB. To help applications effectively manage bandwidth and battery concerns when transferring large messages, Layer allows developers to specify the size of `MessageParts` and/or the types of content that should be automatically downloaded. Alternatively, applications can choose to download large message parts only when needed via on-demand downloads. 
 
 ### Auto-download Size 

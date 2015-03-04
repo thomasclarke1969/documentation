@@ -101,7 +101,3 @@ long usage = self.layerClient.currentDiskUtilization;
 NSError *error = nil;
 LYRProgress *progress = [messagePart purgeContent:&error];
 ```
-
-```emphasis
-Please be aware, since Android does not have "Rich Content" support yet, messages sent from iOS that are over 64kb will not be visible to the current Android SDK.
-```
