@@ -1,8 +1,8 @@
-#Android SDK v0.9.0 Transition Guide
+#Android SDK Transition Guide
 
 ##Key API Changes
 
-If you are upgrading from older versions of the SDK, there are some architectural changes you need to take into account when implementing SDK v0.9.0 and above. Creating a Conversation, Message, and MessagePart are now created with a LayerClient object, and sending a message is done with the Conversation itself:
+If you are upgrading from SDK version 0.8.20 or older, there are some architectural changes you need to take into account. Creating a Conversation, Message, and MessagePart are now created with a LayerClient object, and sending a message is done with the Conversation itself:
 
 ```java
 //There is no change in how the LayerClient is instantiated

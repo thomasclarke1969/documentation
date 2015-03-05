@@ -1,12 +1,4 @@
 # Rich Content
-Rich Content will be coming to Android in version v0.10
-
-```emphasis
-Please be aware, since Android does not have "Rich Content" support yet, messages sent from iOS that are over 64kb will not be visible to the current Android SDK.
-```
-
-<!--- 
-# Rich Content
 The Layer messaging service allows developers to send messages with a maximum aggregate content size of up to 2GB. To help applications effectively manage bandwidth and battery concerns when transferring large messages, Layer allows developers to specify the size of `MessageParts` and/or the types of content that should be automatically downloaded. Alternatively, applications can choose to download large message parts only when needed via on-demand downloads. 
 
 ### Auto-download Size 
@@ -35,7 +27,10 @@ First, define your progress listener. Keep in mind that each callback method has
 ```java
 public class MyProgressListener implements LayerProgressListener {
 
-    @Override
+    public void onProgressStart(MessagePart part, Operation operation){
+        System.out.println("Message part started " + operation.toString());
+    }
+
     public void onProgressUpdate(MessagePart part, Operation operation, long bytes){
         //You can calculate the percentage complete based on the size of the Message Part
         float pctComplete = bytes / part.getSize();
@@ -44,13 +39,11 @@ public class MyProgressListener implements LayerProgressListener {
         System.out.println(operation.toString() + " Percent Complete: " + pctComplete);
     }
 
-    @Override
     public void onProgressComplete(MessagePart part, Operation operation){
         System.out.println("Message part finished " + operation.toString());
     }
 
-    @Override
-    public void onProgressError(MessagePart part, Operation operation, Exception e){
+    public void onProgressError(MessagePart part, Operation operation, Throwable e) {
         System.out.println("Message part error " + operation.toString());
         System.out.println(e);
     }
@@ -91,4 +84,3 @@ long usage = layerClient.getDiskUtilization();
 //You can always choose to delete a Message Part (locally only - the server is not affected) 
 layerClient.deleteLocalMessageData(messagePart);
 ```
---->
