@@ -465,13 +465,6 @@
           "comment" : "Returns the metadata associated with the conversation.",
           "name" : "metadata",
           "discussion" : "Metadata is a free form dictionary of string key-value pairs that allows arbitrary developer supplied information to be associated with the conversation and synchronized among the participants."
-        },
-        {
-          "declared" : "LYRConversation.h",
-          "declaration" : "@property (nonatomic, readonly) LYRMessage *lastMessage",
-          "comment" : "Returns the last message in the conversation.",
-          "name" : "lastMessage",
-          "discussion" : "LastMessage can be used to display relevant properties.  A common LYRQuery on LYRConversation objects is with the key 'lastMessage.receivedAt'."
         }
       ],
       "methods" : {
