@@ -27,7 +27,10 @@ First, define your progress listener. Keep in mind that each callback method has
 ```java
 public class MyProgressListener implements LayerProgressListener {
 
-    @Override
+    public void onProgressStart(MessagePart part, Operation operation){
+        System.out.println("Message part started " + operation.toString());
+    }
+
     public void onProgressUpdate(MessagePart part, Operation operation, long bytes){
         //You can calculate the percentage complete based on the size of the Message Part
         float pctComplete = bytes / part.getSize();
@@ -36,13 +39,11 @@ public class MyProgressListener implements LayerProgressListener {
         System.out.println(operation.toString() + " Percent Complete: " + pctComplete);
     }
 
-    @Override
     public void onProgressComplete(MessagePart part, Operation operation){
         System.out.println("Message part finished " + operation.toString());
     }
 
-    @Override
-    public void onProgressError(MessagePart part, Operation operation, Exception e){
+    public void onProgressError(MessagePart part, Operation operation, Throwable e) {
         System.out.println("Message part error " + operation.toString());
         System.out.println(e);
     }
