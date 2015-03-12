@@ -50,15 +50,19 @@ Navigate to the Layer Developer Portal and login with your credentials. Select t
 
 ![](android-push-8.jpg)
 
-Click the `Add Credentials` button.
+Click the `Configure for Android` button.
 
 ![](android-push-9.jpg)
 
-Enter you GCM credentials.
+If you haven't already, create your project in the Google Developers Console and configure your credentials for GCM. Make a note of the Project Number and API Key. Otherwise, skip to the next step ("Add Credentials").
 
-  * Sender ID: the "Project Number" from your Google Developers Console project.
-  * API Key: the "API Key" from your Google Developers Console project.
+* Sender ID: the "Project Number" from your Google Developers Console project.
+* API Key: the "API Key" from your Google Developers Console project.
 
 ![](android-push-10.jpg)
 
 When your app is in the background, the LayerClient alerts you to pushes via a broadcast Intent with the `com.layer.sdk.PUSH` action.  Your BroadcastReceiver can then create and post the actual [UI notification](http://developer.android.com/guide/topics/ui/notifiers/notifications.html), or take another action.
+
+```emphasis
+Please note, Layer supports up to 5 different GCM credentials per project. This makes it easy to use different Google Projects for development, testing, and production purposes.
+```
