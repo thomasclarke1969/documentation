@@ -109,22 +109,22 @@ If you have already created a Provisioning Profile in the past you will need to 
 #Upload Your Certificate to Layer
 
 ```emphasis
-Please note, Layer supports both production and development Apple Push Notifications. Only one certificate can be uploaded to the Layer developer portal at a time however, so please ensure that you have the correct certificate uploaded for your application at all times.
+Please note, Layer supports both production and development Apple Push Notifications. You can upload up to 5 different certificates per project. Layer will automatically detect the type of certificate you've uploaded and use the correct one at runtime.
 ```
 
-Navigate to the [Layer Developer Portal](https://developer.layer.com ) and login with your credentials. Select the application for which you would like to upload certificates from the Application drop-down menu. Click on the “Push” section of the left hand navigation.
+Navigate to the [Layer Developer Portal](https://developer.layer.com) and login with your credentials. Select the application for which you would like to upload certificates from the Projects drop-down menu. Click on the “Push” section of the left hand navigation.
 
 ![image alt text](ios-push-uploadCert3.jpg)
 
-Click on the `Add Certificate` button.
+Click on the `Configure for iOS` button.
 
 ![image alt text](ios-push-uploadCert4.jpg)
 
-Click on the `Choose File` button and select the certificate you saved to your desktop.
+You will be presented with a tutorial. If you click on `Upload Certificate` to skip the tutorial. Next, click on the `Choose File` button and select the certificate you saved to your desktop.
 
 ![image alt text](ios-push-uploadCert5.jpg)
 
-You will be prompted by Layer to input your certificate password. This is the same password you chose when you exported your certificate from the KeyChain Access application.
+You will also be prompted by Layer to input your certificate password. This is the same password you chose when you exported your certificate from the KeyChain Access application.  This field is optional and is only required if you have a password on your .p12 file.
 
 ##Layer Push Integration
 Now that you have successfully uploaded your Apple Push Notification certificate to Layer, it is time to configure your application to support push notifications in XCode. Open your application in XCode and navigate to Project Settings → your application Target → Capabilities.

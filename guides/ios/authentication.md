@@ -21,7 +21,7 @@ A `Provider ID` and `Key ID` must be retained by your backend application and us
 
 %%C-KEYID%%
 
-To manage your authentication keys please visit the [Layer Dashboard](/dashboard/projects).
+To manage your authentication keys please visit the [Layer Dashboard](/projects).
 
 ##Step 2 - Start the Authentication process
 The main logic will reside in the `requestAuthenticationNonceWithCompletion` method.
@@ -31,7 +31,7 @@ The main logic will reside in the `requestAuthenticationNonceWithCompletion` met
    NSLog(@"Authentication nonce %@", nonce);
 
    /*
-    *  CODE goes here. POST the nonce to your backend, generate and return a JWT identity token  
+    *  CODE goes here. POST the nonce to your backend, generate and return a JWT identity token
     */
 }];
 ```
@@ -92,4 +92,4 @@ Once you have received a valid Identity Token call the following code in the `re
   }];
 ```
 
-You can validate your identity token by using our tool here - [identity token validation tool](/dashboard/projects).
+You can validate your identity token by using our tool here - [identity token validation tool](/projects).

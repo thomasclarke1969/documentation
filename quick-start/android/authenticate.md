@@ -58,5 +58,5 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
 ```
 
 ```emphasis
-Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](https://developer.layer.com/docs/guides/android#authentication) for information on doing so.
+Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](/docs/guides/android#authentication) for information on doing so.
 ```

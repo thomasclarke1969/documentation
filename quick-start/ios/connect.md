@@ -21,7 +21,7 @@ self.layerClient = [LYRClient clientWithAppID:appID];
     } else {
     	  // For the purposes of this Quick Start project, let's authenticate as a user named 'Device'.  Alternatively, you can authenticate as a user named 'Simulator' if you're running on a Simulator.
         NSString *userIDString = @"Device";
-        // Once connected, authenticate user.  
+        // Once connected, authenticate user.
         // Check Authenticate step for authenticateLayerWithUserID source
         [self authenticateLayerWithUserID:userIDString completion:^(BOOL success, NSError *error) {
             if (!success) {
@@ -33,5 +33,5 @@ self.layerClient = [LYRClient clientWithAppID:appID];
 ```
 
 ```emphasis
-Please note, `self.layerClient` is a property of the AppDelegate in the above example. The source for `authenticateLayerWithUserID` is included in the next step in [Quick Start](https://developer.layer.com/docs/quick-start/ios#authenticate).
+Please note, `self.layerClient` is a property of the AppDelegate in the above example. The source for `authenticateLayerWithUserID` is included in the next step in [Quick Start](/docs/quick-start/ios#authenticate).
 ```
