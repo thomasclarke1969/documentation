@@ -21,7 +21,7 @@ A `Provider ID` and `Key ID` must be retained by your back end application and u
 
 %%C-KEYID%%
 
-To manage your authentication keys please visit the [dashboard](/dashboard/projects).
+To manage your authentication keys please visit the [dashboard](/projects).
 
 ##Step 2 - Start the Authentication process
 Once connected, the `onConnectionConnected()` method will be called, at which time you should call the 'authenticate()' method on the `layerClient`.
@@ -45,7 +45,7 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
     String mUserId = "USER_ID_HERE";
 
   /*
-   *  CODE goes here. Post the nonce to your backend, generate and return an Identity Token  
+   *  CODE goes here. Post the nonce to your backend, generate and return an Identity Token
    */
 }
 ```
@@ -102,4 +102,4 @@ Notify the `layerClient` of the new identity token. Add the following code after
   layerClient.answerAuthenticationChallenge("IDENTITY_TOKEN");
 ```
 
-You can validate your identity token by using our tool here - [identity token validation tool](/dashboard/projects).
+You can validate your identity token by using our tool here - [identity token validation tool](/projects).

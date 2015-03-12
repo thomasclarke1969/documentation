@@ -41,7 +41,7 @@ Layer will cache authentication details so you only need authenticate users if y
 }
 
 - (void)authenticationTokenWithUserId:(NSString *)userID completion:(void (^)(BOOL success, NSError* error))completion{
-    
+
     /*
      * 1. Request an authentication Nonce from Layer
      */
@@ -52,7 +52,7 @@ Layer will cache authentication details so you only need authenticate users if y
             }
             return;
         }
-        
+
         /*
          * 2. Acquire identity Token from Layer Identity Service
          */
@@ -63,7 +63,7 @@ Layer will cache authentication details so you only need authenticate users if y
                 }
                 return;
             }
-            
+
             /*
              * 3. Submit identity token to Layer for validation
              */
@@ -89,17 +89,17 @@ The following code snippet connects to the sample `Layer Identity Service`,  gen
     NSParameterAssert(appID);
     NSParameterAssert(nonce);
     NSParameterAssert(completion);
-    
+
     NSURL *identityTokenURL = [NSURL URLWithString:@"https://layer-identity-provider.herokuapp.com/identity_tokens"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:identityTokenURL];
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
+
     NSDictionary *parameters = @{ @"app_id": appID, @"user_id": userID, @"nonce": nonce };
     NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     request.HTTPBody = requestBody;
-    
+
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -107,7 +107,7 @@ The following code snippet connects to the sample `Layer Identity Service`,  gen
             completion(nil, error);
             return;
         }
-        
+
         // Deserialize the response
         NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         if(![responseObject valueForKey:@"error"])
@@ -124,15 +124,15 @@ The following code snippet connects to the sample `Layer Identity Service`,  gen
                NSLocalizedDescriptionKey: @"Layer Identity Provider Returned an Error.",
                NSLocalizedRecoverySuggestionErrorKey: @"There may be a problem with your APPID."
             };
-           
+
             NSError *error = [[NSError alloc] initWithDomain:domain code:code userInfo:userInfo];
             completion(nil, error);
         }
-        
+
     }] resume];
 }
 ```
 
 ```emphasis
-Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](https://developer.layer.com/docs/guides/ios#authentication) for information on doing so.
+Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](/docs/guides/ios#authentication) for information on doing so.
 ```
