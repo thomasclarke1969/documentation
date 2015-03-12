@@ -84,5 +84,5 @@ List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OB
 ```
 
 ```emphasis
-For many more query examples, please see the [Advanced Querying Guide](https://developer.layer.com/docs/guides#advanced-querying).
+For many more query examples, please see the [Advanced Querying Guide](/docs/guides#advanced-querying).
 ```

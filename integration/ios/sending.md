@@ -136,12 +136,12 @@ Additionally, applications can mark a conversation as read which marks all unrea
 
 ```objectivec
 NSError *error = nil;
-BOOL success = [conversation markAllMessagesAsRead:&error];  
+BOOL success = [conversation markAllMessagesAsRead:&error];
 ```
 
 ## Confirming Message Delivery
 
-There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](https://developer.layer.com/dashboard/projects/layer-sample/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
+There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](/projects/layer-sample/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
 
 ```
 Dec 02 2014 02:34:27pmSync: User <USER_IDENTIFIER> created a message in conversation <CONVERSATION_IDENTIFIER>.
@@ -152,5 +152,5 @@ Additionally, developers can leverage both the [`LYRQueryController`](#query) ob
 ```emphasis
 **Best Practice**
 
-Layer supports both textual and silent push on iOS. However, textual pushes are more expedient, predictable, and reliable. [Click here](https://support.layer.com/hc/en-us/articles/203174610-Can-I-send-regular-push-notifications-) to learn more. 
+Layer supports both textual and silent push on iOS. However, textual pushes are more expedient, predictable, and reliable. [Click here](https://support.layer.com/hc/en-us/articles/203174610-Can-I-send-regular-push-notifications-) to learn more.
 ```
