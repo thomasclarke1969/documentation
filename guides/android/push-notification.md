@@ -54,7 +54,7 @@ Click the `Configure for Android` button.
 
 ![image alt text](android-push-9.jpg)
 
-If you havne't already, create your project in the Google Developers Console and set it up for GCM. Make a note of the Project Number and API Key. Otherwise, skip to the end of the tutorial to enter you GCM credentials.
+If you haven't already, create your project in the Google Developers Console and configure your credentials for GCM. Make a note of the Project Number and API Key. Otherwise, skip to the next step ("Add Credentials").
 
 * Sender ID: the "Project Number" from your Google Developers Console project.
 * API Key: the "API Key" from your Google Developers Console project.
