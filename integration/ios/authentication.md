@@ -21,9 +21,9 @@ NSString *userIDString = @"REPLACE_WITH_USER_ID";
 [layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
 
     /*
-    * 2. Connect to your Identity Web Service. In addition to your Layer App ID, User ID, and nonce, you can
-    *    choose to pass in any other parameters that make sense (such as a password), depending on your App's 
-    *    login process.
+    * 2. Connect to your Identity Web Service. In addition to your Layer App ID, User ID, 
+    *    and nonce, you can choose to pass in any other parameters that make sense (such 
+    *    as a password), depending on your App's login process.
     */
     NSURL *identityTokenURL = [NSURL URLWithString:@"https://your-identity-provider.com/authenticate"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:identityTokenURL];

@@ -27,18 +27,18 @@ Once you have called the `authenticate()` method, your application will receive 
 
 ```java
 /*
- * 1. Implement `onAuthenticationChallenge` in your Authentication Listener to acquire a nonce. Each nonce is
- *    valid for 10 minutes after creation, after which you will have to call authenticate() again to generate
- *    a new one.
+ * 1. Implement `onAuthenticationChallenge` in your Authentication Listener to acquire a 
+ *    nonce. Each nonce is valid for 10 minutes after creation, after which you will have 
+ *    to call authenticate() again to generate a new one.
  */
 @Override
 public void onAuthenticationChallenge(final LayerClient layerClient, final String nonce) {
     String mUserId = "USER_ID_HERE";
 
   /*
-   * 2. Connect to your Identity Web Service. In addition to your Layer App ID, User ID, and nonce, you can
-   *    choose to pass in any other parameters that make sense (such as a password), depending on your App's 
-   *    login process.
+   * 2. Connect to your Identity Web Service. In addition to your Layer App ID, User ID, 
+   *    and nonce, you can choose to pass in any other parameters that make sense (such 
+   *    as a password), depending on your App's login process.
    */
     (new AsyncTask<Void, Void, Void>() {
         @Override
@@ -75,8 +75,8 @@ The final step is to verify that the Authentication process completed succesfull
 
 ```java
 //Called if there was a problem authenticating
-//Common causes include a malformed identity token, missing parameters in the identity token, missing
-//or incorrect nonce
+//Common causes include a malformed identity token, missing parameters in the identity 
+// token, missing or incorrect nonce
 public void onAuthenticationError(LayerClient layerClient, LayerException e) {
     //Handle the case where the User ID could not be Authenticated
     System.out.println("There was an error authenticating: " + e);
@@ -84,7 +84,8 @@ public void onAuthenticationError(LayerClient layerClient, LayerException e) {
 
 //Called when the user has successfully authenticated
 public void onAuthenticated(LayerClient client, String arg1) {
-    //Handle the case where the User ID was Authenticated correctly (start the Conversation Activity, for example)
+    //Handle the case where the User ID was Authenticated correctly (start the 
+    // Conversation Activity, for example)
     System.out.println("Authentication successful");
 }
 ```
@@ -94,7 +95,8 @@ You can choose to deauthenticate the User at any point by calling `layerClient.d
 ```java
 //Called after the user has been deauthenticated
 public void onDeauthenticated(LayerClient client) {
-    //Handle the case where the user deauthenticated (return to your App's login screen, for example)
+    //Handle the case where the user deauthenticated (return to your App's login 
+    // screen, for example)
     System.out.println("User is deauthenticated");
 }
 ```
