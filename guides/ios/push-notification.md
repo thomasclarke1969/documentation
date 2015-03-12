@@ -112,7 +112,7 @@ If you have already created a Provisioning Profile in the past you will need to 
 Please note, Layer supports both production and development Apple Push Notifications. Only one certificate can be uploaded to the Layer developer portal at a time however, so please ensure that you have the correct certificate uploaded for your application at all times.
 ```
 
-Navigate to the [Layer Developer Portal](https://developer.layer.com ) and login with your credentials. Select the application for which you would like to upload certificates from the Application drop-down menu. Click on the “Push” section of the left hand navigation.
+Navigate to the [Layer Developer Portal](https://developer.layer.com) and login with your credentials. Select the application for which you would like to upload certificates from the Application drop-down menu. Click on the “Push” section of the left hand navigation.
 
 ![](ios-push-uploadCert3.jpg)
 
