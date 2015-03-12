@@ -62,3 +62,7 @@ If you haven't already, create your project in the Google Developers Console and
 ![](android-push-10.jpg)
 
 When your app is in the background, the LayerClient alerts you to pushes via a broadcast Intent with the `com.layer.sdk.PUSH` action.  Your BroadcastReceiver can then create and post the actual [UI notification](http://developer.android.com/guide/topics/ui/notifiers/notifications.html), or take another action.
+
+```emphasis
+Please note, Layer supports up to 5 different GCM credentials per project. This makes it easy to use different Google Projects for development, testing, and production purposes.
+```
