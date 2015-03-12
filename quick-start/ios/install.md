@@ -1,6 +1,6 @@
 #Installation
 
-This Quick Start guide will get you up and running with sending messages as quickly as possible. If you are interested in trying out Atlas, Layer's open source user interface components, visit [Experience Atlas](https://developer.layer.com/dashboard/signup/atlas).
+This Quick Start guide will get you up and running with sending messages as quickly as possible. If you are interested in trying out Atlas, Layer's open source user interface components, visit [Experience Atlas](https://developer.layer.com/signup/atlas).
 
 ```emphasis
 Before you get started, we highly recommend that you download the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios). To install the Quick Start iOS XCode project execute this command from your Terminal window:
