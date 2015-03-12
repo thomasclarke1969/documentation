@@ -5,7 +5,7 @@ Once connected, Layer requires every user to be authenticated before they can se
 To authenticate a user, you must set up your own Authentication Web Service where you can validate a user's credentials and create an Identity Token. That Identity Token is returned to your App, and then passed on to the Layer servers. If the Identity Token is valid, the Authentication process will complete, and that user's message history will sync to the device. For more information about configuring your own Authentication Web Service check out the [Authentication Guide](https://developer.layer.com/docs/guides#authentication). 
 
 ```emphasis
-Keep in mind that the sample Web Service provided in the [Quick Start Guide](https://developer.layer.com/docs/quick-start/android) is for testing purposes only *cannot* be used in production.
+Keep in mind that the sample Web Service provided in the [Quick Start Guide](https://developer.layer.com/docs/quick-start/android) is for testing purposes only and **cannot** be used in production.
 ```
 
 If you'd like to learn more about Authentication and the Authentication process, this [Knowledge Base article](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) is a good place to start. 
