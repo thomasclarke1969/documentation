@@ -50,11 +50,11 @@ Navigate to the Layer Developer Portal and login with your credentials. Select t
 
 ![image alt text](android-push-8.jpg)
 
-Click the `Add Credentials` button.
+Click the `Configure for Android` button.
 
 ![image alt text](android-push-9.jpg)
 
-Enter you GCM credentials.
+If you havne't already, create your project in the Google Developers Console and set it up for GCM. Make a note of the Project Number and API Key. Otherwise, skip to the end of the tutorial to enter you GCM credentials.
 
   * Sender ID: the "Project Number" from your Google Developers Console project.
   * API Key: the "API Key" from your Google Developers Console project.
