@@ -31,43 +31,23 @@ Once you have called the `authenticate()` method, your application will receive 
  *    nonce. Each nonce is valid for 10 minutes after creation, after which you will have 
  *    to call authenticate() again to generate a new one.
  */
-@Override
+
 public void onAuthenticationChallenge(final LayerClient layerClient, final String nonce) {
-    String mUserId = "USER_ID_HERE";
 
   /*
-   * 2. Connect to your Identity Web Service. In addition to your Layer App ID, User ID, 
-   *    and nonce, you can choose to pass in any other parameters that make sense (such 
-   *    as a password), depending on your App's login process.
+   * 2. Connect to your Identity Web Service to generate an Identity Token. In addition 
+   *    to your Layer App ID, User ID, and nonce, you can choose to pass in any other 
+   *    parameters that make sense (such as a password), depending on your App's login 
+   *    process.
    */
-    (new AsyncTask<Void, Void, Void>() {
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                HttpPost post = new HttpPost("https://your-identity-provider.com/authenticate");
-                post.setHeader("Content-Type", "application/json");
-                post.setHeader("Accept", "application/json");
 
-                JSONObject json = new JSONObject()
-                        .put("app_id", layerClient.getAppId())
-                        .put("user_id", mUserId)
-                        .put("nonce", nonce );
-                post.setEntity(new StringEntity(json.toString()));
+   String eit = generateToken(appID, userID, nonce);
 
-                HttpResponse response = (new DefaultHttpClient()).execute(post);
-                String eit = (new JSONObject(EntityUtils.toString(response.getEntity())))
-                        .optString("identity_token");
-
-            /*
-             * 3. Submit identity token to Layer for validation
-             */
-                layerClient.answerAuthenticationChallenge(eit);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }).execute();
+  /*
+   * 3. Submit identity token to Layer for validation
+   */
+   
+   layerClient.answerAuthenticationChallenge(eit);
 }
 ```
 
