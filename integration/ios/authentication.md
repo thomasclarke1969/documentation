@@ -13,46 +13,28 @@ If you'd like to learn more about Authentication and the Authentication process,
 You can use this as a template to connect to your own Identity Service, which will return an Idenity Token.
 
 ```objective-c
-NSString *userIDString = @"REPLACE_WITH_USER_ID";
-
 /*
-* 1. Request Authentication Nonce From Layer
-*/
+ * 1. Request Authentication Nonce From Layer.  Each nonce is valid for 10 minutes after 
+ *    creation, after which you will have to generate a new one.
+ */
 [layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
 
-    /*
-    * 2. Connect to your Identity Web Service. In addition to your Layer App ID, User ID, 
-    *    and nonce, you can choose to pass in any other parameters that make sense (such 
-    *    as a password), depending on your App's login process.
+   /*
+    * 2. Connect to your Identity Web Service to generate an Identity Token. In addition 
+    *    to your Layer App ID, User ID, and nonce, you can choose to pass in any other 
+    *    parameters that make sense (such as a password), depending on your App's login 
+    *    process.
     */
-    NSURL *identityTokenURL = [NSURL URLWithString:@"https://your-identity-provider.com/authenticate"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:identityTokenURL];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-
-    NSDictionary *parameters = @{ @"app_id": [layerClient.appID UUIDString], @"user_id": userIDString, @"nonce": nonce };
-    NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    request.HTTPBody = requestBody;
-
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-
-        // Deserialize the response
-        NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSString *identityToken = responseObject[@"identity_token"];
-
-        /*
-        * 3. Submit identity token to Layer for validation
-        */
-        [layerClient authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
-            if (authenticatedUserID) {
-                NSLog(@"Authenticated as User: %@", authenticatedUserID);
-            }
-        }];
-
-    }] resume];
+    NSString *identityToken = ...
+   
+    /*
+     * 3. Submit identity token to Layer for validation
+     */
+     [layerClient authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
+         if (authenticatedUserID) {
+             NSLog(@"Authenticated as User: %@", authenticatedUserID);
+         }
+     }];
 }];
 ```
 
