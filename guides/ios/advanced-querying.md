@@ -4,7 +4,7 @@ LayerKit provides a flexible and expressive interface with which applications ca
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 query.limit = 20;
 query.offset = 0;
 
@@ -104,7 +104,7 @@ NSUInteger unreadMessageCount = [self.client countForQuery:query error:nil];
 // Fetches all messages for a given conversation
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
@@ -115,7 +115,7 @@ if (!error) {
 }
 ```
 
-## Fetching Messages sent in the last week
+### Fetching Messages sent in the last week
 
 ```objectivec
 // Fetches all messages sent in the last week
@@ -127,6 +127,23 @@ NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
 if (!error) {
     NSLog(@"%tu messages in conversation", messages.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+```
+
+## MessagePart Queries
+
+### Fetching Messages containing png's
+
+```objectivec
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessagePart class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"MIMEType" operator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
+
+NSError *error;
+NSOrderedSet *messageParts = [self.layerClient executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu messageParts in conversation with png's", messageParts.count);
 } else {
     NSLog(@"Query failed with error %@", error);
 }
