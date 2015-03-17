@@ -15,6 +15,6 @@ Message message = layerClient.newMessage(Arrays.asList(messagePart));
 conversation.send(message);
 ```
 
-You can verify that your message has been sent by looking at the logs inside [developer dashboard](/dashboard/projects).
+You can verify that your message has been sent by looking at the logs inside [developer dashboard](/projects).
 
 %%C-CHATWIDGET%%

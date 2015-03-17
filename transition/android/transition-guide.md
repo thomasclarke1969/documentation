@@ -18,7 +18,7 @@ LayerClient client = LayerClient.newInstance(Context context, String App_ID, Str
 //MessagePart.newInstance(text) becomes
 MessagePart part = client.newMessagePart(text);
 
-//Message.newInstance(conversation, parts) is created with the client, and does not require 
+//Message.newInstance(conversation, parts) is created with the client, and does not require
 // a conversation object
 Message message = client.newMessage(parts);
 
@@ -69,7 +69,7 @@ public int getUnreadMessageCount(Conversation conversation){
         .build();
 
     List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
-    
+
     if(results == null)
         return 0;
     return results.size();
@@ -77,4 +77,4 @@ public int getUnreadMessageCount(Conversation conversation){
 ```
 
 ##Querying
-One of the biggest changes to SDK version 0.9.+ is Querying. Queries can be executed on a variety of message and conversation properties, and the results can be sorted based on specific fields, allowing for a variety of UI configurations. To learn more about Querying, start with [this guide](https://developer.layer.com/docs/integration/android#querying).
+One of the biggest changes to SDK version 0.9.+ is Querying. Queries can be executed on a variety of message and conversation properties, and the results can be sorted based on specific fields, allowing for a variety of UI configurations. To learn more about Querying, start with [this guide](/docs/integration/android#querying).

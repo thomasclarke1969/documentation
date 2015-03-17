@@ -1,5 +1,5 @@
-#Display Messages
-The following demonstrates the logic needed to display messages from the last conversation between 2 participants inside a tableview in a View Controller.  The following code heavily relies on the [LYRQueryController](http://developer.layer.com/docs/integration/ios#LYRQueryController).  For a working example, check out the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios).
+# Display Messages
+The following demonstrates the logic needed to display messages from the last conversation between 2 participants inside a tableview in a View Controller.  The following code heavily relies on the [LYRQueryController](/docs/integration/ios#LYRQueryController).  For a working example, check out the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios).
 
 Initial setup for your View Controller:
 ```objectivec
@@ -20,20 +20,20 @@ Initial setup for your View Controller:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Fetches all conversations between the authenticated user and the supplied participant    
+    // Fetches all conversations between the authenticated user and the supplied participant
     [self fetchLayerConversation];
 }
 ```
 The following methods fetch the last conversation, and populate the query controller with all the messages from that conversations.
 ```objectivec
 - (void)fetchLayerConversation
-{    
+{
      // For the purposes of this Quick Start project, we want fetch any conversations with these 3 users 'Device' (the authenticated user id), 'Simulator', and 'Dashboard'.
     LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
     query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:@[ @"Device", @"Simulator", @"Dashboard" ]];
 
     query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO] ];
-    
+
     NSError *error;
     NSOrderedSet *conversations = [self.layerClient executeQuery:query error:&error];
     if (!error) {
@@ -41,7 +41,7 @@ The following methods fetch the last conversation, and populate the query contro
     } else {
         NSLog(@"Query failed with error %@", error);
     }
-    
+
     // Retrieve the last conversation
     if (conversations.count) {
         self.conversation = [conversations lastObject];
@@ -61,7 +61,7 @@ The following methods fetch the last conversation, and populate the query contro
     // Set up query controller
     self.queryController = [self.layerClient queryControllerWithQuery:query];
     self.queryController.delegate = self;
-    
+
     NSError *error;
     BOOL success = [self.queryController execute:&error];
     if (success) {
@@ -127,13 +127,13 @@ The following methods are the Table View Data Source Methods.  These methods han
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *simpleTableIdentifier = @"SimpleTableCell";
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
+
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    
+
     return cell;
 }
 
@@ -141,7 +141,7 @@ The following methods are the Table View Data Source Methods.  These methods han
 {
     // Get Message Object from queryController
     LYRMessage *message = [self.queryController objectAtIndexPath:indexPath];
-    
+
     // Set cell text to "<Sender>: <Message Contents>"
     LYRMessagePart *messagePart = message.parts[0];
     cell.textLabel.text = [NSString stringWithFormat:@"%@:%@",[message sentByUserID], [[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding]];

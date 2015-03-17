@@ -54,7 +54,7 @@
         },
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic) NSUInteger autodownloadMaximumContentSize",
+          "declaration" : "@property (nonatomic) LYRSize autodownloadMaximumContentSize",
           "comment" : "Configures the maximum size (in bytes) for {@link LYRMessagePart} objects that will be automatically downloaded upon synchronization.",
           "name" : "autodownloadMaximumContentSize",
           "discussion" : "The default value is 0."
@@ -68,7 +68,7 @@
         },
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic, readonly) NSUInteger currentDiskUtilization",
+          "declaration" : "@property (nonatomic, readonly) LYRSize currentDiskUtilization",
           "comment" : "Returns the amount of disk space currently being utilized for the storage of downloaded message part content.",
           "name" : "currentDiskUtilization",
           "discussion" : "> %note% > **Note:** The property is not updated in real-time, it may time some amount of time for it to update.Utilization may periodically peak above the configured diskCapacity while synchronization or downloads are in progress, but will be rebalanced once all operations\nhave completed."
@@ -81,7 +81,7 @@
         },
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic, assign) NSUInteger diskCapacity",
+          "declaration" : "@property (nonatomic, assign) LYRSize diskCapacity",
           "comment" : "Specifies the maximum amount of disk space (in bytes) that may be utilized for storing downloaded message part content. A value of zero (the default) indicates that\nan unlimited amount of disk space may be utilized.",
           "name" : "diskCapacity",
           "discussion" : "Once current disk utilization of downloaded message part content exceeds the maximum capacity the system will delete content on a least recently used basis until\nthe total utilization is 80% of the configured disk capacity. Note that auto-downloaded content that gets deleted is not automatically downloaded again."

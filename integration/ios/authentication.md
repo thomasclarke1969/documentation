@@ -1,58 +1,45 @@
-#Authentication
+#Authenticate
 
-Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client application. For testing purposes, Layer provides a sample backend that takes care of this. 
+Once connected, Layer requires every user to be authenticated before they can send and recieve messages. The Authentication process lets you explicitly allow a given user to communicate with other users in your App. A user is defined by their User ID, which can be any sort of unique identifer, including ones that you are already using for user managment (this could be a UDID, username, email address, phone number, etc).
 
-The following code snippet connects to the sample `Layer Identity Service`,  generates an `Identity Token` on behalf your application, and authenticates the `LYRClient`. Copy and paste the entire snippet into your application. You will need to replace `REPLACE_WITH_USER_ID` with `string` of your chosing (typically a user identifier).
+To authenticate a user, you must set up your own Authentication Web Service where you can validate a user's credentials and create an Identity Token. That Identity Token is returned to your App, and then passed on to the Layer servers. If the Identity Token is valid, the Authentication process will complete, and that user's message history will sync to the device. For more information about configuring your own Authentication Web Service check out the [Authentication Guide](https://developer.layer.com/docs/guides#authentication). 
 
 ```emphasis
-Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](#authentication-guide) for information on doing so.
+Keep in mind that the sample Web Service provided in the [Quick Start Guide](https://developer.layer.com/docs/quick-start/android) is for testing purposes only and **cannot** be used in production.
 ```
 
-```objective-c
-NSString *userIDString = @"REPLACE_WITH_USER_ID";
+If you'd like to learn more about Authentication and the Authentication process, this [Knowledge Base article](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) is a good place to start. 
 
+You can use this as a template to connect to your own Identity Service, which will return an Idenity Token.
+
+```objective-c
 /*
- * 1. Request Authentication Nonce From Layer
+ * 1. Request Authentication Nonce From Layer.  Each nonce is valid for 10 minutes after 
+ *    creation, after which you will have to generate a new one.
  */
 [layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
 
+   /*
+    * 2. Connect to your Identity Web Service to generate an Identity Token. In addition 
+    *    to your Layer App ID, User ID, and nonce, you can choose to pass in any other 
+    *    parameters that make sense (such as a password), depending on your App's login 
+    *    process.
+    */
+    NSString *identityToken = ...
+   
     /*
-     * 2. Acquire identity Token from Layer Identity Service
+     * 3. Submit identity token to Layer for validation
      */
-    NSURL *identityTokenURL = [NSURL URLWithString:@"https://layer-identity-provider.herokuapp.com/identity_tokens"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:identityTokenURL];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-
-    NSDictionary *parameters = @{ @"app_id": [layerClient.appID UUIDString], @"user_id": userIDString, @"nonce": nonce };
-    NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    request.HTTPBody = requestBody;
-
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-
-        // Deserialize the response
-        NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSString *identityToken = responseObject[@"identity_token"];
-
-        /*
-         * 3. Submit identity token to Layer for validation
-         */
-        [layerClient authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
-            if (authenticatedUserID) {
-                NSLog(@"Authenticated as User: %@", authenticatedUserID);
-            }
-        }];
-
-    }] resume];
+     [layerClient authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
+         if (authenticatedUserID) {
+             NSLog(@"Authenticated as User: %@", authenticatedUserID);
+         }
+     }];
 }];
 ```
 
 ```emphasis
 **Best Practice**
 
-If your app supports multiple users on a given device, Layer allows each user to send and receive their own messages. Just make sure you deauthenticate when a user logs out and wait for the appropriate callback before authenticating another user. [Click here](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) to learn more.
+If your app supports multiple users on a given device, Layer allows each user to send and receive their own messages. Just make sure you deauthenticate when a user logs out and wait for the appropriate callback before authenticating another user.
 ```
-

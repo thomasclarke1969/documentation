@@ -59,4 +59,4 @@ public String getMessageText(Message msg) {
 }
 ```
 
-To detect changes to conversations or messages, take a look at the [Synchronization](https://developer.layer.com/docs/integration/android#synchronization) guide.
+To detect changes to conversations or messages, take a look at the [Synchronization](/docs/integration/android#synchronization) guide.

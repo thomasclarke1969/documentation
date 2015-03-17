@@ -95,8 +95,8 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
 
 Manually keeping track of unread message counts can be a real pain. Layer can automatically set the badge count to the number of unread messages across all conversations.
 
-To enable this feature, go to the Push section of the [Dashboard](http://developer.layer.com/dashboard) and turn on "Show unread in badges".
-![image alt text](badges.png)
+To enable this feature, go to the Push section of the [Dashboard](https://developer.layer.com) and turn on "Show unread in badges".
+![](badges.png)
 Please note that when you flip the switch the change may take a few minutes to propogate.
 
 To retrieve the badge count in your application, use
