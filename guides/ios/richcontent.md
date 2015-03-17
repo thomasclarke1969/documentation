@@ -86,6 +86,26 @@ LYRAggregateProgress *aggregateProgress = [LYRAggregateProgress aggregateProgres
 * `LYRContentTransferDownloading` - Message content is in the process of downloading. 
 * `LYRContentTransferComplete` - Message content transfer (either upload or download) is complete. 
 
+### Background Transfers
+
+You can continue to download while in the background by enabling background transfers.  You can enable by setting the `backgroundContentTransferEnabled` property of `LYRClient` to `YES`.
+
+```objc
+self.layerClient.backgroundContentTransferEnabled = YES;
+```
+
+You must also implement this app delegate method where you invoke our background transfer handling logic:
+
+```objc
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
+{
+    [self.applicationController.layerClient handleBackgroundContentTransfersForSession:identifier completion:^(NSArray *changes, NSError *error) {
+        NSLog(@"Background transfers finished with %lu change(s)", (unsigned long)changes.count);
+        completionHandler();
+    }];
+}
+```
+
 ###Disk Space Management
 You have the option to determine how much disk space Layer can use on the local device. If locally cached content goes above this limit, then assets will be deleted, with the least recently accessed content deleted first.
 

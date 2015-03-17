@@ -1,3 +1,11 @@
+#LayerKit v0.11.0 Transition Guide
+## Breaking API Changes
+
+This version of LayerKit includes a substantial change to Message ordering in order to enhance performance. Previous version of LayerKit utilized
+a property named `index`, which was a monotonically increasing integer equal to the number of Messages that have been synchronized. From v0.11.0,
+LayerKit now maintains a new property named `position`. The `position` of a Message is a value that is calculated immediately when the Message is
+synchronized and never changes. This greatly improves performance reduces the overhead associated with syncing large amounts of Message content.
+
 #LayerKit v0.10.0 Transition Guide
 ## Behavior Change
 
@@ -222,7 +230,7 @@ if (!error) {
 ```objective-c
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
-query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];

@@ -5,7 +5,7 @@ LayerKit provides a flexible and expressive interface with which applications ca
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 query.limit = 20;
 query.offset = 0;
 
@@ -42,10 +42,10 @@ Properties that support querying are identified by the `LYR_QUERYABLE_PROPERTY` 
 
 Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the `sortDescriptors` property on `LYRQuery` objects. This value must be an array of `NSSortDescriptor` instances.
 
-The following sort descriptor asks that results be returned in ascending order based on the `index` property of the `LYRMessage` objects.
+The following sort descriptor asks that results be returned in ascending order based on the `position` property of the `LYRMessage` objects.
 
 ```objectivec
-query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 ```
 
 ## Limits and offsets
@@ -133,7 +133,7 @@ In order to acquire the number of objects in a result set, applications can call
 }
 ```
 
-In order to acquire an object for a given index, applications can call `objectAtIndexPath:`. This method can be used in your implementation of `cellForRow:atIndexPath:` in order to acquire the proper `LYRConversation` object to display.
+In order to acquire an object for a given position, applications can call `objectAtIndexPath:`. This method can be used in your implementation of `cellForRow:atIndexPath:` in order to acquire the proper `LYRConversation` object to display.
 
 ```objectivec
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

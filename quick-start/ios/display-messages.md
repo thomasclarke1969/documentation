@@ -1,4 +1,4 @@
-#Display Messages
+# Display Messages
 The following demonstrates the logic needed to display messages from the last conversation between 2 participants inside a tableview in a View Controller.  The following code heavily relies on the [LYRQueryController](/docs/integration/ios#LYRQueryController).  For a working example, check out the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios).
 
 Initial setup for your View Controller:
@@ -52,12 +52,12 @@ The following methods fetch the last conversation, and populate the query contro
 }
 
 -(void)setupQueryController
-{
-    // Query for all the messages in conversation sorted by index
+{    
+    // Query for all the messages in conversation sorted by position
     LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
     query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-    query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:NO]];
-
+    query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NO]];
+    
     // Set up query controller
     self.queryController = [self.layerClient queryControllerWithQuery:query];
     self.queryController.delegate = self;
