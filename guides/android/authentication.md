@@ -80,7 +80,6 @@ Prebuilt JWT Libraries are available for many languages:
 * [Go](https://github.com/dgrijalva/jwt-go)
 * [Python](https://github.com/progrium/pyjwt/)
 * [Ruby](https://github.com/progrium/ruby-jwt)
-* [Go](https://github.com/dgrijalva/jwt-go)
 
 To assist in setting up a backend, Layer provides sample backend implementations for the following languages:
 
