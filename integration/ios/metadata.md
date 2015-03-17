@@ -10,10 +10,10 @@ The following demonstrates setting `metadata` on a conversation:
 
 ```objective-c
 NSDictionary *metadata = @{@"title" : @"My Conversation",
-                           @"participants" : @{
-                                   @"0000001" : @"Greg Thompson",
-                                   @"0000002" : @"Sally Price",
-                                   @"0000003" : @"Tom Jones"},
+                           @"theme" : @{
+                                @"background_color" : @"333333",
+                                @"text_color" : @"F8F8EC",
+                                @"link_color" : @"21AAE1"},
                            @"created_at" : @"Dec, 01, 2014",
                            @"img_url" : @"/path/to/img/url"};
 [self.conversation setValuesForMetadataKeyPathsWithDictionary:metadata merge:YES];
@@ -22,7 +22,7 @@ NSDictionary *metadata = @{@"title" : @"My Conversation",
 For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (.) delimited string that identifies a series of nested keys leading to a leaf value. For example, given the above metadata structure, an application could change the name of a participant via the following:
 
 ```objective-c
-[conversation setValue:@"Tom Douglas" forMetadataAtKeyPath:@"participants.0000003"];
+[conversation setValue:@"FFFFFF" forMetadataAtKeyPath:@"theme.background_color"];
 ```
 
 Applications can fetch metadata for a given conversation by accessing the public `metadata` property on `LYRConversation` objects.
@@ -31,4 +31,4 @@ Applications can fetch metadata for a given conversation by accessing the public
 NSString *title = [conversation.metadata valueForKey:@"title"];
 ```
 
-While this feature is both powerful and convenient, it is not designed to serve as a general purpose data store. It's important to understand the intended use cases and limitations associated with the feature to ensure an ideal user experience. Please see the [Metadata Guide](#metadata) for more detail.
+While this feature is both powerful and convenient, it is not designed to serve as a general purpose data store. It's important to understand the intended use cases and limitations associated with the feature to ensure an ideal user experience. Please see the [Metadata Guide](guides#metadata) for more detail.
