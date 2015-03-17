@@ -31,4 +31,4 @@ Applications can fetch metadata for a given conversation by accessing the public
 NSString *title = [conversation.metadata valueForKey:@"title"];
 ```
 
-While this feature is both powerful and convenient, it is not designed to serve as a general purpose data store. It's important to understand the intended use cases and limitations associated with the feature to ensure an ideal user experience. Please see the [Metadata Guide](guides#metadata) for more detail.
+While this feature is both powerful and convenient, it is not designed to serve as a general purpose data store. It's important to understand the intended use cases and limitations associated with the feature to ensure an ideal user experience. Please see the [Metadata Guide](/guides#metadata) for more detail.
