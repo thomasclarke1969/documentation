@@ -1,5 +1,12 @@
-#Android SDK Transition Guide
+#Layer SDK v0.11.0 Transition Guide
+## Breaking API Changes
 
+This version of LayerKit includes a substantial change to Message ordering in order to enhance performance. Previous version of LayerKit utilized
+a property named `index`, which was a monotonically increasing integer equal to the number of Messages that have been synchronized. From v0.11.0,
+the Layer SDK now maintains a new property named `position`. The `position` of a Message is a value that is calculated immediately when the Message is
+synchronized and never changes. This greatly improves performance reduces the overhead associated with syncing large amounts of Message content.
+
+#Layer SDK v0.10.0 Transition Guide
 ##Key API Changes
 
 If you are upgrading from SDK version 0.8.20 or older, there are some architectural changes you need to take into account. Creating a Conversation, Message, and MessagePart are now created with a LayerClient object, and sending a message is done with the Conversation itself:

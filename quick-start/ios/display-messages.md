@@ -53,10 +53,10 @@ The following methods fetch the last conversation, and populate the query contro
 
 -(void)setupQueryController
 {    
-    // Query for all the messages in conversation sorted by index
+    // Query for all the messages in conversation sorted by position
     LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
     query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-    query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:NO]];
+    query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NO]];
     
     // Set up query controller
     self.queryController = [self.layerClient queryControllerWithQuery:query];

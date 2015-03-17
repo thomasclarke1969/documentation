@@ -35,11 +35,11 @@ Fields that support querying can be found in Message.Property and Conversation.P
 ##Sorting results
 Applications can describe the sort order in which the query results should be returned. This is done by setting a value for the sortDescriptor property in the Query builder.
 
-The following sort descriptor asks that results be returned in ascending order based on the index property of the Message objects.
+The following sort descriptor asks that results be returned in ascending order based on the position property of the Message objects.
 
 ```java
 Query query = Query.builder(Message.class)
-    .sortDescriptor(new SortDescriptor(Message.Property.INDEX, SortDescriptor.Order.ASCENDING))
+    .sortDescriptor(new SortDescriptor(Message.Property.POSITION, SortDescriptor.Order.ASCENDING))
     .build();
 ```
 
