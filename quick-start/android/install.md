@@ -25,7 +25,9 @@ repositories {
 }
 
 dependencies {
-    compile 'com.layer.sdk:layer-sdk:0.10.+'
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.google.android.gms:play-services-base:6.5.+'
+    compile 'com.layer.sdk:layer-sdk:0.11.+'
     compile 'org.slf4j:slf4j-api:1.7.7'
 }
 ```
@@ -41,7 +43,7 @@ dependencies {
 ```groovy
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:20.+'
+    compile 'com.android.support:appcompat-v7:22.+'
     compile 'com.android.support:support-annotations:20.+'
     compile 'com.google.android.gms:play-services:5.+'
     compile 'org.slf4j:slf4j-api:1.7.7'
