@@ -74,7 +74,7 @@ int count = resultArray.get(0).intValue();
 // Fetches all messages for a given conversation, most recent first
 Query query = Query.builder(Message.class)
     .predicate(new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, myConversation))
-    .sortDescriptor(new SortDescriptor(Message.Property.INDEX, SortDescriptor.Order.DESCENDING))
+    .sortDescriptor(new SortDescriptor(Message.Property.POSITION, SortDescriptor.Order.DESCENDING))
     .build();
 
 List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);
