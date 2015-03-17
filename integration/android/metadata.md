@@ -40,4 +40,4 @@ Map<String, Object> current = mConversation.getMetadata();
 mTitleTextView.setText((String)current.get("title"));
 ```
 
-While this feature is both powerful and convenient, it is not designed to serve as a general purpose data store. It's important to understand the intended use cases and limitations associated with the feature to ensure an ideal user experience. Please see the [Metadata Guide](docs/guides#metadata) for more detail.
+While this feature is both powerful and convenient, it is not designed to serve as a general purpose data store. It's important to understand the intended use cases and limitations associated with the feature to ensure an ideal user experience. Please see the [Metadata Guide](../docs/guides#metadata) for more detail.
