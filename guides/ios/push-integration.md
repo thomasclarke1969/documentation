@@ -49,7 +49,7 @@ NSError *error;
 [self.layerClient sendMessage:message error:&error];
 ```
 
-If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification. Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
+If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications). Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
 
 ```objective-c
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NS
@@ -102,4 +102,13 @@ Please note that when you flip the switch the change may take a few minutes to p
 To retrieve the badge count in your application, use
 ```
 NSInteger badgeCount = application.applicationIconBadgeNumber;
+```
+
+##<a name="warning"></a>
+```emphasis
+WARNING about silent and local notifications:
+
+We currently recommend that developers do not rely on silent notifications. We’ve done extensive testing on silent notifications internally with various combinations of sound, alert, and content-available flags and the net outcome is that there is no way to guarantee that iOS will wake the app up in response to a push notification. We believe this is because of how iOS handles power management.  For example: if you plug the device into a power source it will get woken up on every push. When its not plugged in we've perceived that whether or not the app will be awakened is unpredictable.
+
+If you want reliable, immediate delivery of push notifications we recommend utilizing the LYRMessagePushNotificationAlertMessageKey option to set Alert text and to use the "Show unread in badges" feature in the dashboard. If you try to use silent notifications and emit local notifications then you will always be subject to latency and a variable amount of batching. Unfortunately, the behavior is out of our control at this time.
 ```
