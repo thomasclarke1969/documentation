@@ -50,7 +50,7 @@ NSError *error;
 ```
 
 If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications).
-```
+
 ##<a name="badges"></a>Showing unread counts as Badges
 
 Manually keeping track of unread message counts can be a real pain. Layer can automatically set the badge count to the number of unread messages across all conversations.

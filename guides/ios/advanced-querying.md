@@ -132,6 +132,19 @@ if (!error) {
 }
 ```
 
+### Fetching all Messages containing png's
+// Fetch all messages containing 
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"parts.MIMEType" operator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
+
+NSError *error;
+NSOrderedSet *messages = [self.layerClient executeQuery:query error:&error];
+if (!error) {
+    NSLog(@"%tu messages with image/png", messages.count);
+} else {
+    NSLog(@"Query failed with error %@", error);
+}
+
 ## MessagePart Queries
 
 ### Fetching Messages containing png's
