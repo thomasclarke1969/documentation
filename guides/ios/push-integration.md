@@ -49,47 +49,7 @@ NSError *error;
 [self.layerClient sendMessage:message error:&error];
 ```
 
-If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications). Your application should also implement the following in your `UIApplicationDelegate` method to handle silent push notifications
-
-```objective-c
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NS
-Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    NSError *error;
-
-    BOOL success = [self.applicationController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
-        [self setApplicationBadgeNumber];
-        if (changes) {
-            if ([changes count]) {
-                [self processLayerBackgroundChanges:changes];
-          // Get the message from userInfo
-          message = [self messageFromRemoteNotification:userInfo];
-          NSString *alertString = [[NSString alloc] initWithData:[message.parts[0] data] encoding:NSUTF8StringEncoding];
-
-          // Show a local notification
-          UILocalNotification *localNotification = [UILocalNotification new];
-          localNotification.alertBody = alertString;
-          [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-            completionHandler(UIBackgroundFetchResultNewData);
-            } else {
-                completionHandler(UIBackgroundFetchResultNoData);
-            }
-        } else {
-            completionHandler(UIBackgroundFetchResultFailed);
-        }
-    }];
-    if (!success) {
-        completionHandler(UIBackgroundFetchResultNoData);
-    }
-
-- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
-{
-    // Fetch message object from LayerKit
-    NSURL *identifier = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.message_identifier"]];
-  LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-  query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
-  return [[self.layerClient executeQuery:query error:nil] lastObject];
-}
+If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications).
 ```
 ##<a name="badges"></a>Showing unread counts as Badges
 
@@ -106,7 +66,7 @@ NSInteger badgeCount = application.applicationIconBadgeNumber;
 
 ##<a name="warning"></a>
 ```emphasis
-WARNING about silent and local notifications:
+**WARNING about silent and local notifications:**
 
 We currently recommend that developers do not rely on silent notifications. We’ve done extensive testing on silent notifications internally with various combinations of sound, alert, and content-available flags and the net outcome is that there is no way to guarantee that iOS will wake the app up in response to a push notification. We believe this is because of how iOS handles power management.  For example: if you plug the device into a power source it will get woken up on every push. When its not plugged in we've perceived that whether or not the app will be awakened is unpredictable.
 
