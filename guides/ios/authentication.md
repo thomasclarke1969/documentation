@@ -78,7 +78,7 @@ To assist in setting up a backend, Layer provides sample backend implementations
 * [PHP](https://github.com/layerhq/support/tree/master/identity-services-samples/php)
 *  [Go](https://github.com/layerhq/support/tree/master/identity-services-samples/go)
 
-There is also a sample backend available as a [Parse module](https://github.com/layerhq/layer-parse-module).
+There is also a sample backend available as a [Parse module](https://github.com/layerhq/layer-parse-module), and a [Ruby Gem](https://rubygems.org/gems/layer-identity_token).
 
 Please also contact <support@layer.com> if you have any questions.
 
