@@ -1479,6 +1479,30 @@
         {
           "name" : "LYRClientErrorSynchronizationFailure",
           "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorZipArchiveCreationFailure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorZipFileArchiveFailure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorTempFileArchiveFailure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorSnapshotCaptureFailure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorNoFileLoggerPath",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorDatabaseBackupFailure",
+          "declared" : "LYRErrors.h"
         }
       ]
     },
