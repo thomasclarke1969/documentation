@@ -64,7 +64,7 @@ The following is an example of a push payload from Layer:
     },
     "layer" :     {
         "conversation_identifier" : "layer:///conversations/7b3e0109-c411-434e-965d-f07b62705bc1",
-        "event_url" : "layer:///conversations/7b3e0109-c411-434e-965d-f07b62705bc1/messages/4"
+        "event_url" : "layer:///conversations/7b3e0109-c411-434e-965d-f07b62705bc1/messages/4",
         "message_identifier" : "layer:///messages/3ae07c1c-fb90-4207-a533-743929b5e724"
     }
 }
