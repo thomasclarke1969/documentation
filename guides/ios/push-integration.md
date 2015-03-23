@@ -51,6 +51,59 @@ NSError *error;
 
 If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications).
 
+## Receiving pushes
+
+The following is an example of a push payload from Layer:
+```json
+{
+    "aps" :  {
+        "alert" : "This is the message text.",
+        "badge" : 1,
+        "sound" : "layerbell.caf",
+        "content-available" : 1
+    },
+    "layer" :     {
+        "conversation_identifier" : "layer:///conversations/7b3e0109-c411-434e-965d-f07b62705bc1",
+        "event_url" : "layer:///conversations/7b3e0109-c411-434e-965d-f07b62705bc1/messages/4"
+        "message_identifier" : "layer:///messages/3ae07c1c-fb90-4207-a533-743929b5e724"
+    }
+}
+```
+The conversation identifier is contained in `layer.conversation_identifier` and the message identifer is contained in `layer.message_identifier`.
+
+The following code will retrieve the LYRMessage object from a push notification:
+
+```objective-c
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NS
+Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSError *error;
+
+    BOOL success = [self.applicationController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
+        [self setApplicationBadgeNumber];
+        if (changes) {
+            if ([changes count]) {
+                [self processLayerBackgroundChanges:changes];
+          // Get the message from userInfo
+          message = [self messageFromRemoteNotification:userInfo];
+        } else {
+            completionHandler(UIBackgroundFetchResultFailed);
+        }
+    }];
+    if (!success) {
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
+
+- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
+{
+    // Fetch message object from LayerKit
+    NSURL *identifier = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.message_identifier"]];
+  LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+  query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
+  return [[self.layerClient executeQuery:query error:nil] lastObject];
+}
+```
+
 ##<a name="badges"></a>Showing unread counts as Badges
 
 Manually keeping track of unread message counts can be a real pain. Layer can automatically set the badge count to the number of unread messages across all conversations.
