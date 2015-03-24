@@ -1,6 +1,6 @@
-This is the CONTRIBUTE.md of our [Layer SDK documentation project](https://github.com/layerhq/documentation). Great to have you here. Here are a few ways you can help make this project better!
-
 # CONTRIBUTE.md
+
+This is the CONTRIBUTE.md of our [Layer SDK documentation](https://github.com/layerhq/documentation). Great to have you here. Here are a few ways you can help make this project better!
 
 ## Submitting a pull request
 
