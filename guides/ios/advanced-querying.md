@@ -133,6 +133,7 @@ if (!error) {
 ```
 
 ### Fetching all Messages containing png's
+```objectivec
 // Fetch all messages containing 
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"parts.MIMEType" operator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
@@ -144,10 +145,11 @@ if (!error) {
 } else {
     NSLog(@"Query failed with error %@", error);
 }
+```
 
 ## MessagePart Queries
 
-### Fetching Messages containing png's
+### Fetching MessageParts containing png's
 
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithClass:[LYRMessagePart class]];
