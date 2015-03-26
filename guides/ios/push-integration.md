@@ -80,7 +80,6 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
     NSError *error;
 
     BOOL success = [self.applicationController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
-        [self setApplicationBadgeNumber];
         if (changes) {
             if ([changes count]) {
                 [self processLayerBackgroundChanges:changes];

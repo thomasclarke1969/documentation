@@ -83,16 +83,18 @@ Prebuilt JWT Libraries are available for many languages:
 
 To assist in setting up a backend, Layer provides sample backend implementations for the following languages:
 
-* [Node.js](https://github.com/layerhq/support/blob/master/identity-services-samples/nodejs/layer.js)
+* [Node.js](https://github.com/layerhq/support/blob/master/identity-services-samples/nodejs/layer.js) (also available as a [Parse Cloud module](https://github.com/layerhq/layer-parse-module))
 * [Python](https://github.com/layerhq/support/blob/master/identity-services-samples/python/controller.py)
 * [Ruby](https://github.com/layerhq/support/tree/master/identity-services-samples/ruby)
 * [Java](https://github.com/layerhq/support/tree/master/identity-services-samples/java)
 * [PHP](https://github.com/layerhq/support/tree/master/identity-services-samples/php)
 *  [Go](https://github.com/layerhq/support/tree/master/identity-services-samples/go)
 
-There is also a sample backend available as a [Parse module](https://github.com/layerhq/layer-parse-module), and a [Ruby Gem](https://rubygems.org/gems/layer-identity_token).
+Third Party Libraries
+* [Ruby Gem](https://rubygems.org/gems/layer-identity_token)
+*  [Layer Token Service](https://github.com/dreimannzelt/layer-token_service)  - basic webservice for testing your Layer client
 
-Please also contact <support@layer.com> if you have any questions.
+If you build your own libraries and want to be included, send an email to [support@layer.com](mailto:support@layer.com).
 
 ##Step 5
 Notify the `layerClient` of the new identity token. Add the following code after the logic above.
