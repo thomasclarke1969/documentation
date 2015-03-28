@@ -9,7 +9,7 @@ Before you get started, we highly recommend that you download the [Quick Start i
 $ curl -L https://raw.githubusercontent.com/layerhq/quick-start-ios/master/install.sh | bash -s "%%C-INLINE-APPID%%"
 ```
 
-The simplest way to install LayerKit is with [CocoaPods](http://cocoapods.org). If you have yet to install Cocoapods, you can do so via the following command.
+The simplest way to install LayerKit is with [CocoaPods](http://cocoapods.org). If you don't want to use Cocoapods follow these manual import [instructions](https://support.layer.com/hc/en-us/articles/204256740-Can-I-use-LayerKit-without-Cocoapods-). If you have yet to install Cocoapods, you can do so via the following command.
 
 ```console
 $ sudo gem install cocoapods
