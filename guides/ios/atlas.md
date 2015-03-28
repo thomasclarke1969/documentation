@@ -104,9 +104,10 @@ The follow is a list of all Atlas properties conforming to `UIAppearance`:
 @property (nonatomic) UIColor *titleColor
 ```
 <a name="parse"></a>
+## Integrating Parse with Atlas
 [LayerParseSampleApp](https://github.com/layerhq/LayerParseSampleApp) is a sample application highlighting how to integrate Atlas, the iOS UI Kit for the Layer communications platform with a Parse backend. It presents a very simple example of a chat app.
 
-## Setup
+### Setup
 
 This project requires Xcode and the iOS SDK v8.0, and uses [Cocoapods](cocoapods.org).
 
@@ -118,9 +119,9 @@ This project requires Xcode and the iOS SDK v8.0, and uses [Cocoapods](cocoapods
 6. (Recommended) If you want test users, import the User.json file found under Supporting Files from the XCode project into your User class on Parse.
 7. Build and run the application on your Simulator to create a new user and begin messaging!
 
-## Sign Up and Authentication
+### Sign Up and Authentication
 
-### ParseUI and SignUp
+#### ParseUI and SignUp
 
 The `ATLPViewController` controls the ParseUI and Layer+Atlas instantiation.  If there is no localized Parse user then we present a `PFLogInViewController` that includes an instance of `PFSignUpViewController`.  
 
@@ -155,7 +156,7 @@ The ParseUI controllers are flexible, and our sample requires a username, email,
 }
 ```
 
-### Layer Authentication
+#### Layer Authentication
 
 Layer authentication gets the property `objectId` of the `[PFUser currentUser]` and uses that as the `userID`.  The Layer authentication step uses the Parse Cloud Code function you set up in step 5 to create an `identityToken` from your specific application ensuring the highest level of security. Upon a successful authentication, an `ATLConversationListController` instance is created and presented on the screen.
 
@@ -176,13 +177,13 @@ Layer authentication gets the property `objectId` of the `[PFUser currentUser]` 
         }
     }];
 ```
-## Users
+### Users
 
-### Sample Users and Testing
+#### Sample Users and Testing
 
 To let you test the features without needing a device, we've created test Parse Users that can be used as participants in a sample conversation.  Find the `Users.json` file under Supporting Files in your XCode project, go to your Parse User table, select import, and drag the file to complete.  The `ATLPUserDataSource` handles all querying and caching of `PFUser`s for the application, and Users `Bob Test` and `Jane Test` will be available.
 
-### PFUser + ATLParticipant
+#### PFUser + ATLParticipant
 
 Atlas requires that User objects adhere to the `ATLParticipant` protocol to fully leverage all of its features.  We've created a category on the `PFUser` class that will satisfy this requirement.  Feel free to customize the implementation to return the values you desire from your `PFUser`'s custom properties.
 
