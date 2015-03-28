@@ -1067,6 +1067,19 @@
           },
           {
             "declared" : "LYRQueryController.h",
+            "declaration" : "- (NSDictionary *)indexPathsForObjectsWithIdentifiers:(NSSet *)objectIdentifiers",
+            "comment" : "Returns a dictionary mapping the given set of object identifiers to the NSIndexPath values that indicate\nwhere in the query controller's result set the corresponding objects appear. Any object identifiers that are not in\nthe result set (or are outside the pagination window) will not have an entry in the dictionary returned.",
+            "name" : "indexPathsForObjectsWithIdentifiers:",
+            "return" : "A dictionary mapping the object identifiers that are part of the query controller results to the index path that appear at.",
+            "parameters" : [
+              {
+                "name" : "objectIdentifiers",
+                "description" : "The set of object identifiers to look up within the query controller."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRQueryController.h",
             "declaration" : "- (NSUInteger)numberOfObjectsInSection:(NSUInteger)section",
             "comment" : "Returns the number of objects in the given section in the result set.",
             "name" : "numberOfObjectsInSection:",
