@@ -59,6 +59,8 @@ guides:
       title: "Advanced Querying"
     policies:
       title: "Policies"
+    parse:
+      title: "Parse Integration"
     atlas:
       title: "Atlas"
   	# local-notifications:
