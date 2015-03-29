@@ -8,7 +8,7 @@ This project requires Xcode and the iOS SDK v8.0, and uses [Cocoapods](cocoapods
 1. Clone the project from Github: `$ git clone https://github.com/layerhq/Layer-Parse-iOS-Example.git`
 2. Install the dependencies in the root directory via CocoaPods: `$ pod install`
 3. Open `Layer-Parse-iOS-Example.xcworkspace` in Xcode.
-4. Replace `ATLPLayerAppIDString` , `ParseAppIDString` , and `ParseClientKeyString` in `ATLPAppDelegate.m` with your Layer and Parse credentials.
+4. Replace `LayerAppIDString` , `ParseAppIDString` , and `ParseClientKeyString` in `AppDelegate.m` with your Layer and Parse credentials.
 5. Add the [Layer Parse Module](https://github.com/layerhq/layer-parse-module) to your Parse Cloud Code to serve as an authentication manager.
 6. (Recommended) If you want test users, import the User.json file found under Supporting Files from the XCode project into your User class on Parse.
 7. Build and run the application on your Simulator to create a new user and begin messaging!
@@ -17,7 +17,7 @@ This project requires Xcode and the iOS SDK v8.0, and uses [Cocoapods](cocoapods
 
 ### ParseUI and SignUp
 
-The `ATLPViewController` controls the ParseUI and Layer+Atlas instantiation.  If there is no localized Parse user then we present a `PFLogInViewController` that includes an instance of `PFSignUpViewController`.  
+The `ViewController` controls the ParseUI and Layer+Atlas instantiation.  If there is no localized Parse user then we present a `PFLogInViewController` that includes an instance of `PFSignUpViewController`.  
 
 ```objc
     if (![PFUser currentUser]) { // No user logged in
@@ -52,7 +52,7 @@ The ParseUI controllers are flexible, and our sample requires a username, email,
 
 ### Layer Authentication
 
-Layer authentication gets the property `objectId` of the `[PFUser currentUser]` and uses that as the `userID`.  The Layer authentication step uses the Parse Cloud Code function you set up in step 5 to create an `identityToken` from your specific application ensuring the highest level of security. Upon a successful authentication, an `ATLConversationListController` instance is created and presented on the screen.
+Layer authentication gets the property `objectId` of the `[PFUser currentUser]` and uses that as the `userID`.  The Layer authentication step uses the Parse Cloud Code function you set up in step 5 to create an `identityToken` from your specific application ensuring the highest level of security. Upon a successful authentication, an `ConversationListController` instance is created and presented on the screen.
 
 ```objc
     [self.layerClient connectWithCompletion:^(BOOL success, NSError *error) {
@@ -75,7 +75,7 @@ Layer authentication gets the property `objectId` of the `[PFUser currentUser]` 
 
 ### Sample Users and Testing
 
-To let you test the features without needing a device, we've created test Parse Users that can be used as participants in a sample conversation.  Find the `Users.json` file under Supporting Files in your XCode project, go to your Parse User table, select import, and drag the file to complete.  The `ATLPUserDataSource` handles all querying and caching of `PFUser`s for the application, and Users `Bob Test` and `Jane Test` will be available.
+To let you test the features without needing a device, we've created test Parse Users that can be used as participants in a sample conversation.  Find the `Users.json` file under Supporting Files in your XCode project, go to your Parse User table, select import, and drag the file to complete.  The `UserManager` handles all querying and caching of `PFUser`s for the application, and Users `Bob Test` and `Jane Test` will be available.
 
 ### PFUser + ATLParticipant
 
