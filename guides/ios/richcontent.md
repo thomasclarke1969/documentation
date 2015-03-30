@@ -1,8 +1,12 @@
 # Rich Content
 The Layer messaging service allows developers to send messages with a maximum aggregate content size of up to 2GB. To help applications effectively manage bandwidth and battery concerns when transferring large messages, Layer allows developers to specify the size of `LYRMessageParts` and/or the types of content that should be automatically downloaded. Alternatively, applications can choose to download large message parts only when needed via on-demand downloads. 
 
+### Uploading
+
+If your message contains large `LYRMessagePart`s they will start uploading as soon as you send the message.  You can track the status of the upload by checking the [transfer status](#transferstatus).
+
 ### Auto-download Size 
-Be default, LayerKit will automatically download content for message parts whose content size is less than 2KB. If developers would like to raise this limit, they can do so by setting a value for the `autodownloadMaximumContentSize` property on `LYRClient`.
+By default, LayerKit will automatically download content for message parts whose content size is less than 2KB. If developers would like to raise this limit, they can do so by setting a value for the `autodownloadMaximumContentSize` property on `LYRClient`.
 
 The following example demonstrates how LayerKit can be configured to automatically download all message parts whose content size is less that 100KB. 
 
@@ -77,6 +81,7 @@ LYRProgress *progress3 = [LYRClient downloadContent:part3 error:&error];
 LYRAggregateProgress *aggregateProgress = [LYRAggregateProgress aggregateProgressWithProgresses:@[progress1, progress2, progress3]];
 ```
 
+<a name="transferstatus"></a>
 ### Transfer Status
 `LYRMessageParts` provide a `transferStatus` property which allows applications to inquire as to the status of content uploads when sending a message, or content download when downloading message content. This property will return one of the following enumerated values:
 
