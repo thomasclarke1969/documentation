@@ -91,6 +91,25 @@ LYRAggregateProgress *aggregateProgress = [LYRAggregateProgress aggregateProgres
 * `LYRContentTransferDownloading` - Message content is in the process of downloading. 
 * `LYRContentTransferComplete` - Message content transfer (either upload or download) is complete. 
 
+If you want to know which messages have their content already downloaded (`transferStatus == LYRContentTransferComplete`) use this:
+
+```objective-c
+// Setup the predicate
+LYRPredicate *transferStatusPredicate = [LYRPredicate predicateWithProperty:@"parts.transferStatus" operator:LYRPredicateOperatorIsLessThanOrEqualTo value:@(LYRContentTransferDownloading)];
+LYRCompoundPredicate *negatedPredicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeNot subpredicates:@[transferStatusPredicate]];
+
+// Setup the query
+LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+query.predicate = negatedPredicate;
+
+// Fetch results
+NSError *error = nil;
+NSOrderedSet *messages = [self executeQuery:query error:&error];
+
+// or use it in your query controller...
+LYRQueryController *controller = [self.client queryControllerWithQuery:query];
+```
+
 ### Background Transfers
 
 You can continue to download while in the background by enabling background transfers.  You can enable by setting the `backgroundContentTransferEnabled` property of `LYRClient` to `YES`.
