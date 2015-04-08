@@ -1,6 +1,6 @@
 #Authenticate
 
-Once connected, it is time to authenticate the  `LYRClient` object. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this.
+Once connected, it is time to Authenticate a user in order to allow them to send and receive messages. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this. <b>Note:</b> You <b>cannot</b> use this sample backend with Production App IDs.
 
 Layer will cache authentication details so you only need authenticate users if you de-authenticate the current user (when a user logs out for example) or receive an authentication challenge. The code below adds a check on login for authenticated users sessions.
 
