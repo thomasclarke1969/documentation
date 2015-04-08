@@ -14,7 +14,7 @@ $ git clone https://github.com/layerhq/quick-start-android.git
 
 ##Install the Layer SDK Jar
 
-When building your project in [Android Studio](https://developer.android.com/sdk/index.html), you can include the Layer SDK through maven, or link directly to the JAR file. <b>Note:</n> If you are developing with Eclipse, you can follow [these instructions](https://support.layer.com/hc/en-us/articles/204177954-Building-Layer-with-Eclipse). When you are done, return here and continue with setting up the AndroidManifest.xml file in your app.
+When building your project in [Android Studio](https://developer.android.com/sdk/index.html), you can include the Layer SDK through maven, or link directly to the JAR file. <b>Note:</b> If you are developing with Eclipse, you can follow [these instructions](https://support.layer.com/hc/en-us/articles/204177954-Building-Layer-with-Eclipse). When you are done, return here and continue with setting up the AndroidManifest.xml file in your app.
 
 #### AAR (referenced by maven)
 Navigate to the `build.gradle` file at the app level (not the project level) and ensure that you include the following:
