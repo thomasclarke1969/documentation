@@ -1,6 +1,6 @@
 #Authenticate
 
-Once connected, it is time to Authenticate a user in order to allow them to send and receive messages. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this. <b>Note:</b> You <b>cannot</b> use this sample backend with Production App IDs.
+You must authenticate a user before they are allowed to send or receive messages. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this. <b>Note:</b> You <b>cannot</b> use this sample backend with Production App IDs.
 
 Once connected, the `onConnectionConnected()` method will be called. You can start the Authentication process by executing the `authenticate()` method on the `layerClient`. In general, you should authenticate and deauthenticate users based on your App's user management flow (ie, authenticate a user when they log in and deauthenticate them when they log out).
 
