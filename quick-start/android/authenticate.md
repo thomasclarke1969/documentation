@@ -1,6 +1,8 @@
 #Authenticate
 
-Once connected, the `onConnectionConnected()` method will be called, followed by the `authenticate()` method on the `layerClient`.
+You must authenticate a user before they are allowed to send or receive messages. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this. <b>Note:</b> You <b>cannot</b> use this sample backend with Production App IDs.
+
+Once connected, the `onConnectionConnected()` method will be called. You can start the Authentication process by executing the `authenticate()` method on the `layerClient`. In general, you should authenticate and deauthenticate users based on your App's user management flow (ie, authenticate a user when they log in and deauthenticate them when they log out).
 
 ```java
  @Override
@@ -21,6 +23,9 @@ Once you have called the `authenticate()` method, your application will receive 
  */
 @Override
 public void onAuthenticationChallenge(final LayerClient layerClient, final String nonce) {
+
+    //You can use any identifier you wish to track users, as long as the value is unique
+    //This identifier will be used to add a user to a conversation in order to send them messages
     String mUserId = "USER_ID_HERE";
 
   /*

@@ -14,10 +14,10 @@ $ git clone https://github.com/layerhq/quick-start-android.git
 
 ##Install the Layer SDK Jar
 
-When building your project, you can include the Layer SDK through maven, or link directly to the JAR file.
+When building your project in [Android Studio](https://developer.android.com/sdk/index.html), you can include the Layer SDK through maven, or link directly to the JAR file. <b>Note:</b> If you are developing with Eclipse, you can follow [these instructions](https://support.layer.com/hc/en-us/articles/204177954-Building-Layer-with-Eclipse). When you are done, return here and continue with setting up the AndroidManifest.xml file in your app.
 
 #### AAR (referenced by maven)
-Navigate to your `build.gradle` file and ensure that you include the following:
+Navigate to the `build.gradle` file at the app level (not the project level) and ensure that you include the following:
 
 ```groovy
 repositories {
@@ -26,7 +26,7 @@ repositories {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.google.android.gms:play-services-base:6.5.+'
+    compile 'com.google.android.gms:play-services-gcm:+'
     compile 'com.layer.sdk:layer-sdk:0.11.+'
     compile 'org.slf4j:slf4j-api:1.7.7'
 }
@@ -38,7 +38,7 @@ dependencies {
 1. Download the latest Layer SDK JAR file from [Github](https://github.com/layerhq/releases-android/tree/master/releases/com/layer/sdk/layer-sdk)
 2. Drag the JAR file into the /libs directory of your Android Studio application
 3. Navigate to the JAR file in Android Studio navigator, right click and select "Add As A Library..."
-4. Navigate to your `build.gradle` file and ensure that you include the following:
+4. Navigate to the `build.gradle` file at the app level (not the project level) and ensure that you include the following:
 
 ```groovy
 dependencies {

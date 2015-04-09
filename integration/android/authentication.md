@@ -4,6 +4,8 @@ Once connected, Layer requires every user to be authenticated before they can se
 
 To authenticate a user, you must set up your own Authentication Web Service where you can validate a user's credentials and create an Identity Token. That Identity Token is returned to your App, and then passed on to the Layer servers. If the Identity Token is valid, the Authentication process will complete, and that user's message history will sync to the device. For more information about configuring your own Authentication Web Service check out the [Authentication Guide](https://developer.layer.com/docs/guides#authentication).
 
+In general, you should authenticate when a user logs in to your app, and deauthenticate when they log out.
+
 ```emphasis
 Keep in mind that the sample Web Service provided in the [Quick Start Guide](https://developer.layer.com/docs/quick-start/android) is for testing purposes only and **cannot** be used in production.
 ```
@@ -51,6 +53,9 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
 }
 ```
 
+<b>Note:</b> You should never cache the nonce or Idenity Token. Both are designed to be used once, and once only.
+
+
 The final step is to verify that the Authentication process completed succesfully, or to handle any errors.
 
 ```java
@@ -63,7 +68,7 @@ public void onAuthenticationError(LayerClient layerClient, LayerException e) {
 }
 
 //Called when the user has successfully authenticated
-public void onAuthenticated(LayerClient client, String arg1) {
+public void onAuthenticated(LayerClient client, String userID) {
     //Handle the case where the User ID was Authenticated correctly (start the 
     // Conversation Activity, for example)
     System.out.println("Authentication successful");
