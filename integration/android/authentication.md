@@ -53,6 +53,9 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
 }
 ```
 
+<b>Note:</b> You should never cache the nonce or Idenity Token. Both are designed to be used once, and once only.
+
+
 The final step is to verify that the Authentication process completed succesfully, or to handle any errors.
 
 ```java
@@ -65,7 +68,7 @@ public void onAuthenticationError(LayerClient layerClient, LayerException e) {
 }
 
 //Called when the user has successfully authenticated
-public void onAuthenticated(LayerClient client, String arg1) {
+public void onAuthenticated(LayerClient client, String userID) {
     //Handle the case where the User ID was Authenticated correctly (start the 
     // Conversation Activity, for example)
     System.out.println("Authentication successful");
