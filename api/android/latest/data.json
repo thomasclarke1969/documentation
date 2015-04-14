@@ -35,6 +35,104 @@
                   }
                 ],
                 "exceptions": []
+              },
+              {
+                "declarationSignature": "public static com.layer.sdk.LayerClient newInstance(android.content.Context context, java.lang.String layerAppId)",
+                "name": "newInstance",
+                "callSignature": "newInstance(context, layerAppId)",
+                "comment": "Generates a new LayerClient, ready for authentication and sending messages.",
+                "returns": {
+                  "description": "a new LayerClient, ready to authenticate.",
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "context",
+                    "description": "Context in which to create this client.",
+                    "type": "android.content.Context"
+                  },
+                  {
+                    "name": "layerAppId",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public static com.layer.sdk.LayerClient newInstance(android.content.Context context, java.lang.String layerAppId, com.layer.sdk.LayerClient.Options options)",
+                "name": "newInstance",
+                "callSignature": "newInstance(context, layerAppId, options)",
+                "comment": "Generates a new LayerClient, ready for authentication and sending messages.",
+                "returns": {
+                  "description": "a new LayerClient, ready to authenticate.",
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "context",
+                    "description": "Context in which to create this client.",
+                    "type": "android.content.Context"
+                  },
+                  {
+                    "name": "layerAppId",
+                    "type": "String"
+                  },
+                  {
+                    "name": "options",
+                    "description": "Set of options for LayerClient (use <code>new Options().googleCloudMessagingSenderId(String)</code>)",
+                    "type": "Options"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public static void enableLogging()",
+                "name": "enableLogging",
+                "callSignature": "enableLogging()",
+                "comment": "Layer sdk logs to logcat using the tag 'LayerSDK'.\n\nThe log levels can be set using one of the following ways.\n1. set system property : setprop log.tag.LayerSDK [Log Level]\n2. Create a local.prop file with the following in it: 'log.tag.LayerSDK= [Log Level]' and\n   place that in /data/local.prop.\nPossible values for '[Log Level]' are VERBOSE, DEBUG, INFO, WARN, ERROR, ASSERT or SUPPRESS.\n\nEg: To enable verbose logging, use 'adb shell setprop log.tag.LayerSDK VERBOSE'\n\nFor details, refer to\nhttp://developer.android.com/reference/android/util/Log.html#isLoggable(java.lang.String, int)",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public static void disableLogging()",
+                "name": "disableLogging",
+                "callSignature": "disableLogging()",
+                "comment": null,
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public static void sendLogs(com.layer.sdk.LayerClient client, android.app.Activity from)",
+                "name": "sendLogs",
+                "callSignature": "sendLogs(client, from)",
+                "comment": "Creates an email with logs and other relevant information",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "client",
+                    "description": ": LayerClient object when available. Can be set to null",
+                    "type": "LayerClient"
+                  },
+                  {
+                    "name": "from",
+                    "description": ": The activity to use as context for sending out the email containing logs\n\nNOTE: The logs might include personally identifiable information. Please refer to\nLayer's privacy policy [ https://layer.com/privacy ] to understand how Layer handles PII.",
+                    "type": "android.app.Activity"
+                  }
+                ],
+                "exceptions": []
               }
             ],
             "instance": [
@@ -293,6 +391,34 @@
                 "exceptions": []
               },
               {
+                "declarationSignature": "public abstract com.layer.sdk.messaging.MessagePart newMessagePart(java.lang.String mimeType, java.io.InputStream stream, long length)",
+                "name": "newMessagePart",
+                "callSignature": "newMessagePart(mimeType, stream, length)",
+                "comment": "Creates a MessagePart with the given MIME type and data with size `length` from the given\nInputStream.",
+                "returns": {
+                  "type": "MessagePart"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "mimeType",
+                    "description": "A MIME type identifying the type of data contained in the given data object.",
+                    "type": "String"
+                  },
+                  {
+                    "name": "stream",
+                    "description": "InputStream to read data from.",
+                    "type": "InputStream"
+                  },
+                  {
+                    "name": "length",
+                    "description": "Bytes of data to read from the InputStream.",
+                    "type": "long"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
                 "declarationSignature": "public com.layer.sdk.messaging.MessagePart newMessagePart(java.lang.String plainText)",
                 "name": "newMessagePart",
                 "callSignature": "newMessagePart(plainText)",
@@ -400,6 +526,48 @@
                     "name": "conversation",
                     "description": "the Conversation for which to retrieve Message IDs.",
                     "type": "Conversation"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient registerProgressListener(com.layer.sdk.messaging.MessagePart messagePart, com.layer.sdk.listeners.LayerProgressListener listener)",
+                "name": "registerProgressListener",
+                "callSignature": "registerProgressListener(messagePart, listener)",
+                "comment": null,
+                "returns": {
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "messagePart",
+                    "type": "MessagePart"
+                  },
+                  {
+                    "name": "listener",
+                    "type": "LayerProgressListener"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient unregisterProgressListener(com.layer.sdk.messaging.MessagePart messagePart, com.layer.sdk.listeners.LayerProgressListener listener)",
+                "name": "unregisterProgressListener",
+                "callSignature": "unregisterProgressListener(messagePart, listener)",
+                "comment": null,
+                "returns": {
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "messagePart",
+                    "type": "MessagePart"
+                  },
+                  {
+                    "name": "listener",
+                    "type": "LayerProgressListener"
                   }
                 ],
                 "exceptions": []
@@ -803,6 +971,111 @@
                 "exceptions": []
               },
               {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient setAutoDownloadSizeThreshold(long bytes)",
+                "name": "setAutoDownloadSizeThreshold",
+                "callSignature": "setAutoDownloadSizeThreshold(bytes)",
+                "comment": "Set the maximum size for which content will be autodownloaded. Larger content\nwill remain pending until until a download is triggered by\n{@link com.layer.sdk.messaging.MessagePart#download(com.layer.sdk.listeners.LayerProgressListener)}.\nThis defaults to 2KB, and lower values are now allowed.",
+                "returns": {
+                  "description": "this LayerClient.",
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "bytes",
+                    "description": "the maximum size of content to be autodownloaded",
+                    "type": "long"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract long getAutoDownloadSizeThreshold()",
+                "name": "getAutoDownloadSizeThreshold",
+                "callSignature": "getAutoDownloadSizeThreshold()",
+                "comment": null,
+                "returns": {
+                  "type": "long"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient setAutoDownloadMimeTypes(java.util.Collection mimeTypes)",
+                "name": "setAutoDownloadMimeTypes",
+                "callSignature": "setAutoDownloadMimeTypes(mimeTypes)",
+                "comment": "Set the MIME types for which content will be autodownloaded, regardless of the size threshold set by\n{@link com.layer.sdk.LayerClient#setAutoDownloadSizeThreshold(long)}. Other content\nwill remain pending until a download is triggered by\n{@link com.layer.sdk.messaging.MessagePart#download(com.layer.sdk.listeners.LayerProgressListener)}.\nThis defaults to a list containing only \"text/plain\".  Setting to null will download everything.",
+                "returns": {
+                  "description": "this LayerClient.",
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "mimeTypes",
+                    "description": "the MIME types to autodownload",
+                    "type": "Collection"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract java.util.Set getAutoDownloadMimeTypes()",
+                "name": "getAutoDownloadMimeTypes",
+                "callSignature": "getAutoDownloadMimeTypes()",
+                "comment": null,
+                "returns": {
+                  "type": "Set"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient setDiskCapacity(long bytes)",
+                "name": "setDiskCapacity",
+                "callSignature": "setDiskCapacity(bytes)",
+                "comment": "Set the maximum amount of disk space to be used storing message data.\nA value of zero (the default) means no limit. Utilization may periodically\npeak above the configured `diskCapacity` while synchronization or downloads\nare in progress, but will be rebalanced once all operations have completed.",
+                "returns": {
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "bytes",
+                    "description": "Maximum amount of space to use",
+                    "type": "long"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract long getDiskCapacity()",
+                "name": "getDiskCapacity",
+                "callSignature": "getDiskCapacity()",
+                "comment": null,
+                "returns": {
+                  "type": "long"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract long getDiskUtilization()",
+                "name": "getDiskUtilization",
+                "callSignature": "getDiskUtilization()",
+                "comment": "Return the current amount of disk space being used on message data",
+                "returns": {
+                  "description": "the current usage",
+                  "type": "long"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient registerTypingIndicator(com.layer.sdk.listeners.LayerTypingIndicatorListener listener)",
                 "name": "registerTypingIndicator",
                 "callSignature": "registerTypingIndicator(listener)",
@@ -871,6 +1144,137 @@
                     "name": "registrationId",
                     "description": "The GCM registration ID returned by the GCM registration service.",
                     "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract java.util.List getPolicies()",
+                "name": "getPolicies",
+                "callSignature": "getPolicies()",
+                "comment": "Returns the List of `Policy` objects governing the behavior of the client.",
+                "returns": {
+                  "description": "The List of `Policy` objects governing the behavior of the client.",
+                  "type": "List"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract boolean validatePolicy(com.layer.sdk.policy.Policy policy)",
+                "name": "validatePolicy",
+                "callSignature": "validatePolicy(policy)",
+                "comment": "Validates the given policy to determine if it represents a valid configuration that can be\nadded to this `LayerClient`.",
+                "returns": {
+                  "description": "true if the given policy is valid, or false if not.",
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "policy",
+                    "description": "The policy to validate.",
+                    "type": "Policy"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract boolean addPolicy(com.layer.sdk.policy.Policy policy)",
+                "name": "addPolicy",
+                "callSignature": "addPolicy(policy)",
+                "comment": "Appends the given `Policy` to the `LayerClient` policy list.",
+                "returns": {
+                  "description": "true if the `Policy` was added.",
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "policy",
+                    "description": "The policy to be added to the client.",
+                    "type": "Policy"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract boolean insertPolicy(com.layer.sdk.policy.Policy policy, int index)",
+                "name": "insertPolicy",
+                "callSignature": "insertPolicy(policy, index)",
+                "comment": "Inserts the given `Policy` to the `LayerClient` policy list at the given index.",
+                "returns": {
+                  "description": "true if the `Policy` was inserted.",
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "policy",
+                    "description": "The policy to be added to the client.",
+                    "type": "Policy"
+                  },
+                  {
+                    "name": "index",
+                    "type": "int"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract boolean removePolicy(com.layer.sdk.policy.Policy policy)",
+                "name": "removePolicy",
+                "callSignature": "removePolicy(policy)",
+                "comment": "Removes the given `Policy` from the `LayerClient` policy list.",
+                "returns": {
+                  "description": "true if the `Policy` was removed.",
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "policy",
+                    "description": "The policy to be removed from the client.",
+                    "type": "Policy"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient registerPolicyListener(com.layer.sdk.listeners.LayerPolicyListener listener)",
+                "name": "registerPolicyListener",
+                "callSignature": "registerPolicyListener(listener)",
+                "comment": "Registers a LayerPolicyListener for observing policy updates.",
+                "returns": {
+                  "description": "this LayerClient.",
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "listener",
+                    "description": "the LayerPolicyListener to register.",
+                    "type": "LayerPolicyListener"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient unregisterPolicyListener(com.layer.sdk.listeners.LayerPolicyListener listener)",
+                "name": "unregisterPolicyListener",
+                "callSignature": "unregisterPolicyListener(listener)",
+                "comment": "Stops a LayerPolicyListener from observing policy updates.",
+                "returns": {
+                  "description": "this LayerClient.",
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "listener",
+                    "description": "the LayerPolicyListener to unregister.",
+                    "type": "LayerPolicyListener"
                   }
                 ],
                 "exceptions": []
@@ -1207,7 +1611,148 @@
           },
           "name": "LayerClient",
           "comment": null,
-          "nestedClasses": [],
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "Cloneable",
+                  "comment": null,
+                  "fullname": "java.lang.Cloneable"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": [
+                  {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options skipConfigurationCheck(boolean skipConfigurationCheck)",
+                    "name": "skipConfigurationCheck",
+                    "callSignature": "skipConfigurationCheck(skipConfigurationCheck)",
+                    "comment": "LayerSDK checks configuration in order to initialize LayerClient. \nIf there is misconfiguration of LayerSDK you can check a LogCat to find a list of <br>\n<pre> *  LayerSDK configuration issues  *</pre>",
+                    "returns": {
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "skipConfigurationCheck",
+                        "description": "- do not perform configuration check",
+                        "type": "boolean"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public boolean isConfigurationCheckSkipped()",
+                    "name": "isConfigurationCheckSkipped",
+                    "callSignature": "isConfigurationCheckSkipped()",
+                    "comment": "",
+                    "returns": {
+                      "type": "boolean"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options broadcastPushInForeground(boolean broadcastPushForeground)",
+                    "name": "broadcastPushInForeground",
+                    "callSignature": "broadcastPushInForeground(broadcastPushForeground)",
+                    "comment": "Tells the LayerClient to broadcast PUSH intents even while the app is in the foreground.",
+                    "returns": {
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "broadcastPushForeground",
+                        "description": "boolean specifying whether to broadcast PUSH intents in\n                               the foreground and background (true), or only in the\n                               background (false).",
+                        "type": "boolean"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public boolean isBroadcastPushInForeground()",
+                    "name": "isBroadcastPushInForeground",
+                    "callSignature": "isBroadcastPushInForeground()",
+                    "comment": null,
+                    "returns": {
+                      "type": "boolean"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options googleCloudMessagingSenderId(java.lang.String gcmSenderId)",
+                    "name": "googleCloudMessagingSenderId",
+                    "callSignature": "googleCloudMessagingSenderId(gcmSenderId)",
+                    "comment": "Supply a GCM sender ID if you would like the LayerClient to handle GCM registration for\nyou.  Otherwise, use setGcmRegistrationId(senderId, registrationId).  The latter is\nuseful if you would like your app to receive GCM from multiple senders.",
+                    "returns": {
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "gcmSenderId",
+                        "description": "- Google Cloud Messaging `Sender ID` for receiving GCM pushes.",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public java.lang.String getGoogleCloudMessagingSenderId()",
+                    "name": "getGoogleCloudMessagingSenderId",
+                    "callSignature": "getGoogleCloudMessagingSenderId()",
+                    "comment": null,
+                    "returns": {
+                      "type": "String"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options clone()",
+                    "name": "clone",
+                    "callSignature": "clone()",
+                    "comment": null,
+                    "returns": {
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "Options",
+              "comment": null,
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.LayerClient$Options",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "skipConfigurationCheck",
+                  "comment": null,
+                  "type": "boolean"
+                },
+                {
+                  "name": "broadcastPushForeground",
+                  "comment": null,
+                  "type": "boolean"
+                },
+                {
+                  "name": "gcmSenderId",
+                  "comment": null,
+                  "type": "String"
+                }
+              ],
+              "derivedClasses": []
+            }
+          ],
           "fullname": "com.layer.sdk.LayerClient",
           "enumClasses": [
             {
@@ -1386,7 +1931,7 @@
                 "declarationSignature": "public java.lang.String getAttributeName()",
                 "name": "getAttributeName",
                 "callSignature": "getAttributeName()",
-                "comment": "Returns the name of the updated attribute.  Only valid for Type.UPDATE.",
+                "comment": "Returns the name of the updated attribute.  Only valid for Type.UPDATE.\nAttribute names depend on the Type of the LayerObject:\nCONVERSATION\n\"id\"\n\"isDeleted\"\n\"lastMessage\"\n\"metadata\"\n\"participants\"\n\nMESSAGE\n\"id\"\n\"isSent\" \n\"isDeleted\"\n\"position\"\n\"receivedAt\"\n\"sentAt\"\n\"recipientStatus\"\n\nMESSAGE_PART\n\"id\"\n\"transferStatus\"\n\"isPruned\"",
                 "returns": {
                   "description": "The name of the updated attribute.",
                   "type": "String"
@@ -1736,6 +2281,26 @@
                   "type": "Type"
                 },
                 {
+                  "name": "EVENT_DELETED",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "CONFLICT",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "INVALID_CONTENT",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "CONTENT_NOT_FOUND",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
                   "name": "APP_ID_MALFORMED",
                   "comment": null,
                   "type": "Type"
@@ -1896,6 +2461,101 @@
                   "type": "Type"
                 },
                 {
+                  "name": "CONVERSATION_DELETED",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "MESSAGE_ALREADY_SENT",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "CONVERSATION_IS_NEW",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NO_PARTICIPANTS",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "CONTEXT_MISMATCH",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "UPDATE_WITHOUT_ATTRIBUTE",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "CANNOT_UPDATE_ATTRIBUTE",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NULL_PARTICIPANTS",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NULL_PARTICIPANT",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NULL_MESSAGE_PARTS",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NO_MESSAGE_PARTS",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NULL_MESSAGE_PART",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NULL_MESSAGE_PART_DATA",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "INVALID_METADATA_FORMAT",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "MESSAGE_IS_NEW",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "MESSAGE_DELETED",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "MARKING_OWN_MESSAGE_READ",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NULL_CONVERSATION",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "NOT_UPDATE",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
                   "name": "TRANSPORT_ERROR",
                   "comment": null,
                   "type": "Type"
@@ -1927,6 +2587,11 @@
                 },
                 {
                   "name": "PERSISTENCE_CLOSED",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "PERSISTENCE_CREATION_FAILED",
                   "comment": null,
                   "type": "Type"
                 },
@@ -2083,16 +2748,151 @@
           "methods": {
             "constructor": [],
             "static": [],
+            "instance": [
+              {
+                "declarationSignature": "public void onProgressStart(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation)",
+                "name": "onProgressStart",
+                "callSignature": "onProgressStart(part, operation)",
+                "comment": null,
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "part",
+                    "type": "MessagePart"
+                  },
+                  {
+                    "name": "operation",
+                    "type": "Operation"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public void onProgressUpdate(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation, long transferredBytes)",
+                "name": "onProgressUpdate",
+                "callSignature": "onProgressUpdate(part, operation, transferredBytes)",
+                "comment": null,
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "part",
+                    "type": "MessagePart"
+                  },
+                  {
+                    "name": "operation",
+                    "type": "Operation"
+                  },
+                  {
+                    "name": "transferredBytes",
+                    "type": "long"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public void onProgressComplete(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation)",
+                "name": "onProgressComplete",
+                "callSignature": "onProgressComplete(part, operation)",
+                "comment": null,
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "part",
+                    "type": "MessagePart"
+                  },
+                  {
+                    "name": "operation",
+                    "type": "Operation"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public void onProgressError(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation, java.lang.Throwable cause)",
+                "name": "onProgressError",
+                "callSignature": "onProgressError(part, operation, cause)",
+                "comment": null,
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "part",
+                    "type": "MessagePart"
+                  },
+                  {
+                    "name": "operation",
+                    "type": "Operation"
+                  },
+                  {
+                    "name": "cause",
+                    "type": "Throwable"
+                  }
+                ],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "LayerProgressListener",
+          "comment": "Tracks the progress of a MessagePart download",
+          "nestedClasses": [],
+          "fullname": "com.layer.sdk.listeners.LayerProgressListener",
+          "enumClasses": [
+            {
+              "implementedInterfaces": [],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Operation",
+              "comment": null,
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerProgressListener$Operation",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "UPLOAD",
+                  "comment": null,
+                  "type": "Operation"
+                },
+                {
+                  "name": "DOWNLOAD",
+                  "comment": null,
+                  "type": "Operation"
+                }
+              ],
+              "derivedClasses": []
+            }
+          ],
+          "fields": [],
+          "derivedClasses": []
+        },
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [],
+            "static": [],
             "instance": []
           },
           "name": "LayerChangeEventListener",
-          "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read.  Listeners\nmust implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
+          "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  Listeners must implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
           "nestedClasses": [
             {
               "implementedInterfaces": [
                 {
                   "name": "LayerChangeEventListener",
-                  "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read.  Listeners\nmust implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
+                  "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  Listeners must implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
                   "fullname": "com.layer.sdk.listeners.LayerChangeEventListener"
                 }
               ],
@@ -2131,7 +2931,7 @@
               "implementedInterfaces": [
                 {
                   "name": "LayerChangeEventListener",
-                  "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read.  Listeners\nmust implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
+                  "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  Listeners must implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
                   "fullname": "com.layer.sdk.listeners.LayerChangeEventListener"
                 }
               ],
@@ -2460,6 +3260,50 @@
           "enumClasses": [],
           "fields": [],
           "derivedClasses": []
+        },
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [],
+            "static": [],
+            "instance": [
+              {
+                "declarationSignature": "public void onPolicyListUpdate(com.layer.sdk.LayerClient client, java.util.List oldPolicyList, java.util.List newPolicyList)",
+                "name": "onPolicyListUpdate",
+                "callSignature": "onPolicyListUpdate(client, oldPolicyList, newPolicyList)",
+                "comment": "Alerts a listener to policy updates.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "client",
+                    "description": "The LayerClient reporting this policy update.",
+                    "type": "LayerClient"
+                  },
+                  {
+                    "name": "oldPolicyList",
+                    "description": "The list of policies prior to this update.",
+                    "type": "List"
+                  },
+                  {
+                    "name": "newPolicyList",
+                    "description": "The list of policies after this update.",
+                    "type": "List"
+                  }
+                ],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "LayerPolicyListener",
+          "comment": "LayerPolicyListener allows an external class to monitor a LayerClient for policy updates.",
+          "nestedClasses": [],
+          "fullname": "com.layer.sdk.listeners.LayerPolicyListener",
+          "enumClasses": [],
+          "fields": [],
+          "derivedClasses": []
         }
       ],
       "name": "com.layer.sdk.listeners"
@@ -2518,6 +3362,11 @@
                   "name": "MESSAGE",
                   "comment": null,
                   "type": "Type"
+                },
+                {
+                  "name": "MESSAGE_PART",
+                  "comment": null,
+                  "type": "Type"
                 }
               ],
               "derivedClasses": []
@@ -2526,14 +3375,19 @@
           "fields": [],
           "derivedClasses": [
             {
-              "name": "Conversation",
-              "comment": "The `Conversation` class models a conversations between two or more participants within Layer. A\nconversation is an on-going stream of messages (modeled by the `Message` class) synchronized\namong all participants.",
-              "fullname": "com.layer.sdk.messaging.Conversation"
+              "name": "MessagePart",
+              "comment": "The `MessagePart` class represents a piece of content embedded within a containing\nMessage. Each part has a specific MIME type identifying the type of content it contains.\nMessages may contain an arbitrary number of parts with any MIME type that the application\nwishes to support.",
+              "fullname": "com.layer.sdk.messaging.MessagePart"
             },
             {
               "name": "Message",
               "comment": "The `Message` class represents a message within a conversation (modeled by the `Conversation`\nclass) between two or more participants within Layer.",
               "fullname": "com.layer.sdk.messaging.Message"
+            },
+            {
+              "name": "Conversation",
+              "comment": "The `Conversation` class models a conversations between two or more participants within Layer. A\nconversation is an on-going stream of messages (modeled by the `Message` class) synchronized\namong all participants.",
+              "fullname": "com.layer.sdk.messaging.Conversation"
             }
           ]
         },
@@ -2605,7 +3459,7 @@
                 "declarationSignature": "public abstract android.net.Uri getId()",
                 "name": "getId",
                 "callSignature": "getId()",
-                "comment": "A unique identifier for this Message.  The identifier can change between a locally-generated,\ntemporary value and a globally-generated, permanent value.  LayerChangeEventListeners can\nlisten for the \"id\" update to capture such identifier migrations, where the `oldValue` is the\ntemporary ID, and the `newValue` is the new, permanent ID.",
+                "comment": "A unique identifier for this Message.",
                 "returns": {
                   "description": "a unique identifier for this Message.",
                   "type": "android.net.Uri"
@@ -2615,13 +3469,13 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.lang.Integer getIndex()",
-                "name": "getIndex",
-                "callSignature": "getIndex()",
-                "comment": "Returns the conversational order of this Message within its Conversation.  Prior to sending,\nthe return value will be Integer.MAX_VALUE.",
+                "declarationSignature": "public abstract long getPosition()",
+                "name": "getPosition",
+                "callSignature": "getPosition()",
+                "comment": "Returns the conversational order of this Message within its Conversation.  Prior to sending,\nthe return value will be equal to Long.MAX_VALUE.",
                 "returns": {
                   "description": "the conversational order of this message, starting from 0 with the oldest message.",
-                  "type": "Integer"
+                  "type": "long"
                 },
                 "throws": [],
                 "parameters": [],
@@ -2960,7 +3814,7 @@
                   "type": "Property"
                 },
                 {
-                  "name": "INDEX",
+                  "name": "POSITION",
                   "comment": "Message index, sortable and supports comparison by Equality, Inclusion or Relation",
                   "type": "Property"
                 },
@@ -3001,17 +3855,27 @@
                 },
                 {
                   "name": "PART_SIZE",
-                  "comment": "Size of the Message, not sortable and supports comparison by Equality, Inclusion or Relation",
+                  "comment": "Size of the Message parts, not sortable and supports comparison by Equality, Inclusion or Relation",
                   "type": "Property"
                 },
                 {
-                  "name": "PART_IS_UPLOADED",
-                  "comment": "Whether the message part was uploaded or not, sortable and supports comparisons by Equality",
+                  "name": "PART_IS_TRANSFER_PENDING",
+                  "comment": "Whether the message part's transfer is pending or not, supports comparisons by Equality",
                   "type": "Property"
                 },
                 {
-                  "name": "PART_IS_DOWNLOADED",
-                  "comment": "Whether the message part was downloaded or not, sortable and supports comparisons by Equality",
+                  "name": "PART_IS_TRANSFERRING",
+                  "comment": "Whether the message part's transfer is ongoing or not, supports comparisons by Equality",
+                  "type": "Property"
+                },
+                {
+                  "name": "PART_ANY_TRANSFERS_COMPLETE",
+                  "comment": "Whether any of the message part transfer is complete, supports comparisons by Equality",
+                  "type": "Property"
+                },
+                {
+                  "name": "PART_ALL_TRANSFERS_COMPLETE",
+                  "comment": "Whether all the message parts transfer is complete, supports comparisons by Equality",
                   "type": "Property"
                 }
               ],
@@ -3227,10 +4091,33 @@
                 "exceptions": []
               },
               {
+                "declarationSignature": "public abstract void send(com.layer.sdk.messaging.Message message, com.layer.sdk.listeners.LayerProgressListener listener)",
+                "name": "send",
+                "callSignature": "send(message, listener)",
+                "comment": "Sends a Message to its Conversation, synchronizing the Message among all participants in the\nConversation, as well as all other devices the authenticated user logs in on. Sending a\nmessage queues the message for synchronization with the Layer Cloud.  Message.isSent() allows\nmonitoring of this message's synchronization status.\n\nThe `isSent` transitions can be monitored by registering a LayerChangeEventListener and\nlistening for UPDATE events on the \"isSent\" attribute.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "message",
+                    "description": "the Message to send.",
+                    "type": "Message"
+                  },
+                  {
+                    "name": "listener",
+                    "description": "upload progress notifications for individual message parts",
+                    "type": "LayerProgressListener"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
                 "declarationSignature": "public abstract android.net.Uri getId()",
                 "name": "getId",
                 "callSignature": "getId()",
-                "comment": "A unique identifier for this Conversation.  The identifier can change between a\nlocally-generated, temporary value and a globally-generated, permanent value.  Observers\n(using LayerChangeEventListener) must listen for the \"id\" update to capture such identifier\nmigrations.",
+                "comment": "A unique identifier for this Conversation.",
                 "returns": {
                   "description": "a unique identifier for this Conversation.",
                   "type": "android.net.Uri"
@@ -3492,16 +4379,53 @@
           "derivedClasses": []
         },
         {
-          "implementedInterfaces": [],
+          "implementedInterfaces": [
+            {
+              "name": "LayerObject",
+              "comment": null,
+              "fullname": "com.layer.sdk.messaging.LayerObject"
+            },
+            {
+              "name": "Queryable",
+              "comment": "Objects with Query support declare so on a per attribute basis by implementing this `Queryable`\ninterface.  Not all operators are available for each `Queryable` attribute. Consult the\ndocumentation on each property for details about querying semantics.",
+              "fullname": "com.layer.sdk.query.Queryable"
+            }
+          ],
           "methods": {
             "constructor": [],
             "static": [],
             "instance": [
               {
+                "declarationSignature": "public abstract android.net.Uri getId()",
+                "name": "getId",
+                "callSignature": "getId()",
+                "comment": "A unique identifier for this MessagePart.  The identifier can change between a locally-generated,\ntemporary value and a globally-generated, permanent value.  LayerChangeEventListeners can\nlisten for the \"id\" update to capture such identifier migrations, where the `oldValue` is the\ntemporary ID, and the `newValue` is the new, permanent ID.",
+                "returns": {
+                  "description": "a unique identifier for this MessagePart.",
+                  "type": "android.net.Uri"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.messaging.Message getMessage()",
+                "name": "getMessage",
+                "callSignature": "getMessage()",
+                "comment": "The parent Message object this MessagePart belongs to.",
+                "returns": {
+                  "description": "the parent Message this MessagePart belongs to.",
+                  "type": "Message"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
                 "declarationSignature": "public abstract java.lang.String getMimeType()",
                 "name": "getMimeType",
                 "callSignature": "getMimeType()",
-                "comment": "The MIME type of the content contained in the data portion of this MessagePart.",
+                "comment": "The MIME type of the content contained in the data portion of this MessagePart, set\nby the Application when the MessagePart is created.",
                 "returns": {
                   "description": "the MIME type of the content contained in the data portion of this MessagePart.",
                   "type": "String"
@@ -3514,10 +4438,92 @@
                 "declarationSignature": "public abstract byte[] getData()",
                 "name": "getData",
                 "callSignature": "getData()",
-                "comment": "The content of the MessagePart.",
+                "comment": "The content of the MessagePart as a byte array",
                 "returns": {
                   "description": "a byte array of data representing the payload of this MessagePart.",
                   "type": "byte"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract java.io.InputStream getDataStream()",
+                "name": "getDataStream",
+                "callSignature": "getDataStream()",
+                "comment": "The content of this MessagePart as a stream",
+                "returns": {
+                  "description": "a stream of the payload of this MessagePart",
+                  "type": "InputStream"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract long getSize()",
+                "name": "getSize",
+                "callSignature": "getSize()",
+                "comment": "",
+                "returns": {
+                  "description": "The size of the data in this message part in bytes",
+                  "type": "long"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.messaging.MessagePart.TransferStatus getTransferStatus()",
+                "name": "getTransferStatus",
+                "callSignature": "getTransferStatus()",
+                "comment": "",
+                "returns": {
+                  "description": "The Transfer Status for the data in this message part to see if the this",
+                  "type": "TransferStatus"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void download(com.layer.sdk.listeners.LayerProgressListener listener)",
+                "name": "download",
+                "callSignature": "download(listener)",
+                "comment": "Trigger the download of the data for a particular message part. If invoked on a message with\ndata already locally available, it will be returned in the listener callback immediately.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "listener",
+                    "description": "Invoked with progress and the results.",
+                    "type": "LayerProgressListener"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract boolean isContentReady()",
+                "name": "isContentReady",
+                "callSignature": "isContentReady()",
+                "comment": "Check whether the content for this message part has been fully downloaded. If not\nsee {@link #download(com.layer.sdk.listeners.LayerProgressListener)}",
+                "returns": {
+                  "description": "Whether the message has local content.",
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void deleteLocalContent()",
+                "name": "deleteLocalContent",
+                "callSignature": "deleteLocalContent()",
+                "comment": "Deletes the locally stored data to free up disk space. This does not delete the data on the\nserver side.  The content can be downloaded again later by calling {@link #download(com.layer.sdk.listeners.LayerProgressListener)}.\nData smaller than 2KB is never deleted locally.",
+                "returns": {
+                  "type": "void"
                 },
                 "throws": [],
                 "parameters": [],
@@ -3529,12 +4535,429 @@
           "comment": "The `MessagePart` class represents a piece of content embedded within a containing\nMessage. Each part has a specific MIME type identifying the type of content it contains.\nMessages may contain an arbitrary number of parts with any MIME type that the application\nwishes to support.",
           "nestedClasses": [],
           "fullname": "com.layer.sdk.messaging.MessagePart",
-          "enumClasses": [],
+          "enumClasses": [
+            {
+              "implementedInterfaces": [],
+              "methods": {
+                "constructor": [
+                  {
+                    "declarationSignature": "TransferStatus(int value)",
+                    "name": "TransferStatus",
+                    "callSignature": "TransferStatus(value)",
+                    "comment": null,
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "value",
+                        "type": "int"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ],
+                "static": [
+                  {
+                    "declarationSignature": "public static com.layer.sdk.messaging.MessagePart.TransferStatus fromOrdinal(int ordinal)",
+                    "name": "fromOrdinal",
+                    "callSignature": "fromOrdinal(ordinal)",
+                    "comment": null,
+                    "returns": {
+                      "type": "TransferStatus"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "ordinal",
+                        "type": "int"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ],
+                "instance": [
+                  {
+                    "declarationSignature": "public int getValue()",
+                    "name": "getValue",
+                    "callSignature": "getValue()",
+                    "comment": null,
+                    "returns": {
+                      "type": "int"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "TransferStatus",
+              "comment": null,
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.messaging.MessagePart$TransferStatus",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "AWAITING_UPLOAD",
+                  "comment": "Content is available locally but has not been uploaded.\nThis state is expected before the message is sent.",
+                  "type": "TransferStatus"
+                },
+                {
+                  "name": "UPLOADING",
+                  "comment": "Content is available locally and is in a state of uploading.\nThis state is expected when message is in the sending process.",
+                  "type": "TransferStatus"
+                },
+                {
+                  "name": "READY_FOR_DOWNLOAD",
+                  "comment": "Content is not available locally but it is ready for download.\nThis state is expected when message part didn't met the criteria to be auto-downloaded.\nUse `downloadContent` to initiate a manual download process.",
+                  "type": "TransferStatus"
+                },
+                {
+                  "name": "DOWNLOADING",
+                  "comment": "Content is not yet available locally and is in a state of downloading.\nThis state is expected when message part downloaded was started manually or by\nusing the auto-download feature.",
+                  "type": "TransferStatus"
+                },
+                {
+                  "name": "COMPLETE",
+                  "comment": "Content is available locally and on the server.\nThis is the expected state when the (upload or download) transfer completes.",
+                  "type": "TransferStatus"
+                }
+              ],
+              "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "Property",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.query.Queryable$Property"
+                }
+              ],
+              "methods": {
+                "constructor": [
+                  {
+                    "declarationSignature": "Property(boolean sortable, int queryByFlags)",
+                    "name": "Property",
+                    "callSignature": "Property(sortable, queryByFlags)",
+                    "comment": null,
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "sortable",
+                        "type": "boolean"
+                      },
+                      {
+                        "name": "queryByFlags",
+                        "type": "int"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ],
+                "static": [],
+                "instance": [
+                  {
+                    "declarationSignature": "public boolean isSortable()",
+                    "name": "isSortable",
+                    "callSignature": "isSortable()",
+                    "comment": "Retrieves whether the Property is sortable or not",
+                    "returns": {
+                      "description": "true when the Property is sortable, false otherwise",
+                      "type": "boolean"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public boolean isEqualityQueryable()",
+                    "name": "isEqualityQueryable",
+                    "callSignature": "isEqualityQueryable()",
+                    "comment": "Retrieves whether the Property is comparable by equality or not",
+                    "returns": {
+                      "description": "whether the Property is comparable by equality or not",
+                      "type": "boolean"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public boolean isRelativeQueryable()",
+                    "name": "isRelativeQueryable",
+                    "callSignature": "isRelativeQueryable()",
+                    "comment": "Retrieves whether the Property is comparable by relation or not",
+                    "returns": {
+                      "description": "whether the Property is comparable by relation or not",
+                      "type": "boolean"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public boolean isInclusionQueryable()",
+                    "name": "isInclusionQueryable",
+                    "callSignature": "isInclusionQueryable()",
+                    "comment": "Retrieves whether the Property is comparable by inclusion or not",
+                    "returns": {
+                      "description": "whether the Property is comparable by inclusion or not",
+                      "type": "boolean"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "Property",
+              "comment": null,
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.messaging.MessagePart$Property",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "ID",
+                  "comment": "Message part's unique ID, not sortable and supports comparison by Equality or Inclusion",
+                  "type": "Property"
+                },
+                {
+                  "name": "INDEX",
+                  "comment": "Message part's index in the Message, sortable and supports comparison by Equality, Inclusion or Relation",
+                  "type": "Property"
+                },
+                {
+                  "name": "TRANSFER_STATUS",
+                  "comment": "Transfer status, sortable and supports comparison by Equality, Inclusion or Relation",
+                  "type": "Property"
+                },
+                {
+                  "name": "MESSAGE",
+                  "comment": "Parent Message that this part belongs to, supports comparison by Equality or Inclusion",
+                  "type": "Property"
+                },
+                {
+                  "name": "MIME_TYPE",
+                  "comment": "Mime type of the message part, supports comparison by Equality or Inclusion",
+                  "type": "Property"
+                },
+                {
+                  "name": "SIZE",
+                  "comment": "Size of the message part, supports comparison by Equality or Inclusion",
+                  "type": "Property"
+                }
+              ],
+              "derivedClasses": []
+            }
+          ],
           "fields": [],
           "derivedClasses": []
         }
       ],
       "name": "com.layer.sdk.messaging"
+    },
+    {
+      "classes": [
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [
+              {
+                "declarationSignature": "protected Policy(com.layer.sdk.policy.Policy.PolicyType type, java.lang.String sentByUserId)",
+                "name": "Policy",
+                "callSignature": "Policy(type, sentByUserId)",
+                "comment": null,
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "type",
+                    "type": "PolicyType"
+                  },
+                  {
+                    "name": "sentByUserId",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              }
+            ],
+            "static": [
+              {
+                "declarationSignature": "public static com.layer.sdk.policy.Policy.Builder builder(com.layer.sdk.policy.Policy.PolicyType type)",
+                "name": "builder",
+                "callSignature": "builder(type)",
+                "comment": null,
+                "returns": {
+                  "type": "Builder"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "type",
+                    "type": "PolicyType"
+                  }
+                ],
+                "exceptions": []
+              }
+            ],
+            "instance": [
+              {
+                "declarationSignature": "public com.layer.sdk.policy.Policy.PolicyType getPolicyType()",
+                "name": "getPolicyType",
+                "callSignature": "getPolicyType()",
+                "comment": null,
+                "returns": {
+                  "type": "PolicyType"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getSentByUserID()",
+                "name": "getSentByUserID",
+                "callSignature": "getSentByUserID()",
+                "comment": "Specifies the sender of the content that the policy applies to. If `nil`, the policy applies to all senders.",
+                "returns": {
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public boolean equals(java.lang.Object o)",
+                "name": "equals",
+                "callSignature": "equals(o)",
+                "comment": null,
+                "returns": {
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "o",
+                    "type": "Object"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public int hashCode()",
+                "name": "hashCode",
+                "callSignature": "hashCode()",
+                "comment": null,
+                "returns": {
+                  "type": "int"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "Policy",
+          "comment": "The `Policy` object defines a policy that governs how communications destined for a given target user\nwill be routed within Layer.\nIt is important that you configure your `Policy` object appropriately before adding it\nto a client. Layer client objects make a copy of the policy you provide and use the copy for evaluation\nand enforcement. The policy objects maintained by the client are immutable and cannot be reconfigured.\nIf you need to modify a policy, then you must make a copy of it, apply the appropriate changes, add the\nupdated policy object to the client and remove the original policy (if appropriate).",
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [],
+              "methods": {
+                "constructor": [
+                  {
+                    "declarationSignature": "public Builder(com.layer.sdk.policy.Policy.PolicyType type)",
+                    "name": "Builder",
+                    "callSignature": "Builder(type)",
+                    "comment": null,
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "type",
+                        "type": "PolicyType"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ],
+                "static": [],
+                "instance": [
+                  {
+                    "declarationSignature": "public com.layer.sdk.policy.Policy.Builder sentByUserId(java.lang.String sentByUserId)",
+                    "name": "sentByUserId",
+                    "callSignature": "sentByUserId(sentByUserId)",
+                    "comment": null,
+                    "returns": {
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "sentByUserId",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.policy.Policy build()",
+                    "name": "build",
+                    "callSignature": "build()",
+                    "comment": null,
+                    "returns": {
+                      "type": "Policy"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "Builder",
+              "comment": null,
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.policy.Policy$Builder",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
+          "fullname": "com.layer.sdk.policy.Policy",
+          "enumClasses": [
+            {
+              "implementedInterfaces": [],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "PolicyType",
+              "comment": "The `PolicyType` enumeration defines the types of policies that can be defined to govern communications within Layer.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.policy.Policy$PolicyType",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "BLOCK",
+                  "comment": "Defines a policy which will block a matching entity from communicating with the target.",
+                  "type": "PolicyType"
+                }
+              ],
+              "derivedClasses": []
+            }
+          ],
+          "fields": [
+            {
+              "name": "mPolicyType",
+              "comment": null,
+              "type": "PolicyType"
+            },
+            {
+              "name": "mSentByUserId",
+              "comment": null,
+              "type": "String"
+            }
+          ],
+          "derivedClasses": []
+        }
+      ],
+      "name": "com.layer.sdk.policy"
     },
     {
       "classes": [
@@ -3587,6 +5010,25 @@
                     "name": "position",
                     "description": "",
                     "type": "int"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract int getPosition(Tquery queryable)",
+                "name": "getPosition",
+                "callSignature": "getPosition(queryable)",
+                "comment": "Returns the position of the given Queryable within the RecyclerViewController's collection,\nor -1 if it is not contained.",
+                "returns": {
+                  "description": "The position of the Queryable within this controller's collection, or -1 if it is\nnot in the collection.",
+                  "type": "int"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "queryable",
+                    "description": "The Queryable item to find the position of.",
+                    "type": "Tquery"
                   }
                 ],
                 "exceptions": []
@@ -4022,6 +5464,11 @@
                   "name": "Property",
                   "comment": "Enumerated properties that can be used to run queries on the Message object",
                   "fullname": "com.layer.sdk.messaging.Message$Property"
+                },
+                {
+                  "name": "Property",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.messaging.MessagePart$Property"
                 }
               ]
             }
@@ -4047,14 +5494,19 @@
           ],
           "derivedClasses": [
             {
-              "name": "Conversation",
-              "comment": "The `Conversation` class models a conversations between two or more participants within Layer. A\nconversation is an on-going stream of messages (modeled by the `Message` class) synchronized\namong all participants.",
-              "fullname": "com.layer.sdk.messaging.Conversation"
+              "name": "MessagePart",
+              "comment": "The `MessagePart` class represents a piece of content embedded within a containing\nMessage. Each part has a specific MIME type identifying the type of content it contains.\nMessages may contain an arbitrary number of parts with any MIME type that the application\nwishes to support.",
+              "fullname": "com.layer.sdk.messaging.MessagePart"
             },
             {
               "name": "Message",
               "comment": "The `Message` class represents a message within a conversation (modeled by the `Conversation`\nclass) between two or more participants within Layer.",
               "fullname": "com.layer.sdk.messaging.Message"
+            },
+            {
+              "name": "Conversation",
+              "comment": "The `Conversation` class models a conversations between two or more participants within Layer. A\nconversation is an on-going stream of messages (modeled by the `Message` class) synchronized\namong all participants.",
+              "fullname": "com.layer.sdk.messaging.Conversation"
             }
           ]
         },
