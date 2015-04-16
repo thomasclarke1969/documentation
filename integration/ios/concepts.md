@@ -5,7 +5,7 @@ The Layer service introduces three concepts which facilitate all messaging. The 
 
 * **Message** - represented by the [LYRMessage](/docs/api/ios#lyrmessage) class. Messages can be made up of one or many individual pieces of content.
 
-* **Message Part** - represented by the [LYRMessagePart](/docs/api/ios#lyrmessagepart) class. Message parts represent the individual pieces of content embedded within a message. MessageParts take an `NSData` object and a MIME type string. LayerKit does not enforce any restrictions on the type of data you send, nor the MIME types your applications wishes to support. Be default, LayerKit will automatically download content for message parts whose content size is less than 2KB. If you want to send content larger than 2k please read the Rich Content guide.
+* **Message Part** - represented by the [LYRMessagePart](/docs/api/ios#lyrmessagepart) class. Message parts represent the individual pieces of content embedded within a message. MessageParts take an `NSData` object and a MIME type string. LayerKit does not enforce any restrictions on the type of data you send, nor the MIME types your applications wishes to support. Be default, LayerKit will automatically download content for message parts whose content size is less than 2KB. If you want to send content larger than 2k please read the [Rich Content  guide](https://developer.layer.com/docs/guides#richcontent).
 
 The following code demonstrates sending a message with LayerKit. Each line of code will be discussed in detail below.
 
@@ -32,5 +32,5 @@ BOOL success = [conversation sendMessage:message error:&error];
 ```emphasis
 **Best Practice**
 
-Check to see if a conversastion between specific participants already exists before trying to create a new one. [Click here](https://support.layer.com/hc/en-us/articles/203303290-What-happens-if-2-separate-devices-create-conversations-with-identical-participant-sets-) to learn more.
+Check to see if a conversation between specific participants already exists before trying to create a new one. [Click here](https://support.layer.com/hc/en-us/articles/203303290-What-happens-if-2-separate-devices-create-conversations-with-identical-participant-sets-) to learn more.
 ```
