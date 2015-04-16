@@ -15,7 +15,7 @@ LYRConversation *conversation = [layerClient newConversationWithParticipants:[NS
 Note, that it is not necessary to include the currently authenticated user in the participant array. They are implicit in all new conversations.***
 ```
 
-## Participants
+## Add/Remove Participants
 
 Once a conversation has been created, participant lists remain mutable, meaning participants can be added or removed. The Layer service does not enforce ownership of conversations so any client can both add or remove participants from a conversation.
 
@@ -31,10 +31,6 @@ BOOL success = [conversation addParticipants:@[ @"USER-IDENTIFIER" ] error:&erro
 NSError *error = nil;
 BOOL success = [conversation removeParticipants:@[ @"USER-IDENTIFIER" ] error:&error];
 ```
-
-## LYRMessage
-
-The [LYRMessage](/docs/api/ios#lyrmessage) object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object.
 
 ## LYRMessagePart
 
@@ -63,6 +59,20 @@ The [LYRMessagePart](/docs/api/ios#lyrmessagepart) object also declares a conven
 // Creates a message part with a string of text
 LYRMessagePart *part = [LYRMessagePart messagePartWithText:@"Hi, how are you?"];
 ```
+
+<a name="warning"></a>
+```emphasis
+NOTE: While Layer does not place any restrictions on the MIME Type, Google and Apple dictate that the MIMEType string MUST conform to a "*/*" convention.  If the MIME Type does not contain a forward slash (/) you may have issues sending messages. For example:
+```objectivec
+NSString *const MIMETypeVideo = @"video"; // BAD MIME Type
+NSString *const MIMETypeVideoMP4 = @"video/mp4"; // GOOD MIME Type
+```
+For a comprehensive list of MIME Type values check out the [IANA's official registry of media types](http://www.iana.org/assignments/media-types/media-types.xhtml).
+```
+
+## LYRMessage
+
+The [LYRMessage](/docs/api/ios#lyrmessage) object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object.
 
 [LYRMessage](/docs/api/ios#lyrmessage) objects are initialized by calling `newMessageWithParts:options:error:` on [LYRClient](/docs/api/ios#lyrclient). This creates an [LYRMessage](/docs/api/ios#lyrmessage) object that is ready to be sent. The initialization variables are the following:
 

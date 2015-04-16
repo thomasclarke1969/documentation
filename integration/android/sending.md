@@ -26,7 +26,7 @@ The `Message` object represents an individual message within a conversation. A m
 
 ## MessagePart
 
-Layer does not place restrictions on the type of data you send through the service. As such, `MessagePart` objects are initialized with a `byte` array and a MIME Type string. The MIME Type simply describes the type of content the `MessagePart` contains.
+Layer does not place restrictions on the type of data you send through the service. As such, `MessagePart` objects are initialized with a `byte` array and a [MIME Type string](#warning). The MIME Type simply describes the type of content the `MessagePart` contains.
 
 The following demonstrates creating message parts with both text/plain and image/jpeg MIME types.
 
@@ -64,6 +64,15 @@ ObjectOutputStream outputStream = new ObjectOutputStream(locationData);
 outputStream.writeObject(location);
 
 MessagePart locationPart = layerClient.newMessagePart("text/location", locationData.toByteArray());
+```
+<a name="warning"></a>
+```emphasis
+NOTE: While Layer does not place any restrictions on the MIME Type, Google and Apple dictate that the MIMEType string MUST conform to a "*/*" convention.  If the MIME Type does not contain a forward slash (/) you may have issues sending messages. For example:
+```java
+String MIMETypeVideo = "video"; // BAD MIME Type
+String MIMETypeVideoMP4 =  "video/mp4"; // GOOD MIME Type
+```
+For a comprehensive list of MIME Type values check out the [IANA's official registry of media types](http://www.iana.org/assignments/media-types/media-types.xhtml).
 ```
 
 ## Message
