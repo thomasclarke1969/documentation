@@ -62,11 +62,7 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:@"Hi, how are you?"];
 <a name="warning"></a>
 ```emphasis
 **NOTE**
-While Layer does not place any restrictions on the MIME Type, Google and Apple dictate that the MIMEType string MUST conform to a "*/*" convention.  If the MIME Type does not contain a forward slash (/) you may have issues sending messages. For example:
-NSString *const MIMETypeVideo = @"video"; // BAD MIME Type
-NSString *const MIMETypeVideoMP4 = @"video/mp4"; // GOOD MIME Type
-
-For a comprehensive list of MIME Type values check out the [IANA's official registry of media types](http://www.iana.org/assignments/media-types/media-types.xhtml).
+While Layer does not place any restrictions on the MIME Type, Google and Apple dictate that the MIMEType string MUST conform to a "\*/\*" convention.  If the MIME Type does not contain a forward slash (/) you may have issues sending messages. For a comprehensive list of MIME Type values check out the [IANA's official registry of media types](http://www.iana.org/assignments/media-types/media-types.xhtml).
 ```
 
 ## LYRMessage
