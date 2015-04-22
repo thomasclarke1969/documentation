@@ -29,8 +29,8 @@ The following methods fetch the last conversation, and populate the query contro
 - (void)fetchLayerConversation
 {
      // For the purposes of this Quick Start project, we want fetch any conversations with these 3 users 'Device' (the authenticated user id), 'Simulator', and 'Dashboard'.
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:@[ @"Device", @"Simulator", @"Dashboard" ]];
+    LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
+    query.predicate = [LYRPredicate predicateWithProperty:@"participants" predicateOperator:LYRPredicateOperatorIsEqualTo value:@[ @"Device", @"Simulator", @"Dashboard" ]];
 
     query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO] ];
 
@@ -54,8 +54,8 @@ The following methods fetch the last conversation, and populate the query contro
 -(void)setupQueryController
 {    
     // Query for all the messages in conversation sorted by position
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+    LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+    query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
     query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NO]];
     
     // Set up query controller
