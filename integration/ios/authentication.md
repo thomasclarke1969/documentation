@@ -40,7 +40,7 @@ You can use this as a template to connect to your own Identity Service, which wi
 }];
 ```
 
-<b>Note:</b> You should never cache the nonce or Idenity Token. Both are designed to be used once, and once only.
+<b>Note:</b> You should never cache the nonce or Identity Token. Both are designed to be used once, and once only. If a user has been authenticated and you request a nonce, the nonce will come back nil. Layer will cache the user so will only need to re-authenticate if the user has been deauthenticated.
 
 ```emphasis
 **Best Practice**
