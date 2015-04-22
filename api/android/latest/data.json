@@ -2556,6 +2556,11 @@
                   "type": "Type"
                 },
                 {
+                  "name": "INVALID_MIME_TYPE",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
                   "name": "TRANSPORT_ERROR",
                   "comment": null,
                   "type": "Type"
@@ -4399,7 +4404,7 @@
                 "declarationSignature": "public abstract android.net.Uri getId()",
                 "name": "getId",
                 "callSignature": "getId()",
-                "comment": "A unique identifier for this MessagePart.  The identifier can change between a locally-generated,\ntemporary value and a globally-generated, permanent value.  LayerChangeEventListeners can\nlisten for the \"id\" update to capture such identifier migrations, where the `oldValue` is the\ntemporary ID, and the `newValue` is the new, permanent ID.",
+                "comment": "A unique identifier for this MessagePart.",
                 "returns": {
                   "description": "a unique identifier for this MessagePart.",
                   "type": "android.net.Uri"
