@@ -2,8 +2,8 @@
 LayerKit provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with an `LYRQuery` object. To demonstrate a simple example, the following queries LayerKit for the latest 20 messages in the given conversation.
 
 ```objectivec
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
 query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 query.limit = 20;
 query.offset = 0;
@@ -27,7 +27,7 @@ The following examples demonstrate multiple common queryies that can be utilized
 
 ```objectivec
 // Fetches all LYRConversation objects
-LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
 
 NSError *error;
 NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
@@ -42,8 +42,8 @@ if (!error) {
 
 ```objectivec
 // Fetches conversation with a specific identifier
-LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"identifier" predicateOperator:LYRPredicateOperatorIsEqualTo value:identifier];
 LYRConversation *conversation = [[self.layerClient executeQuery:query error:nil] firstObject];
 ```
 
@@ -52,8 +52,8 @@ LYRConversation *conversation = [[self.layerClient executeQuery:query error:nil]
 ```objectivec
 // Fetches all conversations between the authenticated user and the supplied user
 NSArray *participants = @[self.client.authenticatedUserID, @"<USER_ID>"];
-LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:participants];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"participants" predicateOperator:LYRPredicateOperatorIsEqualTo value:participants];
 
 NSError *error;
 NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
@@ -70,7 +70,7 @@ if (!error) {
 
 ```objectivec
 // Fetches all LYRMessage objects
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
@@ -85,13 +85,13 @@ if (!error) {
 
 ```objectivec
 // Fetches the count of all unread messages for the authenticated user
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 
 // Messages must be unread
-LYRPredicate *unreadPredicate =[LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
+LYRPredicate *unreadPredicate =[LYRPredicate predicateWithProperty:@"isUnread" predicateOperator:LYRPredicateOperatorIsEqualTo value:@(YES)];
 
 // Messages must not be sent by the authenticated user
-LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" operator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" predicateOperator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
 
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPredicate, userPredicate]];
 query.resultType = LYRQueryResultTypeCount;
@@ -102,8 +102,8 @@ NSUInteger unreadMessageCount = [self.client countForQuery:query error:nil];
 
 ```objectivec
 // Fetches all messages for a given conversation
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
 query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 
 NSError *error;
@@ -120,8 +120,8 @@ if (!error) {
 ```objectivec
 // Fetches all messages sent in the last week
 NSDate *lastWeek = [[NSDate date] dateByAddingTimeInterval:-60*60*24*7]; // One Week Ago
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-query.predicate = [LYRPredicate predicateWithProperty:@"sentAt" operator:LYRPredicateOperatorIsGreaterThan value:lastWeek];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"sentAt" predicateOperator:LYRPredicateOperatorIsGreaterThan value:lastWeek];
 
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
@@ -135,8 +135,8 @@ if (!error) {
 ### Fetching all Messages containing png's
 ```objectivec
 // Fetch all messages containing 
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-query.predicate = [LYRPredicate predicateWithProperty:@"parts.MIMEType" operator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"parts.MIMEType" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
 
 NSError *error;
 NSOrderedSet *messages = [self.layerClient executeQuery:query error:&error];
@@ -152,8 +152,8 @@ if (!error) {
 ### Fetching MessageParts containing png's
 
 ```objectivec
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessagePart class]];
-query.predicate = [LYRPredicate predicateWithProperty:@"MIMEType" operator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessagePart class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"MIMEType" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
 
 NSError *error;
 NSOrderedSet *messageParts = [self.layerClient executeQuery:query error:&error];
@@ -174,9 +174,9 @@ The following demonstrates a compound predicate which will constrain the result 
 2. The `sentByUserID` property is equal to the supplied `<USER_ID>` value.
 
 ```objectivec
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-LYRPredicate *conversationPredicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" operator:LYRPredicateOperatorIsEqualTo value:@"<USER_ID>"];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+LYRPredicate *conversationPredicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"<USER_ID>"];
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[userPredicate, conversationPredicate]];
 
 NSUInteger countOfMessages = [self.client countForQuery:query error:&error];
