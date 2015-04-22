@@ -3,8 +3,8 @@
 LayerKit provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with an `LYRQuery` object. To demonstrate a simple example, the following queries LayerKit for the latest 20 messages in the given conversation.
 
 ```objectivec
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
 query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 query.limit = 20;
 query.offset = 0;
@@ -23,17 +23,17 @@ if (!error) {
 An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol. Currently, `LYRConversation` and `LYRMessage` are the only classes which conform to the protocol.
 
 ```objectivec
-LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 ```
 
 ## Applying constraints
 
-The `LYRPredicate` object allows applications to apply constraints to a query result set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), an operator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
+The `LYRPredicate` object allows applications to apply constraints to a query result set. Constraints are expressed in terms of a public property (such as `createdAt` or `isUnread`), a predicateOperator (such as 'is equal to' or 'is greater than or equal to'), and a comparison value.
 
 The following `LYRPredicate` will constrain the query result set to `LYRMessage` objects whose `conversation` property is equal to the supplied conversation object.
 
 ```objectivec
-query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
 ```
 
 Properties that support querying are identified by the `LYR_QUERYABLE_PROPERTY` macro.
@@ -112,7 +112,7 @@ The `LYRQueryController` can be used to efficiently manage the results from an `
 The following demonstrates constructing a `LYRQueryController` that can be used to display a list of `LYRConversation` objects in a `UITableView`.
 
 ```objectivec
-LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
 LYRQueryController *queryController = [self.client queryControllerWithQuery:query];
 queryController.delegate = self;
 NSError *error;
