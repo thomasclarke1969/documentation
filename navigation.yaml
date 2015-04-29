@@ -71,11 +71,11 @@ guides:
   	# 	title: "Managing The Application Badge"
 
 # Transition Guide
-transition:
-  title: "Transition"
-  section:
-    transition-guide:
-      title: "Transition Guide"
+# transition:
+#  title: "Transition"
+#  section:
+#    transition-guide:
+#      title: "Transition Guide"
 
 # Change Log
 changelog:
