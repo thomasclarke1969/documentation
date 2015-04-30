@@ -1,5 +1,6 @@
 #Quick Start
 Layer is the full-stack building block for communications.<br/>
+
 This Quick Start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between a physical Device and an Emulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete the Quick Start Guide so if you don't have an account yet, [Sign Up](https://developer.layer.com/signup).
 ## Set up the Quick Start project
 To get the Quick Start project running you will need [Android Studio](https://developer.android.com/sdk/index.html) and Maven installed.
@@ -7,7 +8,7 @@ To get the Quick Start project running you will need [Android Studio](https://de
 1. Clone the project from Github:
 
   ```console
-  $ git clone https://github.com/layerhq/quick-start-ios.git
+  $ git clone https://github.com/layerhq/quick-start-android.git
   ```
 2. Open the workspace in Android Studio
 3. Replace LAYER_APP_ID in MainActivity.java (line 40) with your App ID from http://developer.layer.com.<br/>
