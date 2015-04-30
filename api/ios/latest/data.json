@@ -114,7 +114,9 @@
             "declared" : "LYRClient.h",
             "declaration" : "+ (instancetype)clientWithAppID:(NSUUID *)appID",
             "comment" : "Creates and returns a new Layer client instance.",
-            "name" : "clientWithAppID:"
+            "name" : "clientWithAppID:",
+            "return" : "Returns a newly created Layer client object.",
+            "discussion" : "> %warning% > **Warning:** Throws NSInternalInconsistencyException when creating another Layer Client instance with the same appID value under the same process (application).\nHowever multiple instances of Layer Client with the same appID are allowed if running the code under Unit Tests."
           }
         ],
         "instance" : [
@@ -274,6 +276,24 @@
           {
             "parameters" : [
               {
+                "name" : "messages",
+                "description" : "A set of messages to be marked as read or nil."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent."
+              }
+            ],
+            "return" : "YES if the messages were marked as read or NO if the operation failed.",
+            "discussion" : "The operation will ignore messages that have previously been marked as read.",
+            "declared" : "LYRClient.h",
+            "comment" : "Marks a set of messages as being read by the current user. If nil the operation will mark all unread messsages as being read by the current user.",
+            "name" : "markMessagesAsRead:error:",
+            "declaration" : "- (BOOL)markMessagesAsRead:(NSSet *)messages error:(NSError **)error"
+          },
+          {
+            "parameters" : [
+              {
                 "name" : "participants",
                 "description" : "A set of participants with which to initialize the new Conversation."
               },
@@ -371,7 +391,7 @@
             "parameters" : [
               {
                 "name" : "deviceToken",
-                "description" : "An NSData object containing the device token."
+                "description" : "An NSData object containing the device token or nil."
               },
               {
                 "name" : "error",
@@ -379,7 +399,7 @@
               }
             ],
             "return" : "A Boolean value that determines whether the action was successful.",
-            "discussion" : "The device token is expected to be an NSData object returned by the method application:didRegisterForRemoteNotificationsWithDeviceToken:. The device token is cached locally and is sent to Layer cloud automatically when the connection is established.",
+            "discussion" : "The device token is expected to be either an NSData object returned by the method application:didRegisterForRemoteNotificationsWithDeviceToken: or nil. If an NSData object is provided, the device token is cached locally and is sent to Layer cloud automatically when the connection is established. If nil, all device tokens that are associated with the currently authenticated and the current device will be deleted. Device tokens associated with other devices will not be deleted.",
             "declared" : "LYRClient.h",
             "comment" : "Tells the receiver to update the device token used to deliver Push Notifications to the current device via the Apple Push Notification Service.",
             "name" : "updateRemoteNotificationDeviceToken:error:",
@@ -670,17 +690,18 @@
             ]
           },
           {
-            "declared" : "LYRMessage.h",
-            "declaration" : "- (BOOL)markAsRead:(NSError **)error",
-            "comment" : "Marks the message as being read by the current user.",
-            "name" : "markAsRead:",
-            "return" : "YES if the message was marked as read or NO if the message was already marked as read.",
             "parameters" : [
               {
                 "name" : "error",
                 "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent."
               }
-            ]
+            ],
+            "return" : "YES if the message was marked as read or NO if the message was already marked as read.",
+            "discussion" : "If multiple messages must be marked as read, use markMessagesAsRead:error: on {@link LYRClient} or markAllMessagesAsRead:error on {@link LYRConversation} instead.",
+            "declared" : "LYRMessage.h",
+            "comment" : "Marks the message as being read by the current user.",
+            "name" : "markAsRead:",
+            "declaration" : "- (BOOL)markAsRead:(NSError **)error"
           },
           {
             "declared" : "LYRMessage.h",
@@ -894,9 +915,9 @@
         "class" : [
           {
             "declared" : "LYRPredicate.h",
-            "declaration" : "+ (instancetype)predicateWithProperty:(NSString *)property operator:(LYRPredicateOperator)predicateOperator value:(id)value",
+            "declaration" : "+ (instancetype)predicateWithProperty:(NSString *)property predicateOperator:(LYRPredicateOperator)predicateOperator value:(id)value",
             "comment" : "Creates and returns a new predicate with the given property, operator, and value.\n@property property The property whose value is to be compared.\n@property predicateOperator The operator that determines how the property's value is compared to the reference value.\n@property value The reference value to use in the comparison.",
-            "name" : "predicateWithProperty:operator:value:",
+            "name" : "predicateWithProperty:predicateOperator:value:",
             "return" : "A newly created predicate object."
           }
         ]
@@ -979,9 +1000,9 @@
         "class" : [
           {
             "declared" : "LYRQuery.h",
-            "declaration" : "+ (instancetype)queryWithClass:(Class<LYRQueryable>)queryableClass",
+            "declaration" : "+ (instancetype)queryWithQueryableClass:(Class<LYRQueryable>)queryableClass",
             "comment" : "Creates and returns a new query object for the given queryable class.",
-            "name" : "queryWithClass:",
+            "name" : "queryWithQueryableClass:",
             "return" : "A newly created query object.",
             "parameters" : [
               {
@@ -1515,6 +1536,18 @@
         },
         {
           "name" : "LYRClientErrorDatabaseBackupFailure",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorMessageDeleted",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorConversationDeleted",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorInvalidClassType",
           "declared" : "LYRErrors.h"
         }
       ]
