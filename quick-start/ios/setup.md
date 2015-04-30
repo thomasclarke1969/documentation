@@ -2,7 +2,8 @@
 ```emphasis
 If you are interested in trying out Atlas, Layer's open source user interface components, visit [Experience Atlas](/signup/atlas).
 ```
-Layer is the full-stack building block for communications.<br/>
+Layer is the full-stack building block for communications.</br>
+
 This Quick Start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between an iOS Device and Simulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete the Quick Start Guide so if you don't have an account yet, [Sign Up](https://developer.layer.com/signup).
 ## Set up the Quick Start project
 There are two ways to set up the project. The easiest method is via our install script, or you can perform the steps manually. Both methods require [CocoaPods](http://cocoapods.org).
@@ -36,14 +37,14 @@ Go ahead and send a few messages between your Device and Simulator. In this exam
 ### Typing Indicators
 Start typing on your Device. The Simulator's text field will say "Device is typing..."</br>
 This is an example of typing indicators in Layer. To see how easy it is to use them, check out the `textViewDidBeginEditing` and `textViewDidEndEditing` methods in `LQSViewController.m`
-### Delivery andRead Receipts
+### Delivery and Read Receipts
 Now that you've sent a few messages take a look at the status next to the Sender's name.  With Layer, you can easily see if a message has been sent, delivered, or read. Check out the `willDisplayCell` method in `LQSViewController.m` for information about read receipts.</br>
 With Delivery and Read Receipts, you no longer need to wonder if a message was delivered or read.
 ### Offline Support
 Next try putting your Device in Airplane mode.  Send a message from the Simulator. The message will be marked as Sent in the Simulator.  Now, take the Device off airplane mode.  The message from the Simulator should now automatically appear on the Device, and the message will be marked as Read on the Simulator.</br>
 Cool, right? You get offline support out of the box with Layer. Layer handles all network connectivity so you don't need to worry about it. No additional coding is necessary.
 ### Metadata
-Shake your Device in your hand. Notice that the navigation bar changes color, _and_ that the Simulator's navigation bar also changes color?</br>
+Shake your Device in your hand. Notice that the navigation bar changes color, **and** that the Simulator's navigation bar also changes color?</br>
 This is another great feature that Layer provides: metadata. With metadata, you can attach any extra content that you want to a Conversation (e.g. a title for the Conversation), and that data will be synchronized between Participants.
 To see how easy it is to add metadata to a Conversation, check out `motionEnded` method in `LQSViewController.m`.
 ## What's Next
