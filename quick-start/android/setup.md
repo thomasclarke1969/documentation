@@ -33,6 +33,6 @@ Tap on the menu bar at the top. Notice that the navigation bar changes color, _a
 This is another great feature that Layer provides: metadata. With metadata, you can attach any extra content that you want to a Conversation (e.g. a title for the Conversation), and that data will be synchronized between Participants.
 To see how easy it is to add metadata to a Conversation, check out `setTopBarMetaData` method in `ConversationViewController.java`.
 ### Cross Platform Messaging
-Also developing for iOS? Build the Quick Start App on [iOS](https://developer.layer.com/docs/quick-start/ios) platform using the same App ID, and your users will receive their messages no matter where they are!
+Also developing for iOS? Build the [iOS](https://developer.layer.com/docs/quick-start/ios) Quick Start App using the same App ID, and your users will receive their messages no matter where they are!
 ## What's Next
 Now that you've seen just a sample of what Layer can do, check out the [Integration](https://developer.layer.com/docs/integration) docs to learn more about the concepts behind Layer.
