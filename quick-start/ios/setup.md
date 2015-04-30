@@ -47,5 +47,7 @@ Cool, right? You get offline support out of the box with Layer. Layer handles al
 Shake your Device in your hand. Notice that the navigation bar changes color, **and** that the Simulator's navigation bar also changes color?</br>
 This is another great feature that Layer provides: metadata. With metadata, you can attach any extra content that you want to a Conversation (e.g. a title for the Conversation), and that data will be synchronized between Participants.
 To see how easy it is to add metadata to a Conversation, check out `motionEnded` method in `LQSViewController.m`.
+### Cross Platform Messaging
+Also developing for Android? Build the Quick Start App on [Android](https://developer.layer.com/docs/quick-start/android) platform using the same App ID, and your users will receive their messages no matter where they are!
 ## What's Next
 Now that you've seen just a sample of what Layer can do, check out the [Integration](https://developer.layer.com/docs/integration) docs to learn some of the concepts behind Layer.
