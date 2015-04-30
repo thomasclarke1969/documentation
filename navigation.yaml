@@ -7,16 +7,8 @@
 quick-start:
   title: "Quick Start"
   section:
-    install:
-      title: "Install"
-    connect:
-      title: "Connect"
-    authenticate:
-      title: "Authenticate"
-    send-a-message:
-      title: "Send a Message"
-    display-messages:
-      title: "Display Messages"
+    setup:
+      title: "Setup"
 
 # Layer SDK Functionality Guide
 integration:
@@ -63,19 +55,6 @@ guides:
       title: "Parse Integration"
     atlas:
       title: "Atlas"
-  	# local-notifications:
-  	# 	title: "Local Notification Guide"
-  	# conversation-view:
-  	# 	title: "Displaying A Conversation Guide"
-  	# badge-management:
-  	# 	title: "Managing The Application Badge"
-
-# Transition Guide
-# transition:
-#  title: "Transition"
-#  section:
-#    transition-guide:
-#      title: "Transition Guide"
 
 # Change Log
 changelog:
