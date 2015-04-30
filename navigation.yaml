@@ -14,12 +14,12 @@ quick-start:
 integration:
   title: "Integration"
   section:
+    concepts:
+      title: "Concepts"
     installation-and-setup:
       title: "Installation and Setup"
     authentication:
       title: "Authentication"
-    concepts:
-      title: "Concepts"
     sending:
       title: "Sending"
     querying:
