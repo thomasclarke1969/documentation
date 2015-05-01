@@ -3,10 +3,12 @@
 LayerKit is a powerful tool that lets you add in-app messaging with very little overhead. LayerKit can work with any existing User Management system, takes care of synchronization and offline support, and includes features such as querying, Message delivery and read receipts, Conversation metadata, and typing indicators.
 
 **Authentication**
-In order for a user to send or recieve messages, you must Authenticate them first. Layer will accept any unique String as a User ID (UIDs, email addresses, phone numbers, usernames, etc), so you ca use any new or existing User Management system you wish. As part of the Authentication process, you will need to set up a Web Service which generates a unique Identity Token for each user on request.
+
+In order for a user to send or recieve messages, you must Authenticate them first. Layer will accept any unique String as a User ID (UIDs, email addresses, phone numbers, usernames, etc), so you can use any new or existing User Management system. As part of the Authentication process, you will need to set up a Web Service which generates a unique Identity Token for each user on request.
 
 **Synchronization and Offline Support**
-When a user successfully Authetnicates, their entire Conversation and Message history is downloaded to the device. LayerKit then keeps this data in sync with the backend, so all operations, such as queries, execute locally and then pushed to the server. This means LayerKit handles offline support for you: if there is no network connection, messages are queued and will be sent when a connection is re-established.
+
+When a user successfully Authetnicates, their entire Conversation and Message history is downloaded to the device. LayerKit then keeps this data in sync with the backend, so all operations, such as queries, execute locally. This means LayerKit handles offline support for you: if there is no network connection, messages are queued and will be sent when a connection is re-established.
 
 **Messaging**
 
@@ -41,6 +43,7 @@ BOOL success = [conversation sendMessage:message error:&error];
 ```
 
 **Querying**
+
 LayerKit provides a powerful querying engine that lets you search for specific Conversations or Messages based on key properities. For example, you can find a list of all Conversations sorted by when the last message was received, or find all Messages in a Conversation that are unread. To build a Query, you specify which class you wish to execute the query on - either Conversations or Messages, and you can then specify any predicates, and how you want the results to be sorted.
 
 
@@ -51,6 +54,10 @@ You can use a query to see if a conversastion between specific participants alre
 ```
 
 **Additional Features**
-* **Message Read and Delivery Receipts** For one on one Conversations, or small group Conversations, it makes sense to show the current state of a given message. LayerKit keeps track of whether a Message has been sent, and if it has, which Participants in the Conversation have synced that Message (marked as `Delivered`). You can then choose to mark any Message as `Read` once it is actually displayed in the UI. 
-* **Conversation Metadata** - If you want to store additional information about a Conversation that won't be changing very often, you can use Metadata. Each Conversation has its own Map where you can define any String Key / Value pair to set data that would otherwise be difficult to capture. Examples would include setting a Topic, "Liking" or "Favoriting" specific Message IDs in that Conversation, or setting GUI elements (such as visual themes) that are unique to that Conversation. 
-* **Typing Indicators** With LayerKit, you can drive changes to the UI based on whether the other participants in a Conversation are typing or not. When a user is inputting text, you simply send a typing indcator to the Conversation, and all other participants will be notified as to which users are actively typing.
+
+* **Message Read and Delivery Receipts** 
+ For one on one Conversations, or small group Conversations, it makes sense to show the current state of a given message. LayerKit keeps track of whether a Message has been sent, and if it has, which Participants in the Conversation have synced that Message (marked as `Delivered`). You can then choose to mark any Message as `Read` once it is actually displayed in the UI. 
+* **Conversation Metadata** 
+ If you want to store additional information about a Conversation that won't be changing very often, you can use Metadata. Each Conversation has its own Map where you can define any String Key / Value pair to set data that would otherwise be difficult to capture. Examples would include setting a Topic, "Liking" or "Favoriting" specific Message IDs in that Conversation, or setting GUI elements (such as visual themes) that are unique to that Conversation. 
+* **Typing Indicators** 
+ With LayerKit, you can drive changes to the UI based on whether the other participants in a Conversation are typing or not. When a user is inputting text, you simply send a typing indcator to the Conversation, and all other participants will be notified as to which users are actively typing.
