@@ -8,7 +8,7 @@ In order for a user to send or recieve messages, you must Authenticate them firs
 
 **Synchronization and Offline Support**
 
-When a user successfully Authetnicates, their entire Conversation and Message history is downloaded to the device. LayerKit then keeps this data in sync with the backend, so all operations, such as queries, execute locally. This means LayerKit handles offline support for you: if there is no network connection, messages are queued and will be sent when a connection is re-established.
+When a user successfully authenticates, their entire Conversation and Message history is downloaded to the device. LayerKit then keeps this data in sync with the backend, so all operations, such as queries, execute locally. This means LayerKit handles offline support for you: if there is no network connection, messages are queued and will be sent when a connection is re-established.
 
 **Messaging**
 
