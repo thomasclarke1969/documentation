@@ -27,7 +27,7 @@ Not a fan of scripts? That's OK, just follow these instructions:<br/>
   $ pod install
   ```
 3. Open QuickStart.xcworkspace in Xcode.
-4. Replace `LAYER_APP_ID` in LQSAppDelegate.m (line 16) with %%C-INLINE-APPID%%. (the App ID from the dashboard).</br>
+4. Replace `LAYER_APP_ID` in LQSAppDelegate.m (line 16) with the App ID from the dashboard.</br>
   **Warning: If you skip this step you will get an error on app launch.**
 
 ## See Layer in Action
