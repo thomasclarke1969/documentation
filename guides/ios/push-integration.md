@@ -51,6 +51,15 @@ NSError *error;
 
 If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications).
 
+##<a name="warning"></a>
+```emphasis
+**WARNING about silent and local notifications:**
+
+We currently recommend that developers do not rely on silent notifications. We’ve done extensive testing on silent notifications internally with various combinations of sound, alert, and content-available flags and the net outcome is that there is no way to guarantee that iOS will wake the app up in response to a push notification. We believe this is because of how iOS handles power management.  For example: if you plug the device into a power source it will get woken up on every push. When its not plugged in we've perceived that whether or not the app will be awakened is unpredictable.
+
+If you want reliable, immediate delivery of push notifications we recommend utilizing the LYRMessagePushNotificationAlertMessageKey option to set Alert text and to use the "Show unread in badges" feature in the dashboard. If you try to use silent notifications and emit local notifications then you will always be subject to latency and a variable amount of batching. Unfortunately, the behavior is out of our control at this time.
+```
+
 ## Receiving pushes
 
 The following is an example of a push payload from Layer:
@@ -142,9 +151,7 @@ NSInteger badgeCount = application.applicationIconBadgeNumber;
 
 ##<a name="warning"></a>
 ```emphasis
-**WARNING about silent and local notifications:**
+**Troubleshooting Push**
 
-We currently recommend that developers do not rely on silent notifications. We’ve done extensive testing on silent notifications internally with various combinations of sound, alert, and content-available flags and the net outcome is that there is no way to guarantee that iOS will wake the app up in response to a push notification. We believe this is because of how iOS handles power management.  For example: if you plug the device into a power source it will get woken up on every push. When its not plugged in we've perceived that whether or not the app will be awakened is unpredictable.
-
-If you want reliable, immediate delivery of push notifications we recommend utilizing the LYRMessagePushNotificationAlertMessageKey option to set Alert text and to use the "Show unread in badges" feature in the dashboard. If you try to use silent notifications and emit local notifications then you will always be subject to latency and a variable amount of batching. Unfortunately, the behavior is out of our control at this time.
+If you are running into issues with Push Notifications we recommend checking out our [Push Notifications Troubleshooting Guide](https://support.layer.com/hc/en-us/articles/204632870-How-do-I-troubleshoot-issues-with-Push-Notifications-on-iOS-)
 ```
