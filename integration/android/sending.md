@@ -1,4 +1,6 @@
 # Sending Messages
+Once authenticated, users can send and receive messages, which are associated with a specific conversation object.
+
 Conversation objects are created by calling `layerClient.newConversation()`. This method takes a list of participant identifiers.  As Layer Authentication allows you to represent users within the Layer service via your backend’s federated identifier, participants are represented with those same user identifiers.
 
 ```java

@@ -1,4 +1,6 @@
 # Sending Messages
+Once authenticated, users can send and receive messages, which are associated with a specific conversation object.
+
 [LYRConversation](/docs/api/ios#lyrconversation) objects are created by calling `newConversationWithParticipants:options:error:`on [LYRClient](/docs/api/ios#lyrclient). The initialization variables are the following:
 
 * `participants` - A mandatory array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a conversation is represented with that same user identifier.

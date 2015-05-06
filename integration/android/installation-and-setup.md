@@ -1,14 +1,12 @@
 # Installation
 
-```emphasis
-Skip this section if you've already done it in the Quick Start guide.
-```
+The Layer Android SDK is built and designed to be used with [Android Studio](https://developer.android.com/sdk/index.html). The SDK is available via an AAR or JAR file hosted on [Github](https://github.com/layerhq/releases-android), and can be added to your project by refrencing the AAR remotely with maven, or by importing the JAR locally.
 
-The Layer Android SDK is built using the new Android build system. The Android SDK is available via an AAR or JAR file hosted on [Github](https://github.com/layerhq/releases-android). To install the SDK, perform one of following (either for local JAR or remote AAR).
+<b>Note:</b> If you are developing with Eclipse, you can follow [these instructions](https://support.layer.com/hc/en-us/articles/204177954-Building-Layer-with-Eclipse). When you are done, return here and continue with setting up the AndroidManifest.xml file in your app.
 
 
-#### AAR (referenced by maven)
-Navigate to your `build.gradle` file and ensure that you include the following:
+#### Option 1: AAR (referenced by maven)
+Navigate to your `build.gradle` file at the app level (not project level) and ensure that you include the following:
 
 ```groovy
 repositories {
@@ -24,7 +22,7 @@ dependencies {
 ```
 
 
-#### JAR (downloaded to local `libs` directory)
+#### Option 2: JAR (downloaded to local `libs` directory)
 
 1. Download the latest Layer SDK JAR file from [Github](https://github.com/layerhq/releases-android/tree/master/releases/com/layer/sdk/layer-sdk)
 2. Drag the JAR file into the /libs directory of your Android Studio application
@@ -128,7 +126,8 @@ LayerClient layerClient = LayerClient.newInstance(this, appID, "GCM Project Numb
 The `LayerClient` object leverages the listener pattern to notify your application to specific events. You will need to implement the `LayerConnectionListener` and `LayerAuthenticationListener` interfaces. Once implemented, register both on the `layerClient` object.
 
 ```java
-layerClient.registerConnectionListener(this).registerAuthenticationListener(this);
+layerClient.registerConnectionListener(this);
+layerClient.registerAuthenticationListener(this);
 ```
 
 ## Connect The SDK
