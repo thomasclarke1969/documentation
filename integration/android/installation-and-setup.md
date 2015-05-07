@@ -114,16 +114,16 @@ The `LayerClient` object is the primary interface for interacting with the Layer
 We have created an application for you titled %%C-INLINE-APPNAME%% and the sample code below contains your application's key.
 ```
 
-Key's are application specific and should be kept private. Copy and paste the following code into the `onCreate()` method of your `Application` object or main `Activity`.
+Key's are application specific and should be kept private. Copy and paste the following one of the following examples into the `onCreate()` method of your `Application` object or main `Activity`.
 
 ```java
-// Create a LayerClient object
-LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%");
+// Option 1: Create a standard LayerClient object
+LayerClient layerClient = LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%");
 
-//Create a LayerClient object with a GCM Sender ID (allows for push notifications)
+// Option 2: Create a LayerClient object with a GCM Sender ID (allows for push notifications)
 LayerClient.Options options = new LayerClient.Options();
 options.googleCloudMessagingSenderId("GCM Project Number");
-LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%", options);
+LayerClient layerClient = LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%", options);
 ```
 
 ## Listeners
