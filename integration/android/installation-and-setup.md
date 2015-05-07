@@ -121,8 +121,9 @@ Key's are application specific and should be kept private. Copy and paste the fo
 LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%");
 
 //Create a LayerClient object with a GCM Sender ID (allows for push notifications)
-LayerClient.Options options = new LayerClient.Options().googleCloudMessagingSenderId("GCM Project Number");
-LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%" , options);
+LayerClient.Options options = new LayerClient.Options();
+options.googleCloudMessagingSenderId("GCM Project Number");
+LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%", options);
 ```
 
 ## Listeners
