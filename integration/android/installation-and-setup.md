@@ -122,7 +122,7 @@ LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%");
 
 //Create a LayerClient object with a GCM Sender ID (allows for push notifications)
 LayerClient.Options options = new LayerClient.Options().googleCloudMessagingSenderId("GCM Project Number");
-LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%", options);
+LayerClient.newInstance(context.getApplicationContext(), "%%C-INLINE-APPID%%" , options);
 ```
 
 ## Listeners
