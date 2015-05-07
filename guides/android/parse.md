@@ -7,7 +7,10 @@ This application requires Android Studio. Dependencies are managed via maven to 
 
 1. Clone the project from Github: `$ git clone https://github.com/layerhq/Layer-Parse-Android-Example.git`
 2. Open the project in Android Studio.
-3. In LayerImpl.java replace LayerAppID with your App ID: `%%C-INLINE-APPID%%`
+3. In LayerImpl.java replace LayerAppID with your App ID: 
+ ```
+ private static String LayerAppID = "%%C-INLINE-APPID%%";
+ ```
 4. In ParseImpl.java replace the ParseAppID and ParseClientKey with the Keys from the Parse Dashboard (found under Settings -> Keys)
 5. Add the [Layer Parse Module](https://github.com/layerhq/layer-parse-module) to your Parse Cloud Code to serve as an authentication manager.
 6. Build and run the application and tap the "Sign Up" button to create a new user and begin messaging!
