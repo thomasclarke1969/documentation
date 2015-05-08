@@ -1,6 +1,20 @@
 {
   "classes" : [
     {
+      "declared" : "LYRActor.h",
+      "properties" : [
+        {
+          "declared" : "LYRActor.h",
+          "declaration" : "@property (nonatomic, readonly) NSString *LYR_QUERYABLE_FROM ( LYRMessage )",
+          "comment" : "The userID of the authenticated user who sent the message.  Previously sentByUserID.",
+          "name" : ")",
+          "discussion" : "The userID property is queryable via the LYRPredicateOperatorIsEqualTo and LYRPredicateOperatorIsNotEqualTo predicate operators."
+        }
+      ],
+      "name" : "LYRActor",
+      "inherits" : "NSObject"
+    },
+    {
       "declared" : "LYRProgress.h",
       "methods" : {
         "class" : [
@@ -310,11 +324,6 @@
             "declaration" : "- (LYRConversation *)newConversationWithParticipants:(NSSet *)participants options:(NSDictionary *)options error:(NSError **)error"
           },
           {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (LYRMessage *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error",
-            "comment" : "Creates and returns a new message with the given set of message parts.",
-            "name" : "newMessageWithParts:options:error:",
-            "return" : "A new message that is ready to be sent.\n@raises NSInvalidArgumentException Raised if conversation is nil or messageParts is empty.",
             "parameters" : [
               {
                 "name" : "messageParts",
@@ -324,7 +333,13 @@
                 "name" : "options",
                 "description" : "A dictionary of options to apply to the message."
               }
-            ]
+            ],
+            "return" : "A new message that is ready to be sent.\n@raises NSInvalidArgumentException Raised if conversation is nil or messageParts is empty.",
+            "discussion" : "This method will allow a maximum of 1000 parts per message.",
+            "declared" : "LYRClient.h",
+            "comment" : "Creates and returns a new message with the given set of message parts.",
+            "name" : "newMessageWithParts:options:error:",
+            "declaration" : "- (LYRMessage *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error"
           },
           {
             "declared" : "LYRClient.h",
@@ -668,6 +683,13 @@
           "declaration" : "@property (nonatomic, readonly) NSDictionary *recipientStatusByUserID",
           "comment" : "Returns a dictionary keyed the user ID of all participants in the Conversation that the receiver belongs to and whose\nvalues are an NSNumber representation of the receipient status ({@link LYRRecipientStatus} value) for their corresponding key.",
           "name" : "recipientStatusByUserID"
+        },
+        {
+          "declared" : "LYRMessage.h",
+          "declaration" : "@property (nonatomic, readonly) LYRActor *sender",
+          "comment" : "The sender who sent the message.",
+          "name" : "sender",
+          "discussion" : "The sender can be an authenticated user or from a platform, specificed by the sender's properties userID and name.  They are mutually exclusive.  Both properties are queryable from LYRMessage."
         }
       ],
       "methods" : {
@@ -1681,6 +1703,14 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRErrorConversationAlreadyDeleted",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorUserNotAParticipantInConversation",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRErrorInvalidKey",
           "declared" : "LYRErrors.h"
         },
@@ -1848,6 +1878,11 @@
         {
           "name" : "LYRRecipientStatusInvalid",
           "comment" : "Status for the recipient cannot be determined because the message is not in a state in which recipient status can be evaluated or the user is not a participant in the Conversation.",
+          "declared" : "LYRMessage.h"
+        },
+        {
+          "name" : "LYRRecipientStatusPending",
+          "comment" : "The message has been transported to Layer and is awaiting synchronization by the recipient's devices.",
           "declared" : "LYRMessage.h"
         },
         {
