@@ -91,7 +91,7 @@ LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 LYRPredicate *unreadPredicate =[LYRPredicate predicateWithProperty:@"isUnread" predicateOperator:LYRPredicateOperatorIsEqualTo value:@(YES)];
 
 // Messages must not be sent by the authenticated user
-LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" predicateOperator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sender.userID" predicateOperator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
 
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPredicate, userPredicate]];
 query.resultType = LYRQueryResultTypeCount;
@@ -171,12 +171,12 @@ For more sophisticated queries, applications can utilize the `LYRCompoundQuery` 
 The following demonstrates a compound predicate which will constrain the result set to `LYRMessage` objects that conform to the following criteria:
 
 1. The `conversation` property is equal to the supplied `LYRConversation` object.
-2. The `sentByUserID` property is equal to the supplied `<USER_ID>` value.
+2. The `sender.userID` property is equal to the supplied `<USER_ID>` value.
 
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 LYRPredicate *conversationPredicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sentByUserID" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"<USER_ID>"];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sender.userID" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"<USER_ID>"];
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[userPredicate, conversationPredicate]];
 
 NSUInteger countOfMessages = [self.client countForQuery:query error:&error];
