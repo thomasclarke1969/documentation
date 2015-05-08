@@ -151,7 +151,7 @@ BOOL success = [conversation markAllMessagesAsRead:&error];
 There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](/projects/layer-sample/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
 
 ```
-Dec 02 2014 02:34:27pmSync: User <USER_IDENTIFIER> created a message in conversation <CONVERSATION_IDENTIFIER>.
+May 02 2015 2:34:27pm Sync: User <USER_IDENTIFIER> created a message in conversation <CONVERSATION_IDENTIFIER>.
 ```
 
 Additionally, developers can leverage both the [`LYRQueryController`](#query) object or register as an observer for the [`LYRClientObjectsDidChangeNotification`](#sync-notifications) key via `NSNotificationCenter` to be notified of incoming messages. Both are discussed in detail below.
