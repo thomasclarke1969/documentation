@@ -103,3 +103,59 @@ conversation.send(message);
 
 Conversations are not pushed to other participants, and are not queryable, until the first message is sent. Depending on your app's flow, you can use an invitation MIME Type to notify all participants that a new conversation has been created. [Click here](https://support.layer.com/hc/en-us/articles/204193200-Why-can-t-participants-query-a-newly-created-conversation-) to learn more.
 ```
+
+## Recipient Status
+Layer declares 4 recipient statuses which allows applications to monitor the actual status of a message for every individual participants in a conversation. The states are the following:
+
+* `Message.RecipientStatus.PENDING` - The message is waiting to be synced with the Layer service.
+* `Message.RecipientStatus.SENT` - The message has successfully reached the Layer service and is waiting to be synchronized with recipient devices.
+* `Message.RecipientStatus.DELIVERED` - The message has been successfully delivered to a recipient's device.
+* `Message.RecipientStatus.READ` - The message has been "marked as read" by a recipient's device.
+
+You can check a message's status by calling `message.getRecipientStatus(userID)` where the userID is a String representation of a participant in the conversation. You can also get a map of the recipient status for all participants:
+
+```java
+Map<String, Message.RecipientStatus> statuses = message.getRecipientStatus();
+```
+
+All status updates are handled automatically by Layer except for marking messages as read. When you have determined that a user has actually accessed a message's content, you can set this status directly:
+
+```java
+message.markAsRead();
+```
+
+## Receiving the Message
+
+When displaying the message, you can get the Sender's User ID and, if necessary, do a lookup in your user management system:
+
+```
+//The sender's user id
+String senderID = msg.getSender().getUserId();
+```
+
+You will also need to check the message's Mime Type (set when the message was sent) in order to know how to decode the message contents.
+
+```
+//Each message can be comprised of several message parts
+List<MessagePart> parts = message.getMessageParts();
+for(MessagePart part : parts) {
+    switch (part.getMimeType()) {
+
+        case "text/plain":
+            String textMsg = new String(part.getData());
+            break;
+
+        case "image/jpeg":
+            Bitmap imageMsg = BitmapFactory.decodeByteArray(part.getData(), 0, part.getData().length);
+            break;
+    }
+}
+```
+
+## Confirming Message Delivery
+
+There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](/projects/layer-sample/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
+
+```
+May 02 2015 2:34:27pm Sync: User <USER_IDENTIFIER> created a message in conversation <CONVERSATION_IDENTIFIER>.
+```
