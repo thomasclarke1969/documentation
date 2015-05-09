@@ -157,7 +157,7 @@ for(MessagePart part : parts) {
 
 ## Confirming Message Delivery
 
-There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](/projects/%%C-INLINE-APPNAME%%/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
+There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](/projects/layer-sample/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
 
 ```
 May 02 2015 2:34:27pm Sync: User <USER_IDENTIFIER> created a message in conversation <CONVERSATION_IDENTIFIER>.
