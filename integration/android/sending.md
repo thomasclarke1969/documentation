@@ -105,16 +105,20 @@ Conversations are not pushed to other participants, and are not queryable, until
 ```
 
 ## Recipient Status
-Layer declares 4 recipient statuses which allows applications to monitor the actual status of a message for every individual participants in a conversation. The states are the following:
+Layer allows you the current status of a message for every participant in a conversation. The states are the following:
 
 * `Message.RecipientStatus.PENDING` - The message is waiting to be synced with the Layer service.
 * `Message.RecipientStatus.SENT` - The message has successfully reached the Layer service and is waiting to be synchronized with recipient devices.
 * `Message.RecipientStatus.DELIVERED` - The message has been successfully delivered to a recipient's device.
 * `Message.RecipientStatus.READ` - The message has been "marked as read" by a recipient's device.
 
-You can check a message's status by calling `message.getRecipientStatus(userID)` where the userID is a String representation of a participant in the conversation. You can also get a map of the recipient status for all participants:
+You can check a message's status for an individual participant or get a map of the recipient status for all participants:
 
 ```java
+//Get the status for a specific participant
+Message.RecipientStatus status = message.getRecipientStatus(userID);
+
+//Get statuses for all participants
 Map<String, Message.RecipientStatus> statuses = message.getRecipientStatus();
 ```
 
@@ -136,7 +140,6 @@ String senderID = msg.getSender().getUserId();
 You will also need to check the message's Mime Type (set when the message was sent) in order to know how to decode the message contents.
 
 ```
-//Each message can be comprised of several message parts
 List<MessagePart> parts = message.getMessageParts();
 for(MessagePart part : parts) {
     switch (part.getMimeType()) {
@@ -154,7 +157,7 @@ for(MessagePart part : parts) {
 
 ## Confirming Message Delivery
 
-There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](/projects/layer-sample/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
+There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](/projects/%%C-INLINE-APPNAME%%/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
 
 ```
 May 02 2015 2:34:27pm Sync: User <USER_IDENTIFIER> created a message in conversation <CONVERSATION_IDENTIFIER>.
