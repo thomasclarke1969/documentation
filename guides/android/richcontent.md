@@ -81,8 +81,11 @@ layerClient.setAutoDownloadMimeTypes(Arrays.asList("image/jpeg"));
 ```java
 public void downloadMessagePart(MessagePart part){
     
-    //You can add whatever conditions make sense. In this case, we only start the download if the MessagePart is ready (not DOWNLOADING or COMPLETE)
+    //You can add whatever conditions make sense. In this case, we only start the download if the 
+    // MessagePart is ready (not DOWNLOADING or COMPLETE)
     if(part.getTransferStatus() == MessagePart.TransferStatus.READY_FOR_DOWNLOAD){
+        
+        //Start the download with a ProgressListener
         part.download(new LayerProgressListener() {
             @Override
             public void onProgressStart(MessagePart messagePart, Operation operation) {
