@@ -11,7 +11,7 @@ To get the Quick Start project running you will need [Android Studio](https://de
   $ git clone https://github.com/layerhq/quick-start-android.git
   ```
 2. Open the workspace in Android Studio
-3. Replace LAYER_APP_ID in MainActivity.java (line 40) with the App ID from the dashboard.<br/>
+3. Replace LAYER_APP_ID in MainActivity.java (line 11) with your App ID. Your App ID can be found in the dashboard under the "Info" section.<br/>
 **Warning: If you skip this step you will get an error on app launch.**
 4. (Optional) To enable Push Notifications, replace GCM_ID with your own Google Cloud Messaging ID (instructions can be found here in the [Push Notification Guide](https://developer.layer.com/docs/guides#push-notification))
 
