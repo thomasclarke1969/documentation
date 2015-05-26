@@ -14,7 +14,7 @@ quick-start:
 atlas:
   title: "Atlas"
   section:
-    setup:
+    setup-atlas:
       title: "Setup"
     core-components:
       title: "Core Components"
