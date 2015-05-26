@@ -10,6 +10,19 @@ quick-start:
     setup:
       title: "Setup"
 
+# Layer Atlas Guide
+atlas:
+  title: "Atlas"
+  section:
+    setup:
+      title: "Setup"
+    core-components:
+      title: "Core Components"
+    configuring-ui:
+      title: "Configuring UI"
+    custom-payload:
+      title: "Sending Custom Payload"
+
 # Layer SDK Functionality Guide
 integration:
   title: "Integration"
