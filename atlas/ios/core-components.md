@@ -1,10 +1,8 @@
 #Core Components
-## Controller
-To implement Atlas fully, you must at least subclass these three view contollers:
+## Controllers
+To implement Atlas fully, you must at least subclass these view controllers:
 1. [Conversation List View Controller](#clvc) - List of Conversations
 2. [Conversation View Controller](#cvc) - List of Messages and Input
-3. [Address Bar View Controller](#abvc) - List of Users in Conversation
-4. [Participant Table View Controller](#ptvc) - List of total Users 
 
 ##<a name="clvc"></a> Conversation List View Controller (ATLConversationListViewController)
 The Conversation List View Controller is a `UITableViewController` that contains a list of all the conversations that the authenticated user ID belongs to. By default, the cell will contain a title and will show the last message text in conversation.
@@ -115,75 +113,4 @@ When the user sends a message, the `ATLConversationViewController` notifies the 
 - (void)conversationViewController:(ATLConversationViewController *)viewController didSelectMessage:(LYRMessage *)message;
 - (CGFloat)conversationViewController:(ATLConversationViewController *)viewController heightForMessage:(LYRMessage *)message withCellWidth:(CGFloat)cellWidth;
 - (NSOrderedSet *)conversationViewController:(ATLConversationViewController *)viewController messagesForMediaAttachments:(NSArray *)mediaAttachments;
-```
-
-##<a name="abvc"></a> Address Bar View Controller (ATLAddressBarViewController)
-The Address Bar View Controller appears at the top of the ATLConversationViewController. When creating a new conversation you can add the participants in the view, or initiate the the Participant Table View Controller. If the conversation exists then the address will contain a read-only list of participants.
-
-### Initialization
-The ConversationViewController includes an instance of the by default. You will need to implement the AddressBarViewController delegate methods. 
-```objective-c
-- (void)viewDidLoad {
-    [super viewDidLoad];
-...    
-    self.addressBarController.delegate = self;
-...
-}
-```
-
-### Configuring Add Contacts Button
-When the user taps the + in the Address Bar, the `ATLAddressBarViewController` notifies the `ATLAddressBarViewControllerDelegate` delegate of the action. This is a great time to initiate `ATLParticipantTableViewController`. 
-```objective-c
-- (void)addressBarViewController:(ATLAddressBarViewController *)addressBarViewController didTapAddContactsButton:(UIButton *)addContactsButton
-{
-    // On initialization, pass in a NSSet of Objects that adhere to the ATLParticipant Protocol    
-    SampleParticipantTableViewController *controller = [SampleParticipantTableViewController 
-    participantTableViewControllerWithParticipants:[NSSet setWithArray:users] sortType:ATLParticipantPickerSortTypeFirstName];
-    controller.delegate = self;
-    
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
-}
-```
-
-### Configuring Address Bar Search
-When the user types in the Address Bar, the `ATLAddressBarViewController` notifies the `ATLAddressBarViewControllerDelegate` delegate of the action. 
-```objective-c
--(void)addressBarViewController:(ATLAddressBarViewController *)addressBarViewController searchForParticipantsMatchingText:(NSString *)searchText completion:(void (^)(NSArray *))completion {
-    NSLog(@"Search Text: %@",searchText);
-}
-```
-
-### Optional Delegate methods
-```objective-c
-- (void)addressBarViewControllerDidBeginSearching:(ATLAddressBarViewController *)addressBarViewController;
-- (void)addressBarViewController:(ATLAddressBarViewController *)addressBarViewController didSelectParticipant:(id<ATLParticipant>)participant;
-- (void)addressBarViewController:(ATLAddressBarViewController *)addressBarViewController didRemoveParticipant:(id<ATLParticipant>)participant;
-- (void)addressBarViewControllerDidEndSearching:(ATLAddressBarViewController *)addressBarViewController;
-- (void)addressBarViewControllerDidSelectWhileDisabled:(ATLAddressBarViewController *)addressBarViewController;
-```
-
-##<a name="ptvc"></a> Participant Table View Controller  (ATLParticipantTableViewController)
-The Participant Table View Controller is a `UITableViewController` that contains all the participants the authenticated user can message.
-
-###  Notification when Participant is selected
-When the user selects a participant, the `ATLParticipantTableViewController` notifies the `ATLParticipantTableViewControllerDelegate`  delegate of the action. This is a great time to update the address bar.
-```objective-c
-- (void)participantTableViewController:(ATLParticipantTableViewController *)participantTableViewController didSelectParticipant:(id<ATLParticipant>)participant {
-    [self.addressBarController selectParticipant:participant];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-```
-
-###  Notification when User searches
-When the user selects a participant, the `ATLParticipantTableViewController` notifies the `ATLParticipantTableViewControllerDelegate` delegate of the action.
-```objective-c
-- (void)participantTableViewController:(ATLParticipantTableViewController *)participantTableViewController didSearchWithString:(NSString *)searchText completion:(void (^)(NSSet *))completion {
-    NSLog(@"Search Text: %@",searchText);
-}
-```
-
-#### Other Optional Delegate methods
-```objective-c
-- (void)participantTableViewController:(ATLParticipantTableViewController *)participantTableViewController didDeselectParticipant:(id<ATLParticipant>)participant;
 ```
