@@ -5,7 +5,10 @@ Import the LayerKit headers into your `AppDelegate.h`
 ```objectivec
 #import <LayerKit/LayerKit.h>
 ```
-
+```objectivec
+//Please note, You must set `LYRClient *layerClient` as a property of the AppDelegate in the above example.
+@property (nonatomic) LYRClient *layerClient;
+```
 ```emphasis
 We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sample code below contains your application's key.
 ```
@@ -13,6 +16,7 @@ We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sam
 Copy and paste the following into `application:didFinishLaunchingWithOptions:` in your `AppDelegate`.
 
 ```objectivec
+
 NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"%%C-INLINE-APPID%%"];
 self.layerClient = [LYRClient clientWithAppID:appID];
 [self.layerClient connectWithCompletion:^(BOOL success, NSError *error) {
@@ -33,5 +37,5 @@ self.layerClient = [LYRClient clientWithAppID:appID];
 ```
 
 ```emphasis
-Please note, You must set `LYRClient *layerClient` as a property of the AppDelegate in the above example. The source for `authenticateLayerWithUserID` is included in the next step in [Quick Start](/docs/quick-start/ios#authenticate).
+The source for `authenticateLayerWithUserID` is included in the next step in [Quick Start](/docs/quick-start/ios#authenticate).
 ```
