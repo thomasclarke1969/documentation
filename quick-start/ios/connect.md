@@ -6,7 +6,7 @@ Import the LayerKit headers into your `AppDelegate.h`
 #import <LayerKit/LayerKit.h>
 ```
 ```objectivec
-//Please note, You must set `LYRClient *layerClient` as a property of the AppDelegate in the above example.
+//Please note, You must set `LYRClient *layerClient` as a property of the AppDelegate.
 @property (nonatomic) LYRClient *layerClient;
 ```
 ```emphasis
