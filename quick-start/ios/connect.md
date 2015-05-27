@@ -33,5 +33,5 @@ self.layerClient = [LYRClient clientWithAppID:appID];
 ```
 
 ```emphasis
-Please note, `self.layerClient` is a property of the AppDelegate in the above example. The source for `authenticateLayerWithUserID` is included in the next step in [Quick Start](/docs/quick-start/ios#authenticate).
+Please note, You must set `LYRClient *layerClient` as a property of the AppDelegate in the above example. The source for `authenticateLayerWithUserID` is included in the next step in [Quick Start](/docs/quick-start/ios#authenticate).
 ```
