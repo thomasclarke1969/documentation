@@ -3,29 +3,87 @@ Atlas is a lightweight, flexible set of user interface components designed to en
 
 ## Installation
 
-Atlas can be installed directly into your application via CocoaPods or by directly importing the source code files. Please note that Atlas has a direct dependency on LayerKit that must be satisfied in order to build the components.
+After following this guide, you will have the Atlas library, `layer-atlas`, imported as a module in your Android Studio project, along with the optional Atlas Messenger module, `layer-atlas-messenger`. Building and running Messenger will let you verify that the Layer SDK and Atlas integrations work properly.
 
-#### CocoaPods Installation
+There are two ways to import Atlas into your project:
 
-The recommended path for installation is [CocoaPods](http://cocoapods.org/). You can add Atlas to your project via CocoaPods by adding the following line to your Podfile:
+#### Adding Layer Atlas with Git Submodule
+1. Add Layer's GitHub Maven repo to your root `build.gradle` (e.g. `/MyApplication/build.gradle`):
 
-```ruby
-pod 'Atlas'
-```
+    ``` groovy
+    allprojects {
+        repositories {
+            maven { url "https://raw.githubusercontent.com/layerhq/releases-android/master/releases/" }
+        }
+    }
+    ```
 
-Complete the installation by executing:
+2. Add `layer-atlas` project reference to your app's `build.gradle` (e.g. `/MyApplication/app/build.gradle`):
 
-```sh
-$ pod install
-```
+    ``` groovy
+    dependencies {
+        compile project(':layer-atlas')
+    }
+    ```
 
-#### Source Code Installation
+3. Clone this repo as a submodule in the root of your Android Studio project.
 
-If you wish to install Atlas directly into your application from source, then clone the [repository](https://github.com/layerhq/Atlas-iOS) and add code and resources to your application:
+    ``` sh
+    git submodule add git@github.com:layerhq/Atlas-Android
+    ```
 
-1. Drag and drop the files from the `Code` and `Resources` directories onto your project, instructing Xcode to copy items into your destination group's folder.
-2. Update your project settings to include the linker flags: `-ObjC -lz`
-3. Add the following Cocoa SDK frameworks to your project: `'CFNetwork', 'Security', 'MobileCoreServices', 'SystemConfiguration', 'CoreLocation'`
+    *Note: If git is not initialized, you may need to `git init`.*
+
+4. Add `:layer-atlas` module to your project's root `settings.gradle` (e.g. `/MyApplication/settings.gradle`):
+
+    ``` groovy
+    include ':app', ':layer-atlas', ':layer-atlas-messenger'
+    project(':layer-atlas').projectDir = new File('Atlas-Android/layer-atlas')
+    project(':layer-atlas-messenger').projectDir = new File('Atlas-Android/layer-atlas-messenger')
+    ```
+
+5. Click "Sync Project with Gradle Files" in Android Studio
+
+#### Without Git Submodule
+1. Add Layer's GitHub Maven repo to your root `build.gradle` (e.g. `/MyApplication/build.gradle`):
+
+    ``` groovy
+    allprojects {
+        repositories {
+            maven { url "https://raw.githubusercontent.com/layerhq/releases-android/master/releases/" }
+        }
+    }
+    ```
+
+2. Add `layer-atlas` project reference to your app's `build.gradle` (e.g. `/MyApplication/app/build.gradle`):
+
+    ``` groovy
+    dependencies {
+        compile project(':layer-atlas')
+    }
+    ```
+
+3. Clone the Atlas-Android project somewhere outside of your application directory:
+
+    ``` sh
+    git clone https://github.com/layerhq/Atlas-Android.git
+    ```
+    *Note: If git is not initialized, you may need to `git init`.*
+
+4. Copy the `layer-atlas` and `layer-atlas-messager` folders to the root of your AndroidStudio project:
+
+    ``` sh
+    /MyApplication/layer-atlas
+    /MyApplication/layer-atlas-messenger
+    ```
+
+5. Add `:layer-atlas` and `:layer-atlas-messenger` modules to your project's root `settings.gradle` (e.g. `/MyApplication/settings.gradle`):
+
+    ``` groovy
+    include ':app', ':layer-atlas', ':layer-atlas-messenger'
+    ```
+
+6. Click "Sync Project with Gradle Files" in Android Studio
 
 Build and run your project to verify installation was successful.
-For more information, check out the [Atlas](https://github.com/layerhq/Atlas-iOS) on Github.
+For more information, check out the [Atlas](https://github.com/layerhq/Atlas-Android) on Github.
