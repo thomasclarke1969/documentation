@@ -2,6 +2,9 @@
 The following demonstrates the logic needed to create a conversation and send a message between 3 users named "Device", "Simulator", and "Dashboard".
 
 ```objectivec
+//Please note, You must set `LYRConversation *conversation` as a property of the ViewController.
+@property (nonatomic) LYRConversation *conversation;
+
 - (void)sendMessage:(NSString *)messageText{
     // If no conversations exist, create a new conversation object with two participants
      // For the purposes of this Quick Start project, the 3 participants in this conversation are 'Device'  (the authenticated user id), 'Simulator', and 'Dashboard'.
