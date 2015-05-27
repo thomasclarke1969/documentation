@@ -34,7 +34,7 @@ The following demonstrates the logic needed to create a conversation and send a 
 ```
 
 ```emphasis
-Please note, You must set `LYRConversation *conversation` as a property of the ViewController in the above example. Check the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios) for more details.
+ Check the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios) for more details.
 ```
 
 You can verify that your message has been sent by looking at the logs inside [developer dashboard](/projects). Once you've sent a message, learn how to [display messages](/docs/quick-start/ios#display-messages).
