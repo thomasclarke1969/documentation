@@ -1,5 +1,4 @@
 #Core Components
-
 ## Conversation and Message Frame Layouts
 To implement Atlas, you need to add the AtlasConversationsList and AtlasMessagesList views to Layouts in your project. Both work off the same principles, but the AtlasConversationList shows all conversations that the user is a part of, and the AtlasMessagesList shows all messages in a specific conversation (including creating a cell for each MessagePart based on the MimeType).
 
