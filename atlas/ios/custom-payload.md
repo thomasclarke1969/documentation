@@ -116,8 +116,7 @@ FYI: `ATLMimeTypeCustomObject` is defined in the next step.
     ```
 
 4. Implement `messagesForMediaAttachments` DataSource method         
-    `messagesForMediaAttachments` is the method that gets called when you press the right accessory button before it sends the message.  This is where you can configure the `LYRMessages` that get sent.
-    In this example, we will create a message with 2 message parts with JSON blocks containing information to be displayed in the cell and information about the cell itself.
+    `messagesForMediaAttachments` is the method that gets called when you press the right accessory button before it sends the message.  This is where you can configure the `LYRMessages` that get sent. In this example, we will create a message with 2 message parts with JSON blocks containing information to be displayed in the cell and information about the cell itself.
 
     ```objective-c
     - (NSOrderedSet *)conversationViewController:(ATLConversationViewController *)viewController messagesForMediaAttachments:(NSArray *)mediaAttachments
@@ -130,13 +129,10 @@ FYI: `ATLMimeTypeCustomObject` is defined in the next step.
             NSError *JSONSerializerError;
             NSData *dataDictionaryJSON = [NSJSONSerialization dataWithJSONObject:dataDictionary options:NSJSONWritingPrettyPrinted error:&JSONSerializerError];
             LYRMessagePart *dataMessagePart = [LYRMessagePart messagePartWithMIMEType:ATLMimeTypeCustomObject data:dataDictionaryJSON];
-            
-            
             // Create messagepart with info about cell        
             NSDictionary *cellInfoDictionary = @{@"height":@"100"};
             NSData *cellInfoDictionaryJSON = [NSJSONSerialization dataWithJSONObject:cellInfoDictionary options:NSJSONWritingPrettyPrinted error:&JSONSerializerError];
             LYRMessagePart *cellInfoMessagePart = [LYRMessagePart messagePartWithMIMEType:ATLMimeTypeCustomCellInfo data:cellInfoDictionaryJSON];
-
             // Add message to ordered set.  This ordered set messages will get sent to the participants
             NSError *error;
             LYRMessage *message = [self.layerClient newMessageWithParts:@[dataMessagePart,cellInfoMessagePart] options:nil error:&error];
