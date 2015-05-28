@@ -117,9 +117,8 @@ FYI: `ATLMimeTypeCustomObject` is defined in the next step.
 
 4. Implement `messagesForMediaAttachments` DataSource method         
 
-    For the purposed of this example, we will create a message with 2 message parts JSON blocks containing information to be displayed in the cell and information about the cell itself.
-
     `messagesForMediaAttachments` is the method that gets called when you press the right accessory button before it sends the message.  This is where you can configure the `LYRMessages` that get sent.
+    In this example, we will create a message with 2 message parts with JSON blocks containing information to be displayed in the cell and information about the cell itself.
 
     ```objective-c
     - (NSString *)conversationViewController:(ATLConversationViewController *)viewController reuseIdentifierForMessage:(LYRMessage *)message
