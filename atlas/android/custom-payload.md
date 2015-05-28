@@ -1,217 +1,182 @@
 # Sending a Custom Payload
+This HowTo guide will show you how to add a custom payload to Atlas Messanger. In this case, we will have a new widget that sends a JSON formatted message with a specific text payload. However, you can follow these steps to add any custom payload that isn't already supported by Atlas.
 
-The following "howto" guide shows you how to:
+To add support for a custom message payload, we need to do the following:
 
-1. Override the location button in Atlas with your own button and functionality
-2. Send a message containing a custom mimetype
-3. Display a custom cell when rendering a message with that custom mimetype
+1. Add a new button to the Atlas Message Composer
+2. Send a message containing a custom mime type
+3. Display a custom cell when rendering a message with that custom mime type
 
-You can find sample code here:
-[https://github.com/maju6406/Layer-Parse-iOS-Example-Custom/tree/custompayload](https://github.com/maju6406/Layer-Parse-iOS-Example-Custom/tree/custompayload)
-(Check the "custompayload" branch)
 
-![Image](https://raw.githubusercontent.com/maju6406/Layer-Parse-iOS-Example-Custom/custompayload/customexample.png)
+##Add a Custom Widget
 
-## Create custom UICollectionViewCell class
-The custom cell in this example will show a simple hard coded text string in the center of the cell.
+Add the following button after the `atlas_message_composer_send` text view in `/layer-atlas/src/main/res/layout/atlas_message_composer.xml`
 
-1 Your new custom class must subclass ATLMessagePresenting
-
-```objc
-@interface StarCollectionViewCell : UICollectionViewCell <ATLMessagePresenting>
+```xml
+<TextView
+android:id="@+id/atlas_message_composer_star"
+android:layout_width="wrap_content"
+android:layout_height="40dp"
+android:layout_gravity="bottom"
+android:layout_marginRight="4dp"
+android:gravity="left|center_vertical"
+android:maxLines="1"
+android:paddingLeft="12dp"
+android:paddingRight="12dp"
+android:textSize="@dimen/atlas_text_size_general"
+android:textColor="@color/atlas_text_gray"
+android:text="STAR"
+/>
 ```
 
-2 Override initWithFrame and perform your initial setup
+##Send a Message with a Custom Mime Type
 
-```objc
-@interface StarCollectionViewCell ()
-@property (strong,nonatomic) UILabel *title;
-@end
+First, we need to define the Mimetype for the payload. In the `Atlas` class, you can find a list of mime types that are supported by default. You can add your own here.
 
-@implementation StarCollectionViewCell
+```java
+public static final String MIME_TYPE_STAR = "application/json+starobject";
+```
 
--(instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if(self)
-    {
-        _title = [[UILabel alloc] init];
-        _title.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:_title];
-        [self configureConstraints];
-        self.backgroundColor = [UIColor grayColor];
+We now need to define a new behavior when the user clicks the STAR button. In order to do so, we can add functionality to the `init` function of the `AtlasMessageComposer` class:
+
+```java
+class AtlasMessageComposer extends FrameLayout {
+
+    private View btnStar;
+
+    ...
+
+    public void init(LayerClient client, Conversation conversation) {
+        if (client == null) throw new IllegalArgumentException("LayerClient cannot be null");
+
+        this.layerClient = client;
+        this.conv = conversation;
+
+        LayoutInflater.from(getContext()).inflate(R.layout.atlas_message_composer, this);
+
+        btnStar = findViewById(R.id.atlas_message_composer_star);
+        btnSend.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+
+                String payload =   "{
+                                        \"reward\": \"star\"
+                                    }";
+
+                MessagePart part = layerClient.newMessagePart(Atlas.MIME_TYPE_STAR, 
+                                                                payload.getBytes());
+
+                Message msg = layerClient.newMessage(Arrays.asList(part));
+
+                if (listener != null) {
+                    boolean proceed = listener.beforeSend(msg);
+                    if (!proceed) return;
+                } else if (conv == null) {
+                    Log.e(TAG, "Cannot send message. Conversation is not set");
+                    return;
+                }
+                
+                conv.send(msg);
+            }
+        });
+
+        ...
+    }
+
+    ...
+
+}
+```
+
+##Displaying a Message with a Custom Mime Type
+
+Each mime type is displayed in Atlas using a custom cell. You first define the cell layout, then inflate it and populate any relevant fields.
+
+In order to define a cell, create a new layout called `atlas_view_messages_cell_star.xml` and set its views:
+
+```xml
+<FrameLayout
+
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/atlas_view_messages_cell_star"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"        
+    >
+
+    <TextView
+        android:id="@+id/atlas_view_messages_star_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+
+        android:text="Sample Text"
+        android:background="@drawable/atlas_shape_rounded16_gray"
+
+        android:textSize="16sp"
+        android:minHeight="34dp"
+
+        android:textAlignment="gravity"
+        android:gravity="center_horizontal" />
+
+</FrameLayout>
+```
+
+Now, we can add the cell definition in the `AtlasMessageList` class:
+
+```java
+private class StarCell extends Cell {
+
+    public StarCell(MessagePart messagePart) {
+        super(messagePart);
+    }
+
+    public View onBind(ViewGroup cellContainer) {
+
+        MessagePart part = messagePart;
+        Cell cell = this;
+
+        View cellStar = LayoutInflater.from(cellContainer.getContext()).inflate(R.layout.atlas_view_messages_cell_star, cellContainer, false);}
+
+        TextView starText = (TextView) cellText.findViewById(R.id.atlas_view_messages_star_text);
+        starText.setText("You are a star!");
+
+        return cellText;
+    }
+}
+```
+
+Finally, you instantiate the StarCell when rendering a message with the appropriate message part. Add this check to `buildCellForMessage` in the `AtlasMessagesList` class.
+
+```java
+protected void buildCellForMessage(Message msg, ArrayList<Cell> destination) {
+
+    final ArrayList<MessagePart> parts = new ArrayList<MessagePart>(msg.getMessageParts());
+
+    for (int partNo = 0; partNo < parts.size(); partNo++ ) {
+        final MessagePart part = parts.get(partNo);
+        final String mimeType = part.getMimeType();
+
+        if (Atlas.MIME_TYPE_IMAGE_PNG.equals(mimeType) || Atlas.MIME_TYPE_IMAGE_JPEG.equals(mimeType)) {
+
+            ...
+
+        } else if (Atlas.MIME_TYPE_ATLAS_LOCATION.equals(part.getMimeType())){
         
+            ...
 
+        } else if (Atlas.MIME_TYPE_ATLAS_STAR.equals(part.getMimeType())){
+
+            destination.add(new StarCell(part));
+
+        } else {
+
+            ...
+
+        }
     }
-    return self;
-}
-
-- (void)configureConstraints
-{
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.title attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.5f constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.title attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.5f constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.title attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:0.5f constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:0.5f constant:0]];
-
-}
-```
-
-3 Implement ATLMessagePresenting methods
-updateWithSender and shouldDisplayAvatarItem are not used in this example so have them return
-
-```objc
-- (void)updateWithSender:(id<ATLParticipant>)sender
-{
-    return; 
-}
-- (void)shouldDisplayAvatarItem:(BOOL)shouldDisplayAvatarItem
-{
-    return;
-}
-```
-
-presentMessage contains the message object associated with the cell.  Retrieve the data from message parts and update cell
-
-```objc
-- (void)presentMessage:(LYRMessage *)message
-{
-    LYRMessagePart *part = message.parts[0];
-
-    // if message contains custom mime type then get the text from the MessagePart JSON
-    if([part.MIMEType isEqual: ATLMimeTypeCustomObject])
-    {
-        NSData *data = part.data;
-        NSError* error;
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
-                                                             options:kNilOptions
-                                                               error:&error];
-        self.title.text = [json objectForKey:@"name"];
-    }
-}
-```
-
-** ATLMimeTypeCustomObject is defined in the next step
-
-## Configure ConversationViewController
-
-1 Define the custom cell and mimetype constants
-
-```objc
-static NSString *const ATLMIMETypeCustomObjectReuseIdentifier = @"ATLMIMETypeCustomObjectReuseIdentifier";
-NSString *const ATLMimeTypeCustomObject = @"application/json+starobject";
-NSString *const ATLMimeTypeCustomCellInfo = @"application/json+starcellinfo";
-```
-
-2 In viewDidLoad,configure right accessory button to a custom image 
-```objc
-    // Change right accessory button to a star
-    self.messageInputToolbar.rightAccessoryImage = [UIImage imageNamed:@"star.png"];
-```
-
-3 In viewDidLoad, Register Custom Cell Class
-This tells the view controller that there's a custom cell that could be used
-
-```objc
-    // Register custom cell class for star cell
-    [self registerClass:[StarCollectionViewCell class] forMessageCellWithReuseIdentifier:ATLMIMETypeCustomObjectReuseIdentifier];
-```
-
-4 Implement messagesForMediaAttachments ATLConversationViewControllerDataSource method         
-
-This is the method that gets called when you press the right accessory button  before it sends the message.  This is where you can configure the LYRMessages that get sent.
-
-For the purposed of this example, we will create a message with 2 messagepart containing JSON data:
-
-1. Information to be displayed in the cell
-2. Information about the cell itself
-
-```objc
-- (NSOrderedSet *)conversationViewController:(ATLConversationViewController *)viewController messagesForMediaAttachments:(NSArray *)mediaAttachments
-{
-    // If there are no mediaAttachments then we know that the Star button was pressed
-    if (mediaAttachments.count == 0)
-    {
-        // Create messagepart with cell title
-        NSDictionary *dataDictionary = @{@"title":@"You are a star!"};
-        NSError *JSONSerializerError;
-        NSData *dataDictionaryJSON = [NSJSONSerialization dataWithJSONObject:dataDictionary options:NSJSONWritingPrettyPrinted error:&JSONSerializerError];
-        LYRMessagePart *dataMessagePart = [LYRMessagePart messagePartWithMIMEType:ATLMimeTypeCustomObject data:dataDictionaryJSON];
-        
-        
-        // Create messagepart with info about cell        
-        NSDictionary *cellInfoDictionary = @{@"height":@"100"};
-        NSData *cellInfoDictionaryJSON = [NSJSONSerialization dataWithJSONObject:cellInfoDictionary options:NSJSONWritingPrettyPrinted error:&JSONSerializerError];
-        LYRMessagePart *cellInfoMessagePart = [LYRMessagePart messagePartWithMIMEType:ATLMimeTypeCustomCellInfo data:cellInfoDictionaryJSON];
-
-        // Add message to ordered set.  This ordered set messages will get sent to the participants
-        NSError *error;
-        LYRMessage *message = [self.layerClient newMessageWithParts:@[dataMessagePart,cellInfoMessagePart] options:nil error:&error];
-        NSOrderedSet *messageSet = [[NSOrderedSet alloc] initWithObject:message];
-        return messageSet;
-    }
-    return nil;
-}
-``` 
-    
-5 Implement reuseIdentifierForMessage ATLConversationViewControllerDataSource method     
-This is where we tell Atlas to use the custom cell when the message contains the custom mimetype.
-
-```objc
-- (NSString *)conversationViewController:(ATLConversationViewController *)viewController reuseIdentifierForMessage:(LYRMessage *)message
-{
-    LYRMessagePart *part = message.parts[0];
-    
-    // if message contains the custom mimetype, then return the custom cell reuse identifier
-    if([part.MIMEType  isEqual: ATLMimeTypeCustomObject])
-    {
-        return ATLMIMETypeCustomObjectReuseIdentifier;
-    }
-    return nil;
-}
-``` 
-
-6 Implement heightForMessage ATLConversationViewControllerDataSource method     
-The custom cell has a custom height that's store in the MessagePart of th Message
-
-```objc 
-- (CGFloat)conversationViewController:(ATLConversationViewController *)viewController heightForMessage:(LYRMessage *)message withCellWidth:(CGFloat)cellWidth
-{
-    
-    LYRMessagePart *part = message.parts[0];
-    
-    // if message contains the custom mimetype, then grab the cell info from the other message part    
-    if([part.MIMEType isEqual: ATLMimeTypeCustomObject])
-    {
-        LYRMessagePart *cellMessagePart = message.parts[1];
-        NSData *data = cellMessagePart.data;
-        NSError* error;
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
-                                                             options:kNilOptions
-                                                               error:&error];
-        
-        // Grab the height value from the JSON
-        NSString *height = [json objectForKey:@"height"];
-        NSInteger heightInt = [height integerValue];
-        return heightInt;
-    }
-    return 0;
-}
-``` 
-
-## Configure ConversationListViewController
-
-1 Implement lastMessageTextForConversation" ATLConversationListViewControllerDataSource method 
-
-This will the configure Last Message inside conversationListViewController to show something if the last message contained the custom mimetype
-```objc
-- (NSString *)conversationListViewController:(ATLConversationListViewController *)conversationListViewController lastMessageTextForConversation:(LYRConversation *)conversation
-{
-    LYRMessagePart *part = conversation.lastMessage.parts[0];
-    
-    if([part.MIMEType  isEqual: ATLMimeTypeCustomObject])
-    {
-        return @"Custom Star Message";
-    }
-    return nil;
 }
 ```

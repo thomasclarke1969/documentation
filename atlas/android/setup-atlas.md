@@ -1,5 +1,5 @@
 # Atlas Overview
-Atlas is a lightweight, flexible set of user interface components designed to enable developers to quickly and easily integrate native communications experiences into their applications. It was designed and built from the ground up to integrate with LayerKit, the native iOS SDK for accessing the Layer communications platform. LayerKit provides developers with a simple, object oriented interface to the rich messaging capabilities provided by the Layer platform. Atlas, in turn, provides ready-made UI components that expose these capabilities directly to users.
+Atlas is a lightweight, flexible set of user interface components designed to enable developers to quickly and easily integrate native communications experiences into their applications. It was designed and built from the ground up to integrate with the Layer SDK. The Layer SDK provides developers with a simple, object oriented interface to the rich messaging capabilities provided by the Layer platform. Atlas, in turn, provides ready-made UI components that expose these capabilities directly to users.
 
 ## Installation
 
@@ -7,7 +7,7 @@ After following this guide, you will have the Atlas library, `layer-atlas`, impo
 
 There are two ways to import Atlas into your project:
 
-#### Adding Layer Atlas with Git Submodule
+#### Option 1: Adding Layer Atlas with Git Submodule
 1. Add Layer's GitHub Maven repo to your root `build.gradle` (e.g. `/MyApplication/build.gradle`):
 
     ``` groovy
@@ -32,7 +32,7 @@ There are two ways to import Atlas into your project:
     git submodule add git@github.com:layerhq/Atlas-Android
     ```
 
-    *Note: If git is not initialized, you may need to `git init`.*
+    Note: If git is not initialized, you may need to call `git init` before adding the submodule.
 
 4. Add `:layer-atlas` module to your project's root `settings.gradle` (e.g. `/MyApplication/settings.gradle`):
 
@@ -44,7 +44,7 @@ There are two ways to import Atlas into your project:
 
 5. Click "Sync Project with Gradle Files" in Android Studio
 
-#### Without Git Submodule
+#### Option 2: Without Git Submodule
 1. Add Layer's GitHub Maven repo to your root `build.gradle` (e.g. `/MyApplication/build.gradle`):
 
     ``` groovy
@@ -68,7 +68,7 @@ There are two ways to import Atlas into your project:
     ``` sh
     git clone https://github.com/layerhq/Atlas-Android.git
     ```
-    *Note: If git is not initialized, you may need to `git init`.*
+    Note: If git is not initialized, you may need to call `git init` before cloning the repository.
 
 4. Copy the `layer-atlas` and `layer-atlas-messager` folders to the root of your AndroidStudio project:
 
@@ -86,4 +86,4 @@ There are two ways to import Atlas into your project:
 6. Click "Sync Project with Gradle Files" in Android Studio
 
 Build and run your project to verify installation was successful.
-For more information, check out the [Atlas](https://github.com/layerhq/Atlas-Android) on Github.
+For more information, check out [Atlas](https://github.com/layerhq/Atlas-Android) on Github.
