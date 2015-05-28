@@ -1,81 +1,5 @@
 #Core Components
 
-##Participants and the ParticipantProvider
-Every conversation can contain up to 25 users, which are referenced in Atlas through the `Atlas.Participant` interface. You can then add other relevant fields (such as avatar image, username, phone number, etc).
-
-```java
-public class Participant implements Atlas.Participant {
-    public String userId;
-    public String firstName;
-    public String lastName;
-    public Bitmap avatarImg;
-
-    public String getId() {
-        return userId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-    
-    public Bitmap getAvatarImasge(){
-        return avatarImg;
-    }
-}
-```
-
-You will also need to implement the `Atlas.ParticipantProvider` interface in order to allow the authenticated user to start conversations with other users:
-
-```java
-public class ParticipantProvider implements Atlas.ParticipantProvider {
-
-    private final Map<String, Participant> mParticipantMap = new HashMap<String, Participant>();
-
-    public ParticipantProvider() {
-
-    }
-
-    public void refresh() {
-        //Load this user's contact list into the mParticipantMap
-    }
-
-    public Map<String, Atlas.Participant> getParticipants(String filter, Map<String, Atlas.Participant> result) {
-        if (result == null) {
-            result = new HashMap<String, Atlas.Participant>();
-        }
-
-        if (filter == null) {
-            for (Participant p : mParticipantMap.values()) {
-                result.put(p.getId(), p);
-            }
-            return result;
-        }
-
-        for (Participant p : mParticipantMap.values()) {
-            if (p.firstName != null && !p.firstName.toLowerCase().contains(filter)) {
-                result.remove(p.getId());
-                continue;
-            }
-            if (p.lastName != null && !p.lastName.toLowerCase().contains(filter)) {
-                result.remove(p.getId());
-                continue;
-            }
-            result.put(p.getId(), p);
-        }
-        return result;
-    }
-
-    @Override
-    public Atlas.Participant getParticipant(String userId) {
-        return get(userId);
-    }
-}
-```
-
 ## Conversation and Message Frame Layouts
 To implement Atlas, you need to add the AtlasConversationsList and AtlasMessagesList views to Layouts in your project. Both work off the same principles, but the AtlasConversationList shows all conversations that the user is a part of, and the AtlasMessagesList shows all messages in a specific conversation (including creating a cell for each MessagePart based on the MimeType).
 
@@ -110,7 +34,8 @@ Then, when you set this view in your Conversations Screen, you can initialize th
 //Grab the conversationsList view
 AtlasConversationsList conversationsList = (AtlasConversationsList)findViewById(R.id.atlas_screen_conversations_conversations_list);
 
-//Intialize the conversationsList by passing in its root, the LayerClient and Atlas.ParticipantProvider
+//Intialize the conversationsList by passing in its root, the LayerClient object, and 
+// Atlas.ParticipantProvider interface (which manages the user's contact list)
 conversationsList.init(conversationsList, app.getLayerClient(), app.getParticipantProvider());
 
 //Set the callback handler to start a new Activity that will display and initialize the
