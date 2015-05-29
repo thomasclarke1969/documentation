@@ -66,7 +66,7 @@ You will need to ensure that the Layer SDK and Atlas modules are compiled into y
     project(':layer-atlas').projectDir = new File('Atlas-Android/layer-atlas')
     ```
 
-     **Optional: If you are building the example Atlas Messanger app, simply add both the `:layer-atlas` and `:layer-atlas-messenger` modules to the `settings.gradle` like so:
+     **Optional:** If you are building the example Atlas Messanger app, simply add both the `:layer-atlas` and `:layer-atlas-messenger` modules to the `settings.gradle` like so:
 
     ``` groovy
     include ':app', ':layer-atlas', ':layer-atlas-messenger'

@@ -1,4 +1,4 @@
-#Plug In Your App’s Users
+#Add Your Users to Atlas
 Layer recognizes that you might already have a User Model in your app.  Atlas can work with any User Model as long as it implements the `Participant` interface. You can create your class, implement `Atlas.Participant`, and add any other relevant fields (such as avatar image, username, phone number, etc).
 
 ```java

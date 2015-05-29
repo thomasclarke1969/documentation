@@ -1,4 +1,4 @@
-# Sending a Custom Payload
+# Sending Custom Payloads
 The following tutorial shows you how to:
 1. Override the location button in Atlas with your own button and functionality
 2. Send a message containing a custom mimetype
