@@ -9,26 +9,26 @@ You can use Atlas with any new or existing native Android app. Both the Layer SD
 
 #### Option 1: Adding the Layer Atlas Modules with Git Submodule
 
-    Clone this repo as a submodule in the root of your Android Studio project.
+Clone this repo as a submodule in the root of your Android Studio project.
 
-     ``` sh
-     git submodule add git@github.com:layerhq/Atlas-Android
-     ```
+``` sh
+git submodule add git@github.com:layerhq/Atlas-Android
+```
 
 #### Option 2: Adding the Layer Atlas Modules Directly
 
-    Clone the Atlas-Android project somewhere outside of your application directory:
+Clone the Atlas-Android project somewhere outside of your application directory:
 
-     ``` sh
-     git clone https://github.com/layerhq/Atlas-Android.git
-     ```
+``` sh
+git clone https://github.com/layerhq/Atlas-Android.git
+```
 
-     Copy the `layer-atlas` folder to the root of your Android Studio project. Optionally, can also copy the `layer-atlas-messager` folder if you would like to build the fully featured Messenger example app included with Atlas.
+Copy the `layer-atlas` folder to the root of your Android Studio project. Optionally, can also copy the `layer-atlas-messager` folder if you would like to build the fully featured Messenger example app included with Atlas.
 
-     ``` sh
-     /MyAtlasApp/layer-atlas
-     /MyAtlasApp/layer-atlas-messenger
-     ```
+``` sh
+/MyAtlasApp/layer-atlas
+/MyAtlasApp/layer-atlas-messenger
+```
 
 ## Step 2: Configure your Project Settings
 
