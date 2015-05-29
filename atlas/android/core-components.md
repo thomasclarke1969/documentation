@@ -1,58 +1,254 @@
 #Core Components
-## Conversation and Message Frame Layouts
-To implement Atlas, you need to add the AtlasConversationsList and AtlasMessagesList views to Layouts in your project. Both work off the same principles, but the AtlasConversationList shows all conversations that the user is a part of, and the AtlasMessagesList shows all messages in a specific conversation (including creating a cell for each MessagePart based on the MimeType).
+In order to get up and running as quickly as possible with Atlas, you can follow this tutorial. Just like the Quick Start App, this will allow you to start conversations between your device and simulator, but with a fully featured GUI experience. You can use this tutorial as a starting point to integrating Atlas into your own app. And since Atlas is completely open, you are free to extend or change the default functionality however you want!
 
-For example, here is how the AtlasConversationsList is implemented:
+##Showing the Conversations List
+After you have imported the LayerSDK and Atlas into your project, you can show a list of conversations. In `app/main/res/layout/activity_main.xml`, configure the layout to show the conversation list and a button for starting new conversations (note, for the button, you can use assets from the layer-atlas-messenger project or your own).
 
 ```xml
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:atlas="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:background="@color/atlas_background_white"
-    >
+    android:layout_height="match_parent">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    <com.layer.atlas.AtlasConversationsList
+        android:id="@+id/conversationlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-<com.layer.atlas.AtlasConversationsList
-    android:id="@+id/atlas_screen_conversations_conversations_list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-
-</LinearLayout>
+    <View
+        android:id="@+id/atlas_conversation_screen_new_conversation"
+        android:layout_width ="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:background="@drawable/atlas_ctl_btn_plus_big" />
 
 </FrameLayout>
 ```
 
-Then, when you set this view in your Conversations Screen, you can initialize the AtlasConversationList object to automatically keep the view up to date.
+Then, in `MainActivity.java`, you can authenticate your user with Layer. You can learn more about authentication [here](docs/integration#authentication). For this example, you can use the [MyAuthenticationListener class](https://github.com/layerhq/quick-start-android/blob/master/app/src/main/java/com/layer/quick_start_android/MyAuthenticationListener.java) from the Layer SDK Quick Start App.
 
-```java
-//Grab the conversationsList view
-AtlasConversationsList conversationsList = (AtlasConversationsList)findViewById(R.id.atlas_screen_conversations_conversations_list);
-
-//Intialize the conversationsList by passing in its root, the LayerClient object, and 
-// Atlas.ParticipantProvider interface (which manages the user's contact list)
-conversationsList.init(conversationsList, app.getLayerClient(), app.getParticipantProvider());
-
-//Set the callback handler to start a new Activity that will display and initialize the
-// AtlasMessagesList when clicked
-conversationsList.setClickListener(new ConversationClickListener() {
-    public void onItemClick(Conversation conversation) {
-        openChatScreen(conversation, false);
-    }
-});
-
-//Set the callback handler to delete the conversation when it is long clicked
-conversationsList.setLongClickListener(new ConversationLongClickListener() {
-    public void onItemLongClick(Conversation conversation) {
-        conversation.delete(DeletionMode.ALL_PARTICIPANTS);
-        Toast.makeText(this, "Deleted: " + conversation, Toast.LENGTH_SHORT).show();
-    }
-});
+```emphasis
+Keep in mind that the sample Identity Token endpoint provided in the [Quick Start Guide](https://developer.layer.com/docs/quick-start/android) is for testing purposes only and **cannot** be used in production.
 ```
 
-##Query Adapters
-The AtlasConversationsList and AtlasMessagesList classes use QueryAdapters which automatically update the views whenever relevant changes are detected. For example, a QueryAdapter that takes a conversation Query will automatically add new conversations to the view when the authenticated user either starts a new conversation, or is added to a conversation by another user.
+```java
+public class MainActivity extends ActionBarActivity {
+
+    static public String AppID = "%%C-INLINE-APPID%%";
+
+    static public LayerClient layerClient;
+    static public Atlas.ParticipantProvider participantProvider;
+
+    private AtlasConversationsList myConversationList;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        layerClient = LayerClient.newInstance(this, AppID);
+        layerClient.registerAuthenticationListener(new MyAuthenticationListener(this));
+        layerClient.connect();
+        if(!layerClient.isAuthenticated()) {
+            layerClient.authenticate();
+        } else {
+            onUserAuthenticated();
+        }
+    }
+
+    public static String getUserID(){
+        if(Build.FINGERPRINT.startsWith("generic"))
+            return "Simulator";
+        return "Device";
+    }
+
+    public void onUserAuthenticated(){
+    }
+}
+```
+
+When the user has authenticated, you can configure the ParticipantProvider and initialize the ConversationList by defining the `onUserAuthenticated` function, which sets some default user data, and initializes each of the components in the layout.
+
+```java
+static class User implements Atlas.Participant{
+    private String name;
+    public User(String id) { name = id; }
+    public String getFirstName() { return name; }
+    public String getLastName() { return ""; }
+}
+
+public void onUserAuthenticated(){
+    participantProvider  = new Atlas.ParticipantProvider() {
+        Map<String, Atlas.Participant> users = new HashMap<String, Atlas.Participant>();
+        {
+            users.put("Device", new User("Device"));
+            users.put("Simulator", new User("Simulator"));
+            users.put("Dashboard", new User("Dashboard"));
+        }
+        public Map<String, Atlas.Participant> getParticipants(String filter, 
+            Map<String, Atlas.Participant> result) {
+
+            for(Map.Entry<String, Atlas.Participant> entry : users.entrySet()){
+                if(entry.getValue().getFirstName().indexOf(filter) > -1)
+                    result.put(entry.getKey(), entry.getValue());
+            }
+
+            return result;
+        }
+        public Atlas.Participant getParticipant(String userId) {
+            return users.get(userId);
+        }
+    };
+
+    myConversationList = (AtlasConversationsList)findViewById(R.id.conversationlist);
+    myConversationList.init(layerClient, participantProvider);
+    myConversationList.setClickListener(new AtlasConversationsList.ConversationClickListener() {
+        public void onItemClick(Conversation conversation) {
+            startMessagesActivity(conversation);
+        }
+    });
+
+    layerClient.registerEventListener(myConversationList);
+
+    View newconversation = findViewById(R.id.newconversation);
+    newconversation.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+            startMessagesActivity(null);
+        }
+    });
+}
+
+private void startMessagesActivity(Conversation c){
+    //We will define this method later in the tutorial
+}
+```
+
+If you compile and run your app now, you should authenticate as "Device" if you're running the app on actual hardware, or "Simulator" if you are running the app in an emulator. If you are using a Staging App ID, you should see at least one conversation that has been created for you.
+
+##Showing the Messages in a Conversation
+The next step will be defining a new activity to show the messages in each conversation when it is clicked. Create a new layout called `activity_messages.xml` in the `app/main/res/layout` folder and define it as so:
+
+```xml
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:atlas="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.layer.atlas.AtlasMessagesList
+            android:id="@+id/messageslist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.layer.atlas.AtlasTypingIndicator
+            android:id="@+id/typingindicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.layer.atlas.AtlasParticipantPicker
+            android:id="@+id/participantpicker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <com.layer.atlas.AtlasMessageComposer
+        android:id="@+id/textinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+```
+
+Now we need to create a new class called `MessagesActivity` which will show the layout and initialize each of the components. We will need to handle two different cases: when the user wants to view an existing conversation, and when they want to create a new conversation. To do this, we can pass the selected conversation to this activity through an intent. If no conversation is defined, we make the assumption that a new conversation will be created and show the participant picker.
+
+```java
+public class MessagesActivity extends ActionBarActivity {
+
+    private AtlasMessagesList messagesList;
+    private AtlasParticipantPicker participantPicker;
+    private AtlasTypingIndicator typingIndicator;
+    private AtlasMessageComposer atlasComposer;
+    private Conversation conversation;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_messages);
+
+        Uri id = getIntent().getParcelableExtra("conversation-id");
+        if(id != null)
+            conversation = MainActivity.layerClient.getConversation(id);
+
+        messagesList = (AtlasMessagesList) findViewById(R.id.messageslist);
+        messagesList.init(MainActivity.layerClient, MainActivity.participantProvider);
+        messagesList.setConversation(conversation);
+
+        participantPicker = (AtlasParticipantPicker) findViewById(R.id.participantpicker);
+        String[] currentUser = {MainActivity.layerClient.getAuthenticatedUserId()};
+        participantPicker.init(currentUser, MainActivity.participantProvider);
+        if(conversation != null)
+            participantPicker.setVisibility(View.GONE);
+
+        typingIndicator = (AtlasTypingIndicator) findViewById(R.id.typingindicator);
+        typingIndicator.init(conversation, new AtlasTypingIndicator.Callback(){
+            public void onTypingUpdate(AtlasTypingIndicator indicator, Set<String> typingUserIds) {
+            }
+        });
+
+        atlasComposer = (AtlasMessageComposer) findViewById(R.id.textinput);
+        atlasComposer.init(MainActivity.layerClient, conversation);
+        atlasComposer.setListener(new AtlasMessageComposer.Listener(){
+            public boolean beforeSend(Message message) {
+                if(conversation == null){
+                    String[] participants = participantPicker.getSelectedUserIds();
+                    if(participants.length > 0){
+                        participantPicker.setVisibility(View.GONE);
+                        conversation = MainActivity.layerClient.newConversation(participants);
+                        messagesList.setConversation(conversation);
+                        atlasComposer.setConversation(conversation);
+                    } else {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        MainActivity.layerClient.registerEventListener(messagesList);
+    }
+
+    protected void onPause(){
+        super.onPause();
+        MainActivity.layerClient.unregisterEventListener(messagesList);
+    }
+}
+```
+
+Now that we have defined our activities, the last step is to show the messages when the user clicks on a specific conversation, or when they start a new conversation. In `MainActivity.java` we can define the `startMessagesActivity` method:
+
+```java
+private void startMessagesActivity(Conversation c){
+    Intent intent = new Intent(MainActivity.this, MessagesActivity.class);
+    if(c != null)
+        intent.putExtra("conversation-id",c.getId());
+    startActivity(intent);
+}
+```
+
+And that's it! You can now create new conversations with a specified group of users, and send text messages.
+
+In the next few sections, we will go over customizing Atlas in order to change various GUI elements, and to add support for different message payload types.

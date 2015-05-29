@@ -1,4 +1,4 @@
-# Plugging Your App's Users To Atlas
+#Plug In Your App’s Users
 Layer recognizes that you might already have a User Model in your app.  Atlas can work with any User Model as long as it implements the `Participant` interface. You can create your class, implement `Atlas.Participant`, and add any other relevant fields (such as avatar image, username, phone number, etc).
 
 ```java
@@ -31,26 +31,31 @@ You will also need to implement the `Atlas.ParticipantProvider` interface in ord
 ```java
 public class ParticipantProvider implements Atlas.ParticipantProvider {
 
-    private final Map<String, Participant> mParticipantMap = new HashMap<String, Participant>();
+    private final Map<String, Participant> mParticipantMap = 
+        new HashMap<String, Participant>();
 
     public ParticipantProvider() {
 
     }
 
     public void refresh() {
-        //Contact your backend and sync the user's contact list
-        //for each contact that gets returned:
+        //Connect to your user management service and sync the user's 
+        // contact list. Then, store those contacts in the participant map
+        /*
+        foreach (Contact c : contactList) {
+            Participant p = new Participant();
+            p.userId = c.userId;
+            p.firstName = c.firstName;
+            p.lastName = c.lastName;
+            p.avatarImg = c.getAvatarImage();
 
-        Participant p = new Participant();
-        p.userId = userId;
-        p.firstName = firstName;
-        p.lastName = lastName;
-        p.avatarImg = getAvatarImage();
-
-        mParticipantMap.put(p.getId(), p);
+            mParticipantMap.put(p.getId(), p);
+        }
+        */
     }
 
-    public Map<String, Atlas.Participant> getParticipants(String filter, Map<String, Atlas.Participant> result) {
+    public Map<String, Atlas.Participant> getParticipants(String filter, Map<String, 
+                                                           Atlas.Participant> result) {
         if (result == null) {
             result = new HashMap<String, Atlas.Participant>();
         }

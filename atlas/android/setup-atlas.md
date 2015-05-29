@@ -3,12 +3,12 @@ Atlas is a lightweight, flexible set of user interface components designed to en
 
 ## Installation
 
-After following this guide, you will have the Atlas library, `layer-atlas`, imported as a module in your Android Studio project, along with the optional Atlas Messenger module, `layer-atlas-messenger`. Building and running Messenger will let you verify that the Layer SDK and Atlas integrations work properly.
+Create a new project in Android Studio called "MyAtlasApp". Make sure you specify that you are building for Phones and Tablets, and add a Blank Activity to your project. Now you can import the Layer SDK and Atlas into your project.
 
-There are two ways to import Atlas into your project:
+There are two ways to import Atlas in Android Studio:
 
 #### Option 1: Adding Layer Atlas with Git Submodule
-1. Add Layer's GitHub Maven repo to your root `build.gradle` (e.g. `/MyApplication/build.gradle`):
+1. Add Layer's GitHub Maven repo to your root `build.gradle` (e.g. `/MyAtlasApp/build.gradle`):
 
     ``` groovy
     allprojects {
@@ -18,11 +18,17 @@ There are two ways to import Atlas into your project:
     }
     ```
 
-2. Add `layer-atlas` project reference to your app's `build.gradle` (e.g. `/MyApplication/app/build.gradle`):
+2. Add `layer-atlas` project reference to your app's `build.gradle` (e.g. `/MyAtlasApp/app/build.gradle`) along with the LayerSDK:
 
     ``` groovy
     dependencies {
         compile project(':layer-atlas')
+
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile 'com.android.support:appcompat-v7:22.1.1'
+        compile 'com.google.android.gms:play-services-base:6.5.+'
+        compile 'com.layer.sdk:layer-sdk:0.13.3'
+        compile 'org.slf4j:slf4j-api:1.7.7'
     }
     ```
 
@@ -34,7 +40,7 @@ There are two ways to import Atlas into your project:
 
     Note: If git is not initialized, you may need to call `git init` before adding the submodule.
 
-4. Add `:layer-atlas` module to your project's root `settings.gradle` (e.g. `/MyApplication/settings.gradle`):
+4. Add `:layer-atlas` module to your project's root `settings.gradle` (e.g. `/MyAtlasApp/settings.gradle`):
 
     ``` groovy
     include ':app', ':layer-atlas', ':layer-atlas-messenger'
@@ -45,7 +51,7 @@ There are two ways to import Atlas into your project:
 5. Click "Sync Project with Gradle Files" in Android Studio
 
 #### Option 2: Without Git Submodule
-1. Add Layer's GitHub Maven repo to your root `build.gradle` (e.g. `/MyApplication/build.gradle`):
+1. Add Layer's GitHub Maven repo to your root `build.gradle` (e.g. `/MyAtlasApp/build.gradle`):
 
     ``` groovy
     allprojects {
@@ -55,11 +61,17 @@ There are two ways to import Atlas into your project:
     }
     ```
 
-2. Add `layer-atlas` project reference to your app's `build.gradle` (e.g. `/MyApplication/app/build.gradle`):
+2. Add `layer-atlas` project reference to your app's `build.gradle` (e.g. `/MyAtlasApp/app/build.gradle`) along with the Layer SDK:
 
     ``` groovy
     dependencies {
         compile project(':layer-atlas')
+
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile 'com.android.support:appcompat-v7:22.1.1'
+        compile 'com.google.android.gms:play-services-base:6.5.+'
+        compile 'com.layer.sdk:layer-sdk:0.13.3'
+        compile 'org.slf4j:slf4j-api:1.7.7'
     }
     ```
 
@@ -73,11 +85,11 @@ There are two ways to import Atlas into your project:
 4. Copy the `layer-atlas` and `layer-atlas-messager` folders to the root of your AndroidStudio project:
 
     ``` sh
-    /MyApplication/layer-atlas
-    /MyApplication/layer-atlas-messenger
+    /MyAtlasApp/layer-atlas
+    /MyAtlasApp/layer-atlas-messenger
     ```
 
-5. Add `:layer-atlas` and `:layer-atlas-messenger` modules to your project's root `settings.gradle` (e.g. `/MyApplication/settings.gradle`):
+5. Add `:layer-atlas` and `:layer-atlas-messenger` modules to your project's root `settings.gradle` (e.g. `/MyAtlasApp/settings.gradle`):
 
     ``` groovy
     include ':app', ':layer-atlas', ':layer-atlas-messenger'

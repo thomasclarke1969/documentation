@@ -1,4 +1,4 @@
-# Plugging Your App's Users To Atlas
+#Plug In Your App’s Users
 Layer recognizes that you might already have a User Model in your app.  Atlas can work with any User Model as long as it conforms to the `ATLParticipant` protocol.
 
 ##<a name="atlp"></a> ATLParticipant Protocol

@@ -7,7 +7,7 @@ To authenticate a user, you must set up your own Authentication Web Service wher
 In general, you should authenticate when a user logs in to your app, and deauthenticate when they log out.
 
 ```emphasis
-Keep in mind that the sample Web Service provided in the [Quick Start Guide](https://developer.layer.com/docs/quick-start/android) is for testing purposes only and **cannot** be used in production.
+Keep in mind that the sample Identity Token endpoint provided in the [Quick Start App](https://developer.layer.com/docs/quick-start/android) is for testing purposes only and **cannot** be used in production.
 ```
 
 If you'd like to learn more about Authentication and the Authentication process, this [Knowledge Base article](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) is a good place to start.

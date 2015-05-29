@@ -47,7 +47,6 @@ class AtlasMessageComposer extends FrameLayout {
     ...
 
     public void init(LayerClient client, Conversation conversation) {
-        if (client == null) throw new IllegalArgumentException("LayerClient cannot be null");
 
         this.layerClient = client;
         this.conv = conversation;
@@ -79,11 +78,11 @@ class AtlasMessageComposer extends FrameLayout {
             }
         });
 
+        //Set up the other GUI components
         ...
+
     }
-
     ...
-
 }
 ```
 
@@ -139,9 +138,12 @@ private class StarCell extends Cell {
         MessagePart part = messagePart;
         Cell cell = this;
 
-        View cellStar = LayoutInflater.from(cellContainer.getContext()).inflate(R.layout.atlas_view_messages_cell_star, cellContainer, false);}
+        View cellStar = LayoutInflater.from(cellContainer.getContext()).inflate(
+                            R.layout.atlas_view_messages_cell_star, cellContainer, false);
 
-        TextView starText = (TextView) cellText.findViewById(R.id.atlas_view_messages_star_text);
+        TextView starText = (TextView) cellText.findViewById(
+                                           R.id.atlas_view_messages_star_text);
+
         starText.setText("You are a star!");
 
         return cellText;
@@ -160,13 +162,14 @@ protected void buildCellForMessage(Message msg, ArrayList<Cell> destination) {
         final MessagePart part = parts.get(partNo);
         final String mimeType = part.getMimeType();
 
-        if (Atlas.MIME_TYPE_IMAGE_PNG.equals(mimeType) || Atlas.MIME_TYPE_IMAGE_JPEG.equals(mimeType)) {
+        if (Atlas.MIME_TYPE_IMAGE_PNG.equals(mimeType) || 
+                Atlas.MIME_TYPE_IMAGE_JPEG.equals(mimeType)) {
 
-            ...
+            //Handle rendering images
 
         } else if (Atlas.MIME_TYPE_ATLAS_LOCATION.equals(part.getMimeType())){
         
-            ...
+            //Handle rendering location
 
         } else if (Atlas.MIME_TYPE_ATLAS_STAR.equals(part.getMimeType())){
 
@@ -174,7 +177,7 @@ protected void buildCellForMessage(Message msg, ArrayList<Cell> destination) {
 
         } else {
 
-            ...
+            //Handle rendering text
 
         }
     }
