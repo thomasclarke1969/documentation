@@ -1,8 +1,13 @@
 #Core Components
 In order to get up and running as quickly as possible with Atlas, you can follow this tutorial. Just like the Quick Start App, this will allow you to start conversations between your device and simulator, but with a fully featured GUI experience. You can use this tutorial as a starting point to integrating Atlas into your own app. And since Atlas is completely open, you are free to extend or change the default functionality however you want!
 
+Start by creating a new Android Studio project with the following settings
+* Select the Phone and Tablet platform with a minimum SDK of "API 14: Android 4.0 (IceCreamSandwich)"
+* Add a Blank Activity to your project
+* Name the Activity "ConversationActivity" and name the Layout "activity_conversations"
+
 ##Showing the Conversations List
-After you have imported the LayerSDK and Atlas into your project, you can show a list of conversations. In `app/main/res/layout/activity_main.xml`, configure the layout to show the conversation list and a button for starting new conversations (note, for the button, you can use assets from the layer-atlas-messenger project or your own).
+After you have imported the LayerSDK and Atlas into your project, you can show a list of conversations. In `app/main/res/layout/activity_conversations.xml`, configure the layout to show the conversation list and a button for starting new conversations (note, for the button, you can use assets from the layer-atlas-messenger project or your own).
 
 ```xml
 <FrameLayout
@@ -30,14 +35,14 @@ After you have imported the LayerSDK and Atlas into your project, you can show a
 </FrameLayout>
 ```
 
-Then, in `MainActivity.java`, you can authenticate your user with Layer. You can learn more about authentication [here](docs/integration#authentication). For this example, you can use the [MyAuthenticationListener class](https://github.com/layerhq/quick-start-android/blob/master/app/src/main/java/com/layer/quick_start_android/MyAuthenticationListener.java) from the Layer SDK Quick Start App.
+Then, in `ConversationsActivity.java`, you can authenticate your user with Layer. You can learn more about authentication [here](docs/integration#authentication). For this example, you can use the [MyAuthenticationListener class](https://github.com/layerhq/quick-start-android/blob/master/app/src/main/java/com/layer/quick_start_android/MyAuthenticationListener.java) from the Layer SDK Quick Start App.
 
 ```emphasis
 Keep in mind that the sample Identity Token endpoint provided in the [Quick Start Guide](https://developer.layer.com/docs/quick-start/android) is for testing purposes only and **cannot** be used in production.
 ```
 
 ```java
-public class MainActivity extends ActionBarActivity {
+public class ConversationsActivity extends ActionBarActivity {
 
     static public String AppID = "%%C-INLINE-APPID%%";
 
@@ -188,15 +193,15 @@ public class MessagesActivity extends ActionBarActivity {
 
         Uri id = getIntent().getParcelableExtra("conversation-id");
         if(id != null)
-            conversation = MainActivity.layerClient.getConversation(id);
+            conversation = ConversationsActivity.layerClient.getConversation(id);
 
         messagesList = (AtlasMessagesList) findViewById(R.id.messageslist);
-        messagesList.init(MainActivity.layerClient, MainActivity.participantProvider);
+        messagesList.init(ConversationsActivity.layerClient, ConversationsActivity.participantProvider);
         messagesList.setConversation(conversation);
 
         participantPicker = (AtlasParticipantPicker) findViewById(R.id.participantpicker);
-        String[] currentUser = {MainActivity.layerClient.getAuthenticatedUserId()};
-        participantPicker.init(currentUser, MainActivity.participantProvider);
+        String[] currentUser = {ConversationsActivity.layerClient.getAuthenticatedUserId()};
+        participantPicker.init(currentUser, ConversationsActivity.participantProvider);
         if(conversation != null)
             participantPicker.setVisibility(View.GONE);
 
@@ -207,14 +212,14 @@ public class MessagesActivity extends ActionBarActivity {
         });
 
         atlasComposer = (AtlasMessageComposer) findViewById(R.id.textinput);
-        atlasComposer.init(MainActivity.layerClient, conversation);
+        atlasComposer.init(ConversationsActivity.layerClient, conversation);
         atlasComposer.setListener(new AtlasMessageComposer.Listener(){
             public boolean beforeSend(Message message) {
                 if(conversation == null){
                     String[] participants = participantPicker.getSelectedUserIds();
                     if(participants.length > 0){
                         participantPicker.setVisibility(View.GONE);
-                        conversation = MainActivity.layerClient.newConversation(participants);
+                        conversation = ConversationsActivity.layerClient.newConversation(participants);
                         messagesList.setConversation(conversation);
                         atlasComposer.setConversation(conversation);
                     } else {
@@ -228,27 +233,27 @@ public class MessagesActivity extends ActionBarActivity {
 
     protected void onResume() {
         super.onResume();
-        MainActivity.layerClient.registerEventListener(messagesList);
+        ConversationsActivity.layerClient.registerEventListener(messagesList);
     }
 
     protected void onPause(){
         super.onPause();
-        MainActivity.layerClient.unregisterEventListener(messagesList);
+        ConversationsActivity.layerClient.unregisterEventListener(messagesList);
     }
 }
 ```
 
-Now that we have defined our activities, the last step is to show the messages when the user clicks on a specific conversation, or when they start a new conversation. In `MainActivity.java` we can define the `startMessagesActivity` method:
+Now that we have defined our activities, the last step is to show the messages when the user clicks on a specific conversation, or when they start a new conversation. In `ConversationsActivity.java` we can define the `startMessagesActivity` method:
 
 ```java
 private void startMessagesActivity(Conversation c){
-    Intent intent = new Intent(MainActivity.this, MessagesActivity.class);
+    Intent intent = new Intent(ConversationsActivity.this, MessagesActivity.class);
     if(c != null)
         intent.putExtra("conversation-id",c.getId());
     startActivity(intent);
 }
 ```
 
-And that's it! You can now create new conversations with a specified group of users, and send text messages.
+And that's it! You can now create new conversations with a specified group of users, and send messages between a device and emulator.
 
-In the next few sections, we will go over customizing Atlas in order to change various GUI elements, and to add support for different message payload types.
+The next sections will explain how to import your existing users into Atlas, as well as advanced topics such as modifying the GUI and sending custom payloads.
