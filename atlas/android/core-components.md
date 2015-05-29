@@ -1,6 +1,8 @@
 #Core Components
 In order to get up and running as quickly as possible with Atlas, you can follow this tutorial. Just like the [Quick Start App](docs/quick-start/android), this will allow you to start conversations between your device and simulator, but with a fully featured GUI experience. You can use this tutorial as a starting point to integrating Atlas into your own app. And since Atlas is completely open, you are free to extend or change the default functionality however you want!
 
+![](my-atlas-app.png)
+
 Start by creating a new Android Studio project with the following settings
 * Select the Phone and Tablet platform with a minimum SDK of "API 14: Android 4.0 (IceCreamSandwich)"
 * Add a Blank Activity to your project
