@@ -7,7 +7,7 @@ Start by creating a new Android Studio project with the following settings
 * Name the Activity "ConversationActivity" and name the Layout "activity_conversations"
 
 ##Showing the Conversations List
-After you have imported the LayerSDK and Atlas into your project, you can show a list of conversations. In `app/main/res/layout/activity_conversations.xml`, configure the layout to show the conversation list and a button for starting new conversations (note, for the button, you can use assets from the layer-atlas-messenger project or your own).
+After you have imported the LayerSDK and Atlas into your project, you can show a list of conversations. In `app/main/res/layout/activity_conversations.xml`, configure the layout to show the conversation list and a button for starting new conversations (note, feel free to use assets from the layer-atlas-messenger project or create your own).
 
 ```xml
 <FrameLayout
@@ -23,7 +23,7 @@ After you have imported the LayerSDK and Atlas into your project, you can show a
         android:layout_height="match_parent" />
 
     <View
-        android:id="@+id/atlas_conversation_screen_new_conversation"
+        android:id="@+id/newconversation"
         android:layout_width ="72dp"
         android:layout_height="72dp"
         android:layout_gravity="bottom|right"
