@@ -1,13 +1,15 @@
 #Core Components
-In order to get up and running as quickly as possible with Atlas, you can follow this tutorial. Just like the Quick Start App, this will allow you to start conversations between your device and simulator, but with a fully featured GUI experience. You can use this tutorial as a starting point to integrating Atlas into your own app. And since Atlas is completely open, you are free to extend or change the default functionality however you want!
+In order to get up and running as quickly as possible with Atlas, you can follow this tutorial. Just like the [Quick Start App](docs/quick-start/android), this will allow you to start conversations between your device and simulator, but with a fully featured GUI experience. You can use this tutorial as a starting point to integrating Atlas into your own app. And since Atlas is completely open, you are free to extend or change the default functionality however you want!
 
 Start by creating a new Android Studio project with the following settings
 * Select the Phone and Tablet platform with a minimum SDK of "API 14: Android 4.0 (IceCreamSandwich)"
 * Add a Blank Activity to your project
-* Name the Activity "ConversationActivity" and name the Layout "activity_conversations"
+* Name the Activity "ConversationActivity" and name the Layout "conversations_screen"
+
+Then follow the steps in the previous section to import the Layer SDK and Atlas into the project.
 
 ##Showing the Conversations List
-After you have imported the LayerSDK and Atlas into your project, you can show a list of conversations. In `app/main/res/layout/activity_conversations.xml`, configure the layout to show the conversation list and a button for starting new conversations (note, feel free to use assets from the layer-atlas-messenger project or create your own).
+The first thing we want to do is display a list of conversations, and allow the user to create new ones. In `app/main/res/layout/conversations_screen.xml`, configure the layout to show the conversation list and a button for starting new conversations (note, you can import and use your own icons, or use any assets from the layer-atlas-messenger project).
 
 ```xml
 <FrameLayout
@@ -53,7 +55,7 @@ public class ConversationsActivity extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.conversations_screen);
 
         layerClient = LayerClient.newInstance(this, AppID);
         layerClient.registerAuthenticationListener(new MyAuthenticationListener(this));
@@ -135,7 +137,7 @@ private void startMessagesActivity(Conversation c){
 If you compile and run your app now, you should authenticate as "Device" if you're running the app on actual hardware, or "Simulator" if you are running the app in an emulator. If you are using a Staging App ID, you should see at least one conversation that has been created for you.
 
 ##Showing the Messages in a Conversation
-The next step will be defining a new activity to show the messages in each conversation when it is clicked. Create a new layout called `activity_messages.xml` in the `app/main/res/layout` folder and define it as so:
+The next step will be defining a new activity to show the messages in each conversation when it is clicked. Create a new layout called `messages_screen.xml` in the `app/main/res/layout` folder and define it as so:
 
 ```xml
 <LinearLayout
@@ -189,7 +191,7 @@ public class MessagesActivity extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messages);
+        setContentView(R.layout.messages_screen);
 
         Uri id = getIntent().getParcelableExtra("conversation-id");
         if(id != null)

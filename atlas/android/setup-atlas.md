@@ -1,3 +1,5 @@
+![Image](https://github.com/layerhq/Atlas-Android/blob/master/assets/atlas-github-header.png)
+
 # Atlas Overview
 Atlas is a lightweight, flexible set of user interface components designed to enable developers to quickly and easily integrate native communications experiences into their applications. It was designed and built from the ground up to integrate with the Layer SDK. The Layer SDK provides developers with a simple, object oriented interface to the rich messaging capabilities provided by the Layer platform. Atlas, in turn, provides ready-made UI components that expose these capabilities directly to users.
 
