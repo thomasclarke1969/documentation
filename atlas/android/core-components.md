@@ -3,6 +3,39 @@ In order to get up and running as quickly as possible with Atlas, you can follow
 
 ![](my-atlas-app.png)
 
+These are the key components of Atlas, and this tutorial will walk you through implementing each one:
+
+<table>
+<tr>
+<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasConversationsList.java">AtlasConversationsList</a></td>
+<td>A View that displays all conversations associated with the authenticated user</td>
+</tr>
+<tr>
+<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasMessagesList.java">AtlasMessagesList</a></td>
+<td>A View that displays the messages associated with a particular conversation</td>
+</tr>
+<tr>
+<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasMessageComposer.java">AtlasMessageComposer</a></td>
+<td>A View used to compose and send messages</td>
+</tr>
+<tr>
+<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasParticipantPicker.java">AtlasParticipantPicker</a></td>
+<td>A View used to select participants with dynamic filtering</td>
+</tr>
+<tr>
+<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasTypingIndicator.java">AtlasTypingIndicator</a></td>
+<td>A View that indicates whether other participants in a conversation are entering text</td>
+</tr>
+<tr>
+<td><a href="layer-atlas/src/main/java/com/layer/atlas/Atlas.java#L130">Participant</a></td>
+<td>An Interface which allows Atlas classes to render participant information</td>
+</tr>
+<tr>
+<td><a href="layer-atlas/src/main/java/com/layer/atlas/Atlas.java#L149">ParticipantProvider</a></td>
+<td>An Interface which provides Atlas classes with a list of potential participants</td>
+</tr>
+</table>
+
 Start by creating a new Android Studio project with the following settings
 * Select the Phone and Tablet platform with a minimum SDK of "API 14: Android 4.0 (IceCreamSandwich)"
 * Add a Blank Activity to your project

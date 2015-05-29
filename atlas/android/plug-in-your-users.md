@@ -1,5 +1,5 @@
 #Add Your Users to Atlas
-Layer recognizes that you might already have a User Model in your app.  Atlas can work with any User Model as long as it implements the `Participant` interface. You can create your class, implement `Atlas.Participant`, and add any other relevant fields (such as avatar image, username, phone number, etc).
+Layer recognizes that you might already have a User Model in your app.  Atlas can work with any existing user management system - all you have to is implement the `Participant` interface. You can create your class, implement `Atlas.Participant`, and add any other relevant fields (such as avatar image, username, phone number, etc).
 
 ```java
 public class Participant implements Atlas.Participant {
@@ -34,10 +34,6 @@ public class ParticipantProvider implements Atlas.ParticipantProvider {
     private final Map<String, Participant> mParticipantMap = 
         new HashMap<String, Participant>();
 
-    public ParticipantProvider() {
-
-    }
-
     public void refresh() {
         //Connect to your user management service and sync the user's 
         // contact list. Then, store those contacts in the participant map
@@ -68,15 +64,12 @@ public class ParticipantProvider implements Atlas.ParticipantProvider {
         }
 
         for (Participant p : mParticipantMap.values()) {
-            if (p.firstName != null && !p.firstName.toLowerCase().contains(filter)) {
+            if (p.firstName != null && !p.firstName.toLowerCase().contains(filter) && 
+                p.lastName != null && !p.lastName.toLowerCase().contains(filter)) {
                 result.remove(p.getId());
                 continue;
             }
 
-            if (p.lastName != null && !p.lastName.toLowerCase().contains(filter)) {
-                result.remove(p.getId());
-                continue;
-            }
             result.put(p.getId(), p);
         }
 
