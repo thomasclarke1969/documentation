@@ -33,7 +33,7 @@ You can configure the conversation title by implementing the `ATLConversationLis
 ```
 
 ###  Notification when Conversation is selected
-When the user selects a conversation, the `ATLConversationListViewController` notifies the `ATLConversationListViewControllerDelegate` delegate of the action. This is a great time to initiate `ATLConversationListViewController`. 
+When the user selects a conversation, the `ATLConversationListViewController` notifies the `ATLConversationListViewControllerDelegate` delegate of the action. This is a great time to initiate `ATLConversationViewController`. 
 
 ```objective-c
 - (void)conversationListViewController:(ATLConversationListViewController *)conversationListViewController didSelectConversation:(LYRConversation *)conversation {
