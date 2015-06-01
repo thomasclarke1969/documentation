@@ -1,5 +1,5 @@
 # Sending Custom Payloads
-This HowTo guide will show you how to add a custom payload to Atlas Messanger. In this case, we will have a new widget that sends a JSON formatted message with a specific text payload. However, you can follow these steps to add any custom payload that isn't already supported by Atlas.
+This HowTo guide will show you how to add a custom payload to Atlas Messenger. In this case, we will have a new widget that sends a JSON formatted message with a specific text payload. However, you can follow these steps to add any custom payload that isn't already supported by Atlas.
 
 To add support for a custom message payload, we need to do the following:
 
