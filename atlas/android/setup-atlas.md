@@ -23,7 +23,7 @@ Clone the Atlas-Android project somewhere outside of your application directory:
 git clone https://github.com/layerhq/Atlas-Android.git
 ```
 
-Copy the `layer-atlas` folder to the root of your Android Studio project. Optionally, can also copy the `layer-atlas-messager` folder if you would like to build the fully featured Messenger example app included with Atlas.
+Copy the `layer-atlas` folder to the root of your Android Studio project. Optionally, can also copy the `layer-atlas-messenger` folder if you would like to build the fully featured Messenger example app included with Atlas.
 
 ``` sh
 /MyAtlasApp/layer-atlas
