@@ -1,13 +1,19 @@
 &nbsp;
 ![](atlas-android-header.png)
-# Atlas Overview
+# Atlas overview
 Atlas is a lightweight, flexible set of user interface components designed to enable developers to quickly and easily integrate native communications experiences into their applications. It was designed and built from the ground up to integrate with the Layer SDK. The Layer SDK provides developers with a simple, object oriented interface to the rich messaging capabilities provided by the Layer platform. Atlas, in turn, provides ready-made UI components that expose these capabilities directly to users.
 
-## Step 1: Add the Modules to your Project
+## Setup
 
-You can use Atlas with any new or existing native Android app. Both the Layer SDK and Atlas were built using Android Studio, and there are two ways you can import the modules into your project:
+Atlas is built on top of the Layer SDK, and both are required to develop a fully featured messaging experience. The Atlas repository is open source, and you can find it [here on Github](https://github.com/layerhq/Atlas-Android) if you would like to take a closer look at the project before starting the integration process.
 
-#### Option 1: Adding the Layer Atlas Modules with Git Submodule
+To integrate, you will first need to add the Atlas classes to your project, and then compile with the Layer SDK. After completing this two step process, you can take advantage of all that Layer and Atlas have to offer.
+
+### Step 1: Add the Modules to your Project
+
+You can use Atlas with any new or existing native Android app. Both the Layer SDK and Atlas were built using Android Studio, and there are two ways you can import the modules into your project: you can either use Git Submodule, or add Atlas to your project directly.
+
+#### Option 1: Adding the Layer Atlas modules with Git Submodule
 
 Clone this repo as a submodule in the root of your Android Studio project.
 
@@ -15,7 +21,7 @@ Clone this repo as a submodule in the root of your Android Studio project.
 git submodule add git@github.com:layerhq/Atlas-Android
 ```
 
-#### Option 2: Adding the Layer Atlas Modules Directly
+#### Option 2: Adding the Layer Atlas Modules directly
 
 Clone the Atlas-Android project somewhere outside of your application directory:
 
@@ -30,7 +36,7 @@ Copy the `layer-atlas` folder to the root of your Android Studio project. Option
 /MyAtlasApp/layer-atlas-messenger
 ```
 
-## Step 2: Configure your Project Settings
+### Step 2: Configure your project settings
 
 You will need to ensure that the Layer SDK and Atlas modules are compiled into your project.
 
@@ -44,7 +50,7 @@ You will need to ensure that the Layer SDK and Atlas modules are compiled into y
     }
     ```
 
-2. Add `layer-atlas` project reference to your app's `build.gradle` (e.g. `/MyAtlasApp/app/build.gradle`) along with the LayerSDK.
+2. Add `layer-atlas` project reference to your app's `build.gradle` (e.g. `/MyAtlasApp/app/build.gradle`) along with the LayerSDK:
 
     ``` groovy
     dependencies {
@@ -74,7 +80,8 @@ You will need to ensure that the Layer SDK and Atlas modules are compiled into y
     project(':layer-atlas-messenger').projectDir = new File('Atlas-Android/layer-atlas-messenger')
     ```
 
-5. Click "Sync Project with Gradle Files" in Android Studio
+5. Click "Sync Project with Gradle Files" in Android Studio.
 
 Build and run your project to verify installation was successful.
-For more information, check out [Atlas](https://github.com/layerhq/Atlas-Android) on Github.
+
+Now, you can build and run the Atlas Messenger sample app, or start integrating Layer and Atlas functionality directly into your own app.

@@ -1,45 +1,25 @@
-#Core Components
-In order to get up and running as quickly as possible with Atlas, you can follow this tutorial. Just like the [Quick Start App](docs/quick-start/android), this will allow you to start conversations between your device and simulator, but with a fully featured GUI experience. You can use this tutorial as a starting point to integrating Atlas into your own app. And since Atlas is completely open, you are free to extend or change the default functionality however you want!
+#Core components
+Atlas provides several core pieces that allow you to start building a fully functional GUI experience around Layer.
 
 ![](my-atlas-app.png)
 
 These are the key components of Atlas, and this tutorial will walk you through implementing each one:
+* AtlasConversationsList - A View that displays all conversations associated with the authenticated user
+* AtlasMessagesList - A View that displays the messages associated with a particular conversation
+* AtlasMessageComposer - A View used to compose and send messages
+* AtlasParticipantPicker - A View used to select participants with dynamic filtering
+* AtlasTypingIndicator - A View that indicates whether other participants in a conversation are entering text
+* Participant - An Interface which allows Atlas classes to render participant information
+* ParticipantProvider - An Interface which provides Atlas classes with a list of potential participants
 
-<table>
-<tr>
-<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasConversationsList.java">AtlasConversationsList</a></td>
-<td>A View that displays all conversations associated with the authenticated user</td>
-</tr>
-<tr>
-<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasMessagesList.java">AtlasMessagesList</a></td>
-<td>A View that displays the messages associated with a particular conversation</td>
-</tr>
-<tr>
-<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasMessageComposer.java">AtlasMessageComposer</a></td>
-<td>A View used to compose and send messages</td>
-</tr>
-<tr>
-<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasParticipantPicker.java">AtlasParticipantPicker</a></td>
-<td>A View used to select participants with dynamic filtering</td>
-</tr>
-<tr>
-<td><a href="layer-atlas/src/main/java/com/layer/atlas/AtlasTypingIndicator.java">AtlasTypingIndicator</a></td>
-<td>A View that indicates whether other participants in a conversation are entering text</td>
-</tr>
-<tr>
-<td><a href="layer-atlas/src/main/java/com/layer/atlas/Atlas.java#L130">Participant</a></td>
-<td>An Interface which allows Atlas classes to render participant information</td>
-</tr>
-<tr>
-<td><a href="layer-atlas/src/main/java/com/layer/atlas/Atlas.java#L149">ParticipantProvider</a></td>
-<td>An Interface which provides Atlas classes with a list of potential participants</td>
-</tr>
-</table>
+To learn more about these components, you can build and explore the provided Atlas Messenger app, or you can follow this tutorial which covers building a simple app using Atlas from scratch. We will build an app that will allow you to create conversations between three pre-defined users: the device, simulator, and web interface. With Atlas, the app will have a fully featured GUI experience using each of the components desribed above. 
 
-Start by creating a new Android Studio project with the following settings
-* Select the Phone and Tablet platform with a minimum SDK of "API 14: Android 4.0 (IceCreamSandwich)"
-* Add a Blank Activity to your project
-* Name the Activity "ConversationActivity" and name the Layout "conversations_screen"
+You can also use this tutorial as a starting point for integrating Atlas into your own app. And since Atlas is completely open, you are free to extend or change the default functionality however you want!
+
+In order to get started, create a new Android Studio project with the following settings
+1. Select the Phone and Tablet platform with a minimum SDK of "API 14: Android 4.0 (IceCreamSandwich)"
+2. Add a Blank Activity to your project
+3. Name the Activity "ConversationActivity" and name the Layout "conversations_screen"
 
 Then follow the steps in the previous section to import the Layer SDK and Atlas into the project.
 
@@ -129,7 +109,7 @@ public void onUserAuthenticated(){
         {
             users.put("Device", new User("Device"));
             users.put("Simulator", new User("Simulator"));
-            users.put("Dashboard", new User("Dashboard"));
+            users.put("Dashboard", new User("Web"));
         }
         public Map<String, Atlas.Participant> getParticipants(String filter, 
             Map<String, Atlas.Participant> result) {
@@ -172,7 +152,7 @@ private void startMessagesActivity(Conversation c){
 If you compile and run your app now, you should authenticate as "Device" if you're running the app on actual hardware, or "Simulator" if you are running the app in an emulator. If you are using a Staging App ID, you should see at least one conversation that has been created for you.
 
 ##Showing the Messages in a Conversation
-The next step will be defining a new activity to show the messages in each conversation when it is clicked. Create a new layout called `messages_screen.xml` in the `app/main/res/layout` folder and define it as so:
+The next step will be defining a new activity to show the messages in each conversation when it is tapped. Create a new layout called `messages_screen.xml` in the `app/main/res/layout` folder and define it as so:
 
 ```xml
 <LinearLayout
@@ -280,7 +260,7 @@ public class MessagesActivity extends ActionBarActivity {
 }
 ```
 
-Now that we have defined our activities, the last step is to show the messages when the user clicks on a specific conversation, or when they start a new conversation. In `ConversationsActivity.java` we can define the `startMessagesActivity` method:
+Now that we have defined our activities, the last step is to show the messages when the user taps on a specific conversation, or when they start a new conversation. In `ConversationsActivity.java` we can define the `startMessagesActivity` method:
 
 ```java
 private void startMessagesActivity(Conversation c){

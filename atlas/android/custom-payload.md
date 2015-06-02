@@ -1,5 +1,5 @@
-# Sending Custom Payloads
-This HowTo guide will show you how to add a custom payload to Atlas Messenger. In this case, we will have a new widget that sends a JSON formatted message with a specific text payload. However, you can follow these steps to add any custom payload that isn't already supported by Atlas.
+# Sending custom payloads
+This HowTo guide will show you how to add a custom payload to Atlas Messanger. In this case, we will have a new widget that sends a JSON formatted message with a specific text payload. However, you can follow these steps to add any custom payload that isn't already supported by Atlas.
 
 To add support for a custom message payload, we need to do the following:
 
@@ -183,3 +183,7 @@ protected void buildCellForMessage(Message msg, ArrayList<Cell> destination) {
     }
 }
 ```
+
+Since Layer supports any payload, you can associate different Mime Types with different cell types and customize the GUI however you like. Atlas provides a solid foundation, and you are free to make any changes to the source code in order to enhance the experience or to more closely match the look and feel of your own app. 
+
+If you have additional questions, you can reach the Layer support team by [clicking here](https://support.layer.com/hc/en-us/requests/new) or by emailing [support@layer.com](mailto:support@layer.com).
