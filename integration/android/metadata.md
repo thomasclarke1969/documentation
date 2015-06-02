@@ -13,9 +13,9 @@ Map<String, Object> metadata = new HashMap<String, Object>();
 metadata.put("title", "My Conversation");
 
 Map<String, Object> theme = new HashMap<String, Object>();
-participants.put("background_color", "333333");
-participants.put("text_color", "F8F8EC");
-participants.put("link_color", "21AAE1");
+theme.put("background_color", "333333");
+theme.put("text_color", "F8F8EC");
+theme.put("link_color", "21AAE1");
 metadata.put("theme", theme);
 
 metadata.put("created_at", "Dec, 01, 2014");

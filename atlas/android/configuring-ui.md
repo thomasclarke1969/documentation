@@ -32,16 +32,16 @@ This will require making changes to Atlas itself. First, you need to remove the 
 
 1. Remove the default avatar view
 
-In `/layer-atlas/src/main/res/layout/atlas_view_messages_convert.xml`, find and remove (delete) the following components:
+ In `/layer-atlas/src/main/res/layout/atlas_view_messages_convert.xml`, find and remove (delete) the following components:
 
-- atlas_view_messages_convert_avatar_container (FrameLayout)
-- atlas_view_messages_convert_initials (TextView)
+ - atlas_view_messages_convert_avatar_container (FrameLayout)
+ - atlas_view_messages_convert_initials (TextView)
 
 ![](atlas-android-avatar-delete.png)
 
-Now, we need to remove any references to these components in the AtlasMessagesList class found in `layer-atlas/src/main/java/com/layer/atlas/AtlasMessagesList.java`. Specifically, you want to comment out or remove any references to `textAvatar`:
+ Now, we need to remove any references to these components in the AtlasMessagesList class found in `layer-atlas/src/main/java/com/layer/atlas/AtlasMessagesList.java`. Specifically, you want to comment out or remove any references to `textAvatar`:
 
-```
+ ```
 messagesList.setAdapter(messagesAdapter = new BaseAdapter() {
 
     ...
@@ -71,13 +71,13 @@ messagesList.setAdapter(messagesAdapter = new BaseAdapter() {
         ...
     }
 }
-```
+ ```
 
 2. Add components to the message view
 
-Edit `layer-atlas/src/main/res/layout/atlas_view_messages_cell_text.xml` to look like so:
+ Edit `layer-atlas/src/main/res/layout/atlas_view_messages_cell_text.xml` to look like so:
 
-```
+ ```
 <FrameLayout
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -147,14 +147,14 @@ Edit `layer-atlas/src/main/res/layout/atlas_view_messages_cell_text.xml` to look
     </LinearLayout>
 
 </FrameLayout>
-```
+ ```
 
 3. Set username text in code
 
-Now we need to dynamically set the username text when a message is added to the conversation. When we render the message part with the content, we can access the user id, but we will need to access the ParticipantProvider to look up the user's human readable name. To that end, we need to create and set a global ParticipantProvider in `AtlasMessageList.java`:
+ Now we need to dynamically set the username text when a message is added to the conversation. When we render the message part with the content, we can access the user id, but we will need to access the ParticipantProvider to look up the user's human readable name. To that end, we need to create and set a global ParticipantProvider in `AtlasMessageList.java`:
 
 
-```
+ ```
 private Atlas.ParticipantProvider myParticipantProvider;
 
 public void init(LayerClient layerClient, final Atlas.ParticipantProvider participantProvider) {
@@ -165,11 +165,11 @@ public void init(LayerClient layerClient, final Atlas.ParticipantProvider partic
 
     ...
 }
-```
+ ```
 
-Now we can find the right layout components and draw the sender's name in `onBind` method in the `TextCell` class:
+ Now we can find the right layout components and draw the sender's name in `onBind` method in the `TextCell` class:
 
-```
+ ```
 private class TextCell extends Cell {
 
     ...
@@ -219,7 +219,7 @@ private class TextCell extends Cell {
         return cellText;
     }
 }
-```
+ ```
 
 And that's all you need to do in order to change how components are displayed in Atlas. In general, you need to configure the Layout or View, then specify any dynamic properties (based on conversation or message content) in code. 
 
