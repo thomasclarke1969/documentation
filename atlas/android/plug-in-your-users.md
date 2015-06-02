@@ -1,4 +1,4 @@
-#Add Your Users to Atlas
+#Add your users to Atlas
 
 ![](atlas-android-participants.png)
 

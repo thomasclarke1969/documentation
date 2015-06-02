@@ -1,4 +1,4 @@
-#Core Components
+#Core components
 Atlas provides several core pieces that allow you to start building a fully functional GUI experience around Layer.
 
 ![](my-atlas-app.png)
