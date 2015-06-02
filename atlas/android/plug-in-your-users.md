@@ -97,6 +97,4 @@ public class ParticipantProvider implements Atlas.ParticipantProvider {
 }
 ```
 
-When you're done, you should see a list of your users in the particpant picker.
-
-![](atlas-android-contactlist.png)
+When you're done, you will see a list of your users in the particpant picker UI element.
