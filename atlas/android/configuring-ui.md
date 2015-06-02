@@ -30,131 +30,131 @@ By default, Atlas displays the sender's initials next to the text bubbles. It's 
 
 This will require making changes to Atlas itself. First, you need to remove the existing avatar components, then add the text components to the message view in order to draw the sender's name, and then populate the the new component.
 
-1. Remove the default avatar view
+###Step 1: Remove the default avatar view
 
-    In `/layer-atlas/src/main/res/layout/atlas_view_messages_convert.xml`, find and remove (delete) the following components:
+In `/layer-atlas/src/main/res/layout/atlas_view_messages_convert.xml`, find and remove (delete) the following components:
 
-    - atlas_view_messages_convert_avatar_container (FrameLayout)
-    - atlas_view_messages_convert_initials (TextView)
+- atlas_view_messages_convert_avatar_container (FrameLayout)
+- atlas_view_messages_convert_initials (TextView)
 
-    ![](atlas-android-avatar-delete.png)
+![](atlas-android-avatar-delete.png)
 
-    Now, we need to remove any references to these components in the AtlasMessagesList class found in `layer-atlas/src/main/java/com/layer/atlas/AtlasMessagesList.java`. Specifically, you want to comment out or remove any references to `textAvatar`:
+Now, we need to remove any references to these components in the AtlasMessagesList class found in `layer-atlas/src/main/java/com/layer/atlas/AtlasMessagesList.java`. Specifically, you want to comment out or remove any references to `textAvatar`:
 
-    ```
-    messagesList.setAdapter(messagesAdapter = new BaseAdapter() {
-    
+```
+messagesList.setAdapter(messagesAdapter = new BaseAdapter() {
+
+    ...
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+
         ...
 
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            ...
-
-            //TextView textAvatar = (TextView) convertView.findViewById(R.id.atlas_view_messages_convert_initials);
-            View spacerRight = convertView.findViewById(R.id.atlas_view_messages_convert_spacer_right);
-            if (myMessage) {
-                spacerRight.setVisibility(View.GONE);
-                //textAvatar.setVisibility(View.INVISIBLE);
-            } else {
-                spacerRight.setVisibility(View.VISIBLE);
-                Atlas.Participant participant = participantProvider.getParticipant(userId);
-                String displayText = participant != null ? Atlas.getInitials(participant) : "";
-                //textAvatar.setText(displayText);
-                //textAvatar.setVisibility(View.VISIBLE);
-            }
-
-            ...
-
-            //textAvatar.setTextColor(avatarTextColor);
-            //((GradientDrawable)textAvatar.getBackground()).setColor(avatarBackgroundColor);
-        
-            ...
+        //TextView textAvatar = (TextView) convertView.findViewById(R.id.atlas_view_messages_convert_initials);
+        View spacerRight = convertView.findViewById(R.id.atlas_view_messages_convert_spacer_right);
+        if (myMessage) {
+            spacerRight.setVisibility(View.GONE);
+            //textAvatar.setVisibility(View.INVISIBLE);
+        } else {
+            spacerRight.setVisibility(View.VISIBLE);
+            Atlas.Participant participant = participantProvider.getParticipant(userId);
+            String displayText = participant != null ? Atlas.getInitials(participant) : "";
+            //textAvatar.setText(displayText);
+            //textAvatar.setVisibility(View.VISIBLE);
         }
+
+        ...
+
+        //textAvatar.setTextColor(avatarTextColor);
+        //((GradientDrawable)textAvatar.getBackground()).setColor(avatarBackgroundColor);
+        
+        ...
     }
-    ```
+}
+```
 
-2. Add components to the message view
+###Step 2: Add components to the message view
 
-    Edit `layer-atlas/src/main/res/layout/atlas_view_messages_cell_text.xml` to look like so:
+Edit `layer-atlas/src/main/res/layout/atlas_view_messages_cell_text.xml` to look like so:
 
-    ```
-    <FrameLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/atlas_view_messages_cell_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+```
+<FrameLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/atlas_view_messages_cell_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/atlas_linearlayout_outer">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/atlas_linearlayout_outer">
+            android:background="@drawable/atlas_shape_rounded16_gray"
+            android:id="@+id/atlas_linearlayout_bubble">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/atlas_shape_rounded16_gray"
-                android:id="@+id/atlas_linearlayout_bubble">
+                android:text="User Name"
+                android:id="@+id/atlas_view_messages_convert_username"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingLeft="12dp"
+                android:paddingTop="4dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="6dp"
+                android:singleLine="true"
+                android:textColor="#ff383838"
+                android:gravity="left" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="User Name"
-                    android:id="@+id/atlas_view_messages_convert_username"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="12dp"
-                    android:paddingBottom="6dp"
-                    android:singleLine="true"
-                    android:textColor="#ff383838"
-                    android:gravity="left" />
+            <TextView
+                android:id="@+id/atlas_view_messages_convert_text_counterparty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:text=""
+                android:textSize="16sp"
+                android:minHeight="34dp" />
 
-                <TextView
-                    android:id="@+id/atlas_view_messages_convert_text_counterparty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_vertical"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="6dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:minHeight="34dp" />
-
-                <TextView
-                    android:id="@+id/atlas_view_messages_convert_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_vertical"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="6dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:text=""
-                    android:gravity="left|center_vertical"
-                    android:textSize="16sp"
-                    android:textColor="@color/atlas_text_white"
-                    android:minHeight="34dp"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/atlas_view_messages_convert_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:text=""
+                android:gravity="left|center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/atlas_text_white"
+                android:minHeight="34dp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
-    </FrameLayout>
-    ```
+    </LinearLayout>
 
-3. Set username text in code
+</FrameLayout>
+```
 
-    Now we need to dynamically set the username text when a message is added to the conversation. When we render the message part with the content, we can access the user id, but we will need to access the ParticipantProvider to look up the user's human readable name. To that end, we need to create and set a global ParticipantProvider in `AtlasMessageList.java`:
+###Step 3: Set username text in code
+
+Now we need to dynamically set the username text when a message is added to the conversation. When we render the message part with the content, we can access the user id, but we will need to access the ParticipantProvider to look up the user's human readable name. To that end, we need to create and set a global ParticipantProvider in `AtlasMessageList.java`:
 
 
- ```
+```
 private Atlas.ParticipantProvider myParticipantProvider;
 
 public void init(LayerClient layerClient, final Atlas.ParticipantProvider participantProvider) {
@@ -165,11 +165,11 @@ public void init(LayerClient layerClient, final Atlas.ParticipantProvider partic
 
     ...
 }
- ```
+```
 
- Now we can find the right layout components and draw the sender's name in `onBind` method in the `TextCell` class:
+Now we can find the right layout components and draw the sender's name in `onBind` method in the `TextCell` class:
 
- ```
+```
 private class TextCell extends Cell {
 
     ...
@@ -219,7 +219,7 @@ private class TextCell extends Cell {
         return cellText;
     }
 }
- ```
+```
 
 And that's all you need to do in order to change how components are displayed in Atlas. In general, you need to configure the Layout or View, then specify any dynamic properties (based on conversation or message content) in code. 
 
