@@ -183,3 +183,7 @@ protected void buildCellForMessage(Message msg, ArrayList<Cell> destination) {
     }
 }
 ```
+
+Since Layer supports any payload, you can associate different Mime Types with different cell types and customize the GUI however you like. Layer offers a solid foundation for Atlas, and you are free to make any changes to Atlas in order to match the look and feel of your app. 
+
+If you have additional questions, you can reach out the Layer support team by [clicking here](https://support.layer.com/hc/en-us/requests/new) or by emailing [support@layer.com](mailto:support@layer.com).
