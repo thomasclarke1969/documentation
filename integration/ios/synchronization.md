@@ -18,25 +18,26 @@ Upon receipt of an `LYRClientObjectsDidChangeNotification`, your application can
  NSArray *changes = [notification.userInfo objectForKey:LYRClientObjectChangesUserInfoKey];
 ```
 
-Change notifications occur for both [LYRMessage](api/ios#lyrmessage) and [LYRConversation](api/ios#lyrconversation) objects. Your application can retrieve the type of object upon which a change has occurred by retrieving the `LYRObjectChangeObjectKey` key from the change object.
+Change notifications occur for both [LYRMessage](api/ios#lyrmessage) and [LYRConversation](api/ios#lyrconversation) objects. Your application can retrieve the type of object upon which a change has occurred by retrieving the `object` property from the `LYRObjectChange` object.
 
 ```objectivec
-for (NSDictionary *change in changes) {
-	if ([[change objectForKey:LYRObjectChangeObjectKey] isKindOfClass:[LYRConversation class]]) {
+for (LYRObjectChange *change in changes) {
+        id changeObject = change.object;
+        if ([changeObject isKindOfClass:[LYRConversation class]]) {
 		// Object is a conversation
 	}
 
-	if ([[change objectForKey:LYRObjectChangeObjectKey]isKindOfClass:[LYRMessage class]]) {
+        if ([changeObject isKindOfClass:[LYRMessage class]]) {
 		// Object is a message
 	}
 }
 
 ```
 
-Change notifications will alert your application to object creation, update and deletion events. In order to acquire the specific type of change, your application can retrieve the `LYRObjectChangeTypeKey` key from the change object.
+Change notifications will alert your application to object creation, update and deletion events. In order to acquire the specific type of change, your application can retrieve the `type` property from the `LYRObjectChange` object.
 
 ```objectivec
-LYRObjectChangeType changeKey = (LYRObjectChangeType)[[change objectForKey:LYRObjectChangeTypeKey] integerValue];
+LYRObjectChangeType updateKey = change.type;
 switch (changeKey) {
     case LYRObjectChangeTypeCreate:
         //Object was created
@@ -53,23 +54,16 @@ switch (changeKey) {
 
 ```
 
-Your application can acquire the actual object upon which an update has occurred by retrieving  the `LYRObjectChangeObjectKey` key from the change object.
-
-```objectivec
-// Returns the object for which a change has occurred
-id changeObject = [change objectForKey:LYRObjectChangeObjectKey]
-```
-
 To above code can be combined in the following code block:
 
 ```objectivec
 - (void)didReceiveLayerObjectsDidChangeNotification:(NSNotification *)notification;
 {
     NSArray *changes = [notification.userInfo objectForKey:LYRClientObjectChangesUserInfoKey];
-    for (NSDictionary *change in changes) {
-        id changeObject = [change objectForKey:LYRObjectChangeObjectKey];
+    for (LYRObjectChange *change in changes) {
+        id changeObject = change.object;
         if ([changeObject isKindOfClass:[LYRConversation class]]) {
-            LYRObjectChangeType updateKey = (LYRObjectChangeType)[[change objectForKey:LYRObjectChangeTypeKey] integerValue];
+            LYRObjectChangeType updateKey = change.type;
             switch (updateKey) {
                 case LYRObjectChangeTypeCreate:
                     //
@@ -84,7 +78,7 @@ To above code can be combined in the following code block:
                     break;
             }
         } else {
-            LYRObjectChangeType updateKey = (LYRObjectChangeType)[[change objectForKey:LYRObjectChangeTypeKey] integerValue];
+            LYRObjectChangeType updateKey = change.type;
             switch (updateKey) {
                 case LYRObjectChangeTypeCreate:
                     //
