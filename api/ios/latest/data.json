@@ -64,7 +64,7 @@
           "declaration" : "@property (nonatomic) NSSet *autodownloadMIMETypes",
           "comment" : "Configures the set of MIME Types for {@link LYRMessagePart} objects that will be automatically downloaded upon synchronization.",
           "name" : "autodownloadMIMETypes",
-          "discussion" : "A value of nil indicates that all content is to be downloaded automatically and an empty NSSet indicates that no content should be. The default value is a set containing the MIME Type @\"text\/plain\"."
+          "discussion" : "A value of nil indicates that all content is to be downloaded automatically and an empty NSSet indicates that no content should be. The default value is a set containing the MIME Type @\"text\/plain\". Message parts belonging to latest messages will be auto-downloaded first."
         },
         {
           "declared" : "LYRClient.h",
@@ -873,6 +873,43 @@
       "conforms" : "LYRQueryable"
     },
     {
+      "declared" : "LYRObjectChange.h",
+      "properties" : [
+        {
+          "declared" : "LYRObjectChange.h",
+          "declaration" : "@property (nonatomic, readonly) id afterValue",
+          "comment" : "The value of property after the update or nil if the receiver has a change type of LYRObjectChangeTypeCreate or LYRObjectChangeTypeDelete.",
+          "name" : "afterValue"
+        },
+        {
+          "declared" : "LYRObjectChange.h",
+          "declaration" : "@property (nonatomic, readonly) id beforeValue",
+          "comment" : "The value of property before the update or nil if the receiver has a change type of LYRObjectChangeTypeCreate or LYRObjectChangeTypeDelete.",
+          "name" : "beforeValue"
+        },
+        {
+          "declared" : "LYRObjectChange.h",
+          "declaration" : "@property (nonatomic, readonly) id object",
+          "comment" : "The object upon which the change has occured.",
+          "name" : "object"
+        },
+        {
+          "declared" : "LYRObjectChange.h",
+          "declaration" : "@property (nonatomic, readonly) NSString *property",
+          "comment" : "The name of the property that was updated or nil if the receiver has a change type of LYRObjectChangeTypeCreate or LYRObjectChangeTypeDelete.",
+          "name" : "property"
+        },
+        {
+          "declared" : "LYRObjectChange.h",
+          "declaration" : "@property (nonatomic, readonly) LYRObjectChangeType type",
+          "comment" : "The type of the change that has occured.",
+          "name" : "type"
+        }
+      ],
+      "name" : "LYRObjectChange",
+      "inherits" : "NSObject"
+    },
+    {
       "declared" : "LYRPolicy.h",
       "inherits" : "NSObject",
       "conforms" : "NSCoding<br \/>NSCopying",
@@ -1294,7 +1331,7 @@
               },
               {
                 "name" : "changes",
-                "description" : "An array of NSDictionary objects, each one describing a change."
+                "description" : "An array of {@link LYRObjectChange} objects, each one describing a change."
               }
             ]
           },
