@@ -86,7 +86,7 @@ The service declares 4 recipient states; Invalid, Sent, Delivered, and Read. The
 ```emphasis
 **IMPORTANT**
 
-By default, Layer will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2k like images or movies, please read the [Rich Content](/docs/guides#richcontent) guide.
+By default, Layer will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2kb like images or movies, please read the [Rich Content](/docs/guides#richcontent) guide.
 ```
 
 ## Sending The Message
@@ -96,6 +96,19 @@ Once an `Message` object is initialized, it is ready for sending. The message is
 ```java
 // Sends the specified message
 conversation.send(message);
+
+// Sends the message when it contains a part larger than 2kb, such as an image or 
+//  video (this is referred to as Rich Content, see the Guide for more details)
+conversation.send(message, new LayerProgressListener() {
+    public void onProgressStart(MessagePart messagePart, Operation operation) {
+    }
+    public void onProgressUpdate(MessagePart messagePart, Operation operation, long l) {
+    }
+    public void onProgressComplete(MessagePart messagePart, Operation operation) {
+    }
+    public void onProgressError(MessagePart messagePart, Operation operation, Throwable throwable) {
+    }
+});
 ```
 
 ```emphasis
