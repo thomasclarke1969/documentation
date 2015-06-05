@@ -50,9 +50,9 @@ NSData *messageData = [@"Hi, how are you?" dataUsingEncoding:NSUTF8StringEncodin
 LYRMessagePart *messagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeTextPlain data:messageData];
 
 // Creates a message part with an image
-UIImage *image = [UIImage imageNamed:@"awesomeImage.jpg"];
+UIImage *image = [UIImage imageNamed:@"awesomeImage.png"];
 NSData *imageData = UIImagePNGRepresentation(image);
-LYRMessagePart *imagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeImageJPG data:imageData];
+LYRMessagePart *imagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeImagePNG data:imageData];
 ```
 
 The [LYRMessagePart](/docs/api/ios#lyrmessagepart) object also declares a convenience method for creating messages with `text/plain` MIME Type.
