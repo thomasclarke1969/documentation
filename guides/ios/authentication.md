@@ -44,7 +44,7 @@ A Layer `Identity Token` is a JSON Web Token (JWT) structure that encodes a cryp
 ```
 // JOSE Header
 {
-    "typ": "JWT", // String - Expresses a MIME Type of application/JWS
+    "typ": "JWT", // String - Expresses a MIME Type of application/JWT
     "alg": "RS256" // String - Expresses the type of algorithm used to sign the token, must be RS256
     "cty": "layer-eit;v=1", // String - Express a Content Type of Layer External Identity Token, version 1
     "kid": "%%C-INLINE-KEYID%%" // String - Layer Key ID used to sign the token. This is your actual Key ID
