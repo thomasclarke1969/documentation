@@ -10,7 +10,7 @@ The end result of this tutorials looks like:
 ## Create custom UICollectionViewCell class
 The custom cell in this tutorial will be named `StarCollectionViewCell` and will show a simple hard coded text string in the center of the cell and a Info button.
 
-1. Your new custom class must subclass `ATLMessagePresenting`
+1. Your new custom class must implement the `ATLMessagePresenting` protocol
 
     ```objective-c
     @interface StarCollectionViewCell : UICollectionViewCell <ATLMessagePresenting>
