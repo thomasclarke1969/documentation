@@ -5,6 +5,9 @@ If you are interested in trying out Atlas, Layer's open source user interface co
 Layer is the full-stack building block for communications.</br>
 
 This Quick Start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between an iOS Device and Simulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete the Quick Start Guide so if you don't have an account yet, [Sign Up](https://developer.layer.com/signup).
+
+![Quick-Start gif](https://raw.githubusercontent.com/layerhq/quick-start-ios/master/Assets/quick-start-preview.gif)
+
 ## Set up the Quick Start project
 There are two ways to set up the project. The easiest method is via our install script, or you can perform the steps manually. Both methods require [CocoaPods](http://cocoapods.org).
 
@@ -47,6 +50,8 @@ Cool, right? You get offline support out of the box with Layer. Layer handles al
 Shake your Device in your hand. Notice that the navigation bar changes color, **and** that the Simulator's navigation bar also changes color?</br>
 This is another great feature that Layer provides: metadata. With metadata, you can attach any extra content that you want to a Conversation (e.g. a title for the Conversation), and that data will be synchronized between Participants.
 To see how easy it is to add metadata to a Conversation, check out `motionEnded` method in `LQSViewController.m`.
+### Rich Content
+Now that you've sent a message, let's send a photo. Click on the Camera icon in the upper left corner.  Select a photo and tap Send. You can send any kind of payload with Layer: photos, gif's, videos, audio, even blocks of JSON. We will the store the content on our servers so you don't need to host it elsewhere. Layer also provides way to track the progress of an upload or download. To see how you can send photo in the code, check out the `sendMessage`  method in `LQSViewController.m`, and to see how to display the photo check out the `configureCell` method in  `LQSViewController.m`.
 ### Cross Platform Messaging
 Also developing for Android? Build the [Android](https://developer.layer.com/docs/quick-start/android) Quick Start App using the same App ID, and your users will receive their messages no matter where they are!
 ## What's Next
