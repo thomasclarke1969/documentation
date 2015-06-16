@@ -36,7 +36,7 @@ To unregister a user from receiving push notifications, you can pass `nil` to th
 
 ##Triggering Alerts
 
-By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you set the `options` dictionary when initializing the [LYRMessage](/docs/api/ios#lyrmessage) object.  In the `options` dictionary you will need to set push text as the value for the `LYRMessagePushNotificationAlertMessageKey` key. This will tell the Layer Push Notification service to deliver a Text APN and trigger an alert for the user.
+By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you set the `options` dictionary when initializing the [LYRMessage](/docs/api/ios#lyrmessage) object.  In the `options` dictionary you will need to set push text as the value for the `LYRMessageOptionsPushNotificationAlertKey` key. This will tell the Layer Push Notification service to deliver a Text APN and trigger an alert for the user. If you want to send along a sound with the push you can add `LYRMessageOptionsPushNotificationSoundNameKey` to the options.
 
 The following demonstrates setting the alert text to be the same as the text of the message being sent.
 
@@ -47,10 +47,29 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:messageText];
 
 // Configure the push notification text to be the same as the message text
 
-LYRMessage *message = [layerClient newMessageWithParts:@[part] options:@{LYRMessagePushNotificationAlertMessageKey: messageText} error:nil];
+LYRMessage *message = [layerClient newMessageWithParts:@[part] options:@{LYRMessageOptionsPushNotificationAlertKey: messageText,LYRMessageOptionsPushNotificationSoundNameKey: @"layerbell.caf"} error:nil];
 
 NSError *error;
 [self.layerClient sendMessage:message error:&error];
+```
+
+You can also include user-specific push messages and sounds by using the `LYRMessageOptionsPushNotificationPerRecipientConfigurationKey` key. The following example shows you how to create specific push messages for users 123 and 456.
+
+```objective-c
+
+    // Creates and returns a new message object with the given conversation and array of message parts
+    NSString *pushMessage= [NSString stringWithFormat:@"%@ says %@",self.layerClient.authenticatedUserID ,messageText];
+    
+    NSDictionary *userSpecificPushMessages = @{@"123": @{ LYRMessageOptionsPushNotificationAlertKey: [NSString stringWithFormat:@"Hey User 123,%@", pushMessage], // Push Message for User 123
+                                                         LYRMessageOptionsPushNotificationSoundNameKey: @"sound.aiff" }, // Push Sound for User 123
+                                              @"456": @{ LYRMessageOptionsPushNotificationAlertKey: [NSString stringWithFormat:@"Hey User 456,%@", pushMessage], // Push Message for User 456
+                                                         LYRMessageOptionsPushNotificationSoundNameKey: @"sound.aiff" } // Push Sound for User 456
+                                              };
+
+    NSDictionary *pushOptions = @{ LYRMessageOptionsPushNotificationAlertKey: pushMessage, // Default Push Message
+                                        LYRMessageOptionsPushNotificationSoundNameKey: @"sound.aiff", // Default Push Sound
+                                   LYRMessageOptionsPushNotificationPerRecipientConfigurationKey:userSpecificPushMessages};
+    LYRMessage *message = [self.layerClient newMessageWithParts:@[messagePart] options:pushOptions error:nil];
 ```
 
 If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications).
