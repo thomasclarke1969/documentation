@@ -86,7 +86,7 @@ The custom cell in this tutorial will be named `StarCollectionViewCell` and will
             NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
                                                                  options:kNilOptions
                                                                    error:&error];
-            self.title.text = [json objectForKey:@"name"];
+            self.title.text = [json objectForKey:@"title"];
         }
     }
     ```
