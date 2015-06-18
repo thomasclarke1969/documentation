@@ -73,9 +73,9 @@ One key difference with [Send a Message](#send-a-message): you may not use `send
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
-      -H "Authorization: Bearer TOKEN" \
-      -H "Content-Type: application/json" \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
       -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], \
            "notification": {"text": "Howdy"}, \
            "sender": {"name": "Your Master"}, \

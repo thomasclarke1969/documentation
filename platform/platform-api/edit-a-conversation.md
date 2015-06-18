@@ -63,9 +63,9 @@ This will replace the entire set of participants with a new list. Be warned howe
 
 ```console
 curl  -X PATCH \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
-      -H "Authorization: Bearer TOKEN" \
-      -H "Content-Type: application/vnd.layer-patch+json" \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[{"operation": "add",    "property": "participants", "value": "a"}, \
            {"operation": "remove", "property": "participants", "value": "b"}]' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID

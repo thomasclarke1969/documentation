@@ -26,8 +26,8 @@ GET /apps/:app_uuid/conversations/:conversation_uuid
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
-      -H "Authorization: Bearer TOKEN" \
-      -H "Content-Type: application/json" \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
 ```

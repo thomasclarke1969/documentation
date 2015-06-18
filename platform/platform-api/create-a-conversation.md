@@ -49,9 +49,9 @@ POST /apps/:app_uuid/conversations
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
-      -H "Authorization: Bearer TOKEN" \
-      -H "Content-Type: application/json" \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
       -d '{"participants": ["a", "b"], "distinct": false}' \
       https://api.layer.com/apps/APP_UUID/conversations
 ```
