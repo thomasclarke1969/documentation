@@ -1,6 +1,6 @@
 # Creating Conversations
 
-The Conversation entity models a Conversation between two or more participants. Use this endpoint to create new Conversations:
+You can create Conversations using the following endpoint.
 
 ```request
 POST /apps/:app_uuid/conversations
@@ -75,7 +75,7 @@ When creating a Distinct Conversation, there are three possible results.
 
 ### Response `201 (Created)`
 
-If there is no existing Distinct Conversation that matches the request. Create a new Conversation and return it.  Result is the same as creating a non-distinct Conversation.
+If there is no existing Distinct Conversation that matches the request, then create a new Conversation and return it.  Result is the same as creating a non-distinct Conversation.
 
 ### Response `303 (See Other)`
 

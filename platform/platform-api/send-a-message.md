@@ -1,6 +1,6 @@
 # Sending Messages
 
-The Message entity models a Message within a Conversation.  Use this endpoint to create new Messages.
+You can create Messages using the following endpoint.
 
 ```request
 POST /apps/:app_uuid/conversations/:conversation_uuid/messages
