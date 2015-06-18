@@ -1,6 +1,6 @@
 # Creating Conversations
 
-The Conversation entity models a Conversation between two or more participants. Use this endpoint to create new Conversations:
+You can create Conversations using the following endpoint.
 
 ```request
 POST /apps/:app_uuid/conversations
@@ -10,9 +10,9 @@ POST /apps/:app_uuid/conversations
 
 | Name    |  Type | Description |
 |---------|-------|-------------|
-| `participants` | array  | User IDs (strings) identifying who will participate in the Conversation |
-| `distinct` | boolean | Create or find a unique Conversation between these participants |
-| `metadata` | object | Arbitrary set of name value pairs representing initial state of Conversation metadata |
+| **participants** | array  | User IDs (strings) identifying who will participate in the Conversation |
+| **distinct** | boolean | Create or find a unique Conversation between these participants |
+| **metadata** | object | Arbitrary set of name value pairs representing initial state of Conversation metadata |
 
 ### Example
 
@@ -49,9 +49,9 @@ POST /apps/:app_uuid/conversations
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
-      -H "Authorization: Bearer TOKEN" \
-      -H "Content-Type: application/json" \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
       -d '{"participants": ["a", "b"], "distinct": false}' \
       https://api.layer.com/apps/APP_UUID/conversations
 ```
@@ -75,7 +75,7 @@ When creating a Distinct Conversation, there are three possible results.
 
 ### Response `201 (Created)`
 
-If there is no existing Distinct Conversation that matches the request. Create a new Conversation and return it.  Result is the same as creating a non-distinct Conversation.
+If there is no existing Distinct Conversation that matches the request, then create a new Conversation and return it.  Result is the same as creating a non-distinct Conversation.
 
 ### Response `303 (See Other)`
 

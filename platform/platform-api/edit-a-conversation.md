@@ -24,9 +24,9 @@ Add or remove participants using Layer Patch Operations using the values shown b
 
 | Name    |  Type | Description |
 |---------|-------|-------------|
-| `operation` | string | Type of operation to perform (`add`, `remove` or `set`) |
-| `property`  | string | Use the value `participants` to change the participants. |
-| `value`     | string or array | User ID to add or remove.  Or an array of users for the `set` operation. |
+| **operation** | string | Type of operation to perform (add, remove or set) |
+| **property**  | string | Use the value `participants` to change the participants. |
+| **value**     | string or array | User ID to add or remove.  Or an array of users for the `set` operation. |
 
 
 ### Example Request: Adding Participants
@@ -63,9 +63,9 @@ This will replace the entire set of participants with a new list. Be warned howe
 
 ```console
 curl  -X PATCH \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
-      -H "Authorization: Bearer TOKEN" \
-      -H "Content-Type: application/vnd.layer-patch+json" \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[{"operation": "add",    "property": "participants", "value": "a"}, \
            {"operation": "remove", "property": "participants", "value": "b"}]' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID

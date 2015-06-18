@@ -12,7 +12,7 @@ POST /apps/:app_uuid/announcements
 
 | Name         |    Type     |  Description  |
 |--------------|-------------|---------------|
-| `recipients` | Array of Strings or `"everyone"` | Array of User IDs to deliver the Announcement to or the literal string `"everyone"` in order to message the entire userbase. |
+| **recipients** | array of strings or `"everyone"` | Array of User IDs to deliver the Announcement to or the literal string `"everyone"` in order to message the entire userbase. |
 
 
 > See [Send a Message](#send-a-message) parameters section for details on the remaining parameters.
@@ -73,9 +73,9 @@ One key difference with [Send a Message](#send-a-message): you may not use `send
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
-      -H "Authorization: Bearer TOKEN" \
-      -H "Content-Type: application/json" \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
       -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], \
            "notification": {"text": "Howdy"}, \
            "sender": {"name": "Your Master"}, \
