@@ -44,6 +44,11 @@
       "inherits" : "LYRProgress : NSObject"
     },
     {
+      "name" : "LYRAnnouncement",
+      "declared" : "LYRAnnouncement.h",
+      "inherits" : "LYRMessage : NSObject"
+    },
+    {
       "declared" : "LYRClient.h",
       "properties" : [
         {
@@ -314,10 +319,14 @@
               {
                 "name" : "options",
                 "description" : "A dictionary of options to apply to the conversation."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why execution failed."
               }
             ],
-            "return" : "The newly created Conversation.",
-            "discussion" : "This method will create a new {@link LYRConversation} instance, creating new message instances with a new {@link LYRConversation} object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using conversationsForParticipants: first.",
+            "return" : "The newly created Conversation or nil if an attempt is made to create a conversation with a distinct participants list, but one already exists. The existing conversation will be set as the value for the LYRExistingDistinctConversationKey in the userInfo dictionary of the error parameter.",
+            "discussion" : "This method will create a new {@link LYRConversation} instance, creating new message instances with a new {@link LYRConversation} object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then set the value for the LYRConversationOptionsDistinctByParticipantsKey key to true in the options parameter.",
             "declared" : "LYRClient.h",
             "comment" : "Creates a new Conversation with the given set of participants.",
             "name" : "newConversationWithParticipants:options:error:",
@@ -1745,6 +1754,14 @@
         },
         {
           "name" : "LYRErrorUserNotAParticipantInConversation",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorImmutableParticipantsList",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorDistinctConversationExists",
           "declared" : "LYRErrors.h"
         },
         {
