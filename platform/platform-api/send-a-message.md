@@ -10,14 +10,14 @@ POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 
 | Name    | Type |  Description  |
 |---------|------|---------------|
-| `sender` | object | Identifies the sender of the Message |
-| `sender.user_id`  | string | User ID of the participant that this message will appear to be from |
-| `sender.name`     | string | Arbitrary string naming the service that this message will appear to be from |
-| `parts`           | Array  | Array of MessageParts |
-| `parts.body`      | string | Text or base64 encoded data for your message |
-| `parts.mime_type` | string | `text/plain`, `image/png` or other mime type describing the body of this MessagePart |
-| `parts.encoding`  | string | If sending base64 encoded data, specify `base64` else ommit this field |
-| `notification` | object | See [Push Notifications](#push-notifications) docs for detailed options |
+| sender | object | Identifies the sender of the Message |
+| sender.user_id  | string | User ID of the participant that this message will appear to be from |
+| sender.name     | string | Arbitrary string naming the service that this message will appear to be from |
+| parts           | Array  | Array of MessageParts |
+| parts.body      | string | Text or base64 encoded data for your message |
+| parts.mime_type | string | text/plain, image/png or other mime type describing the body of this MessagePart |
+| parts.encoding  | string | If sending base64 encoded data, specify base64 else ommit this field |
+| notification | object | See [Push Notifications](#push-notifications) docs for detailed options |
 
 ### Example Request
 
@@ -130,9 +130,9 @@ Layer provides extensive support for Push Notifications on both iOS (APNS) and A
 
 | Name | Type    | Description |
 |------|---------|-------------|
-|`text`| string  |The text to be displayed on the notification alert. On iOS, displayed on the lock screen or banner. On GCM, delivered in the push intent as advisory information. |
-|`sound`| string | The name of a sound to be played. On iOS, must exist in the main application bundle. On GCM, delivered in the push intent as advisory information. |
-|`recipients` | object | Customized notifications to specific recipients |
+| text| string  |The text to be displayed on the notification alert. On iOS, displayed on the lock screen or banner. On GCM, delivered in the push intent as advisory information. |
+| sound| string | The name of a sound to be played. On iOS, must exist in the main application bundle. On GCM, delivered in the push intent as advisory information. |
+| recipients | object | Customized notifications to specific recipients |
 
 > Note that values for iOS badge counts cannot be provided because the pushes are fanned out to all participants. You can enable support for server-side badge count management in the Layer Dashboard if you wish to provide badge counts for your iOS users.
 
