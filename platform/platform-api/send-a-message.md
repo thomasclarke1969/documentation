@@ -1,4 +1,5 @@
-# Send a Message
+# Sending Messages
+
 The Message entity models a Message within a Conversation.  Use this endpoint to create new Messages.
 
 ```request
@@ -6,6 +7,7 @@ POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 ```
 
 ### Parameters
+
 | Name    | Type |  Description  |
 |---------|------|---------------|
 | `sender` | object | Identifies the sender of the Message |
@@ -17,7 +19,8 @@ POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 | `parts.encoding`  | string | If sending base64 encoded data, specify `base64` else ommit this field |
 | `notification` | object | See [Push Notifications](#push-notifications) docs for detailed options |
 
-### Example
+### Example Request
+
 ```json
 {
     "sender": {
@@ -41,7 +44,8 @@ POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 }
 ```
 
-### Response `201 (Created)`
+### Successful Response `201 (Created)`
+
 ```json
 {
     "id": "layer:///messages/940de862-3c96-11e4-baad-164230d1df67",
@@ -86,12 +90,14 @@ curl  -X POST \
 ```
 
 ## Specifying a Sender
+
 The `sender` object in the request enables sending Messages in two ways:
 
 1. From a participant
 2. From a non-human actor
 
 ### From a Participant
+
 The Message can be sent on behalf of a participant of the Conversation. The Message will be delivered as though it were sent directly from the specified `user_id`.
 
 ```json
@@ -102,7 +108,8 @@ The Message can be sent on behalf of a participant of the Conversation. The Mess
 }
 ```
 
-### From a Non Human Actor
+### From a Non-human Actor
+
 Suppose you wanted to send a message from "System", "Moderator" or "Your Friend" rather than have the message appear to be from a participant in the conversation.  The Message will be delivered as though it were sent by the service in the `name` field.
 
 ```json
@@ -118,6 +125,7 @@ Upon delivery, the message will have a `null` value for the `user_id` of the `se
 > It is recommended that you use simple strings that describe the utility of the Service that sent the Message and clearly differentiate such Messages in your UI.
 
 ## Push Notifications
+
 Layer provides extensive support for Push Notifications on both iOS (APNS) and Android (GCM). Pushes are delivered to devices when Messages are sent using the `notification` parameter.  The possible values for the `notification` object are described below:
 
 | Name | Type    | Description |

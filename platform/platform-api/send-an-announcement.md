@@ -1,4 +1,5 @@
-# Send an Announcement
+# Sending Announcements
+
 Announcements are messages sent to all users of the application or to a list of users. These Messages will arrive outside of the context of a conversation (the `conversation` property will be `null`).
 
 The following request behaves similarly to the [Send a Message](#send-a-message) request above.  Each recipient will receive the Announcement within each of their system Conversations.
@@ -8,6 +9,7 @@ POST /apps/:app_uuid/announcements
 ```
 
 ### Parameters
+
 | Name         |    Type     |  Description  |
 |--------------|-------------|---------------|
 | `recipients` | Array of Strings or `"everyone"` | Array of User IDs to deliver the Announcement to or the literal string `"everyone"` in order to message the entire userbase. |
@@ -17,7 +19,8 @@ POST /apps/:app_uuid/announcements
 
 One key difference with [Send a Message](#send-a-message): you may not use `sender.user_id` when sending an Announcement.
 
-### Example
+### Example Request
+
 ```json
 {
     "recipients": [ "1234", "5678" ],
@@ -42,7 +45,8 @@ One key difference with [Send a Message](#send-a-message): you may not use `send
 }
 ```
 
-### Response `202 (Accepted)`
+### Successful Response `202 (Accepted)`
+
 ```json
 {
     "id": "layer:///announcements/f3cc7b32-3c92-11e4-baad-164230d1df67",
@@ -85,7 +89,8 @@ When `recipients` is set to the string value `"everyone"`, it is interpreted as 
 
 Note that when targeting "everyone" each recipient doesn't need to have authenticated with Layer before, but merely be known to exist (perhaps their ID was added to a Conversation by another user). Recipients who have not yet interacted with Layer will receive the Announcement if/when they eventually do connect.
 
-### Example
+### Example Request
+
 ```json
 {
     "recipients": "everyone",

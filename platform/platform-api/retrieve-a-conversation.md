@@ -1,11 +1,13 @@
-# Retrieve a Conversation
+# Retrieving Conversations
+
 If you have a URL for a Conversation, you can download the Conversation object by using the following endpoint.
 
 ```request
 GET /apps/:app_uuid/conversations/:conversation_uuid
 ```
 
-### Response `200 (Ok)`
+### Successful Response `200 (OK)`
+
 ```json
 {
     "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",

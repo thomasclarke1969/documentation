@@ -1,4 +1,5 @@
 # Platform API
+
 The Layer Platform API is designed to empower developers to automate, extend, and integrate functionality provided by the Layer platform
 with other services and applications. Example use cases include creating new conversations among a set of users matched by an application, feeding messages into conversations from external systems, and sending announcements to a group of users.
 This will be extended to support operations in the other direction as well, namely for external systems to take action based on events within Layer.
@@ -10,6 +11,7 @@ https://api.layer.com
 All data is sent and received as `JSON`.
 
 ## API Versioning
+
 The API is versioned using a custom media type that encodes the wire format and the version desired. Developers must explicitly request a specific version via the `Accept` header:
 
 ```text

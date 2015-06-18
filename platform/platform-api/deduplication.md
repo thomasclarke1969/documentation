@@ -1,4 +1,4 @@
-# De-duplication
+# De-duplicating Requests
 
 When a client issues a network request, it is always possible for the request to timeout or return a recoverable error status code indicating that the it should be resent. However, this opens up the possibility of the same request being performed more than once, which could create duplicate entities (e.g. Conversations or Messages).
 

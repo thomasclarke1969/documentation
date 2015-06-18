@@ -1,17 +1,20 @@
-# User Block List Management
+# Managing User Block Lists
+
 The Layer Platform API allows you to manage the Layer Block List in order to align with your own application level blocking. A Block List is maintained for each user, enabling users to manage a list of members they don't want to communicate with. [More information](https://support.layer.com/hc/en-us/articles/204050814-What-happens-when-I-apply-a-Block-policy).
 
 * `owner_user_id` The owner of the Block List
 * `user_id`  A user that is being blocked from communicating with the `owner_user_id`
 
-## Get the Block List for a User
+## Retrieving the Block List for a User
+
 Returns an array of all blocked users for the specified `owner_user_id`.
 
 ```request
 GET /apps/:app_uuid/users/:owner_user_id/blocks
 ```
 
-### Response `200 (Ok)`
+### Response `200 (OK)`
+
 ```json
 [
   {"user_id": "abc1234"},
@@ -27,7 +30,8 @@ curl  -X GET \
       https://api.layer.com/apps/APP_UUID/users/a/blocks
 ```
 
-## Add to the Block List for a User
+## Blocking Users
+
 Adds a new blocked user to the Block List for the specified `owner_user_id`.
 
 ```request
@@ -35,11 +39,13 @@ POST /apps/:app_uuid/users/:owner_user_id/blocks
 ```
 
 ### Parameters
+
 | Name       |  Type | Description  |
 |------------|-------|--------------|
 | `user_id`  | string | The User ID of a user to add to Block List |
 
 ### Example
+
 ```json
 {
   "user_id": "blockme987"
@@ -47,6 +53,7 @@ POST /apps/:app_uuid/users/:owner_user_id/blocks
 ```
 
 ### Response
+
 ```text
 204 (No Content)
 ```
@@ -60,7 +67,8 @@ curl  -X POST \
       https://api.layer.com/apps/APP_UUID/users/a/blocks
 ```
 
-## Remove from the Block List for a User
+## Unblocking Users
+
 Removes a blocked user from the Block List of the specified `owner_user_id`.
 
 ```request
@@ -68,6 +76,7 @@ DELETE /apps/:app_uuid:/users/:owner_user_id/blocks/:user_id
 ```
 
 ### Response
+
 ```text
 204 (No Content)
 ```

@@ -1,21 +1,25 @@
-# Edit a Conversation
+# Editing Conversations
+
 A Conversation can be edited by changing its properties.  Properties are changed using PATCH operations as described in the [Layer Patch](https://github.com/layerhq/layer-patch) Format.
 
 ```request
 PATCH /apps/:app_uuid/conversations/:conversation_uuid
 ```
 
-### Required Header
+### Required Headers
+
 ```text
 Content-Type: application/vnd.layer-patch+json
 ```
 
-### Response
+### Successful Response
+
 ```text
 204 (No Content)
 ```
 
-## Add/Remove Participants
+## Adding &amp; Removing Participants
+
 Add or remove participants using Layer Patch Operations using the values shown below:
 
 | Name    |  Type | Description |
@@ -25,7 +29,8 @@ Add or remove participants using Layer Patch Operations using the values shown b
 | `value`     | string or array | User ID to add or remove.  Or an array of users for the `set` operation. |
 
 
-### Example Add Participants
+### Example Request: Adding Participants
+
 ```json
 [
     {"operation": "add", "property": "participants", "value": "user1"},
@@ -35,7 +40,8 @@ Add or remove participants using Layer Patch Operations using the values shown b
 
 Note that if the user is already a participant, this is a no-op.
 
-### Example Remove Participants
+### Example Request: Removing Participants
+
 ```json
 [
     {"operation": "remove", "property": "participants", "value": "user1"},
@@ -45,7 +51,8 @@ Note that if the user is already a participant, this is a no-op.
 
 Note that if the user is not a participant, this is a no-op.
 
-### Example Replace Participants
+### Example Request: Replacing Participants
+
 ```json
 [
     {"operation": "set", "property": "participants", "value": ["user1", "user2", "user3"]}
