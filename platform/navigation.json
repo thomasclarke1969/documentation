@@ -1,0 +1,16 @@
+{
+  "platform-api": {
+    "title": "Platform API",
+    "section": {
+      "overview": "Overview",
+      "authentication": "Authentication",
+      "deduplication": "De-duplication",
+      "retrieve-a-conversation": "Retrieve a Conversation",
+      "create-a-conversation": "Create a Conversation",
+      "edit-a-conversation": "Edit a Conversation",
+      "send-a-message": "Send a Message",
+      "send-an-announcement": "Send an Announcement",
+      "block-users": "Block Users"
+    }
+  }
+}

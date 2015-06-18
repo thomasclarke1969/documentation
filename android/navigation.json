@@ -1,0 +1,55 @@
+{
+  "quick-start": {
+    "title": "Quick Start",
+    "section": {
+      "setup": "Setup"
+    }
+  },
+  "atlas": {
+    "title": "Atlas",
+    "section": {
+      "setup-atlas": "Setup",
+      "core-components": "Core Components",
+      "configuring-ui": "Configuring UI",
+      "custom-payload": "Sending Custom Payload"
+    }
+  },
+  "integration": {
+    "title": "Integration",
+    "section": {
+      "concepts": "Concepts",
+      "installation-and-setup": "Installation and Setup",
+      "authentication": "Authentication",
+      "sending": "Sending",
+      "querying": "Querying",
+      "metadata": "Metadata",
+      "typing-indicator": "Typing Indicator",
+      "synchronization": "Synchronization",
+      "deleting": "Deleting",
+      "announcements": "Announcements"
+    }
+  },
+  "guides": {
+    "title": "Guides",
+    "section": {
+      "authentication": "Authentication",
+      "richcontent": "Rich Content",
+      "push-notification": "Push Notifications",
+      "push-integration": "Push Integration",
+      "metadata": "Metadata",
+      "advanced-querying": "Advanced Querying",
+      "policies": "Policies",
+      "parse": "Parse Integration",
+      "atlas": "Atlas"
+    }
+  },
+  "changelog": {
+    "title": "Changelog",
+    "section": {
+      "changelog": "Changelog"
+    }
+  },
+  "api": {
+    "title": "API Reference"
+  }
+}
