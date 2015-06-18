@@ -25,6 +25,7 @@
     "section": {
       "setup-atlas": "Setup",
       "core-components": "Core Components",
+      "plug-in-your-users": "Add Your Users",
       "configuring-ui": "Configuring UI",
       "custom-payload": "Sending Custom Payload"
     }
