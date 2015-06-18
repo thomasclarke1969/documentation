@@ -1,97 +1,139 @@
-# Authentication
+#Authenticate
 
-```emphasis
-Once you are ready for production implementation, you will need to write your own backend controller to generate identity tokens. You will not be able to use the identity provider from the Quick Start guide.
-```
+You must authenticate a user before they are allowed to send or receive messages. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this. <b>Note:</b> You <b>cannot</b> use this sample backend with Production App IDs.
 
-To authenticate a user, the SDK requires that your backend server application generate an identity token and return it to your application.
+Layer will cache authentication details so you only need authenticate users if you de-authenticate the current user (when a user logs out for example) or receive an authentication challenge. The code below adds a check on login for authenticated users sessions.
 
-##Step 1 - Backend Setup
-A `Provider ID` and `Key ID` must be retained by your backend application and used in the generation of the token.
-
-```emphasis
-**Provider ID** - The following `Provider ID` is specific to your account and should be kept private at all times.
-```
-
-%%C-PROVIDERID%%
-
-```emphasis
-**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair by clicking the button below. Layer will upload the public portion to our service and the  private key will appear in a pop up. Please copy and save the private key as it must be retained by your backend application and used to sign Identity Tokens.
-```
-
-%%C-KEYID%%
-
-To manage your authentication keys please visit [Developer Dashboard](https://developer.layer.com).
-
-##Step 2 - Start the Authentication process
-The main logic will reside in the `requestAuthenticationNonceWithCompletion` method.
-
-```objectivec
-[layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
-   NSLog(@"Authentication nonce %@", nonce);
-
-   /*
-    *  CODE goes here. POST the nonce to your backend, generate and return a JWT identity token
-    */
-}];
-```
-
-##Step 3 - POST the nonce and generate identity token
-A nonce value will be obtained from Layer and passed into the completion block of the `requestAuthenticationNonceWithCompletion` method. POST this value to your backend and use it to generate a JWT identity token.
-
-A Layer `Identity Token` is a JSON Web Token (JWT) structure that encodes a cryptographically signed set of claims that assert the identity of a particular user within your application. A JWT is transmitted as a compact string value that is formed by concatenating a pair of JSON dictionary structures (the JOSE Header and JWT Claims Set) and a cryptographic signature generated over them. The structure is as follows:
-
-```
-// JOSE Header
+```objective-c
+- (void)authenticateLayerWithUserID:(NSString *)userID completion:(void (^)(BOOL success, NSError * error))completion
 {
-    "typ": "JWT", // String - Expresses a MIME Type of application/JWT
-    "alg": "RS256" // String - Expresses the type of algorithm used to sign the token, must be RS256
-    "cty": "layer-eit;v=1", // String - Express a Content Type of Layer External Identity Token, version 1
-    "kid": "%%C-INLINE-KEYID%%" // String - Layer Key ID used to sign the token. This is your actual Key ID
+    // Check to see if the layerClient is already authenticated.
+    if (self.layerClient.authenticatedUserID) {
+        // If the layerClient is authenticated with the requested userID, complete the authentication process.
+        if ([self.layerClient.authenticatedUserID isEqualToString:userID]){
+            NSLog(@"Layer Authenticated as User %@", self.layerClient.authenticatedUserID);
+            if (completion) completion(YES, nil);
+            return;
+        } else {
+            //If the authenticated userID is different, then deauthenticate the current client and re-authenticate with the new userID.
+            [self.layerClient deauthenticateWithCompletion:^(BOOL success, NSError *error) {
+                if (!error){
+                    [self authenticationTokenWithUserId:userID completion:^(BOOL success, NSError *error) {
+                        if (completion){
+                            completion(success, error);
+                        }
+                    }];
+                } else {
+                    if (completion){
+                        completion(NO, error);
+                    }
+                }
+            }];
+        }
+    } else {
+        // If the layerClient isn't already authenticated, then authenticate.
+        [self authenticationTokenWithUserId:userID completion:^(BOOL success, NSError *error) {
+            if (completion){
+                completion(success, error);
+            }
+        }];
+    }
 }
 
-// JWT Claims Set
+- (void)authenticationTokenWithUserId:(NSString *)userID completion:(void (^)(BOOL success, NSError* error))completion{
+
+    /*
+     * 1. Request an authentication Nonce from Layer
+     */
+    [self.layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
+        if (!nonce) {
+            if (completion) {
+                completion(NO, error);
+            }
+            return;
+        }
+
+        /*
+         * 2. Acquire identity Token from Layer Identity Service
+         */
+        [self requestIdentityTokenForUserID:userID appID:[self.layerClient.appID UUIDString] nonce:nonce completion:^(NSString *identityToken, NSError *error) {
+            if (!identityToken) {
+                if (completion) {
+                    completion(NO, error);
+                }
+                return;
+            }
+
+            /*
+             * 3. Submit identity token to Layer for validation
+             */
+            [self.layerClient authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
+                if (authenticatedUserID) {
+                    if (completion) {
+                        completion(YES, nil);
+                    }
+                    NSLog(@"Layer Authenticated as User: %@", authenticatedUserID);
+                } else {
+                    completion(NO, error);
+                }
+            }];
+        }];
+    }];
+}
+```
+The following code snippet connects to the sample `Layer Identity Service`,  generates an `Identity Token` on behalf your application, and authenticates the `LYRClient`. Copy and paste the entire snippet into your application.
+```objective-c
+- (void)requestIdentityTokenForUserID:(NSString *)userID appID:(NSString *)appID nonce:(NSString *)nonce completion:(void(^)(NSString *identityToken, NSError *error))completion
 {
-    "iss": "%%C-INLINE-PROVIDERID%%", // String - The Layer Provider ID, this is your actual provider ID
-    "prn": "APPLICATION USER ID", // String - Provider's internal ID for the authenticating user
-    "iat": "TIME OF TOKEN ISSUANCE AS INTEGER", // Integer - Time of Token Issuance in RFC 3339 seconds
-    "exp": "TIME OF TOKEN EXPIRATION AS INTEGER", // Integer - Arbitrary time of Token Expiration in RFC 3339 seconds
-    "nce": "LAYER ISSUED NONCE" // The nonce obtained via the Layer client SDK.
+    NSParameterAssert(userID);
+    NSParameterAssert(appID);
+    NSParameterAssert(nonce);
+    NSParameterAssert(completion);
+
+    NSURL *identityTokenURL = [NSURL URLWithString:@"https://layer-identity-provider.herokuapp.com/identity_tokens"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:identityTokenURL];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+
+    NSDictionary *parameters = @{ @"app_id": appID, @"user_id": userID, @"nonce": nonce };
+    NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    request.HTTPBody = requestBody;
+
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            completion(nil, error);
+            return;
+        }
+
+        // Deserialize the response
+        NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if(![responseObject valueForKey:@"error"])
+        {
+            NSString *identityToken = responseObject[@"identity_token"];
+            completion(identityToken, nil);
+        }
+        else
+        {
+            NSString *domain = @"layer-identity-provider.herokuapp.com";
+            NSInteger code = [responseObject[@"status"] integerValue];
+            NSDictionary *userInfo =
+            @{
+               NSLocalizedDescriptionKey: @"Layer Identity Provider Returned an Error.",
+               NSLocalizedRecoverySuggestionErrorKey: @"There may be a problem with your APPID."
+            };
+
+            NSError *error = [[NSError alloc] initWithDomain:domain code:code userInfo:userInfo];
+            completion(nil, error);
+        }
+
+    }] resume];
 }
 ```
 
-You can learn more about the JSON Web Token standard draft from [jwt.io](http://jwt.io) or by consulting the [specification](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html) directly.
-
-Prebuilt JWT Libraries are available for many languages:
-
-* [Node.js](https://github.com/brianloveswords/node-jws)
-* [Go](https://github.com/dgrijalva/jwt-go)
-* [Python](https://github.com/progrium/pyjwt/)
-* [Ruby](https://github.com/progrium/ruby-jwt)
-
-To assist in setting up a backend, Layer provides sample backend implementations for the followin languages:
-
-* [Node.js](https://github.com/layerhq/support/blob/master/identity-services-samples/nodejs/layer.js) (also available as a [Parse Cloud module](https://github.com/layerhq/layer-parse-module))
-* [Python](https://github.com/layerhq/support/blob/master/identity-services-samples/python/controller.py)
-* [Ruby](https://github.com/layerhq/support/tree/master/identity-services-samples/ruby)
-* [Java](https://github.com/layerhq/support/tree/master/identity-services-samples/java)
-* [PHP](https://github.com/layerhq/support/tree/master/identity-services-samples/php)
-* [Go](https://github.com/layerhq/support/tree/master/identity-services-samples/go)
-
-Third Party Libraries
-* [Ruby Gem](https://rubygems.org/gems/layer-identity_token)
-* [.Net C#](https://github.com/khanhvu161188/LayerNet)
-* [Layer Token Service](https://github.com/dreimannzelt/layer-token_service)  - basic webservice for testing your Layer client
-
-If you build your own libraries and want to be included, send an email to [support@layer.com](mailto:support@layer.com).
-
-##Step 4 - Notify Layer Client when your backend returns the token
-Once you have received a valid Identity Token call the following code in the `requestAuthenticationNonceWithCompletion` method
-
-```objectivec
-  [layerClient authenticateWithIdentityToken:@"generatedIdenityToken" completion:^(NSString *authenticatedUserID, NSError *error) {
-     NSLog(@"Authenticated as %@", authenticatedUserID);
-  }];
+```emphasis
+Please note, the Layer Identity Service cannot be used in production applications. You will need to implement the backend portion of Layer authentication prior to launching into production. Please see the [Layer Authentication Guide](/docs/guides/ios#authentication) for information on doing so.
 ```
 
-You can validate your identity token by using our tool here - [identity token validation tool](https://developer.layer.com/projects/tools).
