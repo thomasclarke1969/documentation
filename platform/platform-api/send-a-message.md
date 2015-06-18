@@ -155,6 +155,9 @@ Push Notifications can also be customized for specific participants:
         "martina_marquez": {
             "text": "hola mundo",
             "sound": "chime.aiff"
+        },
+        "reginald_royford_williams_iii": {
+            "text": "Um.  Hello?"
         }
     }
 }
