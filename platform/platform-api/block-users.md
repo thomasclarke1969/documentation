@@ -72,7 +72,7 @@ curl  -X POST \
 Removes a blocked user from the Block List of the specified `owner_user_id`.
 
 ```request
-DELETE /apps/:app_uuid:/users/:owner_user_id/blocks/:user_id
+DELETE /apps/:app_uuid/users/:owner_user_id/blocks/:user_id
 ```
 
 ### Response
