@@ -24,9 +24,9 @@ Add or remove participants using Layer Patch Operations using the values shown b
 
 | Name    |  Type | Description |
 |---------|-------|-------------|
-| operation | string | Type of operation to perform (add, remove or set) |
-| property  | string | Use the value `participants` to change the participants. |
-| value     | string or array | User ID to add or remove.  Or an array of users for the `set` operation. |
+| **operation** | string | Type of operation to perform (add, remove or set) |
+| **property**  | string | Use the value `participants` to change the participants. |
+| **value**     | string or array | User ID to add or remove.  Or an array of users for the `set` operation. |
 
 
 ### Example Request: Adding Participants

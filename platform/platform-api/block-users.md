@@ -42,7 +42,7 @@ POST /apps/:app_uuid/users/:owner_user_id/blocks
 
 | Name       |  Type | Description  |
 |------------|-------|--------------|
-| user_id  | string | The User ID of a user to add to Block List |
+| **user_id**  | string | The User ID of a user to add to Block List |
 
 ### Example
 

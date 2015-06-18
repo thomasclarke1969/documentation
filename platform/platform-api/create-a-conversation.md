@@ -10,9 +10,9 @@ POST /apps/:app_uuid/conversations
 
 | Name    |  Type | Description |
 |---------|-------|-------------|
-| participants | array  | User IDs (strings) identifying who will participate in the Conversation |
-| distinct | boolean | Create or find a unique Conversation between these participants |
-| metadata | object | Arbitrary set of name value pairs representing initial state of Conversation metadata |
+| **participants** | array  | User IDs (strings) identifying who will participate in the Conversation |
+| **distinct** | boolean | Create or find a unique Conversation between these participants |
+| **metadata** | object | Arbitrary set of name value pairs representing initial state of Conversation metadata |
 
 ### Example
 

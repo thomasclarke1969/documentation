@@ -12,7 +12,7 @@ POST /apps/:app_uuid/announcements
 
 | Name         |    Type     |  Description  |
 |--------------|-------------|---------------|
-| recipients | array of strings or `"everyone"` | Array of User IDs to deliver the Announcement to or the literal string `"everyone"` in order to message the entire userbase. |
+| **recipients** | array of strings or `"everyone"` | Array of User IDs to deliver the Announcement to or the literal string `"everyone"` in order to message the entire userbase. |
 
 
 > See [Send a Message](#send-a-message) parameters section for details on the remaining parameters.
