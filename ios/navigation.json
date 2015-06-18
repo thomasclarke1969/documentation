@@ -5,15 +5,6 @@
       "setup": "Setup"
     }
   },
-  "atlas": {
-    "title": "Atlas",
-    "section": {
-      "setup-atlas": "Setup",
-      "core-components": "Core Components",
-      "configuring-ui": "Configuring UI",
-      "custom-payload": "Sending Custom Payload"
-    }
-  },
   "integration": {
     "title": "Integration",
     "section": {
@@ -27,6 +18,15 @@
       "synchronization": "Synchronization",
       "deleting": "Deleting",
       "announcements": "Announcements"
+    }
+  },
+  "atlas": {
+    "title": "Atlas",
+    "section": {
+      "setup-atlas": "Setup",
+      "core-components": "Core Components",
+      "configuring-ui": "Configuring UI",
+      "custom-payload": "Sending Custom Payload"
     }
   },
   "guides": {
