@@ -55,11 +55,11 @@ Note that if the user is not a participant, this is a no-op.
 This will replace the entire set of participants with a new list. Be warned however that if users are actively adding/removing participants, doing a `set` operation will destroy any changes they are making.
 
 ```console
-curl  -X PATCH
-      -H "Accept: application/vnd.layer+json; version=1.0"
-      -H "Authorization: Bearer TOKEN"
-      -H "Content-Type: application/vnd.layer-patch+json"
-      -d '[{"operation": "add",    "property": "participants", "value": "a"},
-           {"operation": "remove", "property": "participants", "value": "b"}]'
+curl  -X PATCH \
+      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Authorization: Bearer TOKEN" \
+      -H "Content-Type: application/vnd.layer-patch+json" \
+      -d '[{"operation": "add",    "property": "participants", "value": "a"}, \
+           {"operation": "remove", "property": "participants", "value": "b"}]' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
 ```

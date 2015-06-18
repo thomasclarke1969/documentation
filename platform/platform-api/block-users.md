@@ -20,10 +20,10 @@ GET /apps/:app_uuid/users/:owner_user_id/blocks
 ```
 
 ```console
-curl  -X GET
-      -H "Accept: application/vnd.layer+json; version=1.0"
-      -H "Authorization: Bearer TOKEN"
-      -H "Content-Type: application/json"
+curl  -X GET \
+      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Authorization: Bearer TOKEN" \
+      -H "Content-Type: application/json" \
       https://api.layer.com/apps/APP_UUID/users/a/blocks
 ```
 
@@ -52,11 +52,11 @@ POST /apps/:app_uuid/users/:owner_user_id/blocks
 ```
 
 ```console
-curl  -X POST
-      -H "Accept: application/vnd.layer+json; version=1.0"
-      -H "Authorization: Bearer TOKEN"
-      -H "Content-Type: application/json"
-      -d '{"user_id": "b"}'
+curl  -X POST \
+      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Authorization: Bearer TOKEN" \
+      -H "Content-Type: application/json" \
+      -d '{"user_id": "b"}' \
       https://api.layer.com/apps/APP_UUID/users/a/blocks
 ```
 
@@ -73,10 +73,10 @@ DELETE /apps/:app_uuid:/users/:owner_user_id/blocks/:user_id
 ```
 
 ```console
-curl  -X DELETE
-      -H "Accept: application/vnd.layer+json; version=1.0"
-      -H "Authorization: Bearer TOKEN"
-      -H "Content-Type: application/json"
+curl  -X DELETE \
+      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Authorization: Bearer TOKEN" \
+      -H "Content-Type: application/json" \
       https://api.layer.com/apps/APP_UUID/users/a/blocks/b
 ```
 
