@@ -55,4 +55,4 @@ Now that you've sent a message, let's send a photo. Click on the Camera icon in 
 ### Cross Platform Messaging
 Also developing for Android? Build the [Android](https://developer.layer.com/docs/quick-start/android) Quick Start App using the same App ID, and your users will receive their messages no matter where they are!
 ## What's Next
-Now that you've seen just a sample of what Layer can do, check out the [Integration](https://developer.layer.com/docs/integration) docs to learn some of the concepts behind Layer.
+Now that you've seen just a sample of what Layer can do, check out the [Integration](https://developer.layer.com/docs/integration) docs to learn some of the concepts behind Layer. Interested in creating conversations and sending messages from your backend server?  The Layer Platform API is designed to empower developers to automate, extend, and integrate functionality provided by the Layer platform with other services and applications. For more information, check out the [Platform API](https://developer.layer.com/docs/platform) docs.
