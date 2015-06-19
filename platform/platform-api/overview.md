@@ -1,9 +1,9 @@
 # Platform API
 
 The Layer Platform API is designed to empower developers to automate, extend, and integrate functionality provided by the Layer platform
-with other services and applications. Example use cases include creating new conversations among a set of users matched by an application, feeding messages into conversations from external systems, and sending announcements to a group of users. For more on this see our [Platform API blog post](http://blog.layer.com/introducing-layer-platform-api).
+with other services and applications. Example use cases include creating new conversations among a set of users matched by an application, feeding messages into conversations from external systems, and sending announcements to a group of users. For more on this see our [blog post](http://blog.layer.com/introducing-layer-platform-api).
 
-All API access is over `HTTPS`, and accessed from the following domai:n
+All API access is over `HTTPS`, and accessed from the following domain:
 ```text
 https://api.layer.com
 ```
@@ -23,7 +23,7 @@ Failure to request a specific version of the API will result in `406 (Not Accept
     id: "invalid_header",
     code: 107,
     message: "Invalid Accept header; must be of form application/vnd.layer+json; version=x.y",
-    url: "https://github.com/layerhq/docs/blob/web-api/specs/rest-api.md#api-versioning",
+    url: "https://developer.layer.com/docs/platform#overview",
     data: {
         header: "Accept"
     }
