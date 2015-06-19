@@ -2,7 +2,6 @@
 
 The Layer Platform API is designed to empower developers to automate, extend, and integrate functionality provided by the Layer platform
 with other services and applications. Example use cases include creating new conversations among a set of users matched by an application, feeding messages into conversations from external systems, and sending announcements to a group of users.
-This will be extended to support operations in the other direction as well, namely for external systems to take action based on events within Layer.
 
 All API access is over `HTTPS`, and accessed from the following domain:
 ```text
