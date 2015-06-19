@@ -1,9 +1,9 @@
 # Platform API
 
 The Layer Platform API is designed to empower developers to automate, extend, and integrate functionality provided by the Layer platform
-with other services and applications. Example use cases include creating new conversations among a set of users matched by an application, feeding messages into conversations from external systems, and sending announcements to a group of users.
+with other services and applications. Example use cases include creating new conversations among a set of users matched by an application, feeding messages into conversations from external systems, and sending announcements to a group of users. For more on this see our [Platform API blog post](https://layerhq.atlassian.net/browse/WEB-680).
 
-All API access is over `HTTPS`, and accessed from the following domain:
+All API access is over `HTTPS`, and accessed from the following domai:n
 ```text
 https://api.layer.com
 ```
