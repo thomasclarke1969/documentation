@@ -109,3 +109,7 @@ Note that when targeting "everyone" each recipient doesn't need to have authenti
     }
 }
 ```
+
+## Receiving Announcements
+
+For more information about how to fetch announcements and mark them as read, check out our [iOS](https://developer.layer.com/docs/ios/integration#announcements) and [Android](https://developer.layer.com/docs/android/integration#announcements) client API documentation.
