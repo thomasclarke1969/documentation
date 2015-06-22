@@ -18,13 +18,12 @@ private void sendTextMessage(String text) {
     //Put the text into a message part, which has a MIME type of "text/plain" by default
     MessagePart messagePart = layerClient.newMessagePart(text);
 
-    //Creates and returns a new message containing the message parts
-    Message message = layerClient.newMessage(Arrays.asList(messagePart));
+    //Formats the push notification text
+    MessageOptions options = new MessageOptions();
+    options.pushNotificationMessage(MainActivity.getUserID() + ": " + text);
 
-    //Formats the push notification that the other participants will receive
-    Map<String, String> metadata = new HashMap<>();
-    metadata.put("layer-push-message", senderID + ": " + text);
-    message.setMetadata(metadata);
+    //Creates and returns a new message containing the message parts
+    Message message = layerClient.newMessage(options, Arrays.asList(messagePart));
 
     //Sends the message
     mConversation.send(message);
