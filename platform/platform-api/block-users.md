@@ -44,7 +44,7 @@ POST /apps/:app_uuid/users/:owner_user_id/blocks
 |------------|-------|--------------|
 | **user_id**  | string | The User ID of a user to add to Block List |
 
-### Example
+### Example Request: Block a User
 
 ```json
 {
