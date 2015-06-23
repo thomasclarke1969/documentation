@@ -70,3 +70,59 @@ curl  -X PATCH \
            {"operation": "remove", "property": "participants", "value": "b"}]' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
 ```
+
+## Set &amp; Delete Metadata
+Set or delete metadata properties using [Layer Patch](https://github.com/layerhq/layer-patch#the-operations-array) Operations using the values shown below:
+
+| Name    |  Type | Description |
+|---------|-------|-------------|
+| **operation** | string | Type of operation to perform (set or delete) |
+| **property**  | string | A path to a property within metadata using dot separators (e.g. `metadata.title` or `metadata.a.b.c`). |
+| **value**     | string or object | Only strings and objects are supported for metadata values. |
+
+
+### Example Request: Set Metadata
+```json
+[
+    {"operation": "set", "property": "metadata.stats.counter", "value": "10"},
+    {"operation": "set", "property": "metadata.admin",
+        "value": {
+            "user_id": "fred",
+            "hours": {
+                "start": "9",
+                "end": "5"
+            }
+        }
+    }
+]
+```
+
+Will result in the following new metadata value:
+```json
+{
+    "metadata": {
+        "stats": {
+            "counter": "10"
+        },
+        "admin": {
+            "user_id": "fred",
+            "hours": {
+                "start": "9",
+                "end": "5"
+            }
+        }
+    }
+}
+```
+
+```console
+curl  -X PATCH \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/vnd.layer-patch+json' \
+      -d '[{"operation": "set",    "property": "metadata.stats.counter", "value": "10"}, \
+           {"operation": "delete", "property": "metadata.admin"}]' \
+      https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
+```
+
+> Metadata values can ONLY be strings and objects.  Arrays, numbers, booleans, etc... are not supported.  You can pass these as strings and parse them into the desired type on the receiving client.
