@@ -19,7 +19,7 @@ POST /apps/:app_uuid/announcements
 
 One key difference with [Send a Message](#send-a-message): you may not use `sender.user_id` when sending an Announcement.
 
-### Example Request
+### Example Request: Sending an Announcement
 
 ```json
 {
@@ -89,7 +89,7 @@ When `recipients` is set to the string value `"everyone"`, it is interpreted as 
 
 Note that when targeting "everyone" each recipient doesn't need to have authenticated with Layer before, but merely be known to exist (perhaps their ID was added to a Conversation by another user). Recipients who have not yet interacted with Layer will receive the Announcement if/when they eventually do connect.
 
-### Example Request
+### Example Request: Sending Announcements to Everyone
 
 ```json
 {

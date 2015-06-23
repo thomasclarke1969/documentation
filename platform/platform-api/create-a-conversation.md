@@ -14,7 +14,7 @@ POST /apps/:app_uuid/conversations
 | **distinct** | boolean | Create or find a unique Conversation between these participants |
 | **metadata** | object | Arbitrary set of name value pairs representing initial state of Conversation metadata |
 
-### Example
+### Example Request: Create a Conversation
 
 ```json
 {
@@ -85,13 +85,15 @@ If there is a matching Distinct Conversation, and one of these  holds true, then
 2. The `metadata` property was included but with a value of `null`
 3. The `metadata` property value is identical to the metadata of the matching Distinct Conversation
 
-### Required Header
+In addition to returning the existing Conversation, a `Location` header will be returned with the URL to that Conversation.
+
+### Response Header
 
 ```text
 Location: /apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67
 ```
 
-### Example
+### Example Request: Create a Distinct Conversation
 
 ```json
 {
@@ -134,5 +136,3 @@ If the matching Distinct Conversation has metadata different from what was reque
     }
 }
 ```
-
-> Note that services to modify the metadata are not available yet.

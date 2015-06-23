@@ -19,7 +19,7 @@ POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 | **parts.encoding**  | string | If sending base64 encoded data, specify base64 else ommit this field |
 | **notification** | object | See [Push Notifications](#push-notifications) docs for detailed options |
 
-### Example Request
+### Example Request: Sending a Message
 
 ```json
 {
