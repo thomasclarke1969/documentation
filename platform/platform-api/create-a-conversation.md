@@ -42,10 +42,9 @@ POST /apps/:app_uuid/conversations
     ],
     "distinct": false,
     "metadata": {
-        "background_color": "#3c3c3c",
-        "status": {
-            "fred": "dead",
-            "clive": "alive"
+        "info": {
+            "background_color": "#3c3c3c",
+            "title": "A conversation about Coffee"
         }
     }
 }
@@ -56,7 +55,7 @@ curl  -X POST \
       -H 'Accept: application/vnd.layer+json; version=1.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"participants": ["a", "b"], "distinct": false, "metadata": {"background_color": "#3c3c3c", "status": {"fred": "dead", "clive": "alive"}}}' \
+      -d '{"participants": ["a", "b"], "distinct": false, "metadata": {"info": {"background_color": "#3c3c3c", "title": "A conversation about Coffee"}}}' \
       https://api.layer.com/apps/APP_UUID/conversations
 ```
 
