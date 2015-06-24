@@ -42,7 +42,11 @@ POST /apps/:app_uuid/conversations
     ],
     "distinct": false,
     "metadata": {
-        "background_color": "#3c3c3c"
+        "background_color": "#3c3c3c",
+        "status": {
+            "fred": "dead",
+            "clive": "alive"
+        }
     }
 }
 ```
