@@ -3,6 +3,13 @@
 The Layer Platform API is designed to empower developers to automate, extend, and integrate functionality provided by the Layer platform
 with other services and applications. Example use cases include creating new conversations among a set of users matched by an application, feeding messages into conversations from external systems, and sending announcements to a group of users. For more on this see our [blog post](http://blog.layer.com/introducing-layer-platform-api).
 
+The Platform API achieves thes goals by allowing servers to
+
+1. Trigger events based on actions within your own ecosystem
+2. Interact with Layer Messages and Conversations with administrative privileges.
+
+These goals are supported for requests from your servers only.  The only supported requests that browsers may perform are as authenticated users via the [REST API](https://developer.layer.com/docs/).
+
 All API access is over `HTTPS`, and accessed from the following domain:
 ```text
 https://api.layer.com
