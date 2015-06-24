@@ -11,8 +11,8 @@ POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 | Name    | Type |  Description  |
 |---------|------|---------------|
 | **sender** | object | Identifies the sender of the Message |
-| **sender.user_id** [**](#warning) | string | User ID of the participant that this message will appear to be from |
-| **sender.name** [**](#warning)    | string | Arbitrary string naming the service that this message will appear to be from |
+| [**sender.user_id**](#warning)  | string | User ID of the participant that this message will appear to be from |
+| [**sender.name**](#warning)     | string | Arbitrary string naming the service that this message will appear to be from |
 | **parts**           | Array  | Array of MessageParts |
 | **parts.body**      | string | Text or base64 encoded data for your message |
 | **parts.mime_type** | string | text/plain, image/png or other mime type describing the body of this MessagePart |
