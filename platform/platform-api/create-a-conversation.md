@@ -52,7 +52,7 @@ curl  -X POST \
       -H 'Accept: application/vnd.layer+json; version=1.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"participants": ["a", "b"], "distinct": false}' \
+      -d '{"participants": ["a", "b"], "distinct": false, "metadata": {"background_color": "#3c3c3c", "status": {"fred": "dead", "clive": "alive"}}}' \
       https://api.layer.com/apps/APP_UUID/conversations
 ```
 
