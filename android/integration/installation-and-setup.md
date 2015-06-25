@@ -15,9 +15,9 @@ repositories {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.google.android.gms:play-services-base:6.5.+'
+    compile 'com.google.android.gms:play-services-base:7.5.0'
     compile 'com.layer.sdk:layer-sdk:%%ANDROID-SDK-VERSION%%'
-    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'org.slf4j:slf4j-nop:1.7.12'
 }
 ```
 
@@ -32,10 +32,10 @@ dependencies {
 ```groovy
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.+'
+    compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:support-annotations:20.+'
-    compile 'com.google.android.gms:play-services:5.+'
-    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'com.google.android.gms:play-services:7.5.0'
+    compile 'org.slf4j:slf4j-nop:1.7.12'
 }
 ```
 
