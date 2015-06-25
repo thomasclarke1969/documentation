@@ -8,7 +8,7 @@ The Platform API achieves these goals by allowing servers to
 1. Trigger events based on actions within your own ecosystem
 2. Interact with Layer Messages and Conversations with administrative privileges.
 
-These goals are supported for requests from your servers only.  The only supported requests that browsers may perform are as authenticated users via the [REST API](https://developer.layer.com/docs/).
+These goals are supported for requests from your servers only.  The only supported requests that browsers may perform are as authenticated users via the REST API (coming soon).
 
 All API access is over `HTTPS`, and accessed from the following domain:
 ```text
