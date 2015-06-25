@@ -32,7 +32,7 @@ Both View Controllers assume the list of participants
 The Address Bar View Controller appears at the top of the ATLConversationViewController. When creating a new conversation you can add the participants in the view, or initiate the the Participant Table View Controller. If the conversation exists then the address will contain a read-only list of participants.
 
 ### Initialization
-The ConversationViewController includes an instance of the by default. You will need to implement the AddressBarViewController delegate methods. 
+The ConversationViewController includes an instance of the `ATLAddressBarViewController` by default. You will need to implement the AddressBarViewController delegate methods. 
 ```objective-c
 - (void)viewDidLoad {
     [super viewDidLoad];
