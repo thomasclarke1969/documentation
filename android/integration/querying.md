@@ -19,7 +19,7 @@ List<Message> recentMessages = layerClient.executeQuery(query, Query.ResultType.
 ```
 
 ##Constructing a query
-The Query object is built with a Class object representing the class upon which the query will be performed. Querying is available on classes that conform to the Queryable protocol. Currently, Conversation and Message are the only classes which conform to the protocol.
+The Query object is built with a Class object representing the class upon which the query will be performed. Querying is available on classes that conform to the Queryable protocol. Currently, `Conversation`, `Message`, and `Announcement` are the only classes which conform to the protocol.
 
 ```java
 Query query = Query.builder(Conversation.class).build();

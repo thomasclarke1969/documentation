@@ -25,7 +25,7 @@ if (!error) {
 
 ## Constructing a query
 
-An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol. Currently, `LYRConversation` and `LYRMessage` are the only classes which conform to the protocol.
+An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol. Currently, `LYRConversation`, `LYRMessage`, and `LYRAnnouncement` are the only classes which conform to the protocol.
 
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
