@@ -1,5 +1,11 @@
 #Querying
-Layer provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with a Query object. To demonstrate a simple example, the following queries Layer for the latest 20 messages in the given conversation.
+Layer provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with a Query object and can act on Conversations, Messages, or Annoucements.
+
+```emphasis
+Queries execute on the local database, and will only return results for conversations and messages where the authenticated user is a participant. Queries will **not** return empty conversations - a conversation must have at least one message in it in order to be written to the local database. 
+```
+
+To demonstrate a simple example, the following queries Layer for the latest 20 messages in the given conversation.
 
 ```java
 //Return 20 most recent messages in myConversation
