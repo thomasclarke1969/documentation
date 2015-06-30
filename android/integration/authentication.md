@@ -7,12 +7,17 @@ To authenticate a user, you must set up your own Authentication Web Service wher
 In general, you should authenticate when a user logs in to your app, and deauthenticate when they log out.
 
 ```emphasis
-Keep in mind that the sample Identity Token endpoint provided in the [Quick Start App](/docs/android/quick-start) is for testing purposes only and **cannot** be used in production.
+Keep in mind that the sample Identity Token endpoint provided in the [Quick Start App](/docs/android/quick-start) is for testing purposes only and **cannot** be used in production. When building your own Identity Token web service, we have several examples for multiple platforms in [this guide](/docs/android/guides#authentication).
 ```
+
+The authentication process starts when you call `layerClient.authenticate()`, which connects to the Layer backend to generate a nonce. Once this has been obtained, the `onAuthenticationChallenge(...)` callback executes in any and all registered AuthenticationListeners. You then use that nonce and any user credentials you deem necessary to create an Identity Token with your own web service. After this is passed back to the app, you can finish the authentication process by calling `layerClient.answerAuthenticationChallenge(token);`.
+
+![](android_auth.png)
+
 
 If you'd like to learn more about Authentication and the Authentication process, this [Knowledge Base article](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) is a good place to start.
 
-You can start the Authentication process in your App after the Layer SDK connects successfully. After connecting, the `ConnectionListener.onConnectionConnected()` method will be called and then you can execute `layerClient.authenticate()`.
+You should start the Authentication process in your App after the Layer SDK connects successfully. After connecting, the `ConnectionListener.onConnectionConnected()` method will be called and then you can execute `layerClient.authenticate()`.
 
 
 ```java
@@ -88,6 +93,5 @@ public void onDeauthenticated(LayerClient client) {
 
 ```emphasis
 **Best Practice**
-
 If your app supports multiple users on a given device, Layer allows each user to send and receive their own messages. Just make sure you deauthenticate when a user logs out and wait for the appropriate callback before authenticating another user.
 ```
