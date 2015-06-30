@@ -7,7 +7,7 @@ To authenticate a user, you must set up your own Authentication Web Service wher
 In general, you should authenticate when a user logs in to your app, and deauthenticate when they log out.
 
 ```emphasis
-Keep in mind that the sample Identity Token endpoint provided in the [Quick Start App](/docs/android/quick-start) is for testing purposes only and **cannot** be used in production. When building your own Identity Token web service, we have several examples for multiple platforms in [this guide](/docs/android/guides#authentication).
+Keep in mind that the sample Identity Token endpoint provided in the [Quick Start App](/docs/android/quick-start) is for testing purposes only and **cannot** be used in production. When building your own Identity Token web service, we have several examples for multiple platforms in the [Authentication Guide](/docs/android/guides#authentication).
 ```
 
 The authentication process starts when you call `layerClient.authenticate()`, which connects to the Layer backend to generate a nonce. Once this has been obtained, the `onAuthenticationChallenge(...)` callback executes in any and all registered AuthenticationListeners. You then use that nonce and any user credentials you deem necessary to create an Identity Token with your own web service. After this is passed back to the app, you can finish the authentication process by calling `layerClient.answerAuthenticationChallenge(token);`.
