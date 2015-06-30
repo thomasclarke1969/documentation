@@ -46,7 +46,7 @@ You can use this as a template to connect to your own Identity Service, which wi
 
 <b>Note:</b> You should never cache the nonce or Identity Token. Both are designed to be used once, and once only. If a user has been authenticated and you request a nonce, the nonce will come back nil. Layer will cache the user so will only need to re-authenticate if the user has been deauthenticated.
 
-You can choose to deauthenticate the User at any point by calling ``. This will effectively "log out" the User, preventing them from sending and receiving messages on the device (and they will not receive notifications). Deauthenticating will also delete any locally stored conversations and messages.
+You can choose to deauthenticate the User at any point by calling `deauthenticateWithCompletion`. This will effectively "log out" the User, preventing them from sending and receiving messages on the device (and they will not receive notifications). Deauthenticating will also delete any locally stored conversations and messages.
 
 ```objective-c
 [self.layerClient deauthenticateWithCompletion:^(BOOL success, NSError *error) {
