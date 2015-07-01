@@ -20,8 +20,8 @@ You can also have multiple conversations with the same set of users, should you 
 
 ```
 ConversationOptions options = new ConversationOptions().distinct(false);
-Conversation topicA = layerClient.newConversation(Arrays.asList("USER-IDENTIFIER"), options);
-Conversation topicB = layerClient.newConversation(Arrays.asList("USER-IDENTIFIER"), options);
+Conversation topicA = layerClient.newConversation(options, Arrays.asList("USER-IDENTIFIER"));
+Conversation topicB = layerClient.newConversation(options, Arrays.asList("USER-IDENTIFIER"));
 ```
 
 ## Add/Remove Participants
