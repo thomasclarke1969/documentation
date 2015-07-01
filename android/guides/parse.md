@@ -1,5 +1,5 @@
 # Parse Integration
-[Layer-Parse-Android-Example](https://github.com/layerhq/Layer-Parse-Android-Example) is a sample application highlighting how to integrate the Layer communications platform with a Parse backend. It presents a very simple example of a chat app.
+[Layer-Parse-Android-Example](https://github.com/layerhq/Layer-Parse-Android-Example) is a sample application highlighting how to integrate the Layer communications platform with Parse to handle user management. It presents a very simple example of a chat app.
 
 ## Setup
 
