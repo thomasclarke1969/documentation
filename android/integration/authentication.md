@@ -12,7 +12,7 @@ Keep in mind that the sample Identity Token endpoint provided in the [Quick Star
 
 The authentication process starts when you call `authenticate()`, which connects to the Layer backend to generate a nonce. Once this has been obtained, the `onAuthenticationChallenge()` callback executes with the nonce in any and all registered AuthenticationListeners. You then use that nonce and any user credentials you deem necessary to create an Identity Token with your own web service. After this is passed back to the app, you can finish the authentication process by calling `answerAuthenticationChallenge(token)`.
 
-![](android_auth.png)
+<a href="https://s3.amazonaws.com/static.layer.com/web/docs/android_auth.png" target="_blank"><img src="https://s3.amazonaws.com/static.layer.com/web/docs/android_auth.png" alt="Authentication flow on Android"></a>
 
 
 If you'd like to learn more about Authentication and the Authentication process, this [Knowledge Base article](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) is a good place to start.
