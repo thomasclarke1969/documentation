@@ -12,7 +12,7 @@ Keep in mind that the sample Identity Token endpoint provided in the [Quick Star
 
 The authentication process starts when you call `requestAuthenticationNonceWithCompletion`, which connects to the Layer backend to generate a nonce. Once the nonce has been obtained, you use it and any user credentials you deem necessary to create an Identity Token with your own web service. After this is passed back to the app, you can finish the authentication process by calling `authenticateWithIdentityToken`.
 
-![](ios_auth.png)
+<a href="images/ios_auth.png" target="_blank"><img src="ios_auth.png" alt="Authentication flow on iOS"</a>
 
 If you'd like to learn more about Authentication and the Authentication process, this [Knowledge Base article](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work-) is a good place to start.
 
