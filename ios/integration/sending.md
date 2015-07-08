@@ -110,7 +110,7 @@ LYRMessage *message = [layerClient newMessageWithParts:@[ messagePart ] options:
 ```emphasis
 **IMPORTANT**
 
-By default, LayerKit will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2k like images or movies, please read the [Rich Content](/docs/guides#richcontent) guide.
+By default, LayerKit will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2k like images or movies, please read the [Rich Content](/docs/ios/guides#richcontent) guide.
 ```
 
 ## Sending The Message
