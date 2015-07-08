@@ -69,7 +69,7 @@ Prebuilt JWT Libraries are available for many languages:
 * [Python](https://github.com/progrium/pyjwt/)
 * [Ruby](https://github.com/progrium/ruby-jwt)
 
-To assist in setting up a backend, Layer provides sample backend implementations for the followin languages:
+To assist in setting up a backend, Layer provides sample backend implementations for the following languages:
 
 * [Node.js](https://github.com/layerhq/support/blob/master/identity-services-samples/nodejs/layer.js) (also available as a [Parse Cloud module](https://github.com/layerhq/layer-parse-module))
 * [Python](https://github.com/layerhq/support/blob/master/identity-services-samples/python/controller.py)
