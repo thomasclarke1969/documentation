@@ -9,10 +9,7 @@ LayerClient layerClient = LayerClient.newInstance(context, "[your APP ID]", opti
 
 
 ## Sending Push Notifications
-The sending client can now generate push notifications by specifying special metadata keys when sending messages:
-
-   1. **layer-push-message**: A string value intended to specify the notification message to display.
-   2. **layer-push-sound**: A string value intended to represent a sound resource to play.
+The sending client can now generate push notifications by specifying special options when sending the message:
 
 ``` java
 private void sendTextMessage(String text) {
@@ -101,18 +98,46 @@ public class LayerPushReceiver extends BroadcastReceiver {
 Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action.  To ensure that the reciever is activated on device start (not just after app launch), you can also filter for the `android.intent.action.BOOT_COMPLETED` action. One way to do so is through your app's AndroidManifest.xml (replace `com.myapp.newstandalone` with your own package name):
 
 ``` xml
+<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+
+<permission
+   android:name="com.layer.quick_start_android.permission.C2D_MESSAGE"
+   android:protectionLevel="signature"/>
+<uses-permission android:name="com.layer.quick_start_android.permission.C2D_MESSAGE"/>
+
 <application ... >
+    
     ...
-    <receiver android:name=".LayerPushReceiver">
-        <intent-filter>
-            <action android:name="com.layer.sdk.PUSH"/>
-            <category android:name="com.myapp.newstandalone"/>
-        </intent-filter>
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            <category android:name="com.myapp.newstandalone"/>
-        </intent-filter>
-    </receiver>
+    
+   <!-- Layer SDK has these for monitoring network, boot, and GCM -->
+   <receiver android:name="com.layer.sdk.services.LayerReceiver">
+      <intent-filter>
+         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+         <action android:name="android.intent.action.ANY_DATA_STATE"/>
+      </intent-filter>
+   </receiver>
+   
+   <receiver android:name="com.layer.sdk.services.GcmBroadcastReceiver"
+      android:permission="com.google.android.c2dm.permission.SEND">
+      <intent-filter>
+         <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+         <category android:name="com.layer.quick_start_android"/>
+      </intent-filter>
+   </receiver>
+   
+   <receiver android:name=".LayerPushReceiver">
+      <intent-filter>
+         <action android:name="com.layer.sdk.PUSH"/>
+         <category android:name="com.myapp.newstandalone"/>
+      </intent-filter>
+      <intent-filter>
+         <action android:name="android.intent.action.BOOT_COMPLETED"/>
+         <category android:name="com.myapp.newstandalone"/>
+      </intent-filter>
+   </receiver>
+   
+   <service android:name="com.layer.sdk.services.GcmIntentService"/>
+   
 </application>
 ```
 
