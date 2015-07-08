@@ -112,7 +112,7 @@ The service declares 4 recipient states; Invalid, Sent, Delivered, and Read. The
 ```emphasis
 **IMPORTANT**
 
-By default, Layer will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2kb like images or movies, please read the [Rich Content](/docs/guides#richcontent) guide.
+By default, Layer will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2kb like images or movies, please read the [Rich Content](/docs/android/guides#richcontent) guide.
 ```
 
 ## Sending The Message
