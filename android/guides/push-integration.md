@@ -2,7 +2,9 @@
 Use the "Project Number" from your Google Developers Console project as your GCM Sender ID when creating new LayerClient instances:
 
 ``` java
-LayerClient layerClient = LayerClient.newInstance(context, "[your APP ID]", "[your GCM sender ID]");
+LayerClient.Options options = new LayerClient.Options();
+options.googleCloudMessagingSenderId("[your GCM sender ID]");
+LayerClient layerClient = LayerClient.newInstance(context, "[your APP ID]", options);
 ```
 
 
