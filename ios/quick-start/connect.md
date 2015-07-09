@@ -17,7 +17,7 @@ Copy and paste the following into `application:didFinishLaunchingWithOptions:` i
 
 ```objectivec
 
-NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"%%C-INLINE-APPID%%"];
+NSURL *appID = [NSURL URLWithString:@"%%C-INLINE-APPID%%"];
 self.layerClient = [LYRClient clientWithAppID:appID];
 [self.layerClient connectWithCompletion:^(BOOL success, NSError *error) {
     if (!success) {

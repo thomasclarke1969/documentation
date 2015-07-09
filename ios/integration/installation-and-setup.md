@@ -48,7 +48,7 @@ Key's are application specific and should be kept private. Copy and paste the fo
 
 ```objectivec
 // Initializes a LYRClient object
-NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"%%C-INLINE-APPID%%"];
+NSURL *appID = [NSURL URLWithString:@"%%C-INLINE-APPID%%"];
 LYRClient *layerClient = [LYRClient clientWithAppID:appID];
 
 // Tells LYRClient to establish a connection with the Layer service
