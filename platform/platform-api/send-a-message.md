@@ -22,7 +22,7 @@ POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 <a name="warning"></a>
 ```emphasis
 ** IMPORTANT ** 
-You can either specify `sender.user_id` or `sender.name` when sending a message.  If you send both, the Client SDK's will crash.
+You can either specify sender.user_id or sender.name, but not both.
 ```
 
 ### Example Request: Sending a Message
