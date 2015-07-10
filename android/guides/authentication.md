@@ -92,7 +92,8 @@ To assist in setting up a backend, Layer provides sample backend implementations
 
 Third Party Libraries
 * [Ruby Gem](https://rubygems.org/gems/layer-identity_token)
-*  [Layer Token Service](https://github.com/dreimannzelt/layer-token_service)  - basic webservice for testing your Layer client
+* [.Net C#](https://github.com/khanhvu161188/LayerNet)
+* [Layer Token Service](https://github.com/dreimannzelt/layer-token_service)  - basic webservice for testing your Layer client
 
 If you build your own libraries and want to be included, send an email to [support@layer.com](mailto:support@layer.com).
 
