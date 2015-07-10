@@ -14,7 +14,7 @@ These are the key components of Atlas, and this tutorial will walk you through i
 
 ##Implementing Atlas in a new project
 
-To learn more about these components, you can build and explore the provided Atlas Messenger app, or you can follow this tutorial which covers building a simple app using Atlas from scratch. We will build an app that will allow you to create conversations between three pre-defined users: the device, simulator, and web interface. With Atlas, the app will have a fully featured GUI experience built with each of the components desribed above.
+To learn more about these components, you can build and explore the provided Atlas Messenger app, or you can follow this tutorial which covers building a simple app using Atlas from scratch. We will build an app that will allow you to create conversations between three pre-defined users: the device, simulator, and web interface. With Atlas, the app will have a fully featured GUI experience built with each of the components described above.
 
 You can also use this tutorial as a starting point for integrating Atlas into your own app. And since Atlas is completely open, you are free to extend or change the default functionality however you want!
 
