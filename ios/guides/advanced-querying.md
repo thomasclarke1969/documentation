@@ -19,7 +19,7 @@ if (!error) {
 
 ## Examples
 
-The following examples demonstrate multiple common queryies that can be utilized by applications.
+The following examples demonstrate multiple common queries that can be utilized by applications.
 
 ## Conversation Queries
 
@@ -132,7 +132,7 @@ if (!error) {
 }
 ```
 
-### Fetching all Messages containing png's
+### Fetching all Messages containing PNGs
 ```objectivec
 // Fetch all messages containing 
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
@@ -149,7 +149,7 @@ if (!error) {
 
 ## MessagePart Queries
 
-### Fetching MessageParts containing png's
+### Fetching MessageParts containing PNGs
 
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessagePart class]];
@@ -158,7 +158,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"MIMEType" predicateOpera
 NSError *error;
 NSOrderedSet *messageParts = [self.layerClient executeQuery:query error:&error];
 if (!error) {
-    NSLog(@"%tu messageParts in conversation with png's", messageParts.count);
+    NSLog(@"%tu messageParts in conversation with PNGs", messageParts.count);
 } else {
     NSLog(@"Query failed with error %@", error);
 }

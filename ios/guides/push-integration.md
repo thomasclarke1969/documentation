@@ -101,7 +101,7 @@ The following is an example of a push payload from Layer:
     }
 }
 ```
-The conversation identifier is contained in `layer.conversation_identifier` and the message identifer is contained in `layer.message_identifier`.
+The conversation identifier is contained in `layer.conversation_identifier` and the message identifier is contained in `layer.message_identifier`.
 
 The following code will retrieve the LYRMessage object from a push notification:
 
@@ -165,7 +165,7 @@ Manually keeping track of unread message counts can be a real pain. Layer can au
 
 To enable this feature, go to the Push section in the [Developer Dashboard](https://developer.layer.com) and turn on "Show unread in badges".
 ![](badges.png)
-Please note that when you flip the switch the change may take a few minutes to propogate.
+Please note that when you flip the switch the change may take a few minutes to propagate.
 
 To retrieve the badge count in your application, use
 ```

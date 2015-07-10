@@ -5,7 +5,7 @@ Communication is not just about what was said. It's a rich experience that encom
 While this feature is both powerful and convenient, it is not designed to serve as a general purpose data store. It's important to understand the intended use cases and limitations associated with the feature to ensure an ideal user experience. In particular, please keep in mind that:
 
 1. Metadata is implemented with "last writer wins" semantics on a per key basis. This means that multiple mutations by independent users to a given key will result in a single stored value. No locking or other coordination is performed across participants.
-2. Metadata is automatically synchronized by each participant in the conversation. While Layer has gone to great lengths to implement metadata in a way that maximizes efficiency on the wire, it is important that the amount of data stored in metadata is kept to a mimumum to ensure the quickest synchronization possible.
+2. Metadata is automatically synchronized by each participant in the conversation. While Layer has gone to great lengths to implement metadata in a way that maximizes efficiency on the wire, it is important that the amount of data stored in metadata is kept to a minimum to ensure the quickest synchronization possible.
 3. Metadata values must be represented as strings. To ensure a satisfying user experience developers are strongly discouraged from storing any sort of binary data representation (including thumbnail images) via metadata. Instead, consider storing a URL or other reference to data that is transmitted out of band from
 synchronization.
 4. Metadata is limited to the storage of a maximum of 2k of data under each key. Keys must be alphanumeric and may include hyphens and underscores. Nested structures may be used to facilitate efficient namespacing of content.
@@ -47,7 +47,7 @@ Metadata access and mutation is performed via public instance methods on the Con
 - (void)setValuesForMetadataKeyPathsWithDictionary:(NSDictionary *)metadata merge:(BOOL)merge;
 
 /**
- @abstraxct Deletes existing values for the specified key-paths from the metadata.
+ @abstract Deletes existing values for the specified key-paths from the metadata.
  @param keyPaths The key-path to the metadata to be deleted.
  */
 - (void)deleteValuesForMetadataAtKeyPaths:(NSArray *)keyPaths;
@@ -77,5 +77,5 @@ of nested keys leading to a leaf value. For example, given a metadata structure 
 We could change the `screen_name` of user `"12345"` from `"El Diablo"` to `"El Toro"` by referencing it as a keypath:
 
 ```objc
-[converation setValue:@"El Toro" forMetadataAtKeyPath:@"my_app.user_info.12345.screen_name"];
+[conversation setValue:@"El Toro" forMetadataAtKeyPath:@"my_app.user_info.12345.screen_name"];
 ```
