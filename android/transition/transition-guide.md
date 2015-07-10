@@ -25,7 +25,7 @@ Message message = client.newMessage(parts);
 //Conversation.newInstance(participants) becomes
 Conversation conversation = client.newConversation(participants);
 
-//The conversation sends the message istself, so layerClient.sendMessage(message) becomes
+//The conversation sends the message itself, so layerClient.sendMessage(message) becomes
 conversation.send(message);
 ```
 

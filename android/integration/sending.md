@@ -14,7 +14,7 @@ Conversation conversation = layerClient.newConversation(Arrays.asList("USER-IDEN
 Note, that it is not necessary to include the currently authenticated user in the participant array. They are added to new conversations automatically when the first message gets sent to that conversation.
 ```
 
-If multiple users independently create distinct conversations with the same set of users, the server will automatically merge the conversations. This means that some properites of the conversation may change after it is created, but the Layer SDK will handle these changes for you.
+If multiple users independently create distinct conversations with the same set of users, the server will automatically merge the conversations. This means that some properties of the conversation may change after it is created, but the Layer SDK will handle these changes for you.
 
 You can also have multiple conversations with the same set of users, should you choose.
 
@@ -26,7 +26,7 @@ Conversation topicB = layerClient.newConversation(options, Arrays.asList("USER-I
 
 ## Add/Remove Participants
 
-Once a conversation has been created, participant lists remain mutable, meaning participants can be both added and removed. The Layer servivce does not enforce any ownership, so any client can both add and remove participants.
+Once a conversation has been created, participant lists remain mutable, meaning participants can be both added and removed. The Layer service does not enforce any ownership, so any client can both add and remove participants.
 
 ```java
 // Adds a participant to a given conversation
@@ -196,7 +196,7 @@ for(MessagePart part : parts) {
 
 ## Confirming Message Delivery
 
-There a multiple ways in which Layer developers can confirm message delivery. The simplest mechansim is to visit the Layer [Logs Dashboard](/projects/layer-sample/logs) in the Layer developer portal. If the message was succesfully sent, you will see a log similar to the following:
+There a multiple ways in which Layer developers can confirm message delivery. The simplest mechanism is to visit the Layer [Logs Dashboard](/projects/layer-sample/logs) in the Layer developer portal. If the message was successfully sent, you will see a log similar to the following:
 
 ```
 May 02 2015 2:34:27pm Sync: User <USER_IDENTIFIER> created a message in conversation <CONVERSATION_IDENTIFIER>.

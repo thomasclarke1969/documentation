@@ -14,7 +14,7 @@ List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS
 
 ##Examples
 
-The following examples demonstrate multiple common queryies that can be utilized by applications.
+The following examples demonstrate multiple common queries that can be utilized by applications.
 
 ##Conversation Queries
 
@@ -32,7 +32,7 @@ List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OB
 ```java
 // Fetches conversation with a specific identifier
 Query query = Query.builder(Conversation.class)
-    .predicate(new Predicate(Conversation.Property.ID, Predicate.Operator.EQUAL_TO, identifer))
+    .predicate(new Predicate(Conversation.Property.ID, Predicate.Operator.EQUAL_TO, identifier))
     .build();
 
 List<Conversation> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS);

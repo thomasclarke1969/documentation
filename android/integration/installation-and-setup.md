@@ -1,6 +1,6 @@
 # Installation
 
-The Layer Android SDK is built and designed to be used with [Android Studio](https://developer.android.com/sdk/index.html). The SDK is available via an AAR or JAR file hosted on [Github](https://github.com/layerhq/releases-android), and can be added to your project by refrencing the AAR remotely with maven, or by importing the JAR locally.
+The Layer Android SDK is built and designed to be used with [Android Studio](https://developer.android.com/sdk/index.html). The SDK is available via an AAR or JAR file hosted on [GitHub](https://github.com/layerhq/releases-android), and can be added to your project by referencing the AAR remotely with maven, or by importing the JAR locally.
 
 <b>Note:</b> If you are developing with Eclipse, you can follow [these instructions](https://support.layer.com/hc/en-us/articles/204177954-Building-Layer-with-Eclipse). When you are done, return here and continue with setting up the AndroidManifest.xml file in your app.
 
@@ -24,9 +24,9 @@ dependencies {
 
 #### Option 2: JAR (downloaded to local `libs` directory)
 
-1. Download the latest Layer SDK JAR file from [Github](https://github.com/layerhq/releases-android/tree/master/releases/com/layer/sdk/layer-sdk)
+1. Download the latest Layer SDK JAR file from [GitHub](https://github.com/layerhq/releases-android/tree/master/releases/com/layer/sdk/layer-sdk)
 2. Drag the JAR file into the /libs directory of your Android Studio application
-3. Navigate to the JAR file in Android Studio navigatior, right click and select "Add As A Library..."
+3. Navigate to the JAR file in Android Studio navigator, right click and select "Add As A Library..."
 4. Navigate to your `build.gradle` file and ensure that you include the following:
 
 ```groovy

@@ -5,7 +5,7 @@
 
 This application requires Android Studio. Dependencies are managed via maven to simplify installation.
 
-1. Clone the project from Github: `$ git clone https://github.com/layerhq/Layer-Parse-Android-Example.git`
+1. Clone the project from GitHub: `$ git clone https://github.com/layerhq/Layer-Parse-Android-Example.git`
 2. Open the project in Android Studio.
 3. In LayerImpl.java replace LayerAppID with your App ID: 
  ```

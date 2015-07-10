@@ -95,7 +95,7 @@ public class LayerPushReceiver extends BroadcastReceiver {
 }
 ```
 
-Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action.  To ensure that the reciever is activated on device start (not just after app launch), you can also filter for the `android.intent.action.BOOT_COMPLETED` action. One way to do so is through your app's AndroidManifest.xml (replace `com.myapp.newstandalone` with your own package name):
+Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action.  To ensure that the receiver is activated on device start (not just after app launch), you can also filter for the `android.intent.action.BOOT_COMPLETED` action. One way to do so is through your app's AndroidManifest.xml (replace `com.myapp.newstandalone` with your own package name):
 
 ``` xml
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
