@@ -124,10 +124,10 @@ You will be presented with a tutorial. If you click on `Upload Certificate` to s
 
 ![image alt text](ios-push-uploadCert5.jpg)
 
-You will also be prompted by Layer to input your certificate password. This is the same password you chose when you exported your certificate from the KeyChain Access application.  This field is optional and is only required if you have a password on your .p12 file.
+You will also be prompted by Layer to input your certificate password. This is the same password you chose when you exported your certificate from the Keychain Access application.  This field is optional and is only required if you have a password on your .p12 file.
 
 ##Layer Push Integration
-Now that you have successfully uploaded your Apple Push Notification certificate to Layer, it is time to configure your application to support push notifications in XCode. Open your application in XCode and navigate to Project Settings → your application Target → Capabilities.
+Now that you have successfully uploaded your Apple Push Notification certificate to Layer, it is time to configure your application to support push notifications in Xcode. Open your application in Xcode and navigate to Project Settings → your application Target → Capabilities.
 
 Expand the section titled “Background Modes”.
 
