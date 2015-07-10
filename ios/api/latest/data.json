@@ -53,7 +53,7 @@
       "properties" : [
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic, copy, readonly) NSUUID *appID",
+          "declaration" : "@property (nonatomic, copy, readonly) NSURL *appID",
           "comment" : "The app key.",
           "name" : "appID"
         },
@@ -130,12 +130,18 @@
       "methods" : {
         "class" : [
           {
+            "parameters" : [
+              {
+                "name" : "appID",
+                "description" : "An app id url obtained from the Layer Developer Portal. {@link https:\/\/developer.layer.com\/projects}"
+              }
+            ],
+            "return" : "Returns a newly created Layer client object.",
+            "discussion" : "> %warning% > **Warning:** Throws NSInternalInconsistencyException when creating another Layer Client instance with the same appID value under the same process (application).\nHowever multiple instances of Layer Client with the same appID are allowed if running the code under Unit Tests.",
             "declared" : "LYRClient.h",
-            "declaration" : "+ (instancetype)clientWithAppID:(NSUUID *)appID",
             "comment" : "Creates and returns a new Layer client instance.",
             "name" : "clientWithAppID:",
-            "return" : "Returns a newly created Layer client object.",
-            "discussion" : "> %warning% > **Warning:** Throws NSInternalInconsistencyException when creating another Layer Client instance with the same appID value under the same process (application).\nHowever multiple instances of Layer Client with the same appID are allowed if running the code under Unit Tests."
+            "declaration" : "+ (instancetype)clientWithAppID:(NSURL *)appID"
           }
         ],
         "instance" : [
