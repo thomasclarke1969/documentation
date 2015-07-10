@@ -1,6 +1,6 @@
 #Register Your App to Receive Remote Notifications
 
-Your application must register to receive for remote notifications. To support device registration for both iOS 7 and iOS 8, your application must implement the following. We recommend you do this in  `application:didFinishLaunchingWithOptions`.
+Your application must register to receive remote notifications. To support device registration for both iOS 7 and iOS 8, your application must implement the following. We recommend you do this in  `application:didFinishLaunchingWithOptions`.
 
 ```objective-c
 // Checking if app is running iOS 8
@@ -15,7 +15,7 @@ if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) 
 }
 ```
 
-Your AppDelegate will be notified when your application has successfully registered with Apple’s Push Notification service via the following `UIApplicationDelegate` method. This method will provide a device token which must then be submitted to Layer. Copy and paste the following code into your AppDelegate.
+Your AppDelegate will be notified when your application has successfully registered with Apple’s Push Notification service via the `UIApplicationDelegate` method. This method will provide a device token which must then be submitted to Layer. Copy and paste the following code into your AppDelegate.
 
 ```objective-c
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -78,7 +78,7 @@ If the options parameter is `nil`, the Layer push notification service will deli
 ```emphasis
 **WARNING about silent and local notifications:**
 
-We currently recommend that developers do not rely on silent notifications. We’ve done extensive testing on silent notifications internally with various combinations of sound, alert, and content-available flags and the net outcome is that there is no way to guarantee that iOS will wake the app up in response to a push notification. We believe this is because of how iOS handles power management.  For example: if you plug the device into a power source it will get woken up on every push. When its not plugged in we've perceived that whether or not the app will be awakened is unpredictable.
+We currently recommend that developers do not rely on silent notifications. We’ve done extensive testing on silent notifications internally with various combinations of sound, alert, and content-available flags and the net outcome is that there is no way to guarantee that iOS will wake the app up in response to a push notification. We believe this is because of how iOS handles power management.  For example: if you plug the device into a power source it will get woken up on every push. When it's not plugged in we've perceived that whether or not the app will be awakened is unpredictable.
 
 If you want reliable, immediate delivery of push notifications we recommend utilizing the LYRMessagePushNotificationAlertMessageKey option to set Alert text and to use the "Show unread in badges" feature in the dashboard. If you try to use silent notifications and emit local notifications then you will always be subject to latency and a variable amount of batching. Unfortunately, the behavior is out of our control at this time.
 ```
