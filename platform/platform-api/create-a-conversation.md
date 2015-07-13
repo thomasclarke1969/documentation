@@ -61,7 +61,7 @@ curl  -X POST \
 
 ## Distinct Conversations
 
-If `User A` wants to talk to `User B`, they should not need to create a new Conversation every time they talk. By reusing an existing Conversation, they can access the message history and context around their previous communications. To help ensure that users do not inadvertantly create multiple Conversations when they intend to maintain a single thread of communication, Layer supports the notion of Distinct Conversations.
+If `User A` wants to talk to `User B`, they should not need to create a new Conversation every time they talk. By reusing an existing Conversation, they can access the message history and context around their previous communications. To help ensure that users do not inadvertently create multiple Conversations when they intend to maintain a single thread of communication, Layer supports the notion of Distinct Conversations.
 
 In a Distinct Conversation, it is guaranteed that among the given set of participants there will exist one (and only one) Conversation. Each Conversation has a `distinct` property that determines how it is created. Possible values are:
 

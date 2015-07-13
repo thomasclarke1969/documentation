@@ -16,7 +16,7 @@ POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 | **parts**           | Array  | Array of MessageParts |
 | **parts.body**      | string | Text or base64 encoded data for your message |
 | **parts.mime_type** | string | text/plain, image/png or other mime type describing the body of this MessagePart |
-| **parts.encoding**  | string | If sending base64 encoded data, specify base64 else ommit this field |
+| **parts.encoding**  | string | If sending base64 encoded data, specify base64 else omit this field |
 | **notification** | object | See [Push Notifications](#push-notifications) docs for detailed options |
 
 <a name="warning"></a>
