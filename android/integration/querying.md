@@ -1,5 +1,5 @@
 #Querying
-Layer provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with a Query object and can act on Conversations, Messages, or Annoucements.
+Layer provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with a Query object and can act on Conversations, Messages, or Announcements.
 
 ```emphasis
 Queries execute on the local database, and will only return results for conversations and messages where the authenticated user is a participant. Queries will **not** return empty conversations - a conversation must have at least one message in it in order to be written to the local database. 
@@ -50,7 +50,7 @@ Query query = Query.builder(Message.class)
 ```
 
 ##Limits and offsets
-To facilitate pagination, queries may be further constrained by applying limit and offset values. The limit onfigures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
+To facilitate pagination, queries may be further constrained by applying limit and offset values. The limit configures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
 
 ```java
 Query query = Query.builder(Conversation.class)
@@ -76,7 +76,7 @@ int count = resultArray.get(0);
 
 
 ##Executing The Query
-Queries are executed by calling executeQuery on a LayerClient object. The method takes a Query object. If succesful, the method will return a List of object which represent the results of the query.
+Queries are executed by calling executeQuery on a LayerClient object. The method takes a Query object. If successful, the method will return a List of object which represent the results of the query.
 
 ```java
 //Return up to 10 conversations with unread messages, newest first

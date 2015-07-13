@@ -5,7 +5,7 @@ Atlas is a lightweight, flexible set of user interface components designed to en
 
 ## Setup
 
-Atlas is built on top of the Layer SDK, and both are required to develop a fully featured messaging experience. The Atlas repository is open source, and you can find it [here on Github](https://github.com/layerhq/Atlas-Android) if you would like to take a closer look at the project before starting the integration process.
+Atlas is built on top of the Layer SDK, and both are required to develop a fully featured messaging experience. The Atlas repository is open source, and you can find it [here on GitHub](https://github.com/layerhq/Atlas-Android) if you would like to take a closer look at the project before starting the integration process.
 
 To integrate, you will first need to add the Atlas classes to your project, and then compile with the Layer SDK. After completing this two step process, you can take advantage of all that Layer and Atlas have to offer.
 

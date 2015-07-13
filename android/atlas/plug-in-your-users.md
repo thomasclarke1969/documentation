@@ -97,4 +97,4 @@ public class ParticipantProvider implements Atlas.ParticipantProvider {
 }
 ```
 
-When you're done, you will see a list of your users in the particpant picker UI element.
+When you're done, you will see a list of your users in the participant picker UI element.

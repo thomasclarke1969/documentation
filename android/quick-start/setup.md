@@ -5,7 +5,7 @@ This Quick Start guide will get you up and running with a project powered by Lay
 ## Set up the Quick Start project
 To get the Quick Start project running you will need [Android Studio](https://developer.android.com/sdk/index.html) and Maven installed.
 
-1. Clone the project from Github:
+1. Clone the project from GitHub:
 
   ```console
   $ git clone https://github.com/layerhq/quick-start-android.git

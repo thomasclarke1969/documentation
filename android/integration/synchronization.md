@@ -68,7 +68,7 @@ Object changeObject = change.getObject();
 ```
 
 ##Synchronization Listener
-The Layer SDK also provides a synchronization listener that alerts your application when a synchronization is about to begin, and when a synchronization has successfully completed. Your application should register as a `LayerSyncListener` to recieve these call backs.
+The Layer SDK also provides a synchronization listener that alerts your application when a synchronization is about to begin, and when a synchronization has successfully completed. Your application should register as a `LayerSyncListener` to receive these call backs.
 
 ```java
 public class MyApplication extends Application implements LayerSyncListener {
@@ -87,7 +87,7 @@ public class MyApplication extends Application implements LayerSyncListener {
     }
 
     public void onAfterSync(LayerClient client) {
-    	// LayerClient has finshed synchronization
+    	// LayerClient has finished synchronization
     }
 }
 ```

@@ -1,6 +1,6 @@
 #Authenticate
 
-Once connected, Layer requires every user to be authenticated before they can send and recieve messages. The Authentication process lets you explicitly allow a given user to communicate with other users in your App. A user is defined by their User ID, which can be any sort of unique identifer, including ones that you are already using for user managment (this could be a UDID, username, email address, phone number, etc).
+Once connected, Layer requires every user to be authenticated before they can send and receive messages. The Authentication process lets you explicitly allow a given user to communicate with other users in your App. A user is defined by their User ID, which can be any sort of unique identifier, including ones that you are already using for user management (this could be a UDID, username, email address, phone number, etc).
 
 To authenticate a user, you must set up your own Authentication Web Service where you can validate a user's credentials and create an Identity Token. That Identity Token is returned to your App, and then passed on to the Layer servers. If the Identity Token is valid, the Authentication process will complete, and that user's message history will sync to the device. For more information about configuring your own Authentication Web Service check out the [Authentication Guide](/docs/android/guides).
 
@@ -61,7 +61,7 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
 <b>Note:</b> You should never cache the nonce or Identity Token. Both are designed to be used once, and once only. If a user has been authenticated and you request a nonce, the nonce will come back null. Layer will cache the user so will only need to re-authenticate if the user has been deauthenticated.
 
 
-The final step is to verify that the Authentication process completed succesfully, or to handle any errors.
+The final step is to verify that the Authentication process completed successfully, or to handle any errors.
 
 ```java
 //Called if there was a problem authenticating

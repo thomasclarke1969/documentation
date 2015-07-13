@@ -21,7 +21,7 @@ metadata.put("theme", theme);
 metadata.put("created_at", "Dec, 01, 2014");
 metadata.put("img_url", "/path/to/img/url");
 
-//Assign the metadata to the converation.
+//Assign the metadata to the conversation.
 //Pass in 'true' to merge the HashMaps (all old keys will be preserved and new values will be set)
 // or 'false' to replace the existing HashMap (all old key/pairs will be lost)
 mConversation.putMetadata(metadata, false);
