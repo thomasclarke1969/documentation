@@ -25,7 +25,7 @@ Metadata access is performed via public instance methods on the Conversation mod
 
 ```java
 //Puts the metadata into this conversation. The 
-Map<String, Object> newData = new HashMap<String, Object>();
+Metadata newData = Metadata.newInstance();
 newData.put(key, value);
 
 //Puts the given metadata map into the Conversation's metadata, either merging the provided
@@ -35,7 +35,7 @@ mConversation.putMetadata(newData, false);
 
 
 //Returns the metadata associated with this Conversation.
-Map<String, Object> metadata = mConversation.getMetadata();
+Metadata metadata = mConversation.getMetadata();
 
 //Puts the given value in the Conversation's metadata at the given key path.  
 // If a value already exists, it is overwritten with the new value.

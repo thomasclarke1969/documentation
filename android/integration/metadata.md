@@ -9,10 +9,11 @@ Metadata provides an elegant mechanism for expressing and synchronizing contextu
 The following demonstrates setting `metadata` on a conversation:
 
 ```java
-Map<String, Object> metadata = new HashMap<String, Object>();
+Metadata metadata = Metadata.newInstance();
 metadata.put("title", "My Conversation");
 
-Map<String, Object> theme = new HashMap<String, Object>();
+//You can nest metadata objects
+Metadata theme = Metadata.newInstance();
 theme.put("background_color", "333333");
 theme.put("text_color", "F8F8EC");
 theme.put("link_color", "21AAE1");
@@ -36,7 +37,7 @@ mConversation.putMetadataAtKeyPath("theme.background_color", "FFFFFF");
 Applications can fetch metadata for a given conversation by accessing the public `metadata` property on `Conversation` objects.
 
 ```java
-Map<String, Object> current = mConversation.getMetadata();
+Metadata current = mConversation.getMetadata();
 mTitleTextView.setText((String)current.get("title"));
 ```
 
