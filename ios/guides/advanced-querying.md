@@ -8,9 +8,9 @@ query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" as
 query.limit = 20;
 query.offset = 0;
 
-NSError *error;
+NSError *error = nil;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
-if (!error) {
+if (messages) {
     NSLog(@"%tu messages in conversation", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
@@ -29,9 +29,9 @@ The following examples demonstrate multiple common queries that can be utilized 
 // Fetches all LYRConversation objects
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
 
-NSError *error;
+NSError *error = nil;
 NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
-if (!error) {
+if (conversations) {
     NSLog(@"%tu conversations", conversations.count);
 } else {
     NSLog(@"Query failed with error %@", error);
@@ -44,18 +44,19 @@ if (!error) {
 // Fetches conversation with a specific identifier
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"identifier" predicateOperator:LYRPredicateOperatorIsEqualTo value:identifier];
-LYRConversation *conversation = [[self.layerClient executeQuery:query error:nil] firstObject];
+NSError *error = nil;
+LYRConversation *conversation = [[self.layerClient executeQuery:query error:&error] firstObject];
 ```
 
 ### Fetching Conversations with a specific set of Participants
 
 ```objectivec
 // Fetches all conversations between the authenticated user and the supplied user
-NSArray *participants = @[self.client.authenticatedUserID, @"<USER_ID>"];
+NSArray *participants = @[ self.client.authenticatedUserID, @"<USER_ID>" ];
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"participants" predicateOperator:LYRPredicateOperatorIsEqualTo value:participants];
 
-NSError *error;
+NSError *error = nil;
 NSOrderedSet *conversations = [self.client executeQuery:query error:&error];
 if (!error) {
     NSLog(@"%tu conversations with participants %@", conversations.count, participants);
@@ -74,7 +75,7 @@ LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 
 NSError *error;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
-if (!error) {
+if (messages) {
     NSLog(@"%tu messages", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
@@ -95,7 +96,8 @@ LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sender.userI
 
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPredicate, userPredicate]];
 query.resultType = LYRQueryResultTypeCount;
-NSUInteger unreadMessageCount = [self.client countForQuery:query error:nil];
+NSError *error = nil;
+NSUInteger unreadMessageCount = [self.client countForQuery:query error:&error];
 ```
 
 ### Fetching all Messages in a specific Conversation
@@ -106,9 +108,9 @@ LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
 query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
 
-NSError *error;
+NSError *error = nil;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
-if (!error) {
+if (messages) {
     NSLog(@"%tu messages in conversation", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
@@ -123,9 +125,9 @@ NSDate *lastWeek = [[NSDate date] dateByAddingTimeInterval:-60*60*24*7]; // One 
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"sentAt" predicateOperator:LYRPredicateOperatorIsGreaterThan value:lastWeek];
 
-NSError *error;
+NSError *error = nil;
 NSOrderedSet *messages = [self.client executeQuery:query error:&error];
-if (!error) {
+if (messages) {
     NSLog(@"%tu messages in conversation", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
@@ -138,9 +140,9 @@ if (!error) {
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"parts.MIMEType" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
 
-NSError *error;
+NSError *error = nil;
 NSOrderedSet *messages = [self.layerClient executeQuery:query error:&error];
-if (!error) {
+if (messages) {
     NSLog(@"%tu messages with image/png", messages.count);
 } else {
     NSLog(@"Query failed with error %@", error);
@@ -155,9 +157,9 @@ if (!error) {
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessagePart class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"MIMEType" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"image/png"];
 
-NSError *error;
+NSError *error = nil;
 NSOrderedSet *messageParts = [self.layerClient executeQuery:query error:&error];
-if (!error) {
+if (!messageParts) {
     NSLog(@"%tu messageParts in conversation with PNGs", messageParts.count);
 } else {
     NSLog(@"Query failed with error %@", error);
@@ -180,7 +182,7 @@ LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sender.userI
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[userPredicate, conversationPredicate]];
 
 NSUInteger countOfMessages = [self.client countForQuery:query error:&error];
-if (!error) {
+if (countOfMessages != NSUIntegerMax) {
     NSLog(@"%tu messages matching compound predicate", countOfMessages);
 } else {
     NSLog(@"Query failed with error %@", error);

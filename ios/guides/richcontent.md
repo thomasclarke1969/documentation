@@ -130,7 +130,7 @@ You must also implement this app delegate method where you invoke our background
 }
 ```
 
-###Disk Space Management
+### Disk Space Management
 You have the option to determine how much disk space Layer can use on the local device. If locally cached content goes above this limit, then assets will be deleted, with the least recently accessed content deleted first.
 
 ```objc

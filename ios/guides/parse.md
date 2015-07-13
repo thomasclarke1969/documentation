@@ -38,13 +38,15 @@ The ParseUI controllers are flexible, and our sample requires a username, email,
 
 ```objc
 // Sent to the delegate when a PFUser is logged in.
-- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
+{
     [self dismissViewControllerAnimated:YES completion:nil];
     [self loginLayer];
 }
 
 // Sent to the delegate when a PFUser is signed up.
-- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
+{
     [self dismissViewControllerAnimated:YES completion:nil];
     [self loginLayer];
 }

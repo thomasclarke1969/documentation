@@ -25,10 +25,9 @@ To block a user:
 LYRPolicy *blockPolicy = [LYRPolicy policyWithType:LYRPolicyTypeBlock];
 blockPolicy.sentByUserID = @"<USER_TO_BLOCK>";
 
-NSError *error;
-[self.layerClient addPolicy:blockPolicy error:&error];
-if (error) 
-{
+NSError *error = nil;
+BOOL success = [self.layerClient addPolicy:blockPolicy error:&error];
+if (!success) {
     NSLog(@"Failed adding policy with error %@", error);
 }
 ```    
@@ -41,12 +40,10 @@ NSString *participant = self.participantIdentifiers[indexPath.row];
 NSPredicate *policyPredicate = [NSPredicate predicateWithFormat:@"SELF.sentByUserID = %@ AND SELF.type = %d", @"<USER_TO_BLOCK>",LYRPolicyTypeBlock ];
 NSOrderedSet *filteredPolicies = [policies filteredOrderedSetUsingPredicate:policyPredicate];
 
-if (filteredPolicies.count) 
-{
-    NSError *error;    
-    [self.layerClient removePolicy:filteredPolicies.firstObject error:&error];
-    if (error) 
-    {
+if (filteredPolicies.count) {
+    NSError *error = nil;    
+    BOOL success = [self.layerClient removePolicy:filteredPolicies.firstObject error:&error];
+    if (!success) {
         NSLog(@"Failed removing policy with error %@", error);
     }
 }    

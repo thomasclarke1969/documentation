@@ -49,8 +49,8 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:messageText];
 
 LYRMessage *message = [layerClient newMessageWithParts:@[part] options:@{LYRMessageOptionsPushNotificationAlertKey: messageText,LYRMessageOptionsPushNotificationSoundNameKey: @"layerbell.caf"} error:nil];
 
-NSError *error;
-[self.layerClient sendMessage:message error:&error];
+NSError *error = nil;
+BOOL success = [self.layerClient sendMessage:message error:&error];
 ```
 
 You can also include user-specific push messages and sounds by using the `LYRMessageOptionsPushNotificationPerRecipientConfigurationKey` key. The following example shows you how to create specific push messages for users 123 and 456.
@@ -60,16 +60,16 @@ You can also include user-specific push messages and sounds by using the `LYRMes
     // Creates and returns a new message object with the given conversation and array of message parts
     NSString *pushMessage= [NSString stringWithFormat:@"%@ says %@",self.layerClient.authenticatedUserID ,messageText];
 
-    NSDictionary *userSpecificPushMessages = @{@"123": @{ LYRMessageOptionsPushNotificationAlertKey: [NSString stringWithFormat:@"Hey User 123,%@", pushMessage], // Push Message for User 123
-                                                         LYRMessageOptionsPushNotificationSoundNameKey: @"sound.aiff" }, // Push Sound for User 123
-                                              @"456": @{ LYRMessageOptionsPushNotificationAlertKey: [NSString stringWithFormat:@"Hey User 456,%@", pushMessage], // Push Message for User 456
-                                                         LYRMessageOptionsPushNotificationSoundNameKey: @"sound.aiff" } // Push Sound for User 456
+    NSDictionary *userSpecificPushMessages = @{ @"123": @{ LYRMessageOptionsPushNotificationAlertKey: [NSString stringWithFormat:@"Hey User 123,%@", pushMessage], // Push Message for User 123
+                                                           LYRMessageOptionsPushNotificationSoundNameKey: @"sound.aiff" }, // Push Sound for User 123
+                                                @"456": @{ LYRMessageOptionsPushNotificationAlertKey: [NSString stringWithFormat:@"Hey User 456,%@", pushMessage], // Push Message for User 456
+                                                           LYRMessageOptionsPushNotificationSoundNameKey: @"sound.aiff" } // Push Sound for User 456
                                               };
 
     NSDictionary *pushOptions = @{ LYRMessageOptionsPushNotificationAlertKey: pushMessage, // Default Push Message
                                         LYRMessageOptionsPushNotificationSoundNameKey: @"sound.aiff", // Default Push Sound
                                    LYRMessageOptionsPushNotificationPerRecipientConfigurationKey:userSpecificPushMessages};
-    LYRMessage *message = [self.layerClient newMessageWithParts:@[messagePart] options:pushOptions error:nil];
+    LYRMessage *message = [self.layerClient newMessageWithParts:@[ messagePart ] options:pushOptions error:nil];
 ```
 
 If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications).
@@ -112,20 +112,14 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
     NSError *error;
 
     BOOL success = [self.applicationController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
-        if (changes)
-        {
-            if ([changes count])
-            {
+        if (changes) {
+            if ([changes count]) {
                 message = [self messageFromRemoteNotification:userInfo];
                 completionHandler(UIBackgroundFetchResultNewData);
-            }
-            else
-            {
+            } else {
                 completionHandler(UIBackgroundFetchResultNoData);
             }
-        }
-        else
-        {
+        } else {
             completionHandler(UIBackgroundFetchResultFailed);
         }
     }];
@@ -144,13 +138,13 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
     LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
     query.predicate = [LYRPredicate predicateWithProperty:@"identifier" predicateOperator:LYRPredicateOperatorIsIn value:[NSSet setWithObject:messageURL]];
 
-    NSError *error;
+    NSError *error = nil;
     NSOrderedSet *messages = [self.layerClient executeQuery:query error:&error];
-    if (!error) {
+    if (messages) {
         NSLog(@"Query contains %lu messages", (unsigned long)messages.count);
         LYRMessage *message= messages.firstObject;
         LYRMessagePart *messagePart = message.parts[0];
-        NSLog(@"Pushed Message Contents: %@",[[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding]);
+        NSLog(@"Pushed Message Contents: %@", [[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding]);
     } else {
         NSLog(@"Query failed with error %@", error);
     }
