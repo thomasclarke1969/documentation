@@ -1,10 +1,11 @@
-#Quick Start
+#Geting started with Layer
+
 ```emphasis
 If you are interested in trying out Atlas, Layer's open source user interface components, visit [Experience Atlas](/signup/atlas).
 ```
 Layer is the full-stack building block for communications.</br>
 
-This Quick Start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between an iOS Device and Simulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete the Quick Start Guide so if you don't have an account yet, [Sign Up](https://developer.layer.com/signup).
+This quick start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between an iOS Device and Simulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete this quick start guide so if you don't have an account yet, you can [sign up here](https://developer.layer.com/signup).
 
 ![Quick-Start gif](https://raw.githubusercontent.com/layerhq/quick-start-ios/master/Assets/quick-start-preview.gif)
 
