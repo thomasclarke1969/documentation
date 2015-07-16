@@ -52,7 +52,25 @@ When the user selects a conversation, the `ATLConversationListViewController` no
 ```
 
 ##<a name="cvc"></a> Conversation View Controller (ATLConversationViewController)
-The Conversation View Controller is a `UICollectionViewController` that contains all the messages in the conversation. The area at the top where the participants are listed is called the Address Bar. The area at the bottom of the screen where the user can input text, select an image, or send a location is called the Message Input Toolbar.
+The Conversation View Controller is a `UICollectionViewController` that contains all the messages in the conversation. The area at the top where the participants are listed is called the Address Bar. The area at the bottom of the screen where the user can input text, select an image, or send a location is called the Message Input Toolbar. 
+
+### Initializing
+The following code shows how to initialize the `ATLConversationViewController` when someone taps on a conversation in a  `ATLConversationListViewController`.
+
+```objective-c
+    SampleConversationViewController *controller = [SampleConversationViewController conversationViewControllerWithLayerClient:self.layerClient];
+    controller.conversation = conversation;
+    controller.displaysAddressBar = YES;
+    [self.navigationController pushViewController:controller animated:YES];
+```
+
+Currently `ATLConversationViewController` is designed to work as part of the `UINavigationController` navigation stack. As a workaround you can wrap the `ATLConversationListViewController` into a `UINavigationController` as the `rootViewController`.
+```objective-c
+    ATLSampleConversationViewController *controller = [ATLSampleConversationViewController conversationViewControllerWithLayerClient:self.layerClient];
+    controller.conversation = conversation;
+    controller.displaysAddressBar = YES;
+    UINavigationController *conversationViewNavController = [[UINavigationController alloc] initWithRootViewController:controller];
+```
 
 ###  Configuring Date String
 You can configure the date shown by implementing the  `ATLConversationViewControllerDataSource ` protocol.
