@@ -62,8 +62,11 @@ To above code can be combined in the following code block:
     NSArray *changes = [notification.userInfo objectForKey:LYRClientObjectChangesUserInfoKey];
     for (LYRObjectChange *change in changes) {
         id changeObject = change.object;
+        LYRObjectChangeType updateKey = change.type;
         if ([changeObject isKindOfClass:[LYRConversation class]]) {
-            LYRObjectChangeType updateKey = change.type;
+            // Object is a conversation
+            LYRConversation *message = changeObject;
+            
             switch (updateKey) {
                 case LYRObjectChangeTypeCreate:
                     //
@@ -78,7 +81,9 @@ To above code can be combined in the following code block:
                     break;
             }
         } else {
-            LYRObjectChangeType updateKey = change.type;
+            // Object is a message
+            LYRMessage *message = changeObject;
+            
             switch (updateKey) {
                 case LYRObjectChangeTypeCreate:
                     //
