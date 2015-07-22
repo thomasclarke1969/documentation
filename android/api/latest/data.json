@@ -8,35 +8,6 @@
             "constructor": [],
             "static": [
               {
-                "declarationSignature": "public static com.layer.sdk.LayerClient newInstance(android.content.Context context, java.util.UUID layerAppId, java.lang.String gcmSenderId)",
-                "name": "newInstance",
-                "callSignature": "newInstance(context, layerAppId, gcmSenderId)",
-                "comment": "Generates a new LayerClient, ready for authentication and sending messages.  Supply a GCM\nsender ID if you would like the LayerClient to handle GCM registration for you.  Otherwise,\nsupply `null` and use setGcmRegistrationId(senderId, registrationId).  The latter is useful\nif you would like your app to receive GCM from multiple senders.",
-                "returns": {
-                  "description": "a new LayerClient, ready to authenticate.",
-                  "type": "LayerClient"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "context",
-                    "description": "Context in which to create this client.",
-                    "type": "android.content.Context"
-                  },
-                  {
-                    "name": "layerAppId",
-                    "description": "Layer-provided `App ID`, from the Layer Console.",
-                    "type": "UUID"
-                  },
-                  {
-                    "name": "gcmSenderId",
-                    "description": "Google Cloud Messaging `Sender ID` for receiving GCM pushes.",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
                 "declarationSignature": "public static com.layer.sdk.LayerClient newInstance(android.content.Context context, java.lang.String layerAppId)",
                 "name": "newInstance",
                 "callSignature": "newInstance(context, layerAppId)",
@@ -88,27 +59,55 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public static void enableLogging()",
-                "name": "enableLogging",
-                "callSignature": "enableLogging()",
-                "comment": "Layer sdk logs to logcat using the tag 'LayerSDK'.\n\nThe log levels can be set using one of the following ways.\n1. set system property : setprop log.tag.LayerSDK [Log Level]\n2. Create a local.prop file with the following in it: 'log.tag.LayerSDK= [Log Level]' and\n   place that in /data/local.prop.\nPossible values for '[Log Level]' are VERBOSE, DEBUG, INFO, WARN, ERROR, ASSERT or SUPPRESS.\n\nEg: To enable verbose logging, use 'adb shell setprop log.tag.LayerSDK VERBOSE'\n\nFor details, refer to\nhttp://developer.android.com/reference/android/util/Log.html#isLoggable(java.lang.String, int)",
+                "declarationSignature": "public static void applicationCreated(android.app.Application application)",
+                "name": "applicationCreated",
+                "callSignature": "applicationCreated(application)",
+                "comment": "Called from `Application.onCreate()` to start Application lifecycle tracking.",
                 "returns": {
                   "type": "void"
                 },
                 "throws": [],
-                "parameters": [],
+                "parameters": [
+                  {
+                    "name": "application",
+                    "description": "Application to track.",
+                    "type": "android.app.Application"
+                  }
+                ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public static void disableLogging()",
+                "declarationSignature": "public static void enableLogging(android.content.Context context)",
+                "name": "enableLogging",
+                "callSignature": "enableLogging(context)",
+                "comment": "Layer sdk logs to logcat using the tag 'LayerSDK'.\n\nThe log levels can be set using one of the following ways.\n1. set system property : setprop log.tag.LayerSDK [Log Level]\n2. Create a local.prop file with the following in it: 'log.tag.LayerSDK= [Log Level]' and\nplace that in /data/local.prop.\nPossible values for '[Log Level]' are VERBOSE, DEBUG, INFO, WARN, ERROR, ASSERT or SUPPRESS.\n\nEg: To enable verbose logging, use 'adb shell setprop log.tag.LayerSDK VERBOSE'\n\nFor details, refer to\nhttp://developer.android.com/reference/android/util/Log.html#isLoggable(java.lang.String, int)",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "context",
+                    "type": "android.content.Context"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public static void disableLogging(android.content.Context context)",
                 "name": "disableLogging",
-                "callSignature": "disableLogging()",
+                "callSignature": "disableLogging(context)",
                 "comment": null,
                 "returns": {
                   "type": "void"
                 },
                 "throws": [],
-                "parameters": [],
+                "parameters": [
+                  {
+                    "name": "context",
+                    "type": "android.content.Context"
+                  }
+                ],
                 "exceptions": []
               },
               {
@@ -128,7 +127,7 @@
                   },
                   {
                     "name": "from",
-                    "description": ": The activity to use as context for sending out the email containing logs\n\nNOTE: The logs might include personally identifiable information. Please refer to\nLayer's privacy policy [ https://layer.com/privacy ] to understand how Layer handles PII.",
+                    "description": ": The activity to use as context for sending out the email containing logs\n\n              Note: The logs might include personally identifiable information. Please refer to\n              Layer's privacy policy [ https://layer.com/privacy ] to understand how Layer handles PII.",
                     "type": "android.app.Activity"
                   }
                 ],
@@ -332,7 +331,52 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract com.layer.sdk.messaging.Message newMessage(java.util.List messageParts)",
+                "declarationSignature": "public abstract com.layer.sdk.messaging.Message newMessage(com.layer.sdk.messaging.MessageOptions options, java.util.List messageParts)",
+                "name": "newMessage",
+                "callSignature": "newMessage(options, messageParts)",
+                "comment": "Constructs a new Message with the given options and list of MessageParts.",
+                "returns": {
+                  "description": "A new Message ready to send.",
+                  "type": "Message"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "options",
+                    "description": "MessageOptions.",
+                    "type": "MessageOptions"
+                  },
+                  {
+                    "name": "messageParts",
+                    "description": "A list of MessageParts to send with this Message.",
+                    "type": "List"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.Message newMessage(com.layer.sdk.messaging.MessageOptions options, com.layer.sdk.messaging.MessagePart... messageParts)",
+                "name": "newMessage",
+                "callSignature": "newMessage(options, messageParts)",
+                "comment": null,
+                "returns": {
+                  "type": "Message"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "options",
+                    "type": "MessageOptions"
+                  },
+                  {
+                    "name": "messageParts",
+                    "type": "MessagePart"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.Message newMessage(java.util.List messageParts)",
                 "name": "newMessage",
                 "callSignature": "newMessage(messageParts)",
                 "comment": "Constructs a new Message with the given list of MessageParts.",
@@ -534,18 +578,21 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient registerProgressListener(com.layer.sdk.messaging.MessagePart messagePart, com.layer.sdk.listeners.LayerProgressListener listener)",
                 "name": "registerProgressListener",
                 "callSignature": "registerProgressListener(messagePart, listener)",
-                "comment": null,
+                "comment": "Registers a LayerProgressListener to receive progress notifications for the given\nMessagePart, or all MessageParts if the given MessagePart is `null`.\n\nNote: use LayerProgressListener.WeakReference if you do not intend to unregister the listener\nfrom the LayerClient and want the listener to get garbage collected when external references\ngo away.",
                 "returns": {
+                  "description": "This LayerClient.",
                   "type": "LayerClient"
                 },
                 "throws": [],
                 "parameters": [
                   {
                     "name": "messagePart",
+                    "description": "The MessagePart to receive progress updates for, or `null` to reveive\n                   updates for all MessageParts.",
                     "type": "MessagePart"
                   },
                   {
                     "name": "listener",
+                    "description": "The listener to register for progress updates.",
                     "type": "LayerProgressListener"
                   }
                 ],
@@ -705,7 +752,7 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient registerEventListener(com.layer.sdk.listeners.LayerChangeEventListener listener)",
                 "name": "registerEventListener",
                 "callSignature": "registerEventListener(listener)",
-                "comment": "Registers a LayerChangeEventListener for observing change events.  Change events are emitted\nfor insertion, update, and deletion of Conversation and Message objects.  This allows a\nlistener to dynamically synchronize UI elements in the main thread or an external search\nindex in a background thread, for example.  Each emitted event contains a reference to the\ntarget object.  Updates also contain the updated attribute, along with its old and new value.",
+                "comment": "Registers a LayerChangeEventListener for observing change events.  Change events are emitted\nfor insertion, update, and deletion of Conversation and Message objects.  This allows a\nlistener to dynamically synchronize UI elements in the main thread or an external search\nindex in a background thread, for example.  Each emitted event contains a reference to the\ntarget object.  Updates also contain the updated attribute, along with its old and new value.\n\nNote: use LayerChangeEventListener.WeakReference if you do not intend to unregister the\nlistener from the LayerClient and want the listener to get garbage collected when external\nreferences go away.",
                 "returns": {
                   "description": "this LayerClient.",
                   "type": "LayerClient"
@@ -810,7 +857,7 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient registerAuthenticationListener(com.layer.sdk.listeners.LayerAuthenticationListener listener)",
                 "name": "registerAuthenticationListener",
                 "callSignature": "registerAuthenticationListener(listener)",
-                "comment": "Registers a LayerAuthenticationListener for observing authentication callbacks.\nAuthentication callbacks allow a listener to monitor authentication state and to respond to\nauthentication challenges.  This listener is required to complete authentication: the `nonce`\nprovided in onAuthenticationChallenge() must be used to generate the challenge's response, in\nthe form of an `identity token` provided to the LayerClient.answerAuthenticationChallenge()\nmethod.",
+                "comment": "Registers a LayerAuthenticationListener for observing authentication callbacks.\nAuthentication callbacks allow a listener to monitor authentication state and to respond to\nauthentication challenges.  This listener is required to complete authentication: the `nonce`\nprovided in onAuthenticationChallenge() must be used to generate the challenge's response, in\nthe form of an `identity token` provided to the LayerClient.answerAuthenticationChallenge()\nmethod.\n\nNote: use LayerAuthenticationListener.WeakReference if you do not intend to unregister the\nlistener from the LayerClient and want the listener to get garbage collected when external\nreferences go away.",
                 "returns": {
                   "description": "this LayerClient.",
                   "type": "LayerClient"
@@ -872,7 +919,7 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient registerConnectionListener(com.layer.sdk.listeners.LayerConnectionListener listener)",
                 "name": "registerConnectionListener",
                 "callSignature": "registerConnectionListener(listener)",
-                "comment": "Registers a LayerConnectionListener for observing connection callbacks.  Connection callbacks\nallow a listener to monitor connection state with the Layer Cloud.",
+                "comment": "Registers a LayerConnectionListener for observing connection callbacks.  Connection callbacks\nallow a listener to monitor connection state with the Layer Cloud.\n\nNote: use LayerConnectionListener.WeakReference if you do not intend to unregister the\nlistener from the LayerClient and want the listener to get garbage collected when external\nreferences go away.",
                 "returns": {
                   "description": "this LayerClient.",
                   "type": "LayerClient"
@@ -936,7 +983,7 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient registerSyncListener(com.layer.sdk.listeners.LayerSyncListener listener)",
                 "name": "registerSyncListener",
                 "callSignature": "registerSyncListener(listener)",
-                "comment": "Registers a LayerSyncListener for observing sync callbacks.  Sync callbacks let a listener\nmonitor the onset and completion of synchronization with the Layer Cloud.",
+                "comment": "Registers a LayerSyncListener for observing sync callbacks.  Sync callbacks let a listener\nmonitor the onset and completion of synchronization with the Layer Cloud.\n\nNote: use LayerSyncListener.WeakReference if you do not intend to unregister the listener\nfrom the LayerClient and want the listener to get garbage collected when external references\ngo away.",
                 "returns": {
                   "description": "this LayerClient.",
                   "type": "LayerClient"
@@ -1079,7 +1126,7 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient registerTypingIndicator(com.layer.sdk.listeners.LayerTypingIndicatorListener listener)",
                 "name": "registerTypingIndicator",
                 "callSignature": "registerTypingIndicator(listener)",
-                "comment": "Registers a LayerTypingIndicatorListener for observing typing indication callbacks.",
+                "comment": "Registers a LayerTypingIndicatorListener for observing typing indication callbacks.\n\nNote: use LayerTypingIndicatorListener.WeakReference if you do not intend to unregister the\nlistener from the LayerClient and want the listener to get garbage collected when external\nreferences go away.",
                 "returns": {
                   "description": "this LayerClient.",
                   "type": "LayerClient"
@@ -1114,13 +1161,13 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.util.UUID getAppId()",
+                "declarationSignature": "public abstract android.net.Uri getAppId()",
                 "name": "getAppId",
                 "callSignature": "getAppId()",
                 "comment": "Returns this client's Layer `App ID`.",
                 "returns": {
                   "description": "the Layer `App ID`.",
-                  "type": "UUID"
+                  "type": "android.net.Uri"
                 },
                 "throws": [],
                 "parameters": [],
@@ -1245,7 +1292,7 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient registerPolicyListener(com.layer.sdk.listeners.LayerPolicyListener listener)",
                 "name": "registerPolicyListener",
                 "callSignature": "registerPolicyListener(listener)",
-                "comment": "Registers a LayerPolicyListener for observing policy updates.",
+                "comment": "Registers a LayerPolicyListener for observing policy updates.\n\nNote: use LayerPolicyListener.WeakReference if you do not intend to unregister the listener\nfrom the LayerClient and want the listener to get garbage collected when external references\ngo away.",
                 "returns": {
                   "description": "this LayerClient.",
                   "type": "LayerClient"
@@ -1280,312 +1327,39 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract void addParticipants(com.layer.sdk.messaging.Conversation conversation, java.util.List participants)",
-                "name": "addParticipants",
-                "callSignature": "addParticipants(conversation, participants)",
-                "comment": "",
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient registerObjectExceptionListener(com.layer.sdk.listeners.LayerObjectExceptionListener listener)",
+                "name": "registerObjectExceptionListener",
+                "callSignature": "registerObjectExceptionListener(listener)",
+                "comment": "Registers a LayerObjectExceptionListener to receive callbacks when a Conversation, Message,\nor MessagePart fails to perform a requested action in a background thread.  These errors are\nrare (e.g. a database closed exception when sending a message during deauthentication), but\nif no listener is registered, the exception will be thrown.  If such cases require special\nhandling, such as alerting the user that their message was not sent, the LayerObject that\ncaused the exception can be retrieved from LayerObjectException.getLayerObject().\n\nNote: use LayerObjectExceptionListener.WeakReference if you do not intend to unregister the\nlistener from the LayerClient and want the listener to get garbage collected when external\nreferences go away.",
                 "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "participants",
-                    "type": "List"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public void addParticipants(com.layer.sdk.messaging.Conversation conversation, java.lang.String... participants)",
-                "name": "addParticipants",
-                "callSignature": "addParticipants(conversation, participants)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "participants",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void removeParticipants(com.layer.sdk.messaging.Conversation conversation, java.util.List participants)",
-                "name": "removeParticipants",
-                "callSignature": "removeParticipants(conversation, participants)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "participants",
-                    "type": "List"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public void removeParticipants(com.layer.sdk.messaging.Conversation conversation, java.lang.String... participants)",
-                "name": "removeParticipants",
-                "callSignature": "removeParticipants(conversation, participants)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "participants",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void deleteConversation(com.layer.sdk.messaging.Conversation conversation, com.layer.sdk.LayerClient.DeletionMode deletionMode)",
-                "name": "deleteConversation",
-                "callSignature": "deleteConversation(conversation, deletionMode)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "deletionMode",
-                    "type": "DeletionMode"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void deleteConversation(com.layer.sdk.messaging.Conversation conversation)",
-                "name": "deleteConversation",
-                "callSignature": "deleteConversation(conversation)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void putMetadataAtKeyPath(com.layer.sdk.messaging.Conversation conversation, java.lang.String keyPath, java.lang.String value)",
-                "name": "putMetadataAtKeyPath",
-                "callSignature": "putMetadataAtKeyPath(conversation, keyPath, value)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "keyPath",
-                    "type": "String"
-                  },
-                  {
-                    "name": "value",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void putMetadata(com.layer.sdk.messaging.Conversation conversation, java.util.Map metadata, boolean isMerge)",
-                "name": "putMetadata",
-                "callSignature": "putMetadata(conversation, metadata, isMerge)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "metadata",
-                    "type": "Map"
-                  },
-                  {
-                    "name": "isMerge",
-                    "type": "boolean"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void removeMetadataAtKeyPath(com.layer.sdk.messaging.Conversation conversation, java.lang.String keyPath)",
-                "name": "removeMetadataAtKeyPath",
-                "callSignature": "removeMetadataAtKeyPath(conversation, keyPath)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "keyPath",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void sendMessage(com.layer.sdk.messaging.Conversation conversation, com.layer.sdk.messaging.Message message)",
-                "name": "sendMessage",
-                "callSignature": "sendMessage(conversation, message)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
-                  {
-                    "name": "message",
-                    "type": "Message"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void markMessageAsRead(com.layer.sdk.messaging.Message message)",
-                "name": "markMessageAsRead",
-                "callSignature": "markMessageAsRead(message)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "message",
-                    "type": "Message"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void deleteMessage(com.layer.sdk.messaging.Message message, com.layer.sdk.LayerClient.DeletionMode deletionMode)",
-                "name": "deleteMessage",
-                "callSignature": "deleteMessage(message, deletionMode)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "message",
-                    "type": "Message"
-                  },
-                  {
-                    "name": "deletionMode",
-                    "type": "DeletionMode"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void deleteMessage(com.layer.sdk.messaging.Message message)",
-                "name": "deleteMessage",
-                "callSignature": "deleteMessage(message)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "message",
-                    "type": "Message"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void setMetadata(com.layer.sdk.messaging.Message message, java.util.Map metadata)",
-                "name": "setMetadata",
-                "callSignature": "setMetadata(message, metadata)",
-                "comment": "",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "message",
-                    "type": "Message"
-                  },
-                  {
-                    "name": "metadata",
-                    "type": "Map"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract com.layer.sdk.LayerClient sendTypingIndicator(com.layer.sdk.messaging.Conversation conversation, com.layer.sdk.listeners.LayerTypingIndicatorListener.TypingIndicator indicator)",
-                "name": "sendTypingIndicator",
-                "callSignature": "sendTypingIndicator(conversation, indicator)",
-                "comment": "",
-                "returns": {
+                  "description": "this LayerClient.",
                   "type": "LayerClient"
                 },
                 "throws": [],
                 "parameters": [
                   {
-                    "name": "conversation",
-                    "type": "Conversation"
-                  },
+                    "name": "listener",
+                    "description": "the LayerObjectExceptionListener to register.",
+                    "type": "LayerObjectExceptionListener"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient unregisterObjectExceptionListener(com.layer.sdk.listeners.LayerObjectExceptionListener listener)",
+                "name": "unregisterObjectExceptionListener",
+                "callSignature": "unregisterObjectExceptionListener(listener)",
+                "comment": "Stops a LayerObjectExceptionListener from receiving callbacks.",
+                "returns": {
+                  "description": "this LayerClient.",
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
                   {
-                    "name": "indicator",
-                    "type": "TypingIndicator"
+                    "name": "listener",
+                    "description": "the LayerObjectExceptionListener to unregister.",
+                    "type": "LayerObjectExceptionListener"
                   }
                 ],
                 "exceptions": []
@@ -1615,6 +1389,11 @@
             {
               "implementedInterfaces": [
                 {
+                  "name": "Serializable",
+                  "comment": null,
+                  "fullname": "java.io.Serializable"
+                },
+                {
                   "name": "Cloneable",
                   "comment": null,
                   "fullname": "java.lang.Cloneable"
@@ -1628,7 +1407,7 @@
                     "declarationSignature": "public com.layer.sdk.LayerClient.Options skipConfigurationCheck(boolean skipConfigurationCheck)",
                     "name": "skipConfigurationCheck",
                     "callSignature": "skipConfigurationCheck(skipConfigurationCheck)",
-                    "comment": "LayerSDK checks configuration in order to initialize LayerClient. \nIf there is misconfiguration of LayerSDK you can check a LogCat to find a list of <br>\n<pre> *  LayerSDK configuration issues  *</pre>",
+                    "comment": "LayerSDK checks configuration in order to initialize LayerClient.\nIf there is misconfiguration of LayerSDK you can check a LogCat to find a list of <br>\n<pre> *  LayerSDK configuration issues  *</pre>",
                     "returns": {
                       "type": "Options"
                     },
@@ -1715,12 +1494,116 @@
                     "exceptions": []
                   },
                   {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options autoDownloadMimeTypes(java.util.Collection mimeTypes)",
+                    "name": "autoDownloadMimeTypes",
+                    "callSignature": "autoDownloadMimeTypes(mimeTypes)",
+                    "comment": "Set the MIME types for which content will be autodownloaded, regardless of the size threshold set by\n{@link com.layer.sdk.LayerClient.Options#autoDownloadSizeThreshold(long)}. Other content\nwill remain pending until a download is triggered by\n{@link com.layer.sdk.messaging.MessagePart#download(com.layer.sdk.listeners.LayerProgressListener)}.\nThis defaults to a list containing only \"text/plain\".  Setting to null will download everything.",
+                    "returns": {
+                      "description": "this LayerClient.",
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "mimeTypes",
+                        "description": "the MIME types to autodownload",
+                        "type": "Collection"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public java.util.Collection getAutoDownloadMimeTypes()",
+                    "name": "getAutoDownloadMimeTypes",
+                    "callSignature": "getAutoDownloadMimeTypes()",
+                    "comment": null,
+                    "returns": {
+                      "type": "Collection"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options autoDownloadSizeThreshold(long thresholdInBytes)",
+                    "name": "autoDownloadSizeThreshold",
+                    "callSignature": "autoDownloadSizeThreshold(thresholdInBytes)",
+                    "comment": "Set the maximum size for which content will be autodownloaded. Larger content\nwill remain pending until until a download is triggered by\n{@link com.layer.sdk.messaging.MessagePart#download(com.layer.sdk.listeners.LayerProgressListener)}.\nThis defaults to 2KB, and lower values are now allowed.",
+                    "returns": {
+                      "description": "this LayerClient.",
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "thresholdInBytes",
+                        "description": "the maximum size of content to be autodownloaded",
+                        "type": "long"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public long getAutoDownloadSizeThreshold()",
+                    "name": "getAutoDownloadSizeThreshold",
+                    "callSignature": "getAutoDownloadSizeThreshold()",
+                    "comment": null,
+                    "returns": {
+                      "type": "long"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options diskCapacity(long capacityInBytes)",
+                    "name": "diskCapacity",
+                    "callSignature": "diskCapacity(capacityInBytes)",
+                    "comment": "Set the maximum amount of disk space to be used storing message data.\nA value of zero (the default) means no limit. Utilization may periodically\npeak above the configured `diskCapacity` while synchronization or downloads\nare in progress, but will be rebalanced once all operations have completed.",
+                    "returns": {
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "capacityInBytes",
+                        "description": "Maximum amount of space to use",
+                        "type": "long"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public long getDiskCapacity()",
+                    "name": "getDiskCapacity",
+                    "callSignature": "getDiskCapacity()",
+                    "comment": null,
+                    "returns": {
+                      "type": "long"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
                     "declarationSignature": "public com.layer.sdk.LayerClient.Options clone()",
                     "name": "clone",
                     "callSignature": "clone()",
                     "comment": null,
                     "returns": {
                       "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public java.lang.String toString()",
+                    "name": "toString",
+                    "callSignature": "toString()",
+                    "comment": null,
+                    "returns": {
+                      "type": "String"
                     },
                     "throws": [],
                     "parameters": [],
@@ -1748,6 +1631,21 @@
                   "name": "gcmSenderId",
                   "comment": null,
                   "type": "String"
+                },
+                {
+                  "name": "autoDownloadMimeTypes",
+                  "comment": null,
+                  "type": "Collection"
+                },
+                {
+                  "name": "autoDownloadSizeThreshold",
+                  "comment": null,
+                  "type": "long"
+                },
+                {
+                  "name": "diskCapacity",
+                  "comment": null,
+                  "type": "long"
                 }
               ],
               "derivedClasses": []
@@ -2041,6 +1939,73 @@
           "methods": {
             "constructor": [
               {
+                "declarationSignature": "public LayerObjectException(Type type, com.layer.sdk.messaging.LayerObject layerObject, java.lang.String detailMessage, java.lang.Throwable throwable)",
+                "name": "LayerObjectException",
+                "callSignature": "LayerObjectException(type, layerObject, detailMessage, throwable)",
+                "comment": null,
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "type",
+                    "type": "Type"
+                  },
+                  {
+                    "name": "layerObject",
+                    "type": "LayerObject"
+                  },
+                  {
+                    "name": "detailMessage",
+                    "type": "String"
+                  },
+                  {
+                    "name": "throwable",
+                    "type": "Throwable"
+                  }
+                ],
+                "exceptions": []
+              }
+            ],
+            "static": [],
+            "instance": [
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.LayerObject getLayerObject()",
+                "name": "getLayerObject",
+                "callSignature": "getLayerObject()",
+                "comment": null,
+                "returns": {
+                  "type": "LayerObject"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String toString()",
+                "name": "toString",
+                "callSignature": "toString()",
+                "comment": null,
+                "returns": {
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "LayerObjectException",
+          "comment": null,
+          "nestedClasses": [],
+          "fullname": "com.layer.sdk.exceptions.LayerObjectException",
+          "enumClasses": [],
+          "fields": [],
+          "derivedClasses": []
+        },
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [
+              {
                 "declarationSignature": "public LayerException(com.layer.sdk.exceptions.LayerException.Type type)",
                 "name": "LayerException",
                 "callSignature": "LayerException(type)",
@@ -2297,6 +2262,11 @@
                 },
                 {
                   "name": "CONTENT_NOT_FOUND",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "USER_BLOCKED",
                   "comment": null,
                   "type": "Type"
                 },
@@ -2561,6 +2531,26 @@
                   "type": "Type"
                 },
                 {
+                  "name": "MESSAGE_PART_IS_NEW",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "MESSAGE_PART_TOO_LARGE",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "TOO_MANY_MESSAGE_PARTS",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
+                  "name": "DISTINCT_CONVERSATION_EXISTS",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
                   "name": "TRANSPORT_ERROR",
                   "comment": null,
                   "type": "Type"
@@ -2661,6 +2651,11 @@
                   "type": "Type"
                 },
                 {
+                  "name": "FAILED_API_ACTION",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
                   "name": "mCode",
                   "comment": null,
                   "type": "int"
@@ -2669,6 +2664,80 @@
               "derivedClasses": []
             }
           ],
+          "fields": [],
+          "derivedClasses": [
+            {
+              "name": "LayerObjectException",
+              "comment": null,
+              "fullname": "com.layer.sdk.exceptions.LayerObjectException"
+            },
+            {
+              "name": "LayerConversationException",
+              "comment": null,
+              "fullname": "com.layer.sdk.exceptions.LayerConversationException"
+            }
+          ]
+        },
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [
+              {
+                "declarationSignature": "public LayerConversationException(Type type, com.layer.sdk.messaging.Conversation conversation, java.lang.String detailMessage)",
+                "name": "LayerConversationException",
+                "callSignature": "LayerConversationException(type, conversation, detailMessage)",
+                "comment": null,
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "type",
+                    "type": "Type"
+                  },
+                  {
+                    "name": "conversation",
+                    "type": "Conversation"
+                  },
+                  {
+                    "name": "detailMessage",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              }
+            ],
+            "static": [],
+            "instance": [
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.Conversation getConversation()",
+                "name": "getConversation",
+                "callSignature": "getConversation()",
+                "comment": null,
+                "returns": {
+                  "type": "Conversation"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String toString()",
+                "name": "toString",
+                "callSignature": "toString()",
+                "comment": null,
+                "returns": {
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "LayerConversationException",
+          "comment": null,
+          "nestedClasses": [],
+          "fullname": "com.layer.sdk.exceptions.LayerConversationException",
+          "enumClasses": [],
           "fields": [],
           "derivedClasses": []
         }
@@ -2742,11 +2811,44 @@
           },
           "name": "LayerSyncListener",
           "comment": null,
-          "nestedClasses": [],
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                },
+                {
+                  "name": "LayerSyncListener",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerSyncListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Weak",
+              "comment": "A LayerSyncListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerSyncListener$Weak",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
           "fullname": "com.layer.sdk.listeners.LayerSyncListener",
           "enumClasses": [],
           "fields": [],
-          "derivedClasses": []
+          "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": "A LayerSyncListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerSyncListener$Weak"
+            }
+          ]
         },
         {
           "implementedInterfaces": [],
@@ -2755,7 +2857,77 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public void onProgressStart(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation)",
+                "declarationSignature": "public void onObjectError(com.layer.sdk.LayerClient client, com.layer.sdk.exceptions.LayerObjectException objectException)",
+                "name": "onObjectError",
+                "callSignature": "onObjectError(client, objectException)",
+                "comment": null,
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "client",
+                    "type": "LayerClient"
+                  },
+                  {
+                    "name": "objectException",
+                    "type": "LayerObjectException"
+                  }
+                ],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "LayerObjectExceptionListener",
+          "comment": null,
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "LayerObjectExceptionListener",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener"
+                },
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Weak",
+              "comment": "A LayerObjectExceptionListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener$Weak",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
+          "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener",
+          "enumClasses": [],
+          "fields": [],
+          "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": "A LayerObjectExceptionListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener$Weak"
+            }
+          ]
+        },
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [],
+            "static": [],
+            "instance": [
+              {
+                "declarationSignature": "void onProgressStart(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation)",
                 "name": "onProgressStart",
                 "callSignature": "onProgressStart(part, operation)",
                 "comment": null,
@@ -2776,7 +2948,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onProgressUpdate(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation, long transferredBytes)",
+                "declarationSignature": "void onProgressUpdate(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation, long transferredBytes)",
                 "name": "onProgressUpdate",
                 "callSignature": "onProgressUpdate(part, operation, transferredBytes)",
                 "comment": null,
@@ -2801,7 +2973,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onProgressComplete(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation)",
+                "declarationSignature": "void onProgressComplete(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation)",
                 "name": "onProgressComplete",
                 "callSignature": "onProgressComplete(part, operation)",
                 "comment": null,
@@ -2822,7 +2994,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onProgressError(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation, java.lang.Throwable cause)",
+                "declarationSignature": "void onProgressError(com.layer.sdk.messaging.MessagePart part, com.layer.sdk.listeners.LayerProgressListener.Operation operation, java.lang.Throwable cause)",
                 "name": "onProgressError",
                 "callSignature": "onProgressError(part, operation, cause)",
                 "comment": null,
@@ -2849,8 +3021,35 @@
             ]
           },
           "name": "LayerProgressListener",
-          "comment": "Tracks the progress of a MessagePart download",
-          "nestedClasses": [],
+          "comment": "Tracks the progress of a MessagePart upload & download",
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                },
+                {
+                  "name": "LayerProgressListener",
+                  "comment": "Tracks the progress of a MessagePart upload & download",
+                  "fullname": "com.layer.sdk.listeners.LayerProgressListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Weak",
+              "comment": "A LayerProgressListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerProgressListener$Weak",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
           "fullname": "com.layer.sdk.listeners.LayerProgressListener",
           "enumClasses": [
             {
@@ -2881,7 +3080,13 @@
             }
           ],
           "fields": [],
-          "derivedClasses": []
+          "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": "A LayerProgressListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerProgressListener$Weak"
+            }
+          ]
         },
         {
           "implementedInterfaces": [],
@@ -2906,7 +3111,7 @@
                 "static": [],
                 "instance": [
                   {
-                    "declarationSignature": "public void onEventAsync(com.layer.sdk.changes.LayerChangeEvent event)",
+                    "declarationSignature": "void onEventAsync(com.layer.sdk.changes.LayerChangeEvent event)",
                     "name": "onEventAsync",
                     "callSignature": "onEventAsync(event)",
                     "comment": null,
@@ -2926,11 +3131,44 @@
               },
               "name": "BackgroundThread",
               "comment": "LayerChangeEventListener.BackgroundThread receives LayerChangeEvents on a background thread.",
-              "nestedClasses": [],
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "BackgroundThread",
+                      "comment": "LayerChangeEventListener.BackgroundThread receives LayerChangeEvents on a background thread.",
+                      "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$BackgroundThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": "A LayerChangeEventListener.BackgroundThread which registers as a WeakReference.  This\nwill be garbage collected without a stronger external reference.",
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$BackgroundThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
               "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$BackgroundThread",
               "enumClasses": [],
               "fields": [],
-              "derivedClasses": []
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": "A LayerChangeEventListener.BackgroundThread which registers as a WeakReference.  This\nwill be garbage collected without a stronger external reference.",
+                  "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$BackgroundThread$Weak"
+                }
+              ]
             },
             {
               "implementedInterfaces": [
@@ -2945,7 +3183,7 @@
                 "static": [],
                 "instance": [
                   {
-                    "declarationSignature": "public void onEventMainThread(com.layer.sdk.changes.LayerChangeEvent event)",
+                    "declarationSignature": "void onEventMainThread(com.layer.sdk.changes.LayerChangeEvent event)",
                     "name": "onEventMainThread",
                     "callSignature": "onEventMainThread(event)",
                     "comment": null,
@@ -2965,11 +3203,44 @@
               },
               "name": "MainThread",
               "comment": "LayerChangeEventListener.MainThread receives LayerChangeEvents on the main UI thread.",
-              "nestedClasses": [],
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "MainThread",
+                      "comment": "LayerChangeEventListener.MainThread receives LayerChangeEvents on the main UI thread.",
+                      "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": "A LayerChangeEventListener.MainThread which registers as a WeakReference.  This will be\ngarbage collected without a stronger external reference.",
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
               "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread",
               "enumClasses": [],
               "fields": [],
-              "derivedClasses": []
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": "A LayerChangeEventListener.MainThread which registers as a WeakReference.  This will be\ngarbage collected without a stronger external reference.",
+                  "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread$Weak"
+                }
+              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerChangeEventListener",
@@ -2980,6 +3251,16 @@
               "name": "BackgroundThread",
               "comment": "LayerChangeEventListener.BackgroundThread receives LayerChangeEvents on a background thread.",
               "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$BackgroundThread"
+            },
+            {
+              "name": "Weak",
+              "comment": "A LayerChangeEventListener.BackgroundThread which registers as a WeakReference.  This\nwill be garbage collected without a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$BackgroundThread$Weak"
+            },
+            {
+              "name": "Weak",
+              "comment": "A LayerChangeEventListener.MainThread which registers as a WeakReference.  This will be\ngarbage collected without a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread$Weak"
             },
             {
               "name": "MainThread",
@@ -3031,7 +3312,34 @@
           },
           "name": "LayerTypingIndicatorListener",
           "comment": "LayerTypingIndicatorListener provides listeners with callbacks when a remote typing indication is\nreceived.",
-          "nestedClasses": [],
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "LayerTypingIndicatorListener",
+                  "comment": "LayerTypingIndicatorListener provides listeners with callbacks when a remote typing indication is\nreceived.",
+                  "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener"
+                },
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Weak",
+              "comment": "A LayerTypingIndicatorListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$Weak",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
           "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener",
           "enumClasses": [
             {
@@ -3039,18 +3347,6 @@
               "methods": {
                 "constructor": [],
                 "static": [
-                  {
-                    "declarationSignature": "public static int getValue()",
-                    "name": "getValue",
-                    "callSignature": "getValue()",
-                    "comment": null,
-                    "returns": {
-                      "type": "int"
-                    },
-                    "throws": [],
-                    "parameters": [],
-                    "exceptions": []
-                  },
                   {
                     "declarationSignature": "public static com.layer.sdk.listeners.LayerTypingIndicatorListener.TypingIndicator fromValue(int value)",
                     "name": "fromValue",
@@ -3069,7 +3365,20 @@
                     "exceptions": []
                   }
                 ],
-                "instance": []
+                "instance": [
+                  {
+                    "declarationSignature": "public int getValue()",
+                    "name": "getValue",
+                    "callSignature": "getValue()",
+                    "comment": null,
+                    "returns": {
+                      "type": "int"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  }
+                ]
               },
               "name": "TypingIndicator",
               "comment": "Enumeration representing a typing indication event.",
@@ -3097,7 +3406,13 @@
             }
           ],
           "fields": [],
-          "derivedClasses": []
+          "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": "A LayerTypingIndicatorListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$Weak"
+            }
+          ]
         },
         {
           "implementedInterfaces": [],
@@ -3189,11 +3504,44 @@
           },
           "name": "LayerAuthenticationListener",
           "comment": null,
-          "nestedClasses": [],
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "LayerAuthenticationListener",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener"
+                },
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Weak",
+              "comment": "A LayerAuthenticationListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener$Weak",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
           "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener",
           "enumClasses": [],
           "fields": [],
-          "derivedClasses": []
+          "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": "A LayerAuthenticationListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener$Weak"
+            }
+          ]
         },
         {
           "implementedInterfaces": [],
@@ -3260,11 +3608,44 @@
           },
           "name": "LayerConnectionListener",
           "comment": null,
-          "nestedClasses": [],
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "LayerConnectionListener",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerConnectionListener"
+                },
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Weak",
+              "comment": "A LayerConnectionListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerConnectionListener$Weak",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
           "fullname": "com.layer.sdk.listeners.LayerConnectionListener",
           "enumClasses": [],
           "fields": [],
-          "derivedClasses": []
+          "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": "A LayerConnectionListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerConnectionListener$Weak"
+            }
+          ]
         },
         {
           "implementedInterfaces": [],
@@ -3304,11 +3685,44 @@
           },
           "name": "LayerPolicyListener",
           "comment": "LayerPolicyListener allows an external class to monitor a LayerClient for policy updates.",
-          "nestedClasses": [],
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "LayerPolicyListener",
+                  "comment": "LayerPolicyListener allows an external class to monitor a LayerClient for policy updates.",
+                  "fullname": "com.layer.sdk.listeners.LayerPolicyListener"
+                },
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Weak",
+              "comment": "A LayerPolicyListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerPolicyListener$Weak",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
           "fullname": "com.layer.sdk.listeners.LayerPolicyListener",
           "enumClasses": [],
           "fields": [],
-          "derivedClasses": []
+          "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": "A LayerPolicyListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerPolicyListener$Weak"
+            }
+          ]
         }
       ],
       "name": "com.layer.sdk.listeners"
@@ -3364,6 +3778,11 @@
                   "type": "Type"
                 },
                 {
+                  "name": "ANNOUNCEMENT",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
                   "name": "MESSAGE",
                   "comment": null,
                   "type": "Type"
@@ -3385,9 +3804,19 @@
               "fullname": "com.layer.sdk.messaging.MessagePart"
             },
             {
+              "name": "Actor",
+              "comment": "The `Actor` class represents a user or application integration that took a particular action such as sending a message.",
+              "fullname": "com.layer.sdk.messaging.Actor"
+            },
+            {
               "name": "Message",
               "comment": "The `Message` class represents a message within a conversation (modeled by the `Conversation`\nclass) between two or more participants within Layer.",
               "fullname": "com.layer.sdk.messaging.Message"
+            },
+            {
+              "name": "Announcement",
+              "comment": "The `Announcement` class represents a message outside of a conversation for the user.",
+              "fullname": "com.layer.sdk.messaging.Announcement"
             },
             {
               "name": "Conversation",
@@ -3395,6 +3824,442 @@
               "fullname": "com.layer.sdk.messaging.Conversation"
             }
           ]
+        },
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [
+              {
+                "declarationSignature": "protected Metadata()",
+                "name": "Metadata",
+                "callSignature": "Metadata()",
+                "comment": null,
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              }
+            ],
+            "static": [
+              {
+                "declarationSignature": "public static com.layer.sdk.messaging.Metadata newInstance()",
+                "name": "newInstance",
+                "callSignature": "newInstance()",
+                "comment": null,
+                "returns": {
+                  "type": "Metadata"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public static com.layer.sdk.messaging.Metadata fromKeyPathMap(java.util.Map keyPathMap)",
+                "name": "fromKeyPathMap",
+                "callSignature": "fromKeyPathMap(keyPathMap)",
+                "comment": "Constructs a nested Metadata from a map of String values, keyed by key path.  Example:\n{\"userIds.12345.name\" : \"Washington\", \"userIds.67890.name\" : \"George\"}",
+                "returns": {
+                  "description": "",
+                  "type": "Metadata"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "keyPathMap",
+                    "description": "",
+                    "type": "Map"
+                  }
+                ],
+                "exceptions": []
+              }
+            ],
+            "instance": [
+              {
+                "declarationSignature": "public java.lang.Object get(java.lang.String key)",
+                "name": "get",
+                "callSignature": "get(key)",
+                "comment": "Gets the value at the given key, or `null` if the key does not exist.",
+                "returns": {
+                  "description": "Existing value at the given key, or `null` if no such key exists",
+                  "type": "Object"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "key",
+                    "description": "Key from which to get data",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.Object put(java.lang.String key, java.lang.String value)",
+                "name": "put",
+                "callSignature": "put(key, value)",
+                "comment": "Puts the given String value at the given key, returning any previous value at that key.",
+                "returns": {
+                  "description": "Existing value at the given key",
+                  "type": "Object"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "key",
+                    "description": "Key to put data",
+                    "type": "String"
+                  },
+                  {
+                    "name": "value",
+                    "description": "Value to put at the key",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.Object put(java.lang.String key, com.layer.sdk.messaging.Metadata metadata)",
+                "name": "put",
+                "callSignature": "put(key, metadata)",
+                "comment": "Puts the given Metadata value at the given key, returning any previous value at that key.",
+                "returns": {
+                  "description": "Existing value at the given key",
+                  "type": "Object"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "key",
+                    "description": "Key to put data",
+                    "type": "String"
+                  },
+                  {
+                    "name": "metadata",
+                    "description": "Value to put at the key",
+                    "type": "Metadata"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.Object putMergeDelete(java.lang.String key)",
+                "name": "putMergeDelete",
+                "callSignature": "putMergeDelete(key)",
+                "comment": "Marks the given key for deletion during merge.",
+                "returns": {
+                  "description": "Existing value at the given key",
+                  "type": "Object"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "key",
+                    "description": "Key to delete during merge",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.Object remove(java.lang.String key)",
+                "name": "remove",
+                "callSignature": "remove(key)",
+                "comment": "Removes the given key, returning any existing value at that key.",
+                "returns": {
+                  "description": "Existing value at the given key",
+                  "type": "Object"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "key",
+                    "description": "Key to remove",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void clear()",
+                "name": "clear",
+                "callSignature": "clear()",
+                "comment": "Removes all entries from this Metadata.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract boolean containsKey(java.lang.String key)",
+                "name": "containsKey",
+                "callSignature": "containsKey(key)",
+                "comment": "Returns whether this Metadata contains the specified key.",
+                "returns": {
+                  "description": "`true` if this Metadata contains the specified key, or `false` otherwise",
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "key",
+                    "description": "The key to search for",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract java.util.Set keySet()",
+                "name": "keySet",
+                "callSignature": "keySet()",
+                "comment": "Returns the set of keys in this Metadata.",
+                "returns": {
+                  "description": "the set of keys in this Metadata",
+                  "type": "Set"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract java.util.Set entrySet()",
+                "name": "entrySet",
+                "callSignature": "entrySet()",
+                "comment": "Returns the set of entries in this Metadata.",
+                "returns": {
+                  "description": "the set of entries in this Metadata",
+                  "type": "Set"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract int size()",
+                "name": "size",
+                "callSignature": "size()",
+                "comment": "Returns the number of entries in this Metadata.",
+                "returns": {
+                  "description": "the number of entries in this Metadata",
+                  "type": "int"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract boolean isEmpty()",
+                "name": "isEmpty",
+                "callSignature": "isEmpty()",
+                "comment": "Returns `true` if this Metadata contains no keys, or `false` otherwise.",
+                "returns": {
+                  "description": "`true` if this Metadata contains no keys, or `false` otherwise",
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "protected abstract com.layer.sdk.internal.utils.MetadataUtils.Value get(com.layer.sdk.internal.utils.MetadataUtils.KeyPath keyPath)",
+                "name": "get",
+                "callSignature": "get(keyPath)",
+                "comment": null,
+                "returns": {
+                  "type": "com.layer.sdk.internal.utils.MetadataUtils$Value"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "keyPath",
+                    "type": "com.layer.sdk.internal.utils.MetadataUtils$KeyPath"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "protected abstract com.layer.sdk.internal.utils.MetadataUtils.Value put(com.layer.sdk.internal.utils.MetadataUtils.KeyPath keyPath, com.layer.sdk.internal.utils.MetadataUtils.Value value)",
+                "name": "put",
+                "callSignature": "put(keyPath, value)",
+                "comment": null,
+                "returns": {
+                  "type": "com.layer.sdk.internal.utils.MetadataUtils$Value"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "keyPath",
+                    "type": "com.layer.sdk.internal.utils.MetadataUtils$KeyPath"
+                  },
+                  {
+                    "name": "value",
+                    "type": "com.layer.sdk.internal.utils.MetadataUtils$Value"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "protected abstract com.layer.sdk.internal.utils.MetadataUtils.Value remove(com.layer.sdk.internal.utils.MetadataUtils.KeyPath keyPath)",
+                "name": "remove",
+                "callSignature": "remove(keyPath)",
+                "comment": null,
+                "returns": {
+                  "type": "com.layer.sdk.internal.utils.MetadataUtils$Value"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "keyPath",
+                    "type": "com.layer.sdk.internal.utils.MetadataUtils$KeyPath"
+                  }
+                ],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "Metadata",
+          "comment": "Metadata represents a set of keys and values.",
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "Map$Entry",
+                  "comment": null,
+                  "fullname": "java.util.Map$Entry"
+                }
+              ],
+              "methods": {
+                "constructor": [
+                  {
+                    "declarationSignature": "public Entry(java.lang.String key, java.lang.Object value)",
+                    "name": "Entry",
+                    "callSignature": "Entry(key, value)",
+                    "comment": null,
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "key",
+                        "type": "String"
+                      },
+                      {
+                        "name": "value",
+                        "type": "Object"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ],
+                "static": [],
+                "instance": [
+                  {
+                    "declarationSignature": "public final java.lang.String getKey()",
+                    "name": "getKey",
+                    "callSignature": "getKey()",
+                    "comment": null,
+                    "returns": {
+                      "type": "String"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public final java.lang.Object getValue()",
+                    "name": "getValue",
+                    "callSignature": "getValue()",
+                    "comment": null,
+                    "returns": {
+                      "type": "Object"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public final java.lang.Object setValue(java.lang.Object value)",
+                    "name": "setValue",
+                    "callSignature": "setValue(value)",
+                    "comment": null,
+                    "returns": {
+                      "type": "Object"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "value",
+                        "type": "Object"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public boolean equals(java.lang.Object o)",
+                    "name": "equals",
+                    "callSignature": "equals(o)",
+                    "comment": null,
+                    "returns": {
+                      "type": "boolean"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "o",
+                        "type": "Object"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public final int hashCode()",
+                    "name": "hashCode",
+                    "callSignature": "hashCode()",
+                    "comment": null,
+                    "returns": {
+                      "type": "int"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public final java.lang.String toString()",
+                    "name": "toString",
+                    "callSignature": "toString()",
+                    "comment": null,
+                    "returns": {
+                      "type": "String"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "Entry",
+              "comment": "Metadata.Entry represents a String key and Object value within a Metadata object.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.messaging.Metadata$Entry",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "key",
+                  "comment": null,
+                  "type": "String"
+                },
+                {
+                  "name": "value",
+                  "comment": null,
+                  "type": "Object"
+                }
+              ],
+              "derivedClasses": []
+            }
+          ],
+          "fullname": "com.layer.sdk.messaging.Metadata",
+          "enumClasses": [],
+          "fields": [],
+          "derivedClasses": []
         },
         {
           "implementedInterfaces": [
@@ -3427,23 +4292,6 @@
                     "name": "deletionMode",
                     "description": "the deletion mode to apply.",
                     "type": "DeletionMode"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract void setMetadata(java.util.Map metadata)",
-                "name": "setMetadata",
-                "callSignature": "setMetadata(metadata)",
-                "comment": null,
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "metadata",
-                    "type": "Map"
                   }
                 ],
                 "exceptions": []
@@ -3565,13 +4413,13 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.lang.String getSentByUserId()",
-                "name": "getSentByUserId",
-                "callSignature": "getSentByUserId()",
-                "comment": "Returns the user ID of the user who sent the message.",
+                "declarationSignature": "public abstract com.layer.sdk.messaging.Actor getSender()",
+                "name": "getSender",
+                "callSignature": "getSender()",
+                "comment": "Returns the Actor object representing the message sender.",
                 "returns": {
-                  "description": "the user ID of the user who sent the message.",
-                  "type": "String"
+                  "description": "the Actor object representing the message sender.",
+                  "type": "Actor"
                 },
                 "throws": [],
                 "parameters": [],
@@ -3606,6 +4454,19 @@
                     "type": "String"
                   }
                 ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.messaging.MessageOptions getOptions()",
+                "name": "getOptions",
+                "callSignature": "getOptions()",
+                "comment": "Gets this Message's MessageOptions.  Options are mutable until the message gets sent.  After\nsending, the return value becomes `null`.",
+                "returns": {
+                  "description": "this Message's MessageOptions.",
+                  "type": "MessageOptions"
+                },
+                "throws": [],
+                "parameters": [],
                 "exceptions": []
               }
             ]
@@ -3647,77 +4508,6 @@
                   "name": "READ",
                   "comment": null,
                   "type": "RecipientStatus"
-                }
-              ],
-              "derivedClasses": []
-            },
-            {
-              "implementedInterfaces": [],
-              "methods": {
-                "constructor": [
-                  {
-                    "declarationSignature": "ReservedMetadataKeys(java.lang.String key)",
-                    "name": "ReservedMetadataKeys",
-                    "callSignature": "ReservedMetadataKeys(key)",
-                    "comment": null,
-                    "throws": [],
-                    "parameters": [
-                      {
-                        "name": "key",
-                        "type": "String"
-                      }
-                    ],
-                    "exceptions": []
-                  }
-                ],
-                "static": [],
-                "instance": [
-                  {
-                    "declarationSignature": "public java.lang.String getKey()",
-                    "name": "getKey",
-                    "callSignature": "getKey()",
-                    "comment": null,
-                    "returns": {
-                      "type": "String"
-                    },
-                    "throws": [],
-                    "parameters": [],
-                    "exceptions": []
-                  },
-                  {
-                    "declarationSignature": "public java.lang.String toString()",
-                    "name": "toString",
-                    "callSignature": "toString()",
-                    "comment": null,
-                    "returns": {
-                      "type": "String"
-                    },
-                    "throws": [],
-                    "parameters": [],
-                    "exceptions": []
-                  }
-                ]
-              },
-              "name": "ReservedMetadataKeys",
-              "comment": null,
-              "nestedClasses": [],
-              "fullname": "com.layer.sdk.messaging.Message$ReservedMetadataKeys",
-              "enumClasses": [],
-              "fields": [
-                {
-                  "name": "PushNotificationAlertMessageKey",
-                  "comment": null,
-                  "type": "ReservedMetadataKeys"
-                },
-                {
-                  "name": "PushNotificationSoundNameKey",
-                  "comment": null,
-                  "type": "ReservedMetadataKeys"
-                },
-                {
-                  "name": "mKey",
-                  "comment": null,
-                  "type": "String"
                 }
               ],
               "derivedClasses": []
@@ -3844,8 +4634,13 @@
                   "type": "Property"
                 },
                 {
-                  "name": "SENT_BY_USER_ID",
+                  "name": "SENDER_USER_ID",
                   "comment": "User ID of the sender, not sortable and supports comparison by Equality or Inclusion",
+                  "type": "Property"
+                },
+                {
+                  "name": "SENDER_NAME",
+                  "comment": "Name of the sender, not sortable and supports comparison by Equality or Inclusion",
                   "type": "Property"
                 },
                 {
@@ -3888,7 +4683,13 @@
             }
           ],
           "fields": [],
-          "derivedClasses": []
+          "derivedClasses": [
+            {
+              "name": "Announcement",
+              "comment": "The `Announcement` class represents a message outside of a conversation for the user.",
+              "fullname": "com.layer.sdk.messaging.Announcement"
+            }
+          ]
         },
         {
           "implementedInterfaces": [
@@ -4019,7 +4820,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract void putMetadata(java.util.Map metadata, boolean isMerge)",
+                "declarationSignature": "public abstract void putMetadata(com.layer.sdk.messaging.Metadata metadata, boolean isMerge)",
                 "name": "putMetadata",
                 "callSignature": "putMetadata(metadata, isMerge)",
                 "comment": "Puts the given metadata map into the Conversation's metadata, either merging the provided\nmetadata map with the existing metadata, or replacing (if `isMerge` is false).  When merging,\na `null` value removes any existing value for that key path.",
@@ -4031,7 +4832,7 @@
                   {
                     "name": "metadata",
                     "description": "metadata map to apply or merge.",
-                    "type": "Map"
+                    "type": "Metadata"
                   },
                   {
                     "name": "isMerge",
@@ -4170,13 +4971,13 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.util.Map getMetadata()",
+                "declarationSignature": "public abstract com.layer.sdk.messaging.Metadata getMetadata()",
                 "name": "getMetadata",
                 "callSignature": "getMetadata()",
-                "comment": "Returns the metadata associated with this Conversation.",
+                "comment": "Returns a copy of the metadata associated with this Conversation.  Mutations will not get\napplied without calling putMetadata().",
                 "returns": {
                   "description": "the metadata associated with this Conversation",
-                  "type": "Map"
+                  "type": "Metadata"
                 },
                 "throws": [],
                 "parameters": [],
@@ -4188,6 +4989,19 @@
                 "callSignature": "isDeliveryReceiptsEnabled()",
                 "comment": null,
                 "returns": {
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract boolean isDistinct()",
+                "name": "isDistinct",
+                "callSignature": "isDistinct()",
+                "comment": "Returns if the Conversation is `Distinct`.",
+                "returns": {
+                  "description": "`true` if Conversation is `Distinct`. `false` otherwise.",
                   "type": "boolean"
                 },
                 "throws": [],
@@ -4309,7 +5123,7 @@
                 },
                 {
                   "name": "LAST_MESSAGE",
-                  "comment": "Last message received on the Conversation, sortable and supports comparison by Equality or Inclusion",
+                  "comment": "Last message received on the Conversation, not sortable and supports comparison by Equality or Inclusion",
                   "type": "Property"
                 },
                 {
@@ -4320,6 +5134,16 @@
                 {
                   "name": "LAST_MESSAGE_RECEIVED_AT",
                   "comment": "Timestamp of last message received on the Conversation (epoch time in milliseconds), sortable and supports comparison by Equality, Inclusion or Relation",
+                  "type": "Property"
+                },
+                {
+                  "name": "LAST_MESSAGE_SENT_AT",
+                  "comment": "Timestamp of last message sent on the Conversation (epoch time in milliseconds), sortable and supports comparison by Equality, Inclusion or Relation",
+                  "type": "Property"
+                },
+                {
+                  "name": "IS_DISTINCT",
+                  "comment": "Whether the Conversation is distinct or not, not sortable and supports comparison by Equality",
                   "type": "Property"
                 }
               ],
@@ -4366,6 +5190,36 @@
                 "throws": [],
                 "parameters": [],
                 "exceptions": []
+              },
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.ConversationOptions distinct(boolean conversationIsDistinct)",
+                "name": "distinct",
+                "callSignature": "distinct(conversationIsDistinct)",
+                "comment": "",
+                "returns": {
+                  "type": "ConversationOptions"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "conversationIsDistinct",
+                    "description": "- <code>true</code> by default",
+                    "type": "boolean"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public boolean isDistinct()",
+                "name": "isDistinct",
+                "callSignature": "isDistinct()",
+                "comment": "Returns <code>true</code> if Conversation is Distinct option is on",
+                "returns": {
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
               }
             ]
           },
@@ -4379,8 +5233,82 @@
               "name": "mDeliveryReceiptsEnabled",
               "comment": null,
               "type": "boolean"
+            },
+            {
+              "name": "distinct",
+              "comment": null,
+              "type": "boolean"
             }
           ],
+          "derivedClasses": []
+        },
+        {
+          "implementedInterfaces": [
+            {
+              "name": "LayerObject",
+              "comment": null,
+              "fullname": "com.layer.sdk.messaging.LayerObject"
+            }
+          ],
+          "methods": {
+            "constructor": [],
+            "static": [],
+            "instance": [
+              {
+                "declarationSignature": "public abstract java.lang.String getUserId()",
+                "name": "getUserId",
+                "callSignature": "getUserId()",
+                "comment": "Returns the user ID of the Actor.",
+                "returns": {
+                  "description": "the user ID of the Actor.",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract java.lang.String getName()",
+                "name": "getName",
+                "callSignature": "getName()",
+                "comment": "Returns the user NAME of the Actor.",
+                "returns": {
+                  "description": "the NAME of the Actor",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "Actor",
+          "comment": "The `Actor` class represents a user or application integration that took a particular action such as sending a message.",
+          "nestedClasses": [],
+          "fullname": "com.layer.sdk.messaging.Actor",
+          "enumClasses": [],
+          "fields": [],
+          "derivedClasses": []
+        },
+        {
+          "implementedInterfaces": [
+            {
+              "name": "Message",
+              "comment": "The `Message` class represents a message within a conversation (modeled by the `Conversation`\nclass) between two or more participants within Layer.",
+              "fullname": "com.layer.sdk.messaging.Message"
+            }
+          ],
+          "methods": {
+            "constructor": [],
+            "static": [],
+            "instance": []
+          },
+          "name": "Announcement",
+          "comment": "The `Announcement` class represents a message outside of a conversation for the user.",
+          "nestedClasses": [],
+          "fullname": "com.layer.sdk.messaging.Announcement",
+          "enumClasses": [],
+          "fields": [],
           "derivedClasses": []
         },
         {
@@ -4495,7 +5423,7 @@
                 "declarationSignature": "public abstract void download(com.layer.sdk.listeners.LayerProgressListener listener)",
                 "name": "download",
                 "callSignature": "download(listener)",
-                "comment": "Trigger the download of the data for a particular message part. If invoked on a message with\ndata already locally available, it will be returned in the listener callback immediately.",
+                "comment": "Trigger the download of the data for a particular message part. If invoked on a message with\ndata already locally available, it will be returned in the listener callback immediately.\n\nNote: use LayerProgressListener.WeakReference if you do not intend to unregister the listener\nfrom the LayerClient and want the listener to get garbage collected when external references\ngo away.",
                 "returns": {
                   "type": "void"
                 },
@@ -4753,6 +5681,226 @@
               "derivedClasses": []
             }
           ],
+          "fields": [],
+          "derivedClasses": []
+        },
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [],
+            "static": [],
+            "instance": [
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationMessage(java.lang.String message)",
+                "name": "pushNotificationMessage",
+                "callSignature": "pushNotificationMessage(message)",
+                "comment": "Sets the push notification value that comes in on the `layer-push-message` key.",
+                "returns": {
+                  "description": "This MessageOptions for chaining.",
+                  "type": "MessageOptions"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "message",
+                    "description": "Notification message to include in the generated notification.",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getPushNotificationMessage()",
+                "name": "getPushNotificationMessage",
+                "callSignature": "getPushNotificationMessage()",
+                "comment": "Gets the notification message.",
+                "returns": {
+                  "description": "The notification message.",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationSound(java.lang.String sound)",
+                "name": "pushNotificationSound",
+                "callSignature": "pushNotificationSound(sound)",
+                "comment": "Sets the push notification value that comes in on the `layer-push-sound` key.",
+                "returns": {
+                  "description": "This MessageOptions for chaining.",
+                  "type": "MessageOptions"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "sound",
+                    "description": "Notification sound to include in the generated notification.",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getPushNotificationSound()",
+                "name": "getPushNotificationSound",
+                "callSignature": "getPushNotificationSound()",
+                "comment": "Returns the push notification sound.",
+                "returns": {
+                  "description": "The push notification sound.",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationMessage(java.lang.String userId, java.lang.String message)",
+                "name": "pushNotificationMessage",
+                "callSignature": "pushNotificationMessage(userId, message)",
+                "comment": "Sets the custom push notification value that comes in on the `layer-push-message` key for the\ngiven user.",
+                "returns": {
+                  "description": "This MessageOptions for chaining.",
+                  "type": "MessageOptions"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "userId",
+                    "type": "String"
+                  },
+                  {
+                    "name": "message",
+                    "description": "Notification message to include in the generated notification.",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationMessage(java.util.Map userPushMessages)",
+                "name": "pushNotificationMessage",
+                "callSignature": "pushNotificationMessage(userPushMessages)",
+                "comment": null,
+                "returns": {
+                  "type": "MessageOptions"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "userPushMessages",
+                    "type": "Map"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getPushNotificationMessage(java.lang.String userId)",
+                "name": "getPushNotificationMessage",
+                "callSignature": "getPushNotificationMessage(userId)",
+                "comment": "Gets the custom notification message for the given user.",
+                "returns": {
+                  "description": "The notification message for the given user.",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "userId",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.util.Map getUserPushNotificationMessages()",
+                "name": "getUserPushNotificationMessages",
+                "callSignature": "getUserPushNotificationMessages()",
+                "comment": null,
+                "returns": {
+                  "type": "Map"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationSound(java.lang.String userId, java.lang.String sound)",
+                "name": "pushNotificationSound",
+                "callSignature": "pushNotificationSound(userId, sound)",
+                "comment": "Sets the custom push notification sound that comes in on the `layer-push-sound` key for the\ngiven user.",
+                "returns": {
+                  "description": "This MessageOptions for chaining.",
+                  "type": "MessageOptions"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "userId",
+                    "type": "String"
+                  },
+                  {
+                    "name": "sound",
+                    "description": "Notification sound to include in the generated notification.",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationSound(java.util.Map userPushSounds)",
+                "name": "pushNotificationSound",
+                "callSignature": "pushNotificationSound(userPushSounds)",
+                "comment": null,
+                "returns": {
+                  "type": "MessageOptions"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "userPushSounds",
+                    "type": "Map"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getPushNotificationSound(java.lang.String userId)",
+                "name": "getPushNotificationSound",
+                "callSignature": "getPushNotificationSound(userId)",
+                "comment": "Gets the custom notification sound for the given user.",
+                "returns": {
+                  "description": "The notification sound for the given user.",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "userId",
+                    "type": "String"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.util.Map getUserPushNotificationSounds()",
+                "name": "getUserPushNotificationSounds",
+                "callSignature": "getUserPushNotificationSounds()",
+                "comment": null,
+                "returns": {
+                  "type": "Map"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "MessageOptions",
+          "comment": "MessageOptions provides an optional set of options to apply to a Message at\ninstantiation time.",
+          "nestedClasses": [],
+          "fullname": "com.layer.sdk.messaging.MessageOptions",
+          "enumClasses": [],
           "fields": [],
           "derivedClasses": []
         }
@@ -5053,7 +6201,7 @@
                 "static": [],
                 "instance": [
                   {
-                    "declarationSignature": "public void onQueryDataSetChanged(com.layer.sdk.query.RecyclerViewController controller)",
+                    "declarationSignature": "void onQueryDataSetChanged(com.layer.sdk.query.RecyclerViewController controller)",
                     "name": "onQueryDataSetChanged",
                     "callSignature": "onQueryDataSetChanged(controller)",
                     "comment": "Alerts the observer that the underlying dataset totally changed and should be rebound.",
@@ -5071,7 +6219,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public void onQueryItemChanged(com.layer.sdk.query.RecyclerViewController controller, int position)",
+                    "declarationSignature": "void onQueryItemChanged(com.layer.sdk.query.RecyclerViewController controller, int position)",
                     "name": "onQueryItemChanged",
                     "callSignature": "onQueryItemChanged(controller, position)",
                     "comment": "Alerts the observer that the content of a given item changed.",
@@ -5093,7 +6241,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public void onQueryItemRangeChanged(com.layer.sdk.query.RecyclerViewController controller, int positionStart, int itemCount)",
+                    "declarationSignature": "void onQueryItemRangeChanged(com.layer.sdk.query.RecyclerViewController controller, int positionStart, int itemCount)",
                     "name": "onQueryItemRangeChanged",
                     "callSignature": "onQueryItemRangeChanged(controller, positionStart, itemCount)",
                     "comment": "Alerts the observer that the content of a range of items changed.",
@@ -5119,7 +6267,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public void onQueryItemInserted(com.layer.sdk.query.RecyclerViewController controller, int position)",
+                    "declarationSignature": "void onQueryItemInserted(com.layer.sdk.query.RecyclerViewController controller, int position)",
                     "name": "onQueryItemInserted",
                     "callSignature": "onQueryItemInserted(controller, position)",
                     "comment": "Alerts the observer that an item was inserted.",
@@ -5141,7 +6289,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public void onQueryItemRangeInserted(com.layer.sdk.query.RecyclerViewController controller, int positionStart, int itemCount)",
+                    "declarationSignature": "void onQueryItemRangeInserted(com.layer.sdk.query.RecyclerViewController controller, int positionStart, int itemCount)",
                     "name": "onQueryItemRangeInserted",
                     "callSignature": "onQueryItemRangeInserted(controller, positionStart, itemCount)",
                     "comment": "Alerts the observer that a range of items was inserted.",
@@ -5167,7 +6315,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public void onQueryItemRemoved(com.layer.sdk.query.RecyclerViewController controller, int position)",
+                    "declarationSignature": "void onQueryItemRemoved(com.layer.sdk.query.RecyclerViewController controller, int position)",
                     "name": "onQueryItemRemoved",
                     "callSignature": "onQueryItemRemoved(controller, position)",
                     "comment": "Alerts the observer that an item was removed.",
@@ -5189,7 +6337,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public void onQueryItemRangeRemoved(com.layer.sdk.query.RecyclerViewController controller, int positionStart, int itemCount)",
+                    "declarationSignature": "void onQueryItemRangeRemoved(com.layer.sdk.query.RecyclerViewController controller, int positionStart, int itemCount)",
                     "name": "onQueryItemRangeRemoved",
                     "callSignature": "onQueryItemRangeRemoved(controller, positionStart, itemCount)",
                     "comment": "Alerts the observer that a range of items was removed.",
@@ -5215,7 +6363,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public void onQueryItemMoved(com.layer.sdk.query.RecyclerViewController controller, int fromPosition, int toPosition)",
+                    "declarationSignature": "void onQueryItemMoved(com.layer.sdk.query.RecyclerViewController controller, int fromPosition, int toPosition)",
                     "name": "onQueryItemMoved",
                     "callSignature": "onQueryItemMoved(controller, fromPosition, toPosition)",
                     "comment": "Alerts the observer that an item moved.",
@@ -5376,7 +6524,7 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public android.net.Uri getId()",
+                "declarationSignature": "android.net.Uri getId()",
                 "name": "getId",
                 "callSignature": "getId()",
                 "comment": "Retrieves the unique id of this `Queryable` object",
@@ -5400,7 +6548,7 @@
                 "static": [],
                 "instance": [
                   {
-                    "declarationSignature": "public boolean isSortable()",
+                    "declarationSignature": "boolean isSortable()",
                     "name": "isSortable",
                     "callSignature": "isSortable()",
                     "comment": "Retrieves whether the results of the query are sortable or not",
@@ -5413,7 +6561,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public boolean isEqualityQueryable()",
+                    "declarationSignature": "boolean isEqualityQueryable()",
                     "name": "isEqualityQueryable",
                     "callSignature": "isEqualityQueryable()",
                     "comment": "Retrieves whether the query compares objects by equality",
@@ -5426,7 +6574,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public boolean isRelativeQueryable()",
+                    "declarationSignature": "boolean isRelativeQueryable()",
                     "name": "isRelativeQueryable",
                     "callSignature": "isRelativeQueryable()",
                     "comment": "Retrieves whether the query compares objects by relation between objects",
@@ -5439,7 +6587,7 @@
                     "exceptions": []
                   },
                   {
-                    "declarationSignature": "public boolean isInclusionQueryable()",
+                    "declarationSignature": "boolean isInclusionQueryable()",
                     "name": "isInclusionQueryable",
                     "callSignature": "isInclusionQueryable()",
                     "comment": "Retrieves whether the query compares objects by inclusion in a set",
@@ -5509,6 +6657,11 @@
               "fullname": "com.layer.sdk.messaging.Message"
             },
             {
+              "name": "Announcement",
+              "comment": "The `Announcement` class represents a message outside of a conversation for the user.",
+              "fullname": "com.layer.sdk.messaging.Announcement"
+            },
+            {
               "name": "Conversation",
               "comment": "The `Conversation` class models a conversations between two or more participants within Layer. A\nconversation is an on-going stream of messages (modeled by the `Message` class) synchronized\namong all participants.",
               "fullname": "com.layer.sdk.messaging.Conversation"
@@ -5563,6 +6716,18 @@
                 "returns": {
                   "description": "The order the sorted results should be returned in",
                   "type": "Order"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String toString()",
+                "name": "toString",
+                "callSignature": "toString()",
+                "comment": null,
+                "returns": {
+                  "type": "String"
                 },
                 "throws": [],
                 "parameters": [],
@@ -5710,6 +6875,18 @@
                 "returns": {
                   "description": "returns true if the `Operator` of this `Predicate` is comparing for Inclusion",
                   "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String toString()",
+                "name": "toString",
+                "callSignature": "toString()",
+                "comment": null,
+                "returns": {
+                  "type": "String"
                 },
                 "throws": [],
                 "parameters": [],
@@ -5936,6 +7113,18 @@
                 "returns": {
                   "description": "The class that this query is constructed to run on.",
                   "type": "Class"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String toString()",
+                "name": "toString",
+                "callSignature": "toString()",
+                "comment": null,
+                "returns": {
+                  "type": "String"
                 },
                 "throws": [],
                 "parameters": [],
