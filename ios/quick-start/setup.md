@@ -6,7 +6,10 @@ Layer is the full-stack building block for communications.</br>
 
 This Quick Start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between an iOS Device and Simulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete the Quick Start Guide so if you don't have an account yet, [Sign Up](https://developer.layer.com/signup).
 
-![Quick-Start gif](https://raw.githubusercontent.com/layerhq/quick-start-ios/master/Assets/quick-start-preview.gif)
+<video controls poster="https://s3.amazonaws.com/static.layer.com/web/docs/ios/quick-start.png" style="width:740px;">
+  <source src="https://s3.amazonaws.com/static.layer.com/web/docs/ios/quick-start.mp4" type="video/mp4"/>
+  <source src="https://s3.amazonaws.com/static.layer.com/web/docs/ios/quick-start.webm" type="video/webm"/>
+</video>
 
 ## Set up the Quick Start project
 There are two ways to set up the project. The easiest method is via our install script, or you can perform the steps manually. Both methods require [CocoaPods](http://cocoapods.org).
