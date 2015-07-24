@@ -53,7 +53,7 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
 ##Step 4 - Generate an identity token in your backend
 A nonce value will be passed into the `onAuthenticationChallenge` method. POST that value to your backend and sign it using JWT.
 
-`Identity Tokens` are a pair pair of JSON dictionary structures (the JWS Header and Claim) and a cryptographic signature generated over them. The structure is as follows:
+`Identity Tokens` are a pair of JSON dictionary structures (the JWS Header and Claim) and a cryptographic signature generated over them. The structure is as follows:
 
 ```
 // JWS Header
