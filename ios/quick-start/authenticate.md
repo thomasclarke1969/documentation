@@ -56,7 +56,7 @@ Layer will cache authentication details so you only need authenticate users if y
         /*
          * 2. Acquire identity Token from Layer Identity Service
          */
-        [self requestIdentityTokenForUserID:userID appID:[self.layerClient.appID UUIDString] nonce:nonce completion:^(NSString *identityToken, NSError *error) {
+        [self requestIdentityTokenForUserID:userID appID:[self.layerClient.appID absoluteString] nonce:nonce completion:^(NSString *identityToken, NSError *error) {
             if (!identityToken) {
                 if (completion) {
                     completion(NO, error);
