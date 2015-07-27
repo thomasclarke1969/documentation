@@ -16,4 +16,4 @@ if (!tryRequest(request)) {
 }
 ```
 
-`If-None-Match` is not required if you are not retrying failed requests.
+`If-None-Match` is only required if you are retrying failed requests.
