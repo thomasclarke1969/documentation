@@ -22,7 +22,7 @@ $ curl -L https://raw.githubusercontent.com/layerhq/quick-start-ios/master/insta
 ### Option 2: Manual Instructions
 Not a fan of scripts? That's OK, just follow these instructions:<br/>
 
-1. Clone the project from Github:
+1. Clone the project from GitHub:
 
   ```console
   $ git clone https://github.com/layerhq/quick-start-ios.git
