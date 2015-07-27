@@ -15,3 +15,5 @@ if (!tryRequest(request)) {
   delayAndRetryWithSameUUID(request);
 }
 ```
+
+`If-None-Match` is not required if you are not retrying failed requests.
