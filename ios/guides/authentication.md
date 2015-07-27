@@ -94,4 +94,4 @@ Once you have received a valid Identity Token call the following code in the `re
   }];
 ```
 
-You can validate your identity token by using our tool here - [identity token validation tool](https://developer.layer.com/projects/tools).
+You can validate your identity token by using the [identity token validation tool](/projects/tools) in your developer dashboard.
