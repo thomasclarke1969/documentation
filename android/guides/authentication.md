@@ -104,4 +104,4 @@ Notify the `layerClient` of the new identity token. Add the following code after
   layerClient.answerAuthenticationChallenge("IDENTITY_TOKEN");
 ```
 
-You can validate your identity token by clicking `tool` in your developer dashboard - [identity token validation tool](/projects).
+You can validate your identity token by using the [identity token validation tool](/projects/tools) in your developer dashboard.
