@@ -9,8 +9,9 @@ Correct use of `If-None-Match` requires that a unique UUID be used for each crea
 ```
 
 ```text
-var uuid = UUI.generate();
+var uuid = UUID.generate();
 request.addHeader("If-None-Match", "\"" + uuid + "\"");
-...
-retryRequest(uuid);
+if (!tryRequest(request)) {
+  delayAndRetryWithSameUUID(request);
+}
 ```
