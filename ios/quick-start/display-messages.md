@@ -1,5 +1,5 @@
 # Display Messages
-The following demonstrates the logic needed to display messages from the last conversation between 2 participants inside a tableview in a View Controller.  The following code heavily relies on the [LYRQueryController](/docs/ios/integration#LYRQueryController).  For a working example, check out the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios).
+The following demonstrates the logic needed to display messages from the last conversation between 2 participants inside a tableview in a View Controller.  The following code heavily relies on the [LYRQueryController](/docs/ios/integration#LYRQueryController).  For a working example, check out the [Quick Start iOS Xcode project](https://github.com/layerhq/quick-start-ios).
 
 Initial setup for your View Controller:
 ```objectivec

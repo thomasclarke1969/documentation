@@ -36,7 +36,7 @@ The following demonstrates the logic needed to create a conversation and send a 
 ```
 
 ```emphasis
- Check the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios) for more details.
+ Check the [Quick Start iOS Xcode project](https://github.com/layerhq/quick-start-ios) for more details.
 ```
 
 You can verify that your message has been sent by looking at the logs inside [Developer Dashboard](https://developer.layer.com). Once you've sent a message, learn how to [display messages](/docs/quick-start/ios#display-messages).

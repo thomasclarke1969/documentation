@@ -3,7 +3,7 @@
 This Quick Start guide will get you up and running with sending messages as quickly as possible. If you are interested in trying out Atlas, Layer's open source user interface components, visit [Experience Atlas](https://developer.layer.com/signup/atlas).
 
 ```emphasis
-Before you get started, we highly recommend that you download the [Quick Start iOS XCode project](https://github.com/layerhq/quick-start-ios). To install the Quick Start iOS XCode project execute this command from your Terminal window:
+Before you get started, we highly recommend that you download the [Quick Start iOS Xcode project](https://github.com/layerhq/quick-start-ios). To install the Quick Start iOS Xcode project execute this command from your Terminal window:
 ```
 ```console
 $ curl -L https://raw.githubusercontent.com/layerhq/quick-start-ios/master/install.sh | bash -s "%%C-INLINE-APPID%%"
@@ -39,4 +39,4 @@ Save the file and run the following command. Cocoapods will take care of install
 $ pod install --verbose
 ```
 
-Cocoapods will create a `.xcworkspace` project. Open up that new workspace file using XCode.
+Cocoapods will create a `.xcworkspace` project. Open up that new workspace file using Xcode.
