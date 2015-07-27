@@ -2,10 +2,18 @@
 
 When a client issues a network request, it is always possible for the request to timeout or return a recoverable error status code indicating that it should be resent. However, this opens up the possibility of the same request being performed more than once, which could create duplicate entities (e.g. Conversations or Messages).
 
-To avoid this, it is recommended that clients include an `If-None-Match` header field with an [RFC 4122-compliant UUID](http://www.ietf.org/rfc/rfc4122.txt)  for requests that create new entities. If this header field exists in a request, the server will not re-execute the request if the tag has already been seen, and will respond with the previously created resource.
+De-duplication is a technique for avoiding creating these duplicates when retrying a create request.  This is done using an `If-None-Match` header field with an [RFC 4122-compliant UUID](http://www.ietf.org/rfc/rfc4122.txt)  for requests that create new entities. If this header field exists in a request, the server will not re-execute the request if the tag has already been seen, and will respond with the previously created resource.
 
-```text
-If-None-Match: "7a0aefb8-3c97-11e4-baad-164230d1df67"
+```emphasis
+The `If-None-Match` header requires that a unique UUID be used for each create request.  If the request fails, the UUID is reused when retrying the request.
 ```
 
-This header field can be omitted for applications than can tolerate such requests being occasionally re-executed.
+```text
+var uuid = UUID.generate();
+request.addHeader("If-None-Match", "\"" + uuid + "\"");
+if (!tryRequest(request)) {
+  delayAndRetryWithSameUUID(request);
+}
+```
+
+`If-None-Match` is only required if you are retrying failed requests.
