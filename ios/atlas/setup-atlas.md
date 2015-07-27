@@ -30,4 +30,4 @@ If you wish to install Atlas directly into your application from source, then cl
 3. Add the following Cocoa SDK frameworks to your project: `'CFNetwork', 'Security', 'MobileCoreServices', 'SystemConfiguration', 'CoreLocation'`
 
 Build and run your project to verify installation was successful.
-For more information, check out the [Atlas](https://github.com/layerhq/Atlas-iOS) on Github.
+For more information, check out the [Atlas](https://github.com/layerhq/Atlas-iOS) on GitHub.
