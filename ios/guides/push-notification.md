@@ -100,7 +100,7 @@ You will then be asked to enter the admin password for your computer to complete
  3. Select "iOS App Development" as your profile if you are still in development.  If you are ready to submit you will need to select "Ad Hoc" or "App Store".
  4. Select the App ID for your application.
  5. Add the appropriate test devices to the profile.
- 6. Name the provisioning profile.  We just using a descriptive name such as "<app name> <profile type>".
+ 6. Name the provisioning profile.  We suggest using a descriptive name such as "APP_NAME-PROFILE_TYPE".
  7. Generate the profile, and download it to your local machine.
  8. Double click on the downloaded profile to install it.
 
@@ -127,7 +127,7 @@ You will be presented with a tutorial. If you click on `Upload Certificate` to s
 You will also be prompted by Layer to input your certificate password. This is the same password you chose when you exported your certificate from the Keychain Access application.  This field is optional and is only required if you have a password on your .p12 file.
 
 ##Layer Push Integration
-Now that you have successfully uploaded your Apple Push Notification certificate to Layer, it is time to configure your application to support push notifications in Xcode. Open your application in Xcode and navigate to Project Settings → your application Target → Capabilities.
+Now that you have successfully uploaded your Apple Push Notification certificate to Layer, it is time to configure your application to support push notifications in XCode. Open your application in XCode and navigate to Project Settings → your application Target → Capabilities.
 
 Expand the section titled “Background Modes”.
 
