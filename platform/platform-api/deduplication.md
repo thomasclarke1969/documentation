@@ -8,10 +8,14 @@ De-duplication is a technique for avoiding creating these duplicates when retryi
 The `If-None-Match` header requires that a unique UUID be used for each create request.  If the request fails, the UUID is reused when retrying the request.
 ```
 
+Illustrative code example:
 ```text
-var uuid = UUID.generate();
-request.addHeader("If-None-Match", "\"" + uuid + "\"");
-if (!tryRequest(request)) {
+uuid = generateUUID()
+request.addHeader("If-None-Match", uuid)
+
+try {
+  request.execute()
+} catch {
   delayAndRetryWithSameUUID(request);
 }
 ```
