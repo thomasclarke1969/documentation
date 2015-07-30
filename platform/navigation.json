@@ -10,7 +10,8 @@
       "edit-a-conversation": "Editing Conversations",
       "send-a-message": "Sending Messages",
       "send-an-announcement": "Sending Announcements",
-      "block-users": "Managing User Block Lists"
+      "block-users": "Managing User Block Lists",
+      "libraries": "Client Libraries"
     }
   }
 }
