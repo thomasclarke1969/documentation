@@ -2,6 +2,10 @@
 
 Announcements are messages sent to all users of the application or to a list of users. These Messages will arrive outside of the context of a conversation (the `conversation` property will be `null`).
 
+```emphasis
+Announcements are currently limited to a size of 2kb per message part body.
+```
+
 The following request behaves similarly to the [Send a Message](#send-a-message) request above.  Each recipient will receive the Announcement within each of their system Conversations.
 
 ```request
