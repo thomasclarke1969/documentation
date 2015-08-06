@@ -60,11 +60,6 @@ One key difference with [Send a Message](#send-a-message): you may not use `send
         {
             "body": "Hello, World!",
             "mime_type": "text/plain"
-        },
-        {
-            "body": "YW55IGNhcm5hbCBwbGVhc3VyZQ==",
-            "mime_type": "image/jpeg",
-            "encoding": "base64"
         }
     ]
 }
