@@ -56,8 +56,15 @@ This is another great feature that Layer provides: metadata. With metadata, you 
 To see how easy it is to add metadata to a Conversation, check out `motionEnded` method in `LQSViewController.m`.
 ### Rich Content
 Now that you've sent a message, let's send a photo. Click on the Camera icon in the upper left corner.  Select a photo and tap Send. You can send any kind of payload with Layer: photos, gif's, videos, audio, even blocks of JSON. We will the store the content on our servers so you don't need to host it elsewhere. Layer also provides way to track the progress of an upload or download. To see how you can send photo in the code, check out the `sendMessage`  method in `LQSViewController.m`, and to see how to display the photo check out the `configureCell` method in  `LQSViewController.m`.
+### Announcements
+ Viewing announcments is simple with the quick start app. Click on the bell icon in the upper right corner. If you have not sent an announcement yet, you may notice a pop-up which provides a link to the announcement documents page. Not to worry, sending announcemnts is a breeze with Layer's [Platform API](https://developer.layer.com/docs/platform). Here is a sample curl command you can use to quickly send an announcement to your device and simulator:
+ ```
+ curl  -X POST -H 'Accept: application/vnd.layer+json; version=1.0' -H 'Authorization: Bearer BEARER_TOKEN' -H 'Content-Type: application/json' -d '{"parts": [{"body": "Message from Platform API!", "mime_type": "text/plain"}], "notification": {"text": "Howdy"}, "sender": {"name": "Platform"}, "recipients": ["Simulator","Device"]}' https://api.layer.com/apps/APP_UUID/announcements
+ ```
+ Before sending this command, you will need to replace two fields: BEARER_TOKEN and APPU_UUID. Once that has been completed and you have executed the curl command, you will recieve a messasge from the platform API with the text "Message from Platform API!" from the sender "Platform". To learn more about announcements, check out the [Announcements](https://developer.layer.com/docs/platform#send-an-announcement) documentation. 
 ### Cross Platform Messaging
 Also developing for Android? Build the [Android](/docs/android) Quick Start App using the same App ID, and your users will receive their messages no matter where they are!
+
 ## What's Next
 Now that you've seen just a sample of what Layer can do, check out the [Integration](/docs/ios/integration) docs to learn some of the concepts behind Layer.<br/>
 Interested in creating conversations and sending messages from your backend server?  The Layer Platform API is designed to empower developers to automate, extend, and integrate functionality provided by the Layer platform with other services and applications. For more information, check out the [Platform API](/docs/platform) docs.
