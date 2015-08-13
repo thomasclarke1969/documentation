@@ -5,7 +5,7 @@ If you are interested in trying out Atlas, Layer's open source user interface co
 ```
 Layer is the full-stack building block for communications.</br>
 
-This quick start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between an iOS Device and Simulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete this quick start guide so if you don't have an account yet, you can [sign up here](https://developer.layer.com/signup).
+This Quick Start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between an iOS Device and Simulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete this Quick Start guide so if you don't have an account yet, you can [sign up here](https://developer.layer.com/signup).
 
 <video controls poster="https://s3.amazonaws.com/static.layer.com/web/docs/ios/quick-start.png" style="width:740px;">
   <source src="https://s3.amazonaws.com/static.layer.com/web/docs/ios/quick-start.mp4" type="video/mp4"/>
@@ -57,12 +57,19 @@ To see how easy it is to add metadata to a Conversation, check out `motionEnded`
 ### Rich Content
 Now that you've sent a message, let's send a photo. Click on the Camera icon in the upper left corner.  Select a photo and tap Send. You can send any kind of payload with Layer: photos, gif's, videos, audio, even blocks of JSON. We will the store the content on our servers so you don't need to host it elsewhere. Layer also provides way to track the progress of an upload or download. To see how you can send photo in the code, check out the `sendMessage`  method in `LQSViewController.m`, and to see how to display the photo check out the `configureCell` method in  `LQSViewController.m`.
 ### Announcements
-Announcements are messages sent to all users of the application or to a list of users. These Messages will arrive outside of the context of a conversation.
- Viewing announcements is simple with the quick start app. Click on the bell icon in the upper left corner. If you have not sent an announcement yet, you may notice a pop-up telling you that you do not have any announcements. Not to worry, sending announcements is a breeze with Layer's [Platform API](https://developer.layer.com/docs/platform). Here is a sample curl command you can use to quickly send an announcement to your device and simulator:
- ```
- curl  -X POST -H 'Accept: application/vnd.layer+json; version=1.0' -H 'Authorization: Bearer BEARER_TOKEN' -H 'Content-Type: application/json' -d '{"parts": [{"body": "Message from Platform API!", "mime_type": "text/plain"}], "notification": {"text": "New Message from Platform API"}, "sender": {"name": "Platform"}, "recipients": ["Simulator","Device"]}' https://api.layer.com/apps/APP_UUID/announcements
- ```
- Before sending this command, you will need to replace two fields: BEARER_TOKEN and APP_UUID. You can find these values under the "[Keys](https://developer.layer.com/projects/keys)" section of the developer dashboard. The BEARER_TOKEN must be generated as it is not created by default. Once that has been completed and you have executed the curl command, you will receive a message from the platform API with the text "Message from Platform API!" from the sender "Platform". To learn more about announcements, check out the [Announcements](https://developer.layer.com/docs/platform#send-an-announcement) documentation. 
+See that bell in the upper left corner? Tap on that and you'll see a list of what we call "Announcements". Announcements are messages that are sent directly to users, outside of the context of a conversation. They're great for telling two users that they have been matched in a dating app, broadcasting details about a special offer to a subset of users in a shopping app, informing all users of new features in your latest app update, etc. If you've launched the quick start app for the first time you probably won't have any announcements. Not to worry, sending announcements is easy with Layer's [Platform API](https://developer.layer.com/docs/platform). Here is a sample `curl` command you can execute from the terminal to quickly send an announcement to your device and simulator:
+```console
+$ curl  -X POST \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer PLATFORM_API_TOKEN' \
+      -H 'Content-Type: application/json' \
+      -d '{"parts": [{"body": "Message from Platform API!", "mime_type": "text/plain"}], \
+           "notification": {"text": "New Message from Platform API"}, \
+           "sender": {"name": "Platform"}, \
+           "recipients": ["Simulator","Device"]}' \
+      https://api.layer.com/apps/APP_UUID/announcements
+```
+ Before sending this command, you will need to replace two fields: PLATFORM_API_TOKEN and APP_UUID. You can find these values under the "[Keys](https://developer.layer.com/projects/keys)" section of the developer dashboard. The PLATFORM_API_TOKEN must be generated as it is not created by default. Once you have executed the curl command, tap on the Bell icon again and you should see an announcement with the text "Message from Platform API!" from the sender "Platform". To learn more about announcements, check out the [Announcements](https://developer.layer.com/docs/platform#send-an-announcement) documentation. 
 ### Cross Platform Messaging
 Also developing for Android? Build the [Android](/docs/android) Quick Start App using the same App ID, and your users will receive their messages no matter where they are!
 
