@@ -25,10 +25,9 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.google.android.gms:play-services-gcm:+'
     compile 'com.layer.sdk:layer-sdk:%%ANDROID-SDK-VERSION%%'
-    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'com.google.android.gms:play-services-gcm:7.5.0'
+    compile 'org.slf4j:slf4j-nop:1.5.8'
 }
 ```
 
@@ -43,71 +42,70 @@ dependencies {
 ```groovy
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.+'
-    compile 'com.android.support:support-annotations:20.+'
-    compile 'com.google.android.gms:play-services:5.+'
-    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'com.google.android.gms:play-services-gcm:7.5.0'
+    compile 'org.slf4j:slf4j-nop:1.5.8'
 }
 ```
 
 ## Example AndroidManifest.xml
-Below is an example with a `com.myapp.newstandalone` package; replace with your own package when merging with your own manifest.
+Below is an example with a `com.myapp.package` package; replace with your own package when merging with your own manifest.
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.myapp.newstandalone"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.myapp.package">
 
-    <!-- Layer SDK uses these for monitoring network state and receiving GCM -->
+    <!-- Standard permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
-    <!-- GCM permission for your app (replace [com.myapp.newstandalone] with your package name) -->
-    <permission
-        android:name="com.myapp.newstandalone.permission.C2D_MESSAGE"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="com.myapp.newstandalone.permission.C2D_MESSAGE"/>
+    <!-- Signature-only permissions -->
+    <permission android:name="com.myapp.package.permission.LAYER_PUSH"
+       android:protectionLevel="signature"/>
+    <uses-permission android:name="com.myapp.package.permission.LAYER_PUSH"/>
+    <permission android:name="com.myapp.package.permission.C2D_MESSAGE"
+       android:protectionLevel="signature"/>
+    <uses-permission android:name="com.myapp.package.permission.C2D_MESSAGE"/>
 
-    ...
+    <!-- LayerClient.sendLogs() permissions -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
 
-    <application ... >
+    <application>
+       <!-- Your custom "com.layer.sdk.PUSH" notification Receiver -->
+       <receiver android:name=".LayerPushReceiver">
+          <intent-filter>
+             <action android:name="com.layer.sdk.PUSH"/>
+             <category android:name="com.myapp.package"/>
+          </intent-filter>
+       </receiver>
 
-        <!-- Layer SDK has these for monitoring network, boot, and GCM -->
-        <receiver android:name="com.layer.sdk.services.LayerReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-                <action android:name="android.intent.action.ANY_DATA_STATE"/>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.layer.sdk.services.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-                <category android:name="com.myapp.newstandalone"/>
-            </intent-filter>
-        </receiver>
-        <service android:name="com.layer.sdk.services.GcmIntentService"/>
-
-        <!-- Listen for Layer-generated push Intents -->
-        <receiver android:name=".LayerPushReceiver">
-            <intent-filter>
-                <action android:name="com.layer.sdk.PUSH"/>
-                <category android:name="com.myapp.newstandalone"/>
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="com.myapp.newstandalone"/>
-            </intent-filter>
-        </receiver>
-
+       <!-- Layer's GCM Receiver and Service -->
+       <receiver android:name="com.layer.sdk.services.GcmBroadcastReceiver"
+          android:permission="com.google.android.c2dm.permission.SEND">
+          <intent-filter android:priority="950">
+             <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+             <category android:name="com.myapp.package"/>
+          </intent-filter>
+       </receiver>
+       <service android:name="com.layer.sdk.services.GcmIntentService"/>
     </application>
 </manifest>
 ```
+
+## Application State
+In order for the LayerClient to properly manage connection and notification states, it is necessary to call `LayerClient.applicationCreated(app)` from your `Application.onCreate()` method:
+
+```java
+public class MyApp extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // Lets the LayerClient track Application state for connection and notification management.
+        LayerClient.applicationCreated(this);
+    }
+}
+```
+
