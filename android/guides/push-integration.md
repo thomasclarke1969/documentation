@@ -95,50 +95,51 @@ public class LayerPushReceiver extends BroadcastReceiver {
 }
 ```
 
-Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action.  To ensure that the receiver is activated on device start (not just after app launch), you can also filter for the `android.intent.action.BOOT_COMPLETED` action. One way to do so is through your app's AndroidManifest.xml (replace `com.myapp.newstandalone` with your own package name):
+Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action.  One way to do so is through your app's AndroidManifest.xml (replace `com.myapp.package` with your own package name):
 
 ``` xml
-<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.myapp.package">
 
-<permission
-   android:name="com.layer.quick_start_android.permission.C2D_MESSAGE"
-   android:protectionLevel="signature"/>
-<uses-permission android:name="com.layer.quick_start_android.permission.C2D_MESSAGE"/>
+    <!-- Standard permissions -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
-<application ... >
-    
-    ...
-    
-   <!-- Layer SDK has these for monitoring network, boot, and GCM -->
-   <receiver android:name="com.layer.sdk.services.LayerReceiver">
-      <intent-filter>
-         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-         <action android:name="android.intent.action.ANY_DATA_STATE"/>
-      </intent-filter>
-   </receiver>
-   
-   <receiver android:name="com.layer.sdk.services.GcmBroadcastReceiver"
-      android:permission="com.google.android.c2dm.permission.SEND">
-      <intent-filter>
-         <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-         <category android:name="com.layer.quick_start_android"/>
-      </intent-filter>
-   </receiver>
-   
-   <receiver android:name=".LayerPushReceiver">
-      <intent-filter>
-         <action android:name="com.layer.sdk.PUSH"/>
-         <category android:name="com.myapp.newstandalone"/>
-      </intent-filter>
-      <intent-filter>
-         <action android:name="android.intent.action.BOOT_COMPLETED"/>
-         <category android:name="com.myapp.newstandalone"/>
-      </intent-filter>
-   </receiver>
-   
-   <service android:name="com.layer.sdk.services.GcmIntentService"/>
-   
-</application>
+    <!-- Signature-only permissions -->
+    <permission android:name="com.myapp.package.permission.LAYER_PUSH"
+       android:protectionLevel="signature"/>
+    <uses-permission android:name="com.myapp.package.permission.LAYER_PUSH"/>
+    <permission android:name="com.myapp.package.permission.C2D_MESSAGE"
+       android:protectionLevel="signature"/>
+    <uses-permission android:name="com.myapp.package.permission.C2D_MESSAGE"/>
+
+    <!-- LayerClient.sendLogs() permissions -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+
+    <application>
+       <!-- Your custom "com.layer.sdk.PUSH" notification Receiver -->
+       <receiver android:name=".LayerPushReceiver">
+          <intent-filter>
+             <action android:name="com.layer.sdk.PUSH"/>
+             <category android:name="com.myapp.package"/>
+          </intent-filter>
+       </receiver>
+
+       <!-- Layer's GCM Receiver and Service -->
+       <receiver android:name="com.layer.sdk.services.GcmBroadcastReceiver"
+          android:permission="com.google.android.c2dm.permission.SEND">
+          <intent-filter android:priority="950">
+             <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+             <category android:name="com.myapp.package"/>
+          </intent-filter>
+       </receiver>
+       <service android:name="com.layer.sdk.services.GcmIntentService"/>
+    </application>
+</manifest>
 ```
 
 You can use your Layer Dashboard log to help debug push notifications from the Layer server's perspective.
