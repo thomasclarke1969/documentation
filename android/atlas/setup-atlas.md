@@ -58,9 +58,9 @@ You will need to ensure that the Layer SDK and Atlas modules are compiled into y
 
         compile fileTree(dir: 'libs', include: ['*.jar'])
         compile 'com.android.support:appcompat-v7:22.1.1'
-        compile 'com.google.android.gms:play-services-base:6.5.+'
-        compile 'com.layer.sdk:layer-sdk:0.13.3'
-        compile 'org.slf4j:slf4j-api:1.7.7'
+        compile 'com.layer.sdk:layer-sdk:%%ANDROID-SDK-VERSION%%'
+        compile 'com.google.android.gms:play-services-gcm:7.5.0'
+        compile 'org.slf4j:slf4j-nop:1.5.8'
     }
     ```
     **Optional:** If you are interested in building the fully featured Messenger example app included with Atlas, you can add this line to the dependencies: `compile project(':layer-atlas-messenger')`
