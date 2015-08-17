@@ -124,7 +124,7 @@ The `LayerClient` object leverages the listener pattern to notify your applicati
 
 ```java
 layerClient.registerConnectionListener(this)
-    .registerAuthenticationListener(this);
+layerClient.registerAuthenticationListener(this);
 ```
 
 ### Connect The SDK
