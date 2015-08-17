@@ -5,7 +5,6 @@ Atlas is a lightweight, flexible set of user interface components designed to en
 
 
 ```emphasis
-**Important**
 Atlas for Android is currently in Preview Release (Beta). There are many planned changes to the codebase, and support will not be offered until it is deemed ready for General Availability. However, if you wish to use Atlas for Android in your project, it is available through GitHub as is, along with the following documentation.
 ```
 
