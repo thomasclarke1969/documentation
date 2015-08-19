@@ -26,7 +26,7 @@ $ pod install --verbose
 
 Cocoapods will download and install LayerKit and also create a .xcworkspace project.
 
-##Connect LayerKit
+## Connect LayerKit
 
 Import the LayerKit headers into your `AppDelegate.h`
 
