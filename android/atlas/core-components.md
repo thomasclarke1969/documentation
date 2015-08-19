@@ -1,4 +1,4 @@
-#Core components
+# Core components
 Atlas provides several core pieces that allow you to start building a fully functional GUI experience around Layer.
 
 ![](my-atlas-app.png)
@@ -12,7 +12,7 @@ These are the key components of Atlas, and this tutorial will walk you through i
 * Participant - An Interface which allows Atlas classes to render participant information
 * ParticipantProvider - An Interface which provides Atlas classes with a list of potential participants
 
-##Implementing Atlas in a new project
+## Implementing Atlas in a new project
 
 To learn more about these components, you can build and explore the provided Atlas Messenger app, or you can follow this tutorial which covers building a simple app using Atlas from scratch. We will build an app that will allow you to create conversations between three pre-defined users: the device, simulator, and web interface. With Atlas, the app will have a fully featured GUI experience built with each of the components described above.
 
@@ -25,7 +25,7 @@ In order to get started, create a new Android Studio project with the following 
 
 Then follow the steps in the previous section to import the Layer SDK and Atlas into the project.
 
-###Step 1: Showing the conversations list
+### Step 1: Showing the conversations list
 The first thing we want to do is display a list of conversations, and allow the user to create new ones. In `app/main/res/layout/conversations_screen.xml`, configure the layout to show the conversation list and a button for starting new conversations (note, you can import and use your own icons, or use any assets from the layer-atlas-messenger project).
 
 ```xml
@@ -153,7 +153,7 @@ private void startMessagesActivity(Conversation c){
 
 If you compile and run your app now, you should authenticate as "Device" if you're running the app on actual hardware, or "Simulator" if you are running the app in an emulator. If you are using a Staging App ID, you should see at least one conversation that has been created for you.
 
-###Step 2: Showing the messages in a conversation
+### Step 2: Showing the messages in a conversation
 
 The next step will be defining a new activity to show the messages in each conversation when it is tapped. Create a new layout called `messages_screen.xml` in the `app/main/res/layout` folder and define it as so:
 

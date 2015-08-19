@@ -1,4 +1,4 @@
-#Quick Start
+# Quick Start
 Layer is the full-stack building block for communications.<br/>
 
 This Quick Start guide will get you up and running with a project powered by Layer as fast as possible. When you're done, you'll be able to send messages between a physical Device and an Emulator, see typing indicators, and synchronize metadata. You will need a Layer account to complete the Quick Start Guide so if you don't have an account yet, [Sign Up](https://developer.layer.com/signup).

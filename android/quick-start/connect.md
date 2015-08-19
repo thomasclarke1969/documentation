@@ -1,4 +1,4 @@
-#Connecting
+# Connecting
 
 ```emphasis
 We have created an application for you titled %%C-INLINE-APPNAME%% and the sample code below contains your application's key.

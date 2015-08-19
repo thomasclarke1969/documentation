@@ -6,7 +6,7 @@ Once you are ready for production implementation, you will need to write your ow
 
 To authenticate a user, the SDK requires that your backend server application generate an identity token and return it to your application.
 
-##Step 1 - Backend Setup
+## Step 1 - Backend Setup
 A `Provider ID` and `Key ID` must be retained by your back end application and used in the generation of the token.
 
 ```emphasis
@@ -23,7 +23,7 @@ A `Provider ID` and `Key ID` must be retained by your back end application and u
 
 To manage your authentication keys please visit [Developer Dashboard](/projects).
 
-##Step 2 - Start the Authentication process
+## Step 2 - Start the Authentication process
 Once connected, the `onConnectionConnected()` method will be called, at which time you should call the 'authenticate()' method on the `layerClient`.
 
 ```java
@@ -36,7 +36,7 @@ Once connected, the `onConnectionConnected()` method will be called, at which ti
  }
 ```
 
-##Step 3 - POST the nonce and generate identity token
+## Step 3 - POST the nonce and generate identity token
 The main authentication logic will reside in the `onAuthenticationChallenge` method located in your implementation of the `LayerAuthenticationListener`
 
 ```java
@@ -50,7 +50,7 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
 }
 ```
 
-##Step 4 - Generate an identity token in your backend
+## Step 4 - Generate an identity token in your backend
 A nonce value will be passed into the `onAuthenticationChallenge` method. POST that value to your backend and sign it using JWT.
 
 `Identity Tokens` are a pair of JSON dictionary structures (the JWS Header and Claim) and a cryptographic signature generated over them. The structure is as follows:
@@ -97,7 +97,7 @@ Third Party Libraries
 
 If you build your own libraries and want to be included, send an email to [support@layer.com](mailto:support@layer.com).
 
-##Step 5
+## Step 5
 Notify the `layerClient` of the new identity token. Add the following code after the logic above.
 
 ```java

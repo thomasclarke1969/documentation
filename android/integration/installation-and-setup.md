@@ -85,7 +85,7 @@ The Layer Android SDK requires some permissions and references from your app's `
 </manifest>
 ```
 
-##Connecting
+## Connecting
 
 ```emphasis
 Skip this section if you've already done it in the Quick Start guide.

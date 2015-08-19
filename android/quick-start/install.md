@@ -1,4 +1,4 @@
-#Installation
+# Installation
 
 This quick start guide will get you up and running with sending messages as quickly as possible. However, once you have tested out Layer using this guide, you will need to alter how authentication is done by creating your own backend controller that generates an Identity Token.
 
