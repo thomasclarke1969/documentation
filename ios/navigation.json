@@ -27,7 +27,8 @@
       "core-components": "Core Components",
       "plug-in-your-users": "Add Your Users",
       "configuring-ui": "Configuring UI",
-      "custom-payload": "Sending Custom Payload"
+      "custom-payload": "Sending Custom Payload",
+      "parse": "Parse Integration"      
     }
   },
   "guides": {
@@ -39,9 +40,7 @@
       "push-integration": "Push Integration",
       "metadata": "Metadata",
       "advanced-querying": "Advanced Querying",
-      "policies": "Policies",
-      "parse": "Parse Integration",
-      "atlas": "Atlas"
+      "policies": "Policies"
     }
   },
   "changelog": {
