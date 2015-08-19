@@ -1,4 +1,4 @@
-#Register Your App to Receive Remote Notifications
+# Register Your App to Receive Remote Notifications
 
 Your application must register to receive remote notifications. To support device registration for both iOS 7 and iOS 8, your application must implement the following. We recommend you do this in  `application:didFinishLaunchingWithOptions`.
 
@@ -34,7 +34,7 @@ Your AppDelegate will be notified when your application has successfully registe
 To unregister a user from receiving push notifications, you can pass `nil` to the `updateRemoteNotificationDeviceToken` method.
 ```
 
-##Triggering Alerts
+## Triggering Alerts
 
 By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. To specify the alert text you would like the recipient of a message to receive, you set the `options` dictionary when initializing the [LYRMessage](/docs/ios/api#lyrmessage) object.  In the `options` dictionary you will need to set push text as the value for the `LYRMessageOptionsPushNotificationAlertKey` key. This will tell the Layer Push Notification service to deliver a Text APN and trigger an alert for the user. If you want to send along a sound with the push you can add `LYRMessageOptionsPushNotificationSoundNameKey` to the options.
 
@@ -74,7 +74,7 @@ You can also include user-specific push messages and sounds by using the `LYRMes
 
 If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications).
 
-##<a name="warning"></a>
+<a name="warning"></a>
 ```emphasis
 **WARNING about silent and local notifications:**
 
@@ -153,7 +153,7 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
 }
 ```
 
-##<a name="badges"></a>Showing unread counts as Badges
+## <a name="badges"></a>Showing unread counts as Badges
 
 Manually keeping track of unread message counts can be a real pain. Layer can automatically set the badge count to the number of unread messages across all conversations.
 
@@ -166,7 +166,7 @@ To retrieve the badge count in your application, use
 NSInteger badgeCount = application.applicationIconBadgeNumber;
 ```
 
-##<a name="warning"></a>
+<a name="warning"></a>
 ```emphasis
 **Troubleshooting Push**
 
