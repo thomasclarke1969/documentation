@@ -1,7 +1,7 @@
-#Add Your Users to Atlas
+# Add Your Users to Atlas
 Layer recognizes that you might already have a User Model in your app.  Atlas can work with any User Model as long as it conforms to the `ATLParticipant` protocol.
 
-##<a name="atlp"></a> ATLParticipant Protocol
+## <a name="atlp"></a> ATLParticipant Protocol
 
 ```objective-c
 // The first name of the participant as it should be presented in the user interface.
@@ -28,7 +28,7 @@ When creating a conversation, there are 2 different view controllers that need t
 2. [Participant Table View Controller](#ptvc) - List of total Users 
 Both View Controllers assume the list of participants
 
-##<a name="abvc"></a> Address Bar View Controller (ATLAddressBarViewController)
+## <a name="abvc"></a> Address Bar View Controller (ATLAddressBarViewController)
 The Address Bar View Controller appears at the top of the ATLConversationViewController. When creating a new conversation you can add the participants in the view, or initiate the the Participant Table View Controller. If the conversation exists then the address will contain a read-only list of participants.
 
 ### Initialization
@@ -81,7 +81,7 @@ When the user types in the Address Bar, the `ATLAddressBarViewController` notifi
 - (void)addressBarViewControllerDidSelectWhileDisabled:(ATLAddressBarViewController *)addressBarViewController;
 ```
 
-##<a name="ptvc"></a> Participant Table View Controller  (ATLParticipantTableViewController)
+## <a name="ptvc"></a> Participant Table View Controller  (ATLParticipantTableViewController)
 The Participant Table View Controller is a `UITableViewController` that contains all the participants the authenticated user can message.
 
 ###  Notification when Participant is selected
