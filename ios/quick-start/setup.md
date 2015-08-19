@@ -1,4 +1,4 @@
-#Geting started with Layer
+# Geting started with Layer
 
 ```emphasis
 If you are interested in trying out Atlas, Layer's open source user interface components, visit [Experience Atlas](/signup/atlas).

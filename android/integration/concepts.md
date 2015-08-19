@@ -29,7 +29,7 @@ Message message = layerClient.newMessage(conversation, Arrays.asList(messagePart
 conversation.send(message);
 ```
 
-## Querying
+## Queries
 Layer provides a powerful querying engine that lets you search for specific Conversations or Messages based on key properties. For example, you can find a list of all Conversations sorted by when the last message was received, or find all Messages in a Conversation that are unread. To build a Query, you specify which class you wish to execute the query on - either Conversations or Messages, and you can then specify any predicates, and how you want the results to be sorted.
 
 

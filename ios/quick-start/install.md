@@ -1,4 +1,4 @@
-#Installation
+# Installation
 
 This Quick Start guide will get you up and running with sending messages as quickly as possible. If you are interested in trying out Atlas, Layer's open source user interface components, visit [Experience Atlas](https://developer.layer.com/signup/atlas).
 
