@@ -6,7 +6,7 @@ Once you are ready for production implementation, you will need to write your ow
 
 To authenticate a user, the SDK requires that your backend server application generate an identity token and return it to your application.
 
-##Step 1 - Backend Setup
+## Step 1 - Backend Setup
 A `Provider ID` and `Key ID` must be retained by your backend application and used in the generation of the token.
 
 ```emphasis
@@ -36,7 +36,7 @@ The main logic will reside in the `requestAuthenticationNonceWithCompletion` met
 }];
 ```
 
-##Step 3 - POST the nonce and generate identity token
+## Step 3 - POST the nonce and generate identity token
 A nonce value will be obtained from Layer and passed into the completion block of the `requestAuthenticationNonceWithCompletion` method. POST this value to your backend and use it to generate a JWT identity token.
 
 A Layer `Identity Token` is a JSON Web Token (JWT) structure that encodes a cryptographically signed set of claims that assert the identity of a particular user within your application. A JWT is transmitted as a compact string value that is formed by concatenating a pair of JSON dictionary structures (the JOSE Header and JWT Claims Set) and a cryptographic signature generated over them. The structure is as follows:
@@ -85,7 +85,7 @@ Third Party Libraries
 
 If you build your own libraries and want to be included, send an email to [support@layer.com](mailto:support@layer.com).
 
-##Step 4 - Notify Layer Client when your backend returns the token
+## Step 4 - Notify Layer Client when your backend returns the token
 Once you have received a valid Identity Token call the following code in the `requestAuthenticationNonceWithCompletion` method
 
 ```objectivec
