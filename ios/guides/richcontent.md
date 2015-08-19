@@ -36,7 +36,7 @@ if (error) {
 }
 ```
 
-###Progress Feedback
+### Progress Feedback
 
 Both auto-download and on-demand download report progress of the download transfer through `LYRProgress` which can be accessed depending on download type.
 ```objc

@@ -1,10 +1,10 @@
-#Core Components
+# Core Components
 ## Controllers
 To implement Atlas fully, you must at least subclass these view controllers:
 1. [Conversation List View Controller](#clvc) - List of Conversations
 2. [Conversation View Controller](#cvc) - List of Messages and Input
 
-##<a name="clvc"></a> Conversation List View Controller (ATLConversationListViewController)
+## <a name="clvc"></a> Conversation List View Controller (ATLConversationListViewController)
 The Conversation List View Controller is a `UITableViewController` that contains a list of all the conversations that the authenticated user ID belongs to. By default, the cell will contain a title and will show the last message text in conversation.
 
 ### Initializing
@@ -51,7 +51,7 @@ When the user selects a conversation, the `ATLConversationListViewController` no
 - (void)conversationListViewController:(ATLConversationListViewController *)conversationListViewController didSearchForText:(NSString *)searchText completion:(void (^)(NSSet *filteredParticipants))completion;
 ```
 
-##<a name="cvc"></a> Conversation View Controller (ATLConversationViewController)
+## <a name="cvc"></a> Conversation View Controller (ATLConversationViewController)
 The Conversation View Controller is a `UICollectionViewController` that contains all the messages in the conversation. The area at the top where the participants are listed is called the Address Bar. The area at the bottom of the screen where the user can input text, select an image, or send a location is called the Message Input Toolbar. 
 
 ### Initializing

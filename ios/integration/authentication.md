@@ -1,4 +1,4 @@
-#Authenticate
+# Authenticate
 
 Once connected, Layer requires every user to be authenticated before they can send and receive messages. The Authentication process lets you explicitly allow a given user to communicate with other users in your App. A user is defined by their User ID, which can be any sort of unique identifer, including ones that you are already using for user managment (this could be a UDID, username, email address, phone number, etc).
 

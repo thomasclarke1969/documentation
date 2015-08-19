@@ -1,9 +1,9 @@
-#Push Notifications
+# Push Notifications
 The Layer Push Notification Service can be used to keep your application’s data up to date at all times. This guide will walk you through integrating the Layer Push Notification service into your application.
 
-#Generating Apple Push Certificate
+# Generating Apple Push Certificate
 If you do not already have a .p12 certificate press the button below to learn how to generate them from Apple.
-##Enable Your App for Push notifications
+## Enable Your App for Push notifications
 Navigate to the [Apple Developer Portal](https://developer.apple.com/) and Log In. Select Certificates, Identifiers, & Profiles on the right side of the page.
 
 ![image alt text](ios-push-enable2.jpg)
@@ -30,7 +30,7 @@ Once your application is enabled for push notifications, you will need to genera
 
 **Keep the Apple Developer window open as you will need to return here to upload your `CSRs`**
 
-##Create A Signing Request
+## Create A Signing Request
 
 Open the Keychain Access application on your Mac. This can be found in Applications → Utilities, or by searching via Spotlight.
 
@@ -55,7 +55,7 @@ You will be prompted save the certificate. Give you certificate a name and save 
 
 **Note that you must create separate `CSRs` for Production and Development certificates. Follow steps 1 - 5 again to create a second certificate.**
 
-##Upload the Signing Request
+## Upload the Signing Request
 
 Navigate back to the Apple Developer Portal and select `Create Certificate` in the `Development SSL Certificate` section.
 
@@ -75,7 +75,7 @@ Click the Download button to download your certificate to your computer, then cl
 
 Once your certificate is downloaded, double click on the certificate to automatically add it to your Keychain.
 
-##Export Certificate from Keychain
+## Export Certificate from Keychain
 
 Open up the Keychain Access application and locate your certificate. Right click on the certificate and select “Export “YOUR_CERTIFICATE_NAME”.
 
@@ -93,7 +93,7 @@ You will then be asked to enter the admin password for your computer to complete
 
 ![image alt text](ios-push-upload11.jpg)
 
-##Creating/Refreshing a Provisioning Profile
+## Creating/Refreshing a Provisioning Profile
 
  1. Navigate back to the Apple Developer Portal.  Select Provisioning Profiles.
  2. Click on the `+` button in the upper right corner to create a new provisioning profile.
@@ -106,7 +106,7 @@ You will then be asked to enter the admin password for your computer to complete
 
 If you have already created a Provisioning Profile in the past you will need to refresh it once you've created your Push Certificate.
 
-#Upload Your Certificate to Layer
+# Upload Your Certificate to Layer
 
 ```emphasis
 Please note, Layer supports both production and development Apple Push Notifications. You can upload up to 5 different certificates per project. Layer will automatically detect the type of certificate you've uploaded and use the correct one at runtime.
