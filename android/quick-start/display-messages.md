@@ -1,4 +1,4 @@
-#Display Messages
+# Display Messages
 The following demonstrates the logic needed to display conversations and messages between an authenticated user and another participant. You can find all the conversations between the authenticated user and any other participant(s) like so:
 
 ```java

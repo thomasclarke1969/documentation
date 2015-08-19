@@ -30,7 +30,7 @@ By default, Atlas displays the sender's initials next to the text bubbles. It's 
 
 This will require making changes to Atlas itself. First, you need to remove the existing avatar components, then add the text components to the message view in order to draw the sender's name, and then populate the the new component.
 
-###Step 1: Remove the default avatar view
+### Step 1: Remove the default avatar view
 
 In `/layer-atlas/src/main/res/layout/atlas_view_messages_convert.xml`, find and remove (delete) the following components:
 
@@ -73,7 +73,7 @@ messagesList.setAdapter(messagesAdapter = new BaseAdapter() {
 }
 ```
 
-###Step 2: Add components to the message view
+### Step 2: Add components to the message view
 
 Edit `layer-atlas/src/main/res/layout/atlas_view_messages_cell_text.xml` to look like so:
 
@@ -149,7 +149,7 @@ Edit `layer-atlas/src/main/res/layout/atlas_view_messages_cell_text.xml` to look
 </FrameLayout>
 ```
 
-###Step 3: Set username text in code
+### Step 3: Set username text in code
 
 Now we need to dynamically set the username text when a message is added to the conversation. When we render the message part with the content, we can access the user id, but we will need to access the ParticipantProvider to look up the user's human readable name. To that end, we need to create and set a global ParticipantProvider in `AtlasMessageList.java`:
 

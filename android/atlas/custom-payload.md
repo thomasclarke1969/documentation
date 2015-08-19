@@ -8,7 +8,7 @@ To add support for a custom message payload, we need to do the following:
 3. Display a custom cell when rendering a message with that custom mime type
 
 
-##Add a Custom Widget
+## Add a Custom Widget
 
 Add the following button after the `atlas_message_composer_send` text view in `/layer-atlas/src/main/res/layout/atlas_message_composer.xml`
 
@@ -29,7 +29,7 @@ android:text="STAR"
 />
 ```
 
-##Send a Message with a Custom Mime Type
+## Send a Message with a Custom Mime Type
 
 First, we need to define the Mimetype for the payload. In the `Atlas` class, you can find a list of mime types that are supported by default. You can add your own here.
 
@@ -86,7 +86,7 @@ class AtlasMessageComposer extends FrameLayout {
 }
 ```
 
-##Displaying a Message with a Custom Mime Type
+## Displaying a Message with a Custom Mime Type
 
 Each mime type is displayed in Atlas using a custom cell. You first define the cell layout, then inflate it and populate any relevant fields.
 

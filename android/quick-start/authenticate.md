@@ -1,4 +1,4 @@
-#Authenticate
+# Authenticate
 
 You must authenticate a user before they are allowed to send or receive messages. Layer authentication requires that a backend server generate an `Identity Token` on behalf of the client. For testing purposes, Layer provides a sample backend that takes care of this. <b>Note:</b> You <b>cannot</b> use this sample backend with Production App IDs.
 

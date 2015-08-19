@@ -2,7 +2,7 @@
 
 The Layer client provides a flexible notification system for informing applications when changes have occurred on Layer objects in response to synchronization. The system is designed to be general purpose and alerts your application to the creation, update, or deletion of an object. Changes are modeled as simple dictionaries with a fixed key space.
 
-##Event Listener
+## Event Listener
 The Layer SDK leverages listeners to notify your application when changes occur. Your application should register as a `LayerChangeEventListener` in order to receive change notifications.
 
 ```java
@@ -67,7 +67,7 @@ Your application can acquire the actual object on which an update has occurred w
 Object changeObject = change.getObject();
 ```
 
-##Synchronization Listener
+## Synchronization Listener
 The Layer SDK also provides a synchronization listener that alerts your application when a synchronization is about to begin, and when a synchronization has successfully completed. Your application should register as a `LayerSyncListener` to receive these call backs.
 
 ```java
