@@ -71,10 +71,11 @@ Prebuilt JWT Libraries are available for many languages:
 
 To assist in setting up a backend, Layer provides sample backend implementations for the following languages:
 
-* [Node.js](https://github.com/layerhq/support/blob/master/identity-services-samples/nodejs/) (also available as a [Parse Cloud module](https://github.com/layerhq/layer-parse-module))
-* [Python](https://github.com/layerhq/support/blob/master/identity-services-samples/python/)
-* [Ruby](https://github.com/layerhq/support/tree/master/identity-services-samples/ruby)
-* [Java](https://github.com/layerhq/support/tree/master/identity-services-samples/java)
+* [Node.js](https://github.com/layerhq/layer-identity-token-nodejs) (also available as a [Parse Cloud module](https://github.com/layerhq/layer-parse-module))
+* [Python](https://github.com/layerhq/layer-identity-token-python)
+* [Ruby](https://github.com/layerhq/layer-identity-token-ruby)
+* [Java](https://github.com/layerhq/layer-identity-token-java)
+* [Scala](https://github.com/layerhq/layer-identity-token-scala)
 * [PHP](https://github.com/layerhq/support/tree/master/identity-services-samples/php)
 * [Go](https://github.com/layerhq/support/tree/master/identity-services-samples/go)
 
