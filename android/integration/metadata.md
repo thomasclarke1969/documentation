@@ -2,9 +2,8 @@
 Metadata provides an elegant mechanism for expressing and synchronizing contextual information about Conversations. This is implemented as a free-form structure of string key-value pairs that is automatically synchronized among the participants in a conversation. Example use cases of metadata include:
 
 1. Setting a conversation title.
-2. Storing information about participants within the Conversation.
-3. Attaching dates or tags to the Conversation.
-4. Storing a reference to a background image URL for the Conversation.
+2. Attaching dates or tags to the Conversation.
+3. Storing a reference to a background image URL for the Conversation.
 
 The following demonstrates setting `metadata` on a conversation:
 
