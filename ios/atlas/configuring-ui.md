@@ -34,6 +34,33 @@ Next, you must implement `avatarItemForConversation` method of `ATLConversationL
 
 If you are asynchronously loading Avatar images  in the Conversation List View, you can use `reloadCellForConversation` to reload the cell once the avatar images have loaded.
 
+## Customizing Push Message
+
+By default, if the authenticated user is out the app and receives a message they will also receive a push notification saying "SENDER sent you a message." You can customize this push message by overriding the `messagesForMediaAttachments` method in your `ATLConversationViewController` subclass. The `messagesForMediaAttachments` lets you customize the `LYRMessage`s before they get sent.
+
+```objc
+- (NSOrderedSet *)conversationViewController:(ATLConversationViewController *)viewController messagesForMediaAttachments:(NSArray *)mediaAttachments
+{
+    NSString *senderName = @"USER";
+    NSString *pushText = @"PUSHTEXT";
+    NSString *pushSound = @"default.aif";
+    
+    NSMutableOrderedSet *messages = [NSMutableOrderedSet new];
+    // Loop through all messages that are about to be sent so you can insert the push text
+    for (ATLMediaAttachment *attachment in mediaAttachments){
+        NSArray *messageParts = ATLMessagePartsWithMediaAttachment(attachment);
+        // Customize Your Push Message
+        NSDictionary *pushOptions = @{LYRMessageOptionsPushNotificationAlertKey : [NSString stringWithFormat:@"%@: %@", senderName, pushText],LYRMessageOptionsPushNotificationSoundNameKey :pushSound};
+        // Recreate the LYRMessage with the push text
+        LYRMessage *message = [self.layerClient newMessageWithParts:messageParts options:pushOptions error:nil];
+        if (message){
+            [messages addObject:message];
+        }
+    }
+    return messages;
+}
+```
+
 ## Configuring UI Appearance
 
 Atlas takes advantage of Apple's [UIAppearance](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIAppearance_Protocol/) protocol which lets you change UI appearance very easily. Here are just a couple examples of UI customization:
