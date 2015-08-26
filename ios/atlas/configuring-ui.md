@@ -6,15 +6,13 @@ By default, Atlas behaves like iMessage when showing Avatars.
 * Avatars don't appear in 1:1 conversations. Avatars will appear on group conversations. 
 To show Avatars in 1:1 conversations, you must set the `shouldDisplayAvatarItemForOneOtherParticipant` property to `YES`. 
 ```objc
-    conversationViewController.shouldDisplayAvatarItemForOneOtherParticipant = YES;
+conversationViewController.shouldDisplayAvatarItemForOneOtherParticipant = YES;
 ```    
 * The authenticated user's avatar will not be shown on the right side of the conversation.
 To show the current user's avatar, you must set the `shouldDisplayAvatarItemForAuthenticatedUser` property to `YES`. 
 ```objc
-    conversationViewController.shouldDisplayAvatarItemForAuthenticatedUser = YES;
+conversationViewController.shouldDisplayAvatarItemForAuthenticatedUser = YES;
 ```    
-
-If you are asynchronously loading Avatar images in the Conversation View, you can use `reloadCellForMessage` or `reloadCellsForMessagesSentByParticipantWithIdentifier` to reload the cell once the avatar images have loaded.
 
 You can also show avatar images in the Conversation List. First, you must set the `displaysAvatarItem` property to `YES`.
 ```objc
@@ -31,8 +29,6 @@ Next, you must implement `avatarItemForConversation` method of `ATLConversationL
     return user;
 }
 ```
-
-If you are asynchronously loading Avatar images  in the Conversation List View, you can use `reloadCellForConversation` to reload the cell once the avatar images have loaded.
 
 ## Configuring UI Appearance
 
