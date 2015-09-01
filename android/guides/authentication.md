@@ -88,7 +88,7 @@ To assist in setting up a backend, Layer provides sample backend implementations
 * [Ruby](https://github.com/layerhq/layer-identity-token-ruby)
 * [Java](https://github.com/layerhq/layer-identity-token-java)
 * [Scala](https://github.com/layerhq/layer-identity-token-scala)
-* [PHP](https://github.com/layerhq/support/tree/master/identity-services-samples/php)
+* [PHP](https://github.com/layerhq/layer-identity-token-php)
 * [Go](https://github.com/layerhq/support/tree/master/identity-services-samples/go)
 
 Third Party Libraries
