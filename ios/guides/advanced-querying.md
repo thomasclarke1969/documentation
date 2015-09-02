@@ -159,7 +159,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"MIMEType" predicateOpera
 
 NSError *error = nil;
 NSOrderedSet *messageParts = [self.layerClient executeQuery:query error:&error];
-if (!messageParts) {
+if (messageParts) {
     NSLog(@"%tu messageParts in conversation with PNGs", messageParts.count);
 } else {
     NSLog(@"Query failed with error %@", error);
