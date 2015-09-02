@@ -5,7 +5,7 @@
       "properties" : [
         {
           "declared" : "LYRActor.h",
-          "declaration" : "@property (nonatomic, readonly) NSString *LYR_QUERYABLE_FROM ( LYRMessage )",
+          "declaration" : "@property (nonatomic, readonly) NSString *LYR_QUERYABLE_FROM ( LYRMessage LYR_QUERYABLE_FROM ( LYRConversation )",
           "comment" : "The userID of the authenticated user who sent the message.  Previously sentByUserID.",
           "name" : ")",
           "discussion" : "The userID property is queryable via the LYRPredicateOperatorIsEqualTo and LYRPredicateOperatorIsNotEqualTo predicate operators."
@@ -210,6 +210,22 @@
           },
           {
             "declared" : "LYRClient.h",
+            "declaration" : "- (void)countForQuery:(LYRQuery *)query completion:(void ( ^ ) ( NSUInteger count , NSError *error ))completion",
+            "comment" : "Executes the given query asynchronously and ppasses the result count and error back in a completion block.",
+            "name" : "countForQuery:completion:",
+            "parameters" : [
+              {
+                "name" : "query",
+                "description" : "The query to execute. Cannot be nil."
+              },
+              {
+                "name" : "completion",
+                "description" : "The block that will be passed once Layer has executed the query.  If successful the count will have the count requested in the query, and if unsuccessful error will contain the specific query error."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
             "declaration" : "- (NSUInteger)countForQuery:(LYRQuery *)query error:(NSError **)error",
             "comment" : "Executes the given query and returns a count of the number of results.",
             "name" : "countForQuery:error:",
@@ -242,6 +258,22 @@
             "declaration" : "- (void)disconnect",
             "comment" : "Signals the receiver to end the established network connection.",
             "name" : "disconnect"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)executeQuery:(LYRQuery *)query completion:(void ( ^ ) ( NSOrderedSet *resultSet , NSError *error ))completion",
+            "comment" : "Executes the given query asynchronously and passes the results back in a completion block.",
+            "name" : "executeQuery:completion:",
+            "parameters" : [
+              {
+                "name" : "query",
+                "description" : "The query to execute. Cannot be nil."
+              },
+              {
+                "name" : "completion",
+                "description" : "The block that will be passed once Layer has executed the query.  If successful the resultSet will have the results, and if unsuccessful error will contain the specific query error."
+              }
+            ]
           },
           {
             "declared" : "LYRClient.h",
@@ -358,14 +390,18 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query",
+            "declaration" : "- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query error:(NSError **)error",
             "comment" : "Creates and returns a new query controller with the given query.",
-            "name" : "queryControllerWithQuery:",
+            "name" : "queryControllerWithQuery:error:",
             "return" : "A newly created query controller.",
             "parameters" : [
               {
                 "name" : "query",
                 "description" : "The query to create a controller with."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to a NSError object describing why query controller creation failed."
               }
             ]
           },
@@ -508,13 +544,6 @@
           "declaration" : "@property (nonatomic, readonly) BOOL isDeleted",
           "comment" : "Returns a Boolean value that indicates if the receiver has been deleted.",
           "name" : "isDeleted"
-        },
-        {
-          "declared" : "LYRConversation.h",
-          "declaration" : "@property (nonatomic, readonly) NSDictionary *metadata",
-          "comment" : "Returns the metadata associated with the conversation.",
-          "name" : "metadata",
-          "discussion" : "Metadata is a free form dictionary of string key-value pairs that allows arbitrary developer supplied information to be associated with the conversation and synchronized among the participants."
         }
       ],
       "methods" : {
@@ -1144,6 +1173,18 @@
               {
                 "name" : "error",
                 "description" : "A pointer to an error object that upon failure is set to an error object that describes\nthe nature of the failure."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRQueryController.h",
+            "declaration" : "- (void)executeWithCompletion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
+            "comment" : "Executes the query asynchronously and loads a result and error in a completion block.",
+            "name" : "executeWithCompletion:",
+            "parameters" : [
+              {
+                "name" : "completion",
+                "description" : "A block that passes back a BOOL if the execution of the query was successful, and an associated error object if there\nwas an error during execution."
               }
             ]
           },
