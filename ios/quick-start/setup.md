@@ -63,9 +63,9 @@ $ curl  -X POST \
       -H 'Accept: application/vnd.layer+json; version=1.0' \
       -H 'Authorization: Bearer PLATFORM_API_TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"parts": [{"body": "Message from Platform API!", "mime_type": "text/plain"}], \
-           "notification": {"text": "New Message from Platform API"}, \
-           "sender": {"name": "Platform"}, \
+      -d '{"parts": [{"body": "Message from Platform API!", "mime_type": "text/plain"}], 
+           "notification": {"text": "New Message from Platform API"}, 
+           "sender": {"name": "Platform"}, 
            "recipients": ["Simulator","Device"]}' \
       https://api.layer.com/apps/APP_UUID/announcements
 ```
