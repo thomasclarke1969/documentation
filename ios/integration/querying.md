@@ -118,7 +118,7 @@ The following demonstrates constructing a `LYRQueryController` that can be used 
 
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
-LYRQueryController *queryController = [self.client queryControllerWithQuery:query];
+LYRQueryController *queryController = [self.client queryControllerWithQuery:query error:nil];
 queryController.delegate = self;
 NSError *error;
 BOOL success = [queryController execute:&error];
