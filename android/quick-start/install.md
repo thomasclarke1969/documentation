@@ -86,8 +86,8 @@ Below is an example with a `com.myapp.package` package; replace with your own pa
        <receiver android:name="com.layer.sdk.services.GcmBroadcastReceiver"
           android:permission="com.google.android.c2dm.permission.SEND">
           <intent-filter android:priority="950">
-             <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
              <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>             
+             <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
              <category android:name="com.myapp.package"/>
           </intent-filter>
        </receiver>
