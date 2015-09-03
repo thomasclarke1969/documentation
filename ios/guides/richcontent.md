@@ -107,7 +107,7 @@ NSError *error = nil;
 NSOrderedSet *messages = [self executeQuery:query error:&error];
 
 // or use it in your query controller...
-LYRQueryController *controller = [self.client queryControllerWithQuery:query];
+LYRQueryController *controller = [self.client queryControllerWithQuery:query error:nil];
 ```
 
 ### Background Transfers
