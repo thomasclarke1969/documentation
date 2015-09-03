@@ -59,7 +59,7 @@ The following methods fetch the last conversation, and populate the query contro
     query.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NO]];
 
     // Set up query controller
-    self.queryController = [self.layerClient queryControllerWithQuery:query];
+    self.queryController = [self.layerClient queryControllerWithQuery:query error:nil];
     self.queryController.delegate = self;
 
     NSError *error;
