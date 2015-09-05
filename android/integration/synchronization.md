@@ -71,11 +71,8 @@ Object changeObject = change.getObject();
 With partial sync, the Layer client can specify the messages of the conversation that should be retrieved instead of pulling down all historic data. If the client would like to see their older messages they can simply request the next set of messages and it will be fetched locally. By default the Layer SDK will download messages starting with the earliest unread message in the conversation. In order to change this, the client will need to pass a specific cold sync option. There are three options that can be passed into the options object:
 
 1. `FETCH_ALL_MESSAGES` - This option will fetch all messages from every conversation.
-    
     Note: This might significantly affect bandwidth and performance.
-
 2. `FETCH_FROM_EARLIEST_UNREAD_MESSAGE` - This option will retrieve all messages from the earliest unread messages. This is the new default in the LayerSDK.
-
 3. `FETCH_LAST_MESSAGE_ONLY` - This will fetch only the last message of each conversation.
 ```java
 final LayerClient.Options options = new LayerClient.Options();
@@ -88,11 +85,8 @@ To support partial sync, the Conversation object has been updated with the follo
 3. `fetchMoreHistoricMessages(int suggestedNumberOfMessages)` - This method will fetch at least the specified number of historic messages in a conversation. 
 4. `fetchAllHistorymessages` - This method will fetch all messages in the conversation.
 5. `getHistoricMessageStatus` - This method will return one of values from HistoricMessageStatus. Based on the returned value, you can determine the historic message status for the conversation. The states are as follows:
-	
 	5.1. `FETCHED_ALL_MESSAGES` - This state is returned if the all the messages have been downloaded from the  	             server.
-
 	5.2. `HAS_MORE_MESSAGES_TO_FETCH` - This state is returned if there are messages that could be fetched from 	             the server. 
-	
 	5.3. `FETCH_PENDING` - This state is returned when there is a pending request to fetch historic messages 	              from the server.
 
 ## Synchronization Listener
