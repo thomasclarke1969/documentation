@@ -85,6 +85,7 @@ To support partial sync, the Conversation object has been updated with the follo
 3. `fetchMoreHistoricMessages(int suggestedNumberOfMessages)` - This method will fetch at least the specified number of historic messages in a conversation. 
 4. `fetchAllHistorymessages` - This method will fetch all messages in the conversation.
 5. `getHistoricMessageStatus` - This method will return one of values from HistoricMessageStatus. Based on the returned value, you can determine the historic message status for the conversation. The states are as follows:
+
 	5.1. `FETCHED_ALL_MESSAGES` - This state is returned if the all the messages have been downloaded from the  	             server.
 	5.2. `HAS_MORE_MESSAGES_TO_FETCH` - This state is returned if there are messages that could be fetched from 	             the server. 
 	5.3. `FETCH_PENDING` - This state is returned when there is a pending request to fetch historic messages 	              from the server.
