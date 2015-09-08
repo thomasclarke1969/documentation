@@ -70,7 +70,7 @@ Object changeObject = change.getObject();
 ## Historic Synchronization
 With historic synchronization, the client can specify the messages of the conversation that should be retrieved instead of syncing all historic data. If the client would like to sync it's older messages, it can simply request the next set of messages, and those messages will be synced locally. By default the Layer SDK will sync messages starting with the earliest unread message in the conversation. In order to change this, the client will need to pass a specific historic sync policy via option. There are three options that can be passed into the options object:
 
-  1. `FROM_EARLIEST_UNREAD_MESSAGE` - This option will retrieve all messages from the earliest unread messages.     This is the new default in the LayerSDK.
+  1. `FROM_EARLIEST_UNREAD_MESSAGE` - This option will retrieve all messages from the earliest unread messages.     This is the default behavior.
   2. `ALL_MESSAGES` - This option will sync all messages from every conversation.
       Note: This might significantly affect bandwidth and performance.
   3. `FROM_LAST_MESSAGE` - This will sync only the last message of each conversation.
