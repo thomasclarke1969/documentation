@@ -68,12 +68,12 @@ Object changeObject = change.getObject();
 ```
 
 ## Historic Synchronization
-With partial sync, the Layer client can specify the messages of the conversation that should be retrieved instead of pulling down all historic data. If the client would like to see their older messages they can simply request the next set of messages and it will be fetched locally. By default the Layer SDK will download messages starting with the earliest unread message in the conversation. In order to change this, the client will need to pass a specific historic sync option. There are three options that can be passed into the options object:
+With historic synchronization, the client can specify the messages of the conversation that should be retrieved instead of syncing all historic data. If the client would like to sync it's older messages, it can simply request the next set of messages, and those messages will be synced locally. By default the Layer SDK will sync messages starting with the earliest unread message in the conversation. In order to change this, the client will need to pass a specific historic sync policy via option. There are three options that can be passed into the options object:
 
   1. `FROM_EARLIEST_UNREAD_MESSAGE` - This option will retrieve all messages from the earliest unread messages.     This is the new default in the LayerSDK.
-  2. `ALL_MESSAGES` - This option will fetch all messages from every conversation.
+  2. `ALL_MESSAGES` - This option will sync all messages from every conversation.
       Note: This might significantly affect bandwidth and performance.
-  3. `FROM_LAST_MESSAGE` - This will fetch only the last message of each conversation.
+  3. `FROM_LAST_MESSAGE` - This will sync only the last message of each conversation.
 
 ```java
 final LayerClient.Options options = new LayerClient.Options();
@@ -82,18 +82,19 @@ options.historicSyncPolicy(LayerClient.Options.HistoricSyncPolicy.ALL_MESSAGES);
 
 To support partial sync, the Conversation object has been updated with the following new methods:
 
-  1. `getTotalMessageCount()` - This method will return the total number of messages in a conversation, including all historic messages that have yet to be fetched.
+  1. `getTotalMessageCount()` - This method will return the total number of messages in a conversation, including all historic messages that have yet to be synced.
   2. `getTotalUnreadMessageCount()` - This method will return the total number of unread messages in a conversation including all unread historic messages.
-  3. `syncMoreHistoricMessages(int suggestedNumberOfMessages)` - This method will fetch at least the specified number of historic messages in a conversation.
-  4. `syncAllHistoricMessages()` - This method will fetch all messages in the conversation.
-  5. `getHistoricSyncStatus()` - This method will return one of values from HistoricMessageStatus. Based on the returned value, you can determine the historic message status for the conversation. The states are as follows:
+  3. `syncMoreHistoricMessages(int suggestedNumberOfMessages)` - This method will sync at least the specified number of historic messages in a conversation.
+  4. `syncFromEarliestUnreadMessage` - Synchronizes message history starting from the earliest unread Message up to the last Message.
+  5. `syncAllHistoricMessages()` - This method will sync all messages in the conversation.
+  6. `getHistoricSyncStatus()` - This method will return one of values from HistoricMessageStatus. Based on the returned value, you can determine the historic message status for the conversation. The states are as follows:
 
   	1. `NO_MORE_AVAILABLE` - This state is returned if the all the messages have been downloaded from the server.
-  	2. `MORE_AVAILABLE` - This state is returned if there are messages that could be fetched fromthe server.
-  	3. `SYNC_PENDING` - This state is returned when there is a pending request to fetch historic messages from the server.
+  	2. `MORE_AVAILABLE` - This state is returned if there are messages that could be synced from the server.
+  	3. `SYNC_PENDING` - This state is returned when there is a pending request to sync historic messages from the server.
 
 ## Synchronization Listener
-The Layer SDK also provides a synchronization listener that alerts your application when a synchronization is about to begin, and when a synchronization has successfully completed. `onBeforeSync`,`onProgress` and`onAfterSync` will only recieve notifications during the first sync (first time a user logs in or when a user logs in on a new device). `onSyncError` will be notified if any error occurs anytime a syncronization is happening. Your application should register as a `LayerSyncListener` to receive these call backs.
+The Layer SDK also provides a synchronization listener that alerts your application when a synchronization is about to begin, and when a synchronization has successfully completed. `onBeforeSync`,`onSyncProgress` and`onAfterSync` will only recieve notifications during the first sync (first time a user logs in or when a user logs in on a new device). `onSyncError` will be notified if any error occurs anytime a syncronization is happening. Your application should register as a `LayerSyncListener` to receive these call backs.
 
 ```java
 public class MyApplication extends Application implements LayerSyncListener {
@@ -110,7 +111,7 @@ public class MyApplication extends Application implements LayerSyncListener {
     public void onBeforeSync(LayerClient client) {
     	// LayerClient is starting synchronization
     }
-    public void onProgress(LayerClient client) {
+    public void onSyncProgress(LayerClient client) {
     	// LayerClient synchronization progress
     }
     public void onAfterSync(LayerClient client) {
