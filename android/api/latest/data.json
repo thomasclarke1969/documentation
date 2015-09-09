@@ -136,6 +136,31 @@
             ],
             "instance": [
               {
+                "declarationSignature": "public abstract boolean isClosed()",
+                "name": "isClosed",
+                "callSignature": "isClosed()",
+                "comment": "Returns true if this LayerClient has been closed.  Closed LayerClients can no longer be used,\nand another should be created with LayerClient.newInstance().",
+                "returns": {
+                  "description": "true if this LayerClient has been closed.",
+                  "type": "boolean"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void close()",
+                "name": "close",
+                "callSignature": "close()",
+                "comment": "Closes this LayerClient, releasing database and network resources.  Useful for ensuring\nreferences drop out of memory when the LayerClient is no longer needed.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
                 "declarationSignature": "public abstract com.layer.sdk.messaging.Conversation newConversation(com.layer.sdk.messaging.ConversationOptions options, java.util.List participants)",
                 "name": "newConversation",
                 "callSignature": "newConversation(options, participants)",
@@ -720,7 +745,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract com.layer.sdk.query.RecyclerViewController newRecyclerViewController(com.layer.sdk.query.Query query, java.util.Collection updateableProperties, com.layer.sdk.internal.query.QueryController.Callback callback)",
+                "declarationSignature": "public abstract com.layer.sdk.query.RecyclerViewController newRecyclerViewController(com.layer.sdk.query.Query query, java.util.Collection updateableProperties, com.layer.sdk.query.RecyclerViewController.Callback callback)",
                 "name": "newRecyclerViewController",
                 "callSignature": "newRecyclerViewController(query, updateableProperties, callback)",
                 "comment": "Returns a new RecyclerViewController instance.  RecyclerViewController is used to drive a\nRecyclerView.Adapter from a Query.  This controller automatically generates callbacks for\nnotifying UI updates.",
@@ -743,7 +768,35 @@
                   {
                     "name": "callback",
                     "description": "Callback to notify structural and content updates.",
-                    "type": "com.layer.sdk.internal.query.QueryController$Callback"
+                    "type": "Callback"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.query.ListViewController newListViewController(com.layer.sdk.query.Query query, java.util.Collection updateableProperties, com.layer.sdk.query.ListViewController.Callback callback)",
+                "name": "newListViewController",
+                "callSignature": "newListViewController(query, updateableProperties, callback)",
+                "comment": "Returns a new ListViewController instance.  ListViewController is used to drive a ListAdapter\nfrom a Query.  This controller automatically generates callbacks for notifying UI updates.",
+                "returns": {
+                  "description": "ListViewController ready to drive a ListView.",
+                  "type": "ListViewController"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "query",
+                    "description": "The Query to execute for elements and updates.",
+                    "type": "Query"
+                  },
+                  {
+                    "name": "updateableProperties",
+                    "description": "An optional set of properties to listen for.  If null, all\n                            property updates are considered for UI content updates.  If not\n                            null, then only content updates matching a provided property are\n                            notified as content updates.",
+                    "type": "Collection"
+                  },
+                  {
+                    "name": "callback",
+                    "type": "Callback"
                   }
                 ],
                 "exceptions": []
@@ -1083,7 +1136,7 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient setDiskCapacity(long bytes)",
                 "name": "setDiskCapacity",
                 "callSignature": "setDiskCapacity(bytes)",
-                "comment": "Set the maximum amount of disk space to be used storing message data.\nA value of zero (the default) means no limit. Utilization may periodically\npeak above the configured `diskCapacity` while synchronization or downloads\nare in progress, but will be rebalanced once all operations have completed.",
+                "comment": "Set the maximum amount of disk space to be used storing message data.\nA value of zero (the default) means no limit. Utilization may periodically\npeak above the configured `mDiskCapacity` while synchronization or downloads\nare in progress, but will be rebalanced once all operations have completed.",
                 "returns": {
                   "type": "LayerClient"
                 },
@@ -1399,6 +1452,9 @@
                   "fullname": "java.lang.Cloneable"
                 }
               ],
+              "generics": [
+                "T"
+              ],
               "methods": {
                 "constructor": [],
                 "static": [],
@@ -1407,7 +1463,7 @@
                     "declarationSignature": "public com.layer.sdk.LayerClient.Options skipConfigurationCheck(boolean skipConfigurationCheck)",
                     "name": "skipConfigurationCheck",
                     "callSignature": "skipConfigurationCheck(skipConfigurationCheck)",
-                    "comment": "LayerSDK checks configuration in order to initialize LayerClient.\nIf there is misconfiguration of LayerSDK you can check a LogCat to find a list of <br>\n<pre> *  LayerSDK configuration issues  *</pre>",
+                    "comment": "Enables and disables the LayerClient configuration checks printed out to logcat.",
                     "returns": {
                       "type": "Options"
                     },
@@ -1559,7 +1615,7 @@
                     "declarationSignature": "public com.layer.sdk.LayerClient.Options diskCapacity(long capacityInBytes)",
                     "name": "diskCapacity",
                     "callSignature": "diskCapacity(capacityInBytes)",
-                    "comment": "Set the maximum amount of disk space to be used storing message data.\nA value of zero (the default) means no limit. Utilization may periodically\npeak above the configured `diskCapacity` while synchronization or downloads\nare in progress, but will be rebalanced once all operations have completed.",
+                    "comment": "Set the maximum amount of disk space to be used storing message data.\nA value of zero (the default) means no limit. Utilization may periodically\npeak above the configured `mDiskCapacity` while synchronization or downloads\nare in progress, but will be rebalanced once all operations have completed.",
                     "returns": {
                       "type": "Options"
                     },
@@ -1580,6 +1636,35 @@
                     "comment": null,
                     "returns": {
                       "type": "long"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options historicSyncPolicy(com.layer.sdk.LayerClient.Options.HistoricSyncPolicy historicSyncPolicy)",
+                    "name": "historicSyncPolicy",
+                    "callSignature": "historicSyncPolicy(historicSyncPolicy)",
+                    "comment": "Sets the synchronization strategy the LayerClient uses when first authenticated.  Users\ncan have existing Message history from previous sessions prior to logging out on this\ndevice, sessions on different devices, or content sent to them before their first login,\nso the LayerClient presents a number of synchronization options for bringing that user's\nmessage history from the Layer cloud onto the local device efficiently.\n\nIf an option besides `ALL_MESSAGES` is used, more history can be retrieved for a\nConversation by calling a `sync` method, such as `syncMoreHistoricMessages(int)`.\n\nTo monitory historic synchronization progress, register a LayerSyncListener and handle\nits `onSyncProgress()` method.",
+                    "returns": {
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "historicSyncPolicy",
+                        "type": "HistoricSyncPolicy"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options.HistoricSyncPolicy getHistoricSyncPolicy()",
+                    "name": "getHistoricSyncPolicy",
+                    "callSignature": "getHistoricSyncPolicy()",
+                    "comment": null,
+                    "returns": {
+                      "type": "HistoricSyncPolicy"
                     },
                     "throws": [],
                     "parameters": [],
@@ -1615,37 +1700,74 @@
               "comment": null,
               "nestedClasses": [],
               "fullname": "com.layer.sdk.LayerClient$Options",
-              "enumClasses": [],
+              "enumClasses": [
+                {
+                  "implementedInterfaces": [],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "HistoricSyncPolicy",
+                  "comment": "HistoricSyncPolicy defines the amount of message history the LayerClient initially\nsynchronizes for the authenticated user when the user first authenticates.  By default,\nthe LayerClient only synchronizes messages starting from the earliest unread Message up\nto the last Message in each of the authenticated user's Conversations.\n\nTo monitory historic synchronization progress, register a LayerSyncListener and handle\nits `onSyncProgress()` method.\n\nNOTE: ALL_MESSAGES fetches all history and may adversely affect performance during\nsynchronization if the user has a large amount of past history to synchronize.",
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.LayerClient$Options$HistoricSyncPolicy",
+                  "enumClasses": [],
+                  "fields": [
+                    {
+                      "name": "ALL_MESSAGES",
+                      "comment": null,
+                      "type": "HistoricSyncPolicy"
+                    },
+                    {
+                      "name": "FROM_EARLIEST_UNREAD_MESSAGE",
+                      "comment": null,
+                      "type": "HistoricSyncPolicy"
+                    },
+                    {
+                      "name": "FROM_LAST_MESSAGE",
+                      "comment": null,
+                      "type": "HistoricSyncPolicy"
+                    }
+                  ],
+                  "derivedClasses": []
+                }
+              ],
               "fields": [
                 {
-                  "name": "skipConfigurationCheck",
+                  "name": "mSkipConfigurationCheck",
                   "comment": null,
                   "type": "boolean"
                 },
                 {
-                  "name": "broadcastPushForeground",
+                  "name": "mBroadcastPushForeground",
                   "comment": null,
                   "type": "boolean"
                 },
                 {
-                  "name": "gcmSenderId",
+                  "name": "mGcmSenderId",
                   "comment": null,
                   "type": "String"
                 },
                 {
-                  "name": "autoDownloadMimeTypes",
+                  "name": "mAutoDownloadMimeTypes",
                   "comment": null,
                   "type": "Collection"
                 },
                 {
-                  "name": "autoDownloadSizeThreshold",
+                  "name": "mAutoDownloadSizeThreshold",
                   "comment": null,
                   "type": "long"
                 },
                 {
-                  "name": "diskCapacity",
+                  "name": "mDiskCapacity",
                   "comment": null,
                   "type": "long"
+                },
+                {
+                  "name": "mHistoricSyncPolicy",
+                  "comment": null,
+                  "type": "HistoricSyncPolicy"
                 }
               ],
               "derivedClasses": []
@@ -1829,7 +1951,7 @@
                 "declarationSignature": "public java.lang.String getAttributeName()",
                 "name": "getAttributeName",
                 "callSignature": "getAttributeName()",
-                "comment": "Returns the name of the updated attribute.  Only valid for Type.UPDATE.\nAttribute names depend on the Type of the LayerObject:\nCONVERSATION\n\"id\"\n\"isDeleted\"\n\"lastMessage\"\n\"metadata\"\n\"participants\"\n\nMESSAGE\n\"id\"\n\"isSent\" \n\"isDeleted\"\n\"position\"\n\"receivedAt\"\n\"sentAt\"\n\"recipientStatus\"\n\nMESSAGE_PART\n\"id\"\n\"transferStatus\"\n\"isPruned\"",
+                "comment": "Returns the name of the updated attribute.  Only valid for Type.UPDATE.\nAttribute names depend on the Type of the LayerObject:\nCONVERSATION\n\"id\"\n\"isDeleted\"\n\"lastMessage\"\n\"metadata\"\n\"participants\"\n\nMESSAGE\n\"id\"\n\"isSent\"\n\"isDeleted\"\n\"position\"\n\"receivedAt\"\n\"sentAt\"\n\"recipientStatus\"\n\nMESSAGE_PART\n\"id\"\n\"transferStatus\"\n\"isPruned\"",
                 "returns": {
                   "description": "The name of the updated attribute.",
                   "type": "String"
@@ -2753,10 +2875,10 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public void onBeforeSync(com.layer.sdk.LayerClient client)",
+                "declarationSignature": "void onBeforeSync(com.layer.sdk.LayerClient client)",
                 "name": "onBeforeSync",
                 "callSignature": "onBeforeSync(client)",
-                "comment": null,
+                "comment": "Alerts the listener to the start of synchronization with the Layer cloud.",
                 "returns": {
                   "type": "void"
                 },
@@ -2764,16 +2886,40 @@
                 "parameters": [
                   {
                     "name": "client",
+                    "description": "The LayerClient starting to synchronize.",
                     "type": "LayerClient"
                   }
                 ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onAfterSync(com.layer.sdk.LayerClient client)",
+                "declarationSignature": "void onSyncProgress(com.layer.sdk.LayerClient client, int progress)",
+                "name": "onSyncProgress",
+                "callSignature": "onSyncProgress(client, progress)",
+                "comment": "Alerts the listener to progress when synchronizing historic messages after the LayerClient is\nfirst authenticated.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "client",
+                    "description": "The LayerClient reporting progress.",
+                    "type": "LayerClient"
+                  },
+                  {
+                    "name": "progress",
+                    "description": "An integer value from 0 to 100 representing progress percent.",
+                    "type": "int"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "void onAfterSync(com.layer.sdk.LayerClient client)",
                 "name": "onAfterSync",
                 "callSignature": "onAfterSync(client)",
-                "comment": null,
+                "comment": "Alerts the listener to the end of synchronization with the Layer cloud.",
                 "returns": {
                   "type": "void"
                 },
@@ -2781,16 +2927,17 @@
                 "parameters": [
                   {
                     "name": "client",
+                    "description": "The LayerClient ending to synchronize.",
                     "type": "LayerClient"
                   }
                 ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onSyncError(com.layer.sdk.LayerClient client, java.util.List exceptions)",
+                "declarationSignature": "void onSyncError(com.layer.sdk.LayerClient client, java.util.List exceptions)",
                 "name": "onSyncError",
                 "callSignature": "onSyncError(client, exceptions)",
-                "comment": null,
+                "comment": "Alerts the listener to LayerExceptions that occurred during synchronization.",
                 "returns": {
                   "type": "void"
                 },
@@ -2798,10 +2945,12 @@
                 "parameters": [
                   {
                     "name": "client",
+                    "description": "The LayerClient which ran into an error while synchronizing.",
                     "type": "LayerClient"
                   },
                   {
                     "name": "exceptions",
+                    "description": "A list of LayerExceptions thrown during synchronization.",
                     "type": "List"
                   }
                 ],
@@ -4920,6 +5069,61 @@
                 "exceptions": []
               },
               {
+                "declarationSignature": "public abstract com.layer.sdk.messaging.Conversation.HistoricSyncStatus getHistoricSyncStatus()",
+                "name": "getHistoricSyncStatus",
+                "callSignature": "getHistoricSyncStatus()",
+                "comment": "Returns the `HistoricSyncStatus` for this Conversation.",
+                "returns": {
+                  "description": "HistoricSyncStatus associated with this Conversation.",
+                  "type": "HistoricSyncStatus"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void syncMoreHistoricMessages(int messages)",
+                "name": "syncMoreHistoricMessages",
+                "callSignature": "syncMoreHistoricMessages(messages)",
+                "comment": "Synchronizes back `messages` more Messages from this Conversation's history on the Layer\ncloud.  If fewer Messages than `messages` are available remotely, then fewer Messages will be\nsynchronized.  If another synchronization is pending, no action is taken.\n\nCalling this method changes this Conversation's historic sync status to `SYNC_PENDING`, and a\nLayerChangeEventListener can determine synchronization completion when this Conversation's\n`historicSyncStatus` attribute changes from `SYNC_PENDING` to `MORE_AVAILABLE` or\n`NO_MORE_AVAILABLE`.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "messages",
+                    "description": "The number of Messages to synchronize in from the Layer cloud.",
+                    "type": "int"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void syncFromEarliestUnreadMessage()",
+                "name": "syncFromEarliestUnreadMessage",
+                "callSignature": "syncFromEarliestUnreadMessage()",
+                "comment": "Synchronizes message history starting from the earliest unread Message up to the last Message\navailable in this Conversation's history on the Layer cloud.\n\nCalling this method changes this Conversation's historic sync status to `SYNC_PENDING`, and a\nLayerChangeEventListener can determine synchronization completion when this Conversation's\n`historicSyncStatus` attribute changes from `SYNC_PENDING` to `MORE_AVAILABLE` or\n`NO_MORE_AVAILABLE`.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void syncAllHistoricMessages()",
+                "name": "syncAllHistoricMessages",
+                "callSignature": "syncAllHistoricMessages()",
+                "comment": "Synchronizes all message history available on the Layer cloud.\n\nCalling this method changes this Conversation's historic sync status to `SYNC_PENDING`, and a\nLayerChangeEventListener can determine synchronization completion when this Conversation's\n`historicSyncStatus` attribute changes from `SYNC_PENDING` to `NO_MORE_AVAILABLE`.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
                 "declarationSignature": "public abstract android.net.Uri getId()",
                 "name": "getId",
                 "callSignature": "getId()",
@@ -5007,6 +5211,32 @@
                 "throws": [],
                 "parameters": [],
                 "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract java.lang.Integer getTotalMessageCount()",
+                "name": "getTotalMessageCount",
+                "callSignature": "getTotalMessageCount()",
+                "comment": "Returns the total number of Messages in this Conversation, including historic Messages that\nhave yet to be fetched from the server.",
+                "returns": {
+                  "description": "",
+                  "type": "Integer"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract java.lang.Integer getTotalUnreadMessageCount()",
+                "name": "getTotalUnreadMessageCount",
+                "callSignature": "getTotalUnreadMessageCount()",
+                "comment": "Returns the total number of unread Messages in this Conversation, including historic Messages\nthat have yet to be fetched from the server.",
+                "returns": {
+                  "description": "",
+                  "type": "Integer"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
               }
             ]
           },
@@ -5015,6 +5245,91 @@
           "nestedClasses": [],
           "fullname": "com.layer.sdk.messaging.Conversation",
           "enumClasses": [
+            {
+              "implementedInterfaces": [],
+              "methods": {
+                "constructor": [
+                  {
+                    "declarationSignature": "HistoricSyncStatus(int value)",
+                    "name": "HistoricSyncStatus",
+                    "callSignature": "HistoricSyncStatus(value)",
+                    "comment": null,
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "value",
+                        "type": "int"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ],
+                "static": [
+                  {
+                    "declarationSignature": "public static com.layer.sdk.messaging.Conversation.HistoricSyncStatus fromValue(int value)",
+                    "name": "fromValue",
+                    "callSignature": "fromValue(value)",
+                    "comment": "Helper to convert `int` to `HistoricSyncStatus`",
+                    "returns": {
+                      "description": "",
+                      "type": "HistoricSyncStatus"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "value",
+                        "description": "",
+                        "type": "int"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ],
+                "instance": [
+                  {
+                    "declarationSignature": "public int getValue()",
+                    "name": "getValue",
+                    "callSignature": "getValue()",
+                    "comment": "Helper to convert `HistoricSyncStatus` to `int`",
+                    "returns": {
+                      "description": "",
+                      "type": "int"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "HistoricSyncStatus",
+              "comment": "HistoricSyncStatus represents the synchronization status of this Conversation's locally\navailable messages relative to the message history available remotely on the Layer cloud.\nMore message history can be synchronized in from the Layer cloud by calling one of the\n`sync` methods, such as `syncMoreHistoricMessages(int)`.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.messaging.Conversation$HistoricSyncStatus",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "MORE_AVAILABLE",
+                  "comment": null,
+                  "type": "HistoricSyncStatus"
+                },
+                {
+                  "name": "SYNC_PENDING",
+                  "comment": null,
+                  "type": "HistoricSyncStatus"
+                },
+                {
+                  "name": "NO_MORE_AVAILABLE",
+                  "comment": null,
+                  "type": "HistoricSyncStatus"
+                },
+                {
+                  "name": "INVALID",
+                  "comment": null,
+                  "type": "HistoricSyncStatus"
+                }
+              ],
+              "derivedClasses": []
+            },
             {
               "implementedInterfaces": [
                 {
@@ -6122,71 +6437,7 @@
           "methods": {
             "constructor": [],
             "static": [],
-            "instance": [
-              {
-                "declarationSignature": "public abstract void execute()",
-                "name": "execute",
-                "callSignature": "execute()",
-                "comment": "Executes the underlying Query and performs a full UI refresh via onQueryDataSetChanged.",
-                "returns": {
-                  "type": "void"
-                },
-                "throws": [],
-                "parameters": [],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract java.lang.Integer getItemCount()",
-                "name": "getItemCount",
-                "callSignature": "getItemCount()",
-                "comment": "Returns the current item count.",
-                "returns": {
-                  "description": "the current item count.",
-                  "type": "Integer"
-                },
-                "throws": [],
-                "parameters": [],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract Tquery getItem(int position)",
-                "name": "getItem",
-                "callSignature": "getItem(position)",
-                "comment": "Returns the Queryable item at the given position.",
-                "returns": {
-                  "description": "",
-                  "type": "Tquery"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "position",
-                    "description": "",
-                    "type": "int"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public abstract int getPosition(Tquery queryable)",
-                "name": "getPosition",
-                "callSignature": "getPosition(queryable)",
-                "comment": "Returns the position of the given Queryable within the RecyclerViewController's collection,\nor -1 if it is not contained.",
-                "returns": {
-                  "description": "The position of the Queryable within this controller's collection, or -1 if it is\nnot in the collection.",
-                  "type": "int"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "queryable",
-                    "description": "The Queryable item to find the position of.",
-                    "type": "Tquery"
-                  }
-                ],
-                "exceptions": []
-              }
-            ]
+            "instance": []
           },
           "name": "RecyclerViewController",
           "comment": "RecyclerViewController can be used to drive a RecyclerView.Adapter from a Query.  This controller\nattaches itself to a LayerClient and automatically generates callbacks for notifying a\nRecyclerView.Adapter about UI updates.",
@@ -6403,6 +6654,195 @@
           "enumClasses": [],
           "fields": [],
           "derivedClasses": []
+        },
+        {
+          "implementedInterfaces": [],
+          "generics": [
+            "Tquery"
+          ],
+          "methods": {
+            "constructor": [],
+            "static": [],
+            "instance": [
+              {
+                "declarationSignature": "public abstract com.layer.sdk.query.ListViewController execute()",
+                "name": "execute",
+                "callSignature": "execute()",
+                "comment": "Executes the underlying Query and performs a full UI refresh via onQueryDataSetChanged.",
+                "returns": {
+                  "type": "ListViewController"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.query.ListViewController setQuery(com.layer.sdk.query.Query query)",
+                "name": "setQuery",
+                "callSignature": "setQuery(query)",
+                "comment": "Updates the underlying Query and performs a refresh.",
+                "returns": {
+                  "type": "ListViewController"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "query",
+                    "type": "Query"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract int getItemCount()",
+                "name": "getItemCount",
+                "callSignature": "getItemCount()",
+                "comment": "Returns the current item count.",
+                "returns": {
+                  "description": "the current item count.",
+                  "type": "int"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract Tquery getItem(int position)",
+                "name": "getItem",
+                "callSignature": "getItem(position)",
+                "comment": "Returns the Queryable item at the given position.",
+                "returns": {
+                  "description": "The item at the given position.",
+                  "type": "Tquery"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "position",
+                    "description": "The position of the item to return.",
+                    "type": "int"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract android.net.Uri getItemId(int position)",
+                "name": "getItemId",
+                "callSignature": "getItemId(position)",
+                "comment": "Returns the identifier of the Queryable item at the given position.",
+                "returns": {
+                  "description": "The item identifier at the given position.",
+                  "type": "android.net.Uri"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "position",
+                    "description": "The position of the item identifier to return.",
+                    "type": "int"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract int getPosition(Tquery queryable)",
+                "name": "getPosition",
+                "callSignature": "getPosition(queryable)",
+                "comment": "Returns the position of the given Queryable within the RecyclerViewController's collection,\nor -1 if it is not contained.  This currently performs an O(n) search.",
+                "returns": {
+                  "description": "The position of the Queryable within this controller's collection, or -1 if it is\nnot in the collection.",
+                  "type": "int"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "queryable",
+                    "description": "The Queryable item to find the position of.",
+                    "type": "Tquery"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract int getPosition(Tquery queryable, int lastPosition)",
+                "name": "getPosition",
+                "callSignature": "getPosition(queryable, lastPosition)",
+                "comment": "Returns the position of the given Queryable within the RecyclerViewController's collection,\nor -1 if it is not contained.  Use this method instead of #getPosition(Tquery) when a\nlast position of the Queryable is known to potentially reduce search effort.",
+                "returns": {
+                  "description": "The position of the Queryable within this controller's collection, or -1 if it is\nnot in the collection.",
+                  "type": "int"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "queryable",
+                    "description": "The Queryable item to find the position of.",
+                    "type": "Tquery"
+                  },
+                  {
+                    "name": "lastPosition",
+                    "description": "The last known position of the Queryable.",
+                    "type": "int"
+                  }
+                ],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "ListViewController",
+          "comment": "ListViewController can be used to drive a ListAdapter from a Query.  This controller\nattaches itself to a LayerClient and automatically generates callbacks for notifying a\nListAdapter about UI updates.",
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [],
+              "generics": [
+                "Tquery"
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": [
+                  {
+                    "declarationSignature": "void onQueryDataSetChanged(com.layer.sdk.query.ListViewController controller)",
+                    "name": "onQueryDataSetChanged",
+                    "callSignature": "onQueryDataSetChanged(controller)",
+                    "comment": "Alerts the observer that the underlying dataset totally changed and should be rebound.",
+                    "returns": {
+                      "type": "void"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "controller",
+                        "description": "the ListViewController which generated this callback.",
+                        "type": "ListViewController"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "Callback",
+              "comment": "The ListViewController.Callback is designed to drive a BaseAdapter.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.query.ListViewController$Callback",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
+          "fullname": "com.layer.sdk.query.ListViewController",
+          "enumClasses": [],
+          "fields": [],
+          "derivedClasses": [
+            {
+              "generics": [
+                "Tquery"
+              ],
+              "name": "RecyclerViewController",
+              "comment": "RecyclerViewController can be used to drive a RecyclerView.Adapter from a Query.  This controller\nattaches itself to a LayerClient and automatically generates callbacks for notifying a\nRecyclerView.Adapter about UI updates.",
+              "fullname": "com.layer.sdk.query.RecyclerViewController"
+            }
+          ]
         },
         {
           "implementedInterfaces": [],
