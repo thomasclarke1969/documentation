@@ -188,3 +188,53 @@ if (countOfMessages != NSUIntegerMax) {
     NSLog(@"Query failed with error %@", error);
 }
 ```
+## Metadata Queries
+Running queries on metadata allows developers to search for conversations that contain specific properties, such as background color or conversation titles. The following examples demonstrate the how powerful querying on metadata can be. 
+
+```objectivec
+NSDictionary *bigDictionary = @{@"1" : @{@"2" : @"Hello",
+                                       @"3" : @{@"4" : @"Hola",
+                                                   @"5" : @"Hey"}},
+                           @"6" : @"Hi"};
+LYRConversation *convoWithNestedDictonary = [layerClient newConversationWithParticipants:participants options: @{@"first" : @{@"second" : @{@"third" : @"NestedResult"}}} error:nil];
+LYRConversation *blueConvo = [layerClient newConversationWithParticipants:participants options:@{@"backgroundColor" : @"blue"} error:nil];
+LYRConversation *redConvoWithTitle = [layerClient newConversationWithParticipants:participants options:@{@"backgroundColor" : @"red", @"title" : @"testUser"} error:nil];
+LYRConversation *convoWithDictionary = [layerClient newConversationWithParticipants:participants options:bigDictionary error:nil];
+```
+### Fetching conversation with specific metadata
+The following demonstrates a predicate which will constrain the result set to `LYRConversation` objects that conform to having a metadata property where the dictionary first.second.third has the value of "NestedResult". 
+
+```objectivec
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"metadata.first.second.third" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"value"];
+NSOrderedSet *conversations = [self executeQuery:query error:&error]; // this will return convoWithNestedDictonary
+```
+### Fetching multiple conversations with specific metadata
+
+```objectivec
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"metadata.backgroundColor" predicateOperator:LYRPredicateOperatorIsIn value:@[@"red", @"blue"]];
+NSOrderedSet *conversations = [self executeQuery:query error:&error]; // this will return blueConvo and redConvoWithTitle
+```
+### Fetching conversations with specific metadata using a compound predicate
+
+The following demonstrates a compound predicate which will constrain the result set to `LYRMessage` objects that conform to the following criteria:
+
+1. The conversation metadata contains either the red or blue value.
+2. The metadata property `title` has the value "testUser".
+
+```objectivec
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
+LYRPredicate *predicate1 = [LYRPredicate predicateWithProperty:@"metadata.backgroundColor" predicateOperator:LYRPredicateOperatorIsIn value:@[@"red", @"blue"]];
+LYRPredicate *predicate2 = [LYRPredicate predicateWithProperty:@"metadata.title" predicateOperator:LYRPredicateOperatorIsEqualTo value:@"testUser"];
+LYRCompoundPredicate *compound = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[predicate1, predicate2]];
+query.predicate = compound;
+
+NSOrderedSet *conversations = [self executeQuery:query error:&error]; // this will give you redConvoWithTitle
+```
+### Fetching conversations with specific dictionary in metadata
+```objectivec
+LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
+query.predicate = [LYRPredicate predicateWithProperty:@"metadata" predicateOperator:LYRPredicateOperatorIsEqualTo value:bigDictionary];
+NSOrderedSet *conversations = [self executeQuery:query error:&error]; // this will return convoWithDictionary
+```
