@@ -80,15 +80,13 @@ When creating a Distinct Conversation, there are three possible results.
 
 If there is no existing Distinct Conversation that matches the request, then create a new Conversation and return it.  Result is the same as creating a non-distinct Conversation.
 
-### Response `303 (See Other)`
+### Response `200 (OK)`
 
 If there is a matching Distinct Conversation, and one of these  holds true, then an existing Conversation is returned.
 
 1. The `metadata` property was not included in the request
 2. The `metadata` property was included but with a value of `null`
 3. The `metadata` property value is identical to the metadata of the matching Distinct Conversation
-
-In addition to returning the existing Conversation, a `Location` header will be returned with the URL to that Conversation.
 
 ### Response Header
 
