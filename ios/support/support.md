@@ -17,7 +17,7 @@ You can find specific articles on the following topics, amongst others:
 - Steps to go from [sandbox to production](https://support.layer.com/hc/en-us/articles/204471470)
 
 ## Contact Us 
-If you still have questions, please fill out [this support form](https://support.layer.com/hc/en-us/requests/new) and our team will respond as soon as they are able during US Pacific timezone business hours. 
+If you still have questions, please fill out [this support form](https://support.layer.com/hc/en-us/requests/new) and our team will respond as soon as they are able during US Pacific business hours. 
 
 For the fastest resolution, please include the following information:
     - Debug output or code snippets
