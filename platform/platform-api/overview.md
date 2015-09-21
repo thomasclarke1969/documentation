@@ -39,7 +39,7 @@ Failure to request a specific version of the API will result in `406 (Not Accept
 
 ## PATCH Requests with X-HTTP-Method-Override
 
-For environment that are unable to send `PATCH` requests, a `POST` request with the `X-HTTP-Method-Override: PATCH` header is also supported.
+For environments that are unable to send `PATCH` requests, a `POST` request with the `X-HTTP-Method-Override: PATCH` header is also supported.
 
 ```console
 curl  -X POST \
