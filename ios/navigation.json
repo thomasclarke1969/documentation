@@ -51,5 +51,11 @@
   },
   "api": {
     "title": "API Reference"
+  },
+  "support": {
+    "title": "Support",
+    "section": {
+      "support": "Support"
+    }
   }
 }
