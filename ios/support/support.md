@@ -1,4 +1,4 @@
-# Support
+# Support and Resources
 
 There are several resources at your disposal when you have a question or need additional help with Layer.
 
