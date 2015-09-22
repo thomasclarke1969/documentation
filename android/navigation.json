@@ -10,7 +10,7 @@
     "section": {
       "concepts": "Concepts",
       "installation-and-setup": "Installation and Setup",
-      "authentication": "Authentication",
+      "authenticate": "Authentication",
       "sending": "Sending",
       "querying": "Querying",
       "metadata": "Metadata",
@@ -51,5 +51,11 @@
   },
   "api": {
     "title": "API Reference"
+  },
+  "support": {
+    "title": "Support",
+    "section": {
+      "support": "Resources"
+    }
   }
 }
