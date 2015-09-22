@@ -35,6 +35,7 @@ If you still have questions, please fill out [this support form](https://support
 
 For the fastest resolution, please include the following information:
 
+- Platform (iOS, Android, Web Client, Platform API) and version number
 - Debug output or code snippets
 - A description of the issue you are trying to address 
 - Detailed reproduction steps
