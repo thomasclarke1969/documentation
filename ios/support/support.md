@@ -20,6 +20,7 @@ You can find specific articles on the following topics, amongst others:
 If you still have questions, please fill out [this support form](https://support.layer.com/hc/en-us/requests/new) and our team will respond as soon as they are able during US Pacific timezone business hours. 
 
 For the fastest resolution, please include the following information:
+
     - Debug output or code snippets
     - A description of the issue you are trying to address 
     - Detailed reproduction steps
