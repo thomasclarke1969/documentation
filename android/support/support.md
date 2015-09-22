@@ -1,4 +1,4 @@
-# Support
+# Support and Resources
 
 There are several resources at your disposal when you have a question or need additional help with Layer.
 
@@ -35,7 +35,7 @@ If you still have questions, please fill out [this support form](https://support
 
 For the fastest resolution, please include the following information:
 
-    - Debug output or code snippets
-    - A description of the issue you are trying to address 
-    - Detailed reproduction steps
-    - Any other relevant information
+- Debug output or code snippets
+- A description of the issue you are trying to address 
+- Detailed reproduction steps
+- Any other relevant information
