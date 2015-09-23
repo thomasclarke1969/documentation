@@ -153,13 +153,16 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
 }
 ```
 
-## <a name="badges"></a>Showing unread counts as Badges
+## Badging
 
-Manually keeping track of unread message counts can be a real pain. Layer can automatically set the badge count to the number of unread messages across all conversations.
+![](ios-badge-count-options.jpg)
 
-To enable this feature, go to the Push section in the [Developer Dashboard](https://developer.layer.com) and turn on "Show unread in badges".
-![](badges.png)
-Please note that when you flip the switch the change may take a few minutes to propagate.
+Layer makes it easy to  update your application icon badge count automatically. To enable this feature, go to the Push section in the [Developer Dashboard](http://developer.layer.com). Layer provides 3 options for the badge count:
+*  Unread messages count - The total unread message count across all conversations
+*  Unread conversations count - The count of conversations that contain unread messages
+*  Don't send badge count - Badge count is untouched
+
+The default setting is "Unread messages count". The above setting is a server-side change, and requires no client-side iOS code changes. Please note that when you update the setting the change may take a few minutes to propagate.
 
 To retrieve the badge count in your application, use
 ```
