@@ -157,13 +157,12 @@ Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))
 
 ![](ios-badge-count-options.jpg)
 
-Layer makes it easy to  update your application icon badge count automatically. To enable this feature, go to the Push section in the [Developer Dashboard](http://developer.layer.com). Layer provides 4 options for the badge count:
-*  External count only - You can manually set the badge count via the Platform API.
-*  Unread messages count + external count - The total unread message count across all conversations plus the external count
-*  Unread conversations count + external count - The count of conversations that contain unread messages plus the external count
-*  Don't set badge count - Badge count is untouched.
+Layer makes it easy to  update your application icon badge count automatically. To enable this feature, go to the Push section in the [Developer Dashboard](http://developer.layer.com). Layer provides 3 options for the badge count:
+*  Unread messages count - The total unread message count across all conversations
+*  Unread conversations count - The count of conversations that contain unread messages
+*  Don't send badge count - Badge count is untouched
 
-The default setting is "Unread messages count + external". The above setting is a server-side change, and requires no client-side iOS code changes. Please note that when you update the setting the change may take a few minutes to propagate.
+The default setting is "Unread messages count". The above setting is a server-side change, and requires no client-side iOS code changes. Please note that when you update the setting the change may take a few minutes to propagate.
 
 To retrieve the badge count in your application, use
 ```
