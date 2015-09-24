@@ -49,8 +49,14 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:messageText];
 
 LYRMessage *message = [layerClient newMessageWithParts:@[part] options:@{LYRMessageOptionsPushNotificationAlertKey: messageText,LYRMessageOptionsPushNotificationSoundNameKey: @"layerbell.caf"} error:nil];
 
+//Sends the specified message
 NSError *error = nil;
-BOOL success = [self.layerClient sendMessage:message error:&error];
+BOOL success = [conversation sendMessage:message error:&error];
+if (success) {
+  NSLog(@"Message enqueued for delivery");
+} else {
+  NSLog(@"Message send failed with error: %@", error);
+}
 ```
 
 You can also include user-specific push messages and sounds by using the `LYRMessageOptionsPushNotificationPerRecipientConfigurationKey` key. The following example shows you how to create specific push messages for users 123 and 456.
