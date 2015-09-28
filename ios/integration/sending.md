@@ -135,7 +135,7 @@ The `sendMessage:error` method returns a boolean value which indicates if the me
 ```emphasis
 **Best Practice**
 
-Conversations are not pushed to other participants, and are not queryable, until the first message is sent. Depending on your app's flow, you can use an invitation MIME Type to notify all participants that a new conversation has been created. [Click here](https://support.layer.com/hc/en-us/articles/204193200-Why-can-t-participants-query-a-newly-created-conversation-) to learn more.
+Conversations are not pushed to other participants, and are not queryable, until the first message is sent. Depending on your app's flow, you can rely on [distinct converesations](https://support.layer.com/hc/en-us/articles/204193200-Why-can-t-participants-query-a-newly-created-conversation-), or use a server to server connection with the [Platform API](/docs/platform#create-a-conversation) to create either distinct or non-distinct conversion which will be synced across all users on creation.
 ```
 
 ### Recipient Status
