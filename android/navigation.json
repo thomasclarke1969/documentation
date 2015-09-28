@@ -10,7 +10,7 @@
     "section": {
       "concepts": "Concepts",
       "installation-and-setup": "Installation and Setup",
-      "authenticate": "Authentication",
+      "authentication": "Authentication",
       "sending": "Sending",
       "querying": "Querying",
       "metadata": "Metadata",
