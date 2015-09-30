@@ -61,13 +61,13 @@ This ID is used for:
 
 The `url` property specifies how to retrieve, update or delete the Conversation via the REST API.
 
-### The `participants` property
+## The `participants` property
 
 A Participant is a user who can send and receive messages within this Conversation, and is represented in the `participants` property as a User ID.  A User ID is any arbitrary string that your identity provider has placed within its Identity Token to identify a user.  The `participants` property is an array of up to 25 user IDs for users who are a part of this Conversation.
 
 Note that by creating a Conversation with a "User A" in the participant list, "User A" will automatically be a part of that Conversation until they remove themselves from the Conversation (assuming that your UI permits this).  This means that if your UI allows "User B" to create a Conversation with "User A" in the participant list, "User A" is now a part of the Conversation and receiving messages for that Conversation, whether they wanted to be in the Conversation or not.
 
-### The `metadata` property
+## The `metadata` property
 
 Metadata allows custom data to be associated with a Conversation.  For example, there is no `title` property in the Conversation Object.  If your Conversations need a title to share between all participants and render as part of your view, you can add a `title` property to the metadata and share it that way.
 
