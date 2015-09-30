@@ -1,0 +1,37 @@
+{
+  "introduction": {
+    "title": "Introduction",
+    "section": {
+      "overview": "Overview",
+      "concepts": "Concepts",
+      "authentication": "Authentication",
+      "hypermedia": "URLs and Root Request",
+      "conversation": "Conversations",
+      "message": "Messages",
+      "message-part": "Message Parts",
+      "rich-content": "Rich Content"
+    }
+  },
+  "rest": {
+    "title": "REST API",
+    "section": {
+      "overview": "Overview",
+      "conversations": "Conversations",
+      "messages": "Messages",
+      "receipts": "Read and Delivery Receipts",
+      "rich-content": "Rich Content",
+      "errors": "Error Messages"
+    }
+  },
+
+  "websockets": {
+    "title": "WebSocket API",
+    "section": {
+      "overview": "Overview",
+      "change-packet": "Receiving Changes",
+      "request-packet": "Sending Requests",
+      "signal-packet": "Typing Indicators",
+      "recovery": "Recovery"
+    }
+  }
+}
