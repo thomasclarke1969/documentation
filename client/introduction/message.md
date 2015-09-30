@@ -108,7 +108,7 @@ A Message is known to be read if any client that is authenticated as this user h
 
 The sender of a Message is always assumed to have read the Message even if no read receipt was sent.
 
-### The `recipient_status` property
+## The `recipient_status` property
 
 Every Message has a Recipient Status object.  The status object looks roughly like:
 
