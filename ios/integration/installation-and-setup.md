@@ -26,6 +26,8 @@ $ pod install --verbose
 
 Cocoapods will download and install LayerKit and also create a .xcworkspace project.
 
+If you're are supporting iOS 9 (regardless if you're using Cocoapods or not) you need to follow [these instructions](https://support.layer.com/hc/en-us/articles/205034154) and update your Info.plist.
+
 ## Connect LayerKit
 
 Import the LayerKit headers into your `AppDelegate.h`
