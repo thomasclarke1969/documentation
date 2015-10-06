@@ -51,3 +51,6 @@ curl  -X POST \
            {"operation": "delete", "property": "metadata.admin"}]' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
 ```
+
+## Sample Code
+For sample code, visit the [Layer for Web Sample Code](https://github.com/layerhq/samples-web-apis) repo on Github.
