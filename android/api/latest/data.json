@@ -111,6 +111,19 @@
                 "exceptions": []
               },
               {
+                "declarationSignature": "public static java.lang.String getInfo()",
+                "name": "getInfo",
+                "callSignature": "getInfo()",
+                "comment": "Returns some basic information about device and layer sdk",
+                "returns": {
+                  "description": "",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
                 "declarationSignature": "public static void sendLogs(com.layer.sdk.LayerClient client, android.app.Activity from)",
                 "name": "sendLogs",
                 "callSignature": "sendLogs(client, from)",
@@ -1671,6 +1684,95 @@
                     "exceptions": []
                   },
                   {
+                    "declarationSignature": "public com.layer.sdk.LayerClient.Options customEndpoint(java.lang.String confUrl, java.lang.String certUrl, java.lang.String authUrl, java.lang.String syncUrl)",
+                    "name": "customEndpoint",
+                    "callSignature": "customEndpoint(confUrl, certUrl, authUrl, syncUrl)",
+                    "comment": "Sets a custom set of endpoints to use by the LayerClient.  Ask support@layer.com if you\nare interested in custom endpoints.",
+                    "returns": {
+                      "type": "Options"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "confUrl",
+                        "type": "String"
+                      },
+                      {
+                        "name": "certUrl",
+                        "type": "String"
+                      },
+                      {
+                        "name": "authUrl",
+                        "type": "String"
+                      },
+                      {
+                        "name": "syncUrl",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public java.lang.String getCustomEndpointConf()",
+                    "name": "getCustomEndpointConf",
+                    "callSignature": "getCustomEndpointConf()",
+                    "comment": null,
+                    "returns": {
+                      "type": "String"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public java.lang.String getCustomEndpointCert()",
+                    "name": "getCustomEndpointCert",
+                    "callSignature": "getCustomEndpointCert()",
+                    "comment": null,
+                    "returns": {
+                      "type": "String"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public java.lang.String getCustomEndpointAuth()",
+                    "name": "getCustomEndpointAuth",
+                    "callSignature": "getCustomEndpointAuth()",
+                    "comment": null,
+                    "returns": {
+                      "type": "String"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public java.lang.String getCustomEndpointSync()",
+                    "name": "getCustomEndpointSync",
+                    "callSignature": "getCustomEndpointSync()",
+                    "comment": null,
+                    "returns": {
+                      "type": "String"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public boolean isCustomEndpointSet()",
+                    "name": "isCustomEndpointSet",
+                    "callSignature": "isCustomEndpointSet()",
+                    "comment": null,
+                    "returns": {
+                      "type": "boolean"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  },
+                  {
                     "declarationSignature": "public com.layer.sdk.LayerClient.Options clone()",
                     "name": "clone",
                     "callSignature": "clone()",
@@ -1768,6 +1870,31 @@
                   "name": "mHistoricSyncPolicy",
                   "comment": null,
                   "type": "HistoricSyncPolicy"
+                },
+                {
+                  "name": "mCustomEndpointSet",
+                  "comment": null,
+                  "type": "boolean"
+                },
+                {
+                  "name": "mCustomEndpointConf",
+                  "comment": null,
+                  "type": "String"
+                },
+                {
+                  "name": "mCustomEndpointCert",
+                  "comment": null,
+                  "type": "String"
+                },
+                {
+                  "name": "mCustomEndpointAuth",
+                  "comment": null,
+                  "type": "String"
+                },
+                {
+                  "name": "mCustomEndpointSync",
+                  "comment": null,
+                  "type": "String"
                 }
               ],
               "derivedClasses": []
@@ -2875,9 +3002,9 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "void onBeforeSync(com.layer.sdk.LayerClient client)",
+                "declarationSignature": "void onBeforeSync(com.layer.sdk.LayerClient client, com.layer.sdk.listeners.LayerSyncListener.SyncType syncType)",
                 "name": "onBeforeSync",
-                "callSignature": "onBeforeSync(client)",
+                "callSignature": "onBeforeSync(client, syncType)",
                 "comment": "Alerts the listener to the start of synchronization with the Layer cloud.",
                 "returns": {
                   "type": "void"
@@ -2888,14 +3015,19 @@
                     "name": "client",
                     "description": "The LayerClient starting to synchronize.",
                     "type": "LayerClient"
+                  },
+                  {
+                    "name": "syncType",
+                    "description": "The type of sync that is being performed",
+                    "type": "SyncType"
                   }
                 ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "void onSyncProgress(com.layer.sdk.LayerClient client, int progress)",
+                "declarationSignature": "void onSyncProgress(com.layer.sdk.LayerClient client, com.layer.sdk.listeners.LayerSyncListener.SyncType syncType, int progress)",
                 "name": "onSyncProgress",
-                "callSignature": "onSyncProgress(client, progress)",
+                "callSignature": "onSyncProgress(client, syncType, progress)",
                 "comment": "Alerts the listener to progress when synchronizing historic messages after the LayerClient is\nfirst authenticated.",
                 "returns": {
                   "type": "void"
@@ -2908,6 +3040,11 @@
                     "type": "LayerClient"
                   },
                   {
+                    "name": "syncType",
+                    "description": "The type of sync that is being performed",
+                    "type": "SyncType"
+                  },
+                  {
                     "name": "progress",
                     "description": "An integer value from 0 to 100 representing progress percent.",
                     "type": "int"
@@ -2916,9 +3053,9 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "void onAfterSync(com.layer.sdk.LayerClient client)",
+                "declarationSignature": "void onAfterSync(com.layer.sdk.LayerClient client, com.layer.sdk.listeners.LayerSyncListener.SyncType syncType)",
                 "name": "onAfterSync",
-                "callSignature": "onAfterSync(client)",
+                "callSignature": "onAfterSync(client, syncType)",
                 "comment": "Alerts the listener to the end of synchronization with the Layer cloud.",
                 "returns": {
                   "type": "void"
@@ -2929,6 +3066,11 @@
                     "name": "client",
                     "description": "The LayerClient ending to synchronize.",
                     "type": "LayerClient"
+                  },
+                  {
+                    "name": "syncType",
+                    "description": "The type of sync that is being performed",
+                    "type": "SyncType"
                   }
                 ],
                 "exceptions": []
@@ -2989,7 +3131,34 @@
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerSyncListener",
-          "enumClasses": [],
+          "enumClasses": [
+            {
+              "implementedInterfaces": [],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "SyncType",
+              "comment": null,
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerSyncListener$SyncType",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "HISTORIC",
+                  "comment": null,
+                  "type": "SyncType"
+                },
+                {
+                  "name": "NORMAL",
+                  "comment": null,
+                  "type": "SyncType"
+                }
+              ],
+              "derivedClasses": []
+            }
+          ],
           "fields": [],
           "derivedClasses": [
             {
@@ -6786,6 +6955,43 @@
                   }
                 ],
                 "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void updateBoundPosition(int position)",
+                "name": "updateBoundPosition",
+                "callSignature": "updateBoundPosition(position)",
+                "comment": "Call this method when a `View` is being bound by its adapter (e.g. `onBindViewHolder()`) to\npre-cache items around the given position.  For smoothest scrolling, set a\n`PreProcessCallback` and parse item contents prior to binding.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "position",
+                    "description": "Position being bound.",
+                    "type": "int"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.query.ListViewController setPreProcessCallback(com.layer.sdk.query.ListViewController.PreProcessCallback callback)",
+                "name": "setPreProcessCallback",
+                "callSignature": "setPreProcessCallback(callback)",
+                "comment": "Sets an optional callback for pre-processing item content on a background thread.  Use this\ncallback if processing item content (e.g. `MessagePart` data or `Metadata`) take time, and\nyou maintain a parsed content cache (e.g. LRU cache keyed by ID).",
+                "returns": {
+                  "description": "This `ListViewController`.",
+                  "type": "ListViewController"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "callback",
+                    "description": "Callback to handle pre-caching, called on a background thread.",
+                    "type": "PreProcessCallback"
+                  }
+                ],
+                "exceptions": []
               }
             ]
           },
@@ -6825,6 +7031,46 @@
               "comment": "The ListViewController.Callback is designed to drive a BaseAdapter.",
               "nestedClasses": [],
               "fullname": "com.layer.sdk.query.ListViewController$Callback",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [],
+              "generics": [
+                "Tquery"
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": [
+                  {
+                    "declarationSignature": "void onCache(com.layer.sdk.query.ListViewController controller, Tquery item)",
+                    "name": "onCache",
+                    "callSignature": "onCache(controller, item)",
+                    "comment": null,
+                    "returns": {
+                      "type": "void"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "controller",
+                        "type": "ListViewController"
+                      },
+                      {
+                        "name": "item",
+                        "type": "Tquery"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "PreProcessCallback",
+              "comment": "`PreProcessCallback` is intended to improve the user experience when items in this controller\nneed parsing prior to binding with a `View`.  When `updateBoundPosition(int)` is called, a\nbackground thread fetches items above and below the provided position for pre-caching.  Newly\nfetched items are supplied to `onCache()` calls, where the item's content (e.g. `MessagePart`\nor `Metadata`) can be parsed and cached for future `View` binding.\n\nThis callback is not guaranteed to get called prior to binding when scrolling quickly or when\n`updateBoundPosition(int)` is not called.\n\nLarge parsing tasks should be kicked off on other threads, as binding does not block on this\ncallback.  When using such a cache, view binding must gracefully handle incomplete parsing.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.query.ListViewController$PreProcessCallback",
               "enumClasses": [],
               "fields": [],
               "derivedClasses": []
