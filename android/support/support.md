@@ -30,6 +30,8 @@ On Android, you have the ability to enable logging and email the output to yours
     - Detailed reproduction steps
     - Any other relevant information
 
+If you are encountering problems in a Relase build, or if there is another reason you cannot modify the source code to enable logging, you can turn on verbose logging from the console: `adb shell setprop log.tag.LayerSDK VERBOSE`.
+
 ## Contact Us 
 If you still have questions, please fill out [this support form](https://support.layer.com/hc/en-us/requests/new) and our team will respond as soon as they are able during US Pacific timezone business hours. 
 
