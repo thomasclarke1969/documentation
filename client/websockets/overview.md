@@ -36,3 +36,6 @@ Packets will be named by the `type` field in this document:
 * **Request Packet**: The client sends this to request an operation from the server
 * **Response Packet**: The server sends this in response to a Request Packet
 * **Signal Packet**: An ephemeral event such as typing indicator is sent to or from the server
+
+## Sample Code
+For sample code, visit the [Layer for Web Sample Code](https://github.com/layerhq/samples-web-apis) repo on Github.
