@@ -3,7 +3,7 @@
 The Layer client provides a flexible notification system for informing applications when changes have occurred on Layer objects in response to synchronization. The system is designed to be general purpose and alerts your application to the creation, update, or deletion of an object. Changes are modeled as simple dictionaries with a fixed key space.
 
 ## Event Listener
-The Layer SDK leverages listeners to notify your application when changes occur. Your application should register as a `LayerChangeEventListener` in order to receive change notifications.
+The Layer SDK leverages listeners to notify your application when changes occur. Your application should register as a `LayerChangeEventListener` in order to receive change notifications. After synchronization completes, all registered `LayerChangeEventListener`s will be notified.
 
 ```java
 public class MyApplication extends Application implements LayerChangeEventListener {
@@ -68,19 +68,19 @@ Object changeObject = change.getObject();
 ```
 
 ## Historic Synchronization
-With historic synchronization, the client can specify the messages of the conversation that should be retrieved instead of syncing all historic data. If the client would like to sync it's older messages, it can simply request the next set of messages, and those messages will be synced locally. By default the Layer SDK will sync messages starting with the earliest unread message in the conversation. In order to change this, the client will need to pass a specific historic sync policy via option. There are three options that can be passed into the options object:
+With historic synchronization, the client can specify which messages should be retrieved after authentication. By default the Layer SDK will sync messages starting with the earliest unread message in the conversation. In order to change this, the client will need to pass a specific historic sync policy via option. There are three options that can be passed into the options object:
 
-  1. `FROM_EARLIEST_UNREAD_MESSAGE` - This option will retrieve all messages from the earliest unread messages.     This is the default behavior.
-  2. `ALL_MESSAGES` - This option will sync all messages from every conversation.
+  - `FROM_EARLIEST_UNREAD_MESSAGE` - This option will retrieve all messages from the earliest unread messages.     This is the default behavior.
+  - `ALL_MESSAGES` - This option will sync all messages from every conversation.
       Note: This might significantly affect bandwidth and performance.
-  3. `FROM_LAST_MESSAGE` - This will sync only the last message of each conversation.
+  - `FROM_LAST_MESSAGE` - This will sync only the last message of each conversation.
 
 ```java
 final LayerClient.Options options = new LayerClient.Options();
 options.historicSyncPolicy(LayerClient.Options.HistoricSyncPolicy.ALL_MESSAGES);
 ```
 
-To support partial sync, the Conversation object has been updated with the following new methods:
+If `FROM_EARLIEST_UNREAD_MESSAGE` or `FROM_LAST_MESSAGE` is selected, then you can check a conversation's message count and choose to retrieve more of the message history from the servers:
 
   1. `getTotalMessageCount()` - This method will return the total number of messages in a conversation, including all historic messages that have yet to be synced.
   2. `getTotalUnreadMessageCount()` - This method will return the total number of unread messages in a conversation including all unread historic messages.
@@ -89,12 +89,14 @@ To support partial sync, the Conversation object has been updated with the follo
   5. `syncAllHistoricMessages()` - This method will sync all messages in the conversation.
   6. `getHistoricSyncStatus()` - This method will return one of values from HistoricMessageStatus. Based on the returned value, you can determine the historic message status for the conversation. The states are as follows:
 
-  	1. `NO_MORE_AVAILABLE` - This state is returned if the all the messages have been downloaded from the server.
-  	2. `MORE_AVAILABLE` - This state is returned if there are messages that could be synced from the server.
-  	3. `SYNC_PENDING` - This state is returned when there is a pending request to sync historic messages from the server.
+  	- `NO_MORE_AVAILABLE` - This state is returned if the all the messages have been downloaded from the server.
+  	- `MORE_AVAILABLE` - This state is returned if there are messages that could be synced from the server.
+  	- `SYNC_PENDING` - This state is returned when there is a pending request to sync historic messages from the server.
 
 ## Synchronization Listener
-The Layer SDK also provides a synchronization listener that alerts your application when a synchronization is about to begin, and when a synchronization has successfully completed. `onBeforeSync`,`onSyncProgress` and`onAfterSync` will only recieve notifications during the first sync (first time a user logs in or when a user logs in on a new device). `onSyncError` will be notified if any error occurs anytime a syncronization is happening. Your application should register as a `LayerSyncListener` to receive these call backs.
+The Layer SDK also provides a synchronization listener that alerts your application when a synchronization is about to begin, its progress as it runs, and when a synchronization has successfully completed. The callback functions `onBeforeSync`,`onSyncProgress` and`onAfterSync` will execute during each stage of the process. You will be notified of each type of sync: `SyncType.HISTORIC` will be used the first time a user authenticates and their conversation history is downloaded (based on the option you set), and each subsequent sync is considered a `SyncType.NORMAL`.
+
+If there are any problems during the sync process (for example, loss of network connectivity), `onSyncError` will be called with the appropriate error. Your application should register as a `LayerSyncListener` to receive these call backs.
 
 ```java
 public class MyApplication extends Application implements LayerSyncListener {
@@ -108,16 +110,18 @@ public class MyApplication extends Application implements LayerSyncListener {
 
     }
 
-    public void onBeforeSync(LayerClient client) {
+    void onBeforeSync(LayerClient client, SyncType syncType) {
     	// LayerClient is starting synchronization
+        Log.v(TAG, "onBeforeSync");
     }
-    public void onSyncProgress(LayerClient client) {
+    void onSyncProgress(LayerClient client, SyncType syncType, int progress) {
     	// LayerClient synchronization progress
+        Log.v(TAG "onSyncProgress: " + progress/100.0f);
     }
-    public void onAfterSync(LayerClient client) {
+    void onAfterSync(LayerClient client, SyncType syncType) {
     	// LayerClient has finished synchronization
     }
-    void onSyncError(LayerClient client, List<LayerException> exceptions);
+    void onSyncError(LayerClient client, List<LayerException> exceptions) {
     	// Sync has thrown an error
     }
 }
@@ -126,5 +130,5 @@ public class MyApplication extends Application implements LayerSyncListener {
 ```emphasis
 **Best Practice**
 
-For conversations with over 5 participants, you should disable delivery and read receipts to speed up syncing and improve overall performance. [Click here](https://support.layer.com/hc/en-us/articles/204144590-How-do-delivery-and-read-receipts-work-) to learn more.
+For conversations with over 5 participants, you can disable delivery and read receipts to speed up syncing and improve overall performance. [Click here](https://support.layer.com/hc/en-us/articles/204144590-How-do-delivery-and-read-receipts-work-) to learn more.
 ```
