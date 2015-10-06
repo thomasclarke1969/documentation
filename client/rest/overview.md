@@ -44,3 +44,6 @@ To protect Layer servers from abuse, rate limiting is enforced by the server.  L
   "message": "The client has sent too many requests in a given amount of time."
 }
 ```
+
+## Sample Code
+For sample code, visit the [Layer for Web Sample Code](https://github.com/layerhq/samples-web-apis) repo on Github.
