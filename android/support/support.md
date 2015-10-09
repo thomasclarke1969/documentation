@@ -3,7 +3,7 @@
 There are several resources at your disposal when you have a question or need additional help with Layer.
 
 ## Questions about Plans and Pricing
-If you have questions regarding your account, the pricing plans, billing, or other non-technical questions, email [growth@gmail.com](mailto:growth@layer.com)
+If you have questions regarding your account, the pricing plans, billing, or other non-technical questions, email [growth@layer.com](mailto:growth@layer.com)
 
 ## The Help Center
 If you have specific questions regarding features, integration, or troubleshooting, first check the Integration section of the documentation on [iOS](/docs/ios/integration) or [Android](/docs/android/integration). If you cannot find an answer to your question there, you can search commonly asked questions in the [Help Center](https://support.layer.com/hc).
