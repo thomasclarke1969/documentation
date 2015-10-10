@@ -72,12 +72,14 @@ curl  -X GET \
 
 ```json
 {
-  "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-  "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-  "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
-  "created_at": "2014-09-15T04:44:47+00:00",
+  "id": "layer:///conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+  "url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+  "messages_url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c/messages",
+  "created_at": "2015-10-10T22:51:12.010Z",
+  "last_message": null,
   "participants": [ "1234", "5678" ],
   "distinct": false,
+  "unread_message_count": 0,
   "metadata": {
     "background_color": "#3c3c3c"
   }
@@ -123,12 +125,14 @@ curl  -X POST \
 ### Response `201 (Created)`
 ```json
 {
-  "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-  "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-  "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
-  "created_at": "2014-09-15T04:44:47+00:00",
+  "id": "layer:///conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+  "url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+  "messages_url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c/messages",
+  "created_at": "2015-10-10T22:51:12.010Z",
+  "last_message": null,
   "participants": [ "1234", "5678" ],
   "distinct": false,
+  "unread_message_count": 0,
   "metadata": {
     "background_color": "#3c3c3c"
   }
@@ -145,12 +149,14 @@ If there is no existing Distinct Conversation that matches the request, then a n
 
 ```json
 {
-  "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-  "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-  "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
-  "created_at": "2014-09-15T04:44:47+00:00",
+  "id": "layer:///conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+  "url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+  "messages_url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c/messages",
+  "created_at": "2015-10-10T22:51:12.010Z",
+  "last_message": null,
   "participants": [ "1234", "5678" ],
-  "distinct": true,
+  "distinct": false,
+  "unread_message_count": 0,
   "metadata": {
     "background_color": "#3c3c3c"
   }
@@ -167,12 +173,14 @@ If there is a matching Distinct Conversation, and one of these  holds true, then
 
 ```json
 {
-  "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-  "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-  "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
-  "created_at": "2014-09-15T04:44:47+00:00",
+  "id": "layer:///conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+  "url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+  "messages_url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c/messages",
+  "created_at": "2015-10-10T22:51:12.010Z",
+  "last_message": null,
   "participants": [ "1234", "5678" ],
-  "distinct": true,
+  "distinct": false,
+  "unread_message_count": 0,
   "metadata": {
     "background_color": "#3c3c3c"
   }
@@ -191,7 +199,7 @@ If the matching Distinct Conversation has metadata different from what was reque
   "url": "https://developer.layer.com/api.md#creating-a-conversation",
   "data": {
     "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-    "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
+    "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
     "created_at": "2014-09-15T04:44:47+00:00",
     "participants": [ "1234", "5678" ],
     "distinct": true,
