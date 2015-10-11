@@ -53,23 +53,23 @@ Clients must be prepared to handle a variety of errors that may be returned by t
 
 ## Error Responses
 
-### service_unavailable
+## service_unavailable
 
 There are issues on the server; typically these resolve in a few minutes, and you can retry your request soon.  If the issue does not clear, contact support@layer.com.
 
-### invalid_app_id
+## invalid_app_id
 
 The Application ID provided to a `POST /sesssion` call was invalid.  This service accepts IDs in the form of `layer://apps/production/uuid`, `layer://apps/staging/uuid` and just `uuid`.  See [Obtain a Session Token](client#3-obtain-a-session-token).
 
-### invalid_request_id
+## invalid_request_id
 
 The client has supplied a request ID that is not a valid UUID.  You can try and validate your UUID with a public UUID validator such as [this one](http://guid.us/Test/GUID).
 
-### access_denied
+## access_denied
 
 You have attempted to access a resource to which your user does not have permissions.  Typically this means that the user was a participant of this Conversation, but is no longer a participant.  So it still shows up in their data, but they no longer have permissions to operate upon it.
 
-### not_found
+## not_found
 
 You have attempted to access a resource that was not found.  Typical causes include:
 
@@ -77,7 +77,7 @@ You have attempted to access a resource that was not found.  Typical causes incl
 2. The resource ID is incorrect
 3. The user has never been a participant who can access this data; from the user's perspective, this data does not exist.
 
-### invalid_header
+## invalid_header
 
 This error typically occurs when:
 
