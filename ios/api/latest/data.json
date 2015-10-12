@@ -136,8 +136,8 @@
                 "description" : "An app id url obtained from the Layer Developer Portal. {@link https:\/\/developer.layer.com\/projects}"
               }
             ],
-            "return" : "Returns a newly created Layer client object.",
-            "discussion" : "> %warning% > **Warning:** Throws NSInternalInconsistencyException when creating another Layer Client instance with the same appID value under the same process (application).\nHowever multiple instances of Layer Client with the same appID are allowed if running the code under Unit Tests.",
+            "return" : "Returns a newly created Layer client object, or nil in the case the client cannot not be initialized due to file protection.",
+            "discussion" : "> %warning% > **Warning:** Throws NSInternalInconsistencyException when creating another Layer Client instance with the same appID value under the same process (application).\nHowever multiple instances of Layer Client with the same appID are allowed if running the code under Unit Tests.  Make sure to initialize the client when the\nfile access is available if the app uses NSFileProtection.",
             "declared" : "LYRClient.h",
             "comment" : "Creates and returns a new Layer client instance.",
             "name" : "clientWithAppID:",
@@ -1049,6 +1049,105 @@
       },
       "comment" : "> %warning% > **Warning:** Please note that when integrating an LYRProgress with a user interface you must take care to ensure that the updates are processed on the main thread. For performance reasons LYRProgress objects do not provide any guarantees about the thread context on which notifications will be delivered.",
       "name" : "LYRProgress",
+      "inherits" : "NSObject"
+    },
+    {
+      "declared" : "LYRPushNotificationConfiguration.h",
+      "properties" : [
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSString *actionLocalizationKey",
+          "comment" : "If specified, the system displays an alert that includes the Close and View buttons.",
+          "name" : "actionLocalizationKey",
+          "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSString *alert",
+          "comment" : "A string that is the displayed text in the push notification.",
+          "name" : "alert"
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSArray *alertLocalizationArguments",
+          "comment" : "An array of variable string values to appear in place of the format specifiers in loc-key.",
+          "name" : "alertLocalizationArguments",
+          "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSString *alertLocalizationKey",
+          "comment" : "A key to an alert-message string in a Localizable.strings file for the current localization.",
+          "name" : "alertLocalizationKey",
+          "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSDictionary *apns",
+          "comment" : "A dictionary with additional definable APNS values. Can include launch-image key.",
+          "name" : "apns"
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSString *category",
+          "comment" : "A string that sets the APNS category for the push.",
+          "name" : "category"
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSDictionary *data",
+          "comment" : "A dictionary with optional additional text key-value pairs to be sent in the push notification.",
+          "name" : "data"
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSString *sound",
+          "comment" : "The name of a sound file in the app bundle.",
+          "name" : "sound"
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSString *title",
+          "comment" : "A short string describing the purpose of the notification.",
+          "name" : "title"
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSArray *titleLocalizationArguments",
+          "comment" : "Variable string values to appear in place of the format specifiers in title-loc-key.",
+          "name" : "titleLocalizationArguments",
+          "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
+        },
+        {
+          "declared" : "LYRPushNotificationConfiguration.h",
+          "declaration" : "@property (copy, nonatomic) NSString *titleLocalizationKey",
+          "comment" : "The key to a title string in the Localizable.strings file for the current localization.",
+          "name" : "titleLocalizationKey",
+          "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
+        }
+      ],
+      "methods" : {
+        "instance" : [
+          {
+            "declared" : "LYRPushNotificationConfiguration.h",
+            "declaration" : "- (void)setPushConfiguration:(LYRPushNotificationConfiguration *)configuration forParticipant:(NSString *)participantIdentifier",
+            "comment" : "Sets a per participant configuration for the specified participant identifier.",
+            "name" : "setPushConfiguration:forParticipant:",
+            "discussion" : "This method is used on a default configuration to add per participant customization.  If this method is called on an instance that has per\nparticipant configurations, an exception is raised.",
+            "parameters" : [
+              {
+                "name" : "configuration",
+                "description" : "A LYRPushNotificationConfiguration instance with values that override the default configuration."
+              },
+              {
+                "name" : "participantIdentifier",
+                "description" : "A string that represents the participant identifier that will receive customized configuration."
+              }
+            ]
+          }
+        ]
+      },
+      "name" : "LYRPushNotificationConfiguration",
       "inherits" : "NSObject"
     },
     {
