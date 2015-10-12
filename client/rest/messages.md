@@ -24,7 +24,7 @@ All requests that list resources support the pagination API, which includes:
 | Name    |  Type | Description |
 |---------|-------|-------------|
 | **page_size** | number  | Number of results to return; default and maximum value of 100. |
-| **from_id** | string | Get the Messages/Conversations after this id; can be passed as a layer URI `layer:///conversations/uuid` or as just a UUID |
+| **from_id** | string | Get the Messages after this id in the list (before this id chronologically); can be passed as a layer URI `layer:///messages/uuid` or as just a UUID |
 
 ### Headers
 
