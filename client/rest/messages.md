@@ -70,11 +70,11 @@ curl  -X GET \
 ```json
 {
   "id": "layer:///messages/940de862-3c96-11e4-baad-164230d1df67",
-  "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/messages/940de862-3c96-11e4-baad-164230d1df67",
-  "receipts_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/messages/940de862-3c96-11e4-baad-164230d1df67/receipts",
+  "url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df67",
+  "receipts_url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df67/receipts",
   "conversation": {
     "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-    "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
+    "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
   },
   "parts": [
     {
@@ -154,11 +154,11 @@ curl  -X POST \
 ```json
 {
   "id": "layer:///messages/940de862-3c96-11e4-baad-164230d1df67",
-  "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/messages/940de862-3c96-11e4-baad-164230d1df67",
-  "receipts_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/messages/940de862-3c96-11e4-baad-164230d1df67/receipts",
+  "url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df67",
+  "receipts_url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df67/receipts",
   "conversation": {
     "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-    "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
+    "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
   },
   "parts": [
     {
