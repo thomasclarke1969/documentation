@@ -35,6 +35,7 @@ POST /apps/:app_uuid/conversations
 {
     "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
     "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
+    "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
     "created_at": "2014-09-15T04:44:47+00:00",
     "participants": [
         "1234",
@@ -102,6 +103,7 @@ Location: /apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92
 {
     "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
     "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
+    "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
     "created_at": "2014-09-15T04:44:47+00:00",
     "participants": [
         "1234",
@@ -127,6 +129,7 @@ If the matching Distinct Conversation has metadata different from what was reque
     "data": {
         "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
         "url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
+        "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
         "created_at": "2014-09-15T04:44:47+00:00",
         "participants": [
             "1234",

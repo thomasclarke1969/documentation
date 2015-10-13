@@ -6,6 +6,8 @@ You can create Messages using the following endpoint.
 POST /apps/:app_uuid/conversations/:conversation_uuid/messages
 ```
 
+Every Conversation contains a `messages_url` property that provides you with the URL above.  Using the `messages_url` to obtain that URL will help to future proof your system.
+
 ```emphasis
 Messages sent by the Platform API are currently limited to a size of 2kb per message part.
 ```
