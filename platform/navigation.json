@@ -8,6 +8,7 @@
       "retrieve-a-conversation": "Retrieving Conversations",
       "create-a-conversation": "Creating Conversations",
       "edit-a-conversation": "Editing Conversations",
+      "delete-a-conversation": "Deleting Conversations",
       "send-a-message": "Sending Messages",
       "send-an-announcement": "Sending Announcements",
       "block-users": "Managing User Block Lists",
