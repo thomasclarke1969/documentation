@@ -2,6 +2,10 @@
 
 The simplest way to add LayerKit to your application is with [CocoaPods](http://www.cocoapods.org). CocoaPods provides a simple, versioned dependency management system that automates configuring libraries and frameworks. You can install Cocoapods via the following command. If you don't want to use Cocoapods follow these manual import [instructions](https://support.layer.com/hc/en-us/articles/204256740-Can-I-use-LayerKit-without-Cocoapods-).
 
+```emphasis
+LayerKit requires CocoaPods v0.39 or higher.
+```
+
 ```console
 $ sudo gem install cocoapods
 ```
@@ -12,10 +16,15 @@ Navigate to your project's root directory and run `pod init` to create a `Podfil
 $ pod init
 ```
 
-Open up the `Podfile` and add the following below your project's target
+Open up the `Podfile` and add `LayerKit` to your project's target. LayerKit is a [dynamic framework](http://blog.cocoapods.org/CocoaPods-0.36/) so the `use_frameworks!` tag also needs to be added to your Podfile. Here's an example Podfile:
 
 ```
-pod 'LayerKit'
+platform :ios, '8.0'
+use_frameworks!
+
+target 'MyAwesomeApp' do
+  pod 'LayerKit'
+end
 ```
 
 Save the file and run the following to install LayerKit.
