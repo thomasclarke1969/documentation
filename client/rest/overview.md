@@ -31,6 +31,18 @@ Failure to request a specific version of the API will result in:
 }
 ```
 
+## Retrying Requests
+
+Any request can fail for a variety of reasons; handling should always be in place for retrying a request on failure.  Possible failures:
+
+1. The browser your app is running in has gone offline
+2. The server returns 503 (service unavailable)
+3. The server returns 504 (gateway timeout)
+
+An exponential backoff strategy is recommended for retrying until a request is successful.  This strategy should be appropriate for all three cases described above.
+
+While one can build prototypes without implementing some form of retry logic, a production application without retry logic will experience a number of bugs that will cause issues for users.
+
 ## Rate Limiting
 
 To protect Layer servers from abuse, rate limiting is enforced by the server.  Limits are set to be relatively forgiving.  Violation of limits will return the Rate Limiting Error:
