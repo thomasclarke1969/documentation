@@ -53,6 +53,35 @@ curl  -X GET \
 ```emphasis
 Note, Conversations that you were formerly a participant of will be listed by this request. You will only see messages and metadata up to the point where you stopped being a participant. The participants property will be [] if you are no longer a participant.
 ```
+
+## Sorting Conversations
+
+The default sort is by Conversation `created_at`.  This is done because this is a fixed ordering, and means that paging can be done without Conversations moving around while paging.  This means developers do not need to worry about missed Conversations and changes in ordering of already loaded results.
+
+Many developers however need to see recently active Conversations, so a parameter has been added to this request:
+
+| Name    |  Type  | Description |
+|---------|--------|-------------|
+| sort_by | string | Either *created_at* to sort by Conversation created date (descending order) or *last_message* to sort by most recently sent last message (descending order) |
+
+Sorting example:
+
+```console
+curl  -X GET \
+      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Authorization: Layer session-token='TOKEN'" \
+      https://api.layer.com/conversations?sort_by=last_message&page_size=50&from_id=layer:///conversations/UUID
+```
+
+Any developer who sorts using the `last_message` value is responsible for understanding that results can change while paging.  The following recommendations should be followed in using this ordering:
+
+1. Any Conversation for which a Message Creation Websocket Event is received is now the most recent Conversation:
+      1. If the Conversation is already loaded and the app needs a correct order, Move the Conversation to the top of the list.
+      2. If the Conversation is not yet loaded, it should be loaded using `GET /conversations/UUID` and inserted at the top of the list.
+2. Alternatively, if an application needs to always maintain a correctly sorted list, the application can listen for all Conversation Patch websocket event that changes the Conversation's `last_message` property
+      1. If the Conversation isn't yet loaded, load it.
+      2. The `last_message` may have changed due to a new message being sent or the prior Last Message being deleted, so it must be sorted into the list rather than inserted at the top.
+
 # Retrieving a Conversation
 
 You can get a single Conversation using:
