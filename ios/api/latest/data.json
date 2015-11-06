@@ -1729,6 +1729,10 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRClientErrorManualSyncIgnoredInForeground",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRClientErrorZipArchiveCreationFailure",
           "declared" : "LYRErrors.h"
         },
