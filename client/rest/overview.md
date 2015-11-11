@@ -45,17 +45,7 @@ While one can build prototypes without implementing some form of retry logic, a 
 
 ## Rate Limiting
 
-To protect Layer servers from abuse, rate limiting is enforced by the server.  Limits are set to be relatively forgiving.  Violation of limits will return the Rate Limiting Error:
-
-### Response `429 (Too Many Requests)`
-
-```json
-{
-  "code": 7,
-  "id": "rate_limit_exceeded",
-  "message": "The client has sent too many requests in a given amount of time."
-}
-```
+To protect Layer servers from abuse, rate limiting is enforced by the server.  Limits are set to be relatively forgiving.  Violation of limits will return the Rate Limiting Error `429 (Too Many Requests)` which is sent with no response body.
 
 ## Sample Code
 For sample code, visit the [Layer for Web Sample Code](https://github.com/layerhq/samples-web-apis) repo on Github.
