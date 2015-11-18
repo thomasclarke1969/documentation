@@ -47,8 +47,7 @@ curl  -X POST \
       -H 'Accept: application/vnd.layer+json; version=1.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/vnd.layer-patch+json' \
-      -d '[{"operation": "set",    "property": "metadata.stats.counter", "value": "10"}, \
-           {"operation": "delete", "property": "metadata.admin"}]' \
+      -d '[{"operation": "set",    "property": "metadata.stats.counter", "value": "10"}, {"operation": "delete", "property": "metadata.admin"}]' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
 ```
 

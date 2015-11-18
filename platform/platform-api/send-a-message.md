@@ -95,9 +95,7 @@ curl  -X POST \
       -H 'Accept: application/vnd.layer+json; version=1.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], \
-           "notification": {"text": "Howdy"}, \
-           "sender": {"name": "Your Master"}}' \
+      -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], "notification": {"text": "Howdy"}, "sender": {"name": "Your Master"}}' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID/messages
 ```
 
