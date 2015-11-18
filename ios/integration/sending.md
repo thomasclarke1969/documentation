@@ -1,7 +1,7 @@
 # Sending Messages
 Once authenticated, users can send and receive messages, which are associated with a specific conversation object.
 
-[LYRConversation](/docs/api/ios#lyrconversation) objects are created by calling `newConversationWithParticipants:options:error:`on [LYRClient](/docs/api/ios#lyrclient). By default, new conversations are set to be distinct, which ensures that there is only one unique conversation between the given set of users. Note: this feature was introduced in SDK version 0.14.0 and older versions of the SDK do not support the notion of distinct conversations (they are classified as "non-distinct"). The initialization variables are the following:
+[LYRConversation](/docs/ios/api#lyrconversation) objects are created by calling `newConversationWithParticipants:options:error:`on [LYRClient](/docs/ios/api#lyrclient). By default, new conversations are set to be distinct, which ensures that there is only one unique conversation between the given set of users. Note: this feature was introduced in SDK version 0.14.0 and older versions of the SDK do not support the notion of distinct conversations (they are classified as "non-distinct"). The initialization variables are the following:
 
 * `participants` - A mandatory array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a conversation is represented with that same user identifier.
 * `options` - An optional dictionary of initialization options. You can initialize of metadata via the `LYRConversationOptionsMetadataKey` key, and you can specify if this conversation should or should not be distinct by using the `LYRConversationOptionsDistinctByParticipantsKey` key.
@@ -59,7 +59,7 @@ Adding user "3" to Conversation A will result in the following:
 
 ## LYRMessagePart
 
-Layer does not enforce restrictions on the type of data you send through the service. As such, [LYRMessagePart](/docs/api/ios#lyrmessagepart) objects are initialized with an `NSData` object and a MIME type string. The MIME type string simply describes the type of content the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object contains.
+Layer does not enforce restrictions on the type of data you send through the service. As such, [LYRMessagePart](/docs/ios/api#lyrmessagepart) objects are initialized with an `NSData` object and a MIME type string. The MIME type string simply describes the type of content the [LYRMessagePart](/docs/ios/api#lyrmessagepart) object contains.
 
 The following demonstrates creating message parts with both `text/plain` and `image/png` MIME types.
 
@@ -78,7 +78,7 @@ NSData *imageData = UIImagePNGRepresentation(image);
 LYRMessagePart *imagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeImagePNG data:imageData];
 ```
 
-The [LYRMessagePart](/docs/api/ios#lyrmessagepart) object also declares a convenience method for creating messages with `text/plain` MIME Type.
+The [LYRMessagePart](/docs/ios/api#lyrmessagepart) object also declares a convenience method for creating messages with `text/plain` MIME Type.
 
 ```objectivec
 // Creates a message part with a string of text
@@ -92,9 +92,9 @@ While Layer does not place any restrictions on the MIME Type, Google and Apple d
 
 ## LYRMessage
 
-The [LYRMessage](/docs/api/ios#lyrmessage) object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the [LYRMessagePart](/docs/api/ios#lyrmessagepart) object.
+The [LYRMessage](/docs/ios/api#lyrmessage) object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the [LYRMessagePart](/docs/ios/api#lyrmessagepart) object.
 
-[LYRMessage](/docs/api/ios#lyrmessage) objects are initialized by calling `newMessageWithParts:options:error:` on [LYRClient](/docs/api/ios#lyrclient). This creates an [LYRMessage](/docs/api/ios#lyrmessage) object that is ready to be sent. The initialization variables are the following:
+[LYRMessage](/docs/ios/api#lyrmessage) objects are initialized by calling `newMessageWithParts:options:error:` on [LYRClient](/docs/ios/api#lyrclient). This creates an [LYRMessage](/docs/ios/api#lyrmessage) object that is ready to be sent. The initialization variables are the following:
 
 * `parts` - A mandatory array of message parts to be sent.
 * `options` - An optional dictionary of initialization options. Currently, the only supported functionality is configuring Push Notification alert text and sounds via the `LYRMessageOptionsPushNotificationAlertKey` and `LYRMessageOptionsPushNotificationSoundNameKey` keys, respectively.
@@ -115,7 +115,7 @@ By default, LayerKit will automatically download content for message parts whose
 
 ## Sending The Message
 
-Once an [LYRMessage](/docs/api/ios#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:error` on `LYRConversation`.
+Once an [LYRMessage](/docs/ios/api#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:error` on `LYRConversation`.
 
 ```objectivec
 //Sends the specified message
@@ -130,7 +130,7 @@ if (success) {
 
 The `sendMessage:error` method returns a boolean value which indicates if the message has passed validation and was enqueued for delivery in the local data store. If LayerKit has a current network connection, the message will immediately be sent off of the device. Otherwise it will remain enqueued locally until the SDK re-establishes a network connection. At that point, the SDK will automatically send the message.
 
-[LYRMessage](/docs/api/ios#lyrmessage) objects declare a boolean property, `isSent`, which tells your application if the message was successfully sent from your device and synchronized with the Layer service.
+[LYRMessage](/docs/ios/api#lyrmessage) objects declare a boolean property, `isSent`, which tells your application if the message was successfully sent from your device and synchronized with the Layer service.
 
 ```emphasis
 **Best Practice**
