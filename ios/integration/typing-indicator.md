@@ -16,7 +16,7 @@ Applications can broadcast typing events by calling `sendTypingIndicator:` on `L
 Applications are notified of typing indicator events via `NSNotification` objects broadcast via the default `NSNotificationCenter`. Applications should register as an observer of the `LYRConversationDidReceiveTypingIndicatorNotification` notification to be notified when another user is typing.
 
 ```
-// Registers and object for typing indicator notifications.
+// Registers an object for typing indicator notifications.
 [[NSNotificationCenter defaultCenter] addObserver:self
                                          selector:@selector(didReceiveTypingIndicator:)
                                              name:LYRConversationDidReceiveTypingIndicatorNotification
