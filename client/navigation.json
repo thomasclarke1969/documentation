@@ -33,5 +33,11 @@
       "signal-packet": "Typing Indicators",
       "recovery": "Recovery"
     }
+  },
+  "support": {
+    "title": "Support",
+    "section": {
+      "support": "Resources"
+    }
   }
 }
