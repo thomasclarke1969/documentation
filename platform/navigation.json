@@ -14,5 +14,11 @@
       "block-users": "Managing User Block Lists",
       "libraries": "Client Libraries"
     }
+  },
+  "support": {
+    "title": "Support",
+    "section": {
+      "support": "Resources"
+    }
   }
 }
