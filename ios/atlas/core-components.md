@@ -125,6 +125,26 @@ When the user sends a message, the `ATLConversationViewController` notifies the 
 }
 ```
 
+### Notification when link or phone number is tapped
+Atlas will automatically highlight links and phone numbers. You can control what happens when a phone number link is pressed by listening to the `ATLUserDidTapLinkNotification` and `ATLUserDidTapPhoneNumberNotification` notifications.
+```objective-c
+- (void)viewDidLoad {
+...
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidTapLink:) name:ATLUserDidTapLinkNotification object:nil];
+
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidTapPhoneNumber:) name:ATLUserDidTapPhoneNumberNotification object:nil];
+...
+}
+
+- (void)userDidTapLink:(NSNotification *)notification { 
+   [[UIApplication sharedApplication] openURL:notification.object]; 
+}
+
+- (void)userDidTapPhoneNumber:(NSNotification *)notification { 
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", notification.object]]];
+}
+```
+
 #### Other Optional Delegate methods
 ```objective-c
 - (void)conversationViewController:(ATLConversationViewController *)viewController didFailSendingMessage:(LYRMessage *)message error:(NSError *)error;
