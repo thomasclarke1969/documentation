@@ -24,6 +24,12 @@ For convenience and to facilitate the namespacing of information within metadata
 [conversation setValue:@"FFFFFF" forMetadataAtKeyPath:@"theme.background_color"];
 ```
 
+You can also initialize a new conversation with metadata by passing in `LYRConversationOptionsMetadataKey` option.
+
+```
+LYRConversation *conversation = [layerClient newConversationWithParticipants:[NSSet setWithObjects:@"USER-IDENTIFIER", nil] options:options:@{LYRConversationOptionsMetadataKey : metadata } error:&error];
+```
+
 Applications can fetch metadata for a given conversation by accessing the public `metadata` property on `LYRConversation` objects.
 
 ```objective-c
