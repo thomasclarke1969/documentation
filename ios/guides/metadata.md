@@ -56,6 +56,12 @@ Metadata access and mutation is performed via public instance methods on the Con
 
 ```
 
+You can also initialize a new conversation with metadata by passing in `LYRConversationOptionsMetadataKey` option.
+
+```
+LYRConversation *conversation = [layerClient newConversationWithParticipants:[NSSet setWithObjects:@"USER-IDENTIFIER", nil] options:options:@{LYRConversationOptionsMetadataKey : metadata } error:&error];
+```
+
 ## Metadata Key Paths
 
 For convenience and to facilitate the namespacing of information within metadata, values may be manipulated as key paths. A key path is a dot (`.`) delimited string that identifies a series 
