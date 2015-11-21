@@ -77,9 +77,9 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public static void enableLogging(android.content.Context context)",
-                "name": "enableLogging",
-                "callSignature": "enableLogging(context)",
+                "declarationSignature": "public static void setLoggingEnabled(android.content.Context context, boolean enabled)",
+                "name": "setLoggingEnabled",
+                "callSignature": "setLoggingEnabled(context, enabled)",
                 "comment": "Layer sdk logs to logcat using the tag 'LayerSDK'.\n\nThe log levels can be set using one of the following ways.\n1. set system property : setprop log.tag.LayerSDK [Log Level]\n2. Create a local.prop file with the following in it: 'log.tag.LayerSDK= [Log Level]' and\nplace that in /data/local.prop.\nPossible values for '[Log Level]' are VERBOSE, DEBUG, INFO, WARN, ERROR, ASSERT or SUPPRESS.\n\nEg: To enable verbose logging, use 'adb shell setprop log.tag.LayerSDK VERBOSE'\n\nFor details, refer to\nhttp://developer.android.com/reference/android/util/Log.html#isLoggable(java.lang.String, int)",
                 "returns": {
                   "type": "void"
@@ -89,34 +89,47 @@
                   {
                     "name": "context",
                     "type": "android.content.Context"
+                  },
+                  {
+                    "name": "enabled",
+                    "type": "boolean"
                   }
                 ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public static void disableLogging(android.content.Context context)",
-                "name": "disableLogging",
-                "callSignature": "disableLogging(context)",
-                "comment": null,
+                "declarationSignature": "public static boolean isLoggingEnabled()",
+                "name": "isLoggingEnabled",
+                "callSignature": "isLoggingEnabled()",
+                "comment": "Returns `true` if logging was enabled through the LayerClient, or `false` otherwise.  This\ndoes not factor environment-enabled logging set through `setprop`.",
                 "returns": {
-                  "type": "void"
+                  "description": "`true` if logging was enabled through the LayerClient, or `false` otherwise.",
+                  "type": "boolean"
                 },
                 "throws": [],
-                "parameters": [
-                  {
-                    "name": "context",
-                    "type": "android.content.Context"
-                  }
-                ],
+                "parameters": [],
                 "exceptions": []
               },
               {
                 "declarationSignature": "public static java.lang.String getInfo()",
                 "name": "getInfo",
                 "callSignature": "getInfo()",
-                "comment": "Returns some basic information about device and layer sdk",
+                "comment": "Returns some basic information about the current device and Layer SDK.",
                 "returns": {
-                  "description": "",
+                  "description": "A String containing basic information about the current device and Layer SDK.",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public static java.lang.String getVersion()",
+                "name": "getVersion",
+                "callSignature": "getVersion()",
+                "comment": "Returns a String representation of the current Layer SDK version.",
+                "returns": {
+                  "description": "A String representation of the current Layer SDK version.",
                   "type": "String"
                 },
                 "throws": [],
@@ -127,7 +140,7 @@
                 "declarationSignature": "public static void sendLogs(com.layer.sdk.LayerClient client, android.app.Activity from)",
                 "name": "sendLogs",
                 "callSignature": "sendLogs(client, from)",
-                "comment": "Creates an email with logs and other relevant information",
+                "comment": "Creates an email with logs and other relevant information.",
                 "returns": {
                   "type": "void"
                 },
@@ -1835,68 +1848,7 @@
                   "derivedClasses": []
                 }
               ],
-              "fields": [
-                {
-                  "name": "mSkipConfigurationCheck",
-                  "comment": null,
-                  "type": "boolean"
-                },
-                {
-                  "name": "mBroadcastPushForeground",
-                  "comment": null,
-                  "type": "boolean"
-                },
-                {
-                  "name": "mGcmSenderId",
-                  "comment": null,
-                  "type": "String"
-                },
-                {
-                  "name": "mAutoDownloadMimeTypes",
-                  "comment": null,
-                  "type": "Collection"
-                },
-                {
-                  "name": "mAutoDownloadSizeThreshold",
-                  "comment": null,
-                  "type": "long"
-                },
-                {
-                  "name": "mDiskCapacity",
-                  "comment": null,
-                  "type": "long"
-                },
-                {
-                  "name": "mHistoricSyncPolicy",
-                  "comment": null,
-                  "type": "HistoricSyncPolicy"
-                },
-                {
-                  "name": "mCustomEndpointSet",
-                  "comment": null,
-                  "type": "boolean"
-                },
-                {
-                  "name": "mCustomEndpointConf",
-                  "comment": null,
-                  "type": "String"
-                },
-                {
-                  "name": "mCustomEndpointCert",
-                  "comment": null,
-                  "type": "String"
-                },
-                {
-                  "name": "mCustomEndpointAuth",
-                  "comment": null,
-                  "type": "String"
-                },
-                {
-                  "name": "mCustomEndpointSync",
-                  "comment": null,
-                  "type": "String"
-                }
-              ],
+              "fields": [],
               "derivedClasses": []
             }
           ],
@@ -2164,18 +2116,7 @@
               "derivedClasses": []
             }
           ],
-          "fields": [
-            {
-              "name": "mOldValue",
-              "comment": null,
-              "type": "Object"
-            },
-            {
-              "name": "mNewValue",
-              "comment": null,
-              "type": "Object"
-            }
-          ],
+          "fields": [],
           "derivedClasses": []
         }
       ],
@@ -2905,6 +2846,11 @@
                   "type": "Type"
                 },
                 {
+                  "name": "FAILED_CONTENT_OPERATION",
+                  "comment": null,
+                  "type": "Type"
+                },
+                {
                   "name": "mCode",
                   "comment": null,
                   "type": "int"
@@ -3128,6 +3074,65 @@
               "enumClasses": [],
               "fields": [],
               "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread"
+                },
+                {
+                  "name": "LayerSyncListener",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerSyncListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "BackgroundThread",
+              "comment": null,
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "BackgroundThread",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.listeners.LayerSyncListener$BackgroundThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": null,
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerSyncListener$BackgroundThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
+              "fullname": "com.layer.sdk.listeners.LayerSyncListener$BackgroundThread",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerSyncListener$BackgroundThread$Weak"
+                }
+              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerSyncListener",
@@ -3163,6 +3168,16 @@
           "derivedClasses": [
             {
               "name": "Weak",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerSyncListener$BackgroundThread$Weak"
+            },
+            {
+              "name": "BackgroundThread",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerSyncListener$BackgroundThread"
+            },
+            {
+              "name": "Weak",
               "comment": "A LayerSyncListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
               "fullname": "com.layer.sdk.listeners.LayerSyncListener$Weak"
             }
@@ -3175,7 +3190,7 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public void onObjectError(com.layer.sdk.LayerClient client, com.layer.sdk.exceptions.LayerObjectException objectException)",
+                "declarationSignature": "void onObjectError(com.layer.sdk.LayerClient client, com.layer.sdk.exceptions.LayerObjectException objectException)",
                 "name": "onObjectError",
                 "callSignature": "onObjectError(client, objectException)",
                 "comment": null,
@@ -3225,12 +3240,81 @@
               "enumClasses": [],
               "fields": [],
               "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread"
+                },
+                {
+                  "name": "LayerObjectExceptionListener",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "BackgroundThread",
+              "comment": null,
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "BackgroundThread",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener$BackgroundThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": null,
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener$BackgroundThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
+              "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener$BackgroundThread",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener$BackgroundThread$Weak"
+                }
+              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener",
           "enumClasses": [],
           "fields": [],
           "derivedClasses": [
+            {
+              "name": "BackgroundThread",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener$BackgroundThread"
+            },
+            {
+              "name": "Weak",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerObjectExceptionListener$BackgroundThread$Weak"
+            },
             {
               "name": "Weak",
               "comment": "A LayerObjectExceptionListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
@@ -3366,6 +3450,65 @@
               "enumClasses": [],
               "fields": [],
               "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread"
+                },
+                {
+                  "name": "LayerProgressListener",
+                  "comment": "Tracks the progress of a MessagePart upload & download",
+                  "fullname": "com.layer.sdk.listeners.LayerProgressListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "BackgroundThread",
+              "comment": null,
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "BackgroundThread",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.listeners.LayerProgressListener$BackgroundThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": null,
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerProgressListener$BackgroundThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
+              "fullname": "com.layer.sdk.listeners.LayerProgressListener$BackgroundThread",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerProgressListener$BackgroundThread$Weak"
+                }
+              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerProgressListener",
@@ -3403,6 +3546,16 @@
               "name": "Weak",
               "comment": "A LayerProgressListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
               "fullname": "com.layer.sdk.listeners.LayerProgressListener$Weak"
+            },
+            {
+              "name": "BackgroundThread",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerProgressListener$BackgroundThread"
+            },
+            {
+              "name": "Weak",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerProgressListener$BackgroundThread$Weak"
             }
           ]
         },
@@ -3411,41 +3564,72 @@
           "methods": {
             "constructor": [],
             "static": [],
-            "instance": []
+            "instance": [
+              {
+                "declarationSignature": "void onChangeEvent(com.layer.sdk.changes.LayerChangeEvent event)",
+                "name": "onChangeEvent",
+                "callSignature": "onChangeEvent(event)",
+                "comment": null,
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "event",
+                    "type": "LayerChangeEvent"
+                  }
+                ],
+                "exceptions": []
+              }
+            ]
           },
           "name": "LayerChangeEventListener",
-          "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  Listeners must implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
+          "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  LayerChangeEventListener receives events on the main thread\nby default.  LayerChangeEventListener.BackgroundThread receives events on a background thread.",
           "nestedClasses": [
             {
               "implementedInterfaces": [
                 {
                   "name": "LayerChangeEventListener",
-                  "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  Listeners must implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
+                  "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  LayerChangeEventListener receives events on the main thread\nby default.  LayerChangeEventListener.BackgroundThread receives events on a background thread.",
+                  "fullname": "com.layer.sdk.listeners.LayerChangeEventListener"
+                },
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "Weak",
+              "comment": "A LayerChangeEventListener.BackgroundThread which registers as a WeakReference.  This\nwill be garbage collected without a stronger external reference.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$Weak",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread"
+                },
+                {
+                  "name": "LayerChangeEventListener",
+                  "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  LayerChangeEventListener receives events on the main thread\nby default.  LayerChangeEventListener.BackgroundThread receives events on a background thread.",
                   "fullname": "com.layer.sdk.listeners.LayerChangeEventListener"
                 }
               ],
               "methods": {
                 "constructor": [],
                 "static": [],
-                "instance": [
-                  {
-                    "declarationSignature": "void onEventAsync(com.layer.sdk.changes.LayerChangeEvent event)",
-                    "name": "onEventAsync",
-                    "callSignature": "onEventAsync(event)",
-                    "comment": null,
-                    "returns": {
-                      "type": "void"
-                    },
-                    "throws": [],
-                    "parameters": [
-                      {
-                        "name": "event",
-                        "type": "LayerChangeEvent"
-                      }
-                    ],
-                    "exceptions": []
-                  }
-                ]
+                "instance": []
               },
               "name": "BackgroundThread",
               "comment": "LayerChangeEventListener.BackgroundThread receives LayerChangeEvents on a background thread.",
@@ -3487,78 +3671,6 @@
                   "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$BackgroundThread$Weak"
                 }
               ]
-            },
-            {
-              "implementedInterfaces": [
-                {
-                  "name": "LayerChangeEventListener",
-                  "comment": "LayerChangeEventListeners attach to a LayerClient and receive events when Layer objects change.\nFor example, a Conversation may get inserted, or a Message may get sent or read, or a MessagePart\nmay complete uploading/downloading.  Listeners must implement one of the sub-interfaces:\n- BackgroundThread: receives LayerChangeEvents on a different thread than the main UI thread.\n- MainThread: receives LayerChangeEvents on the main UI thread.",
-                  "fullname": "com.layer.sdk.listeners.LayerChangeEventListener"
-                }
-              ],
-              "methods": {
-                "constructor": [],
-                "static": [],
-                "instance": [
-                  {
-                    "declarationSignature": "void onEventMainThread(com.layer.sdk.changes.LayerChangeEvent event)",
-                    "name": "onEventMainThread",
-                    "callSignature": "onEventMainThread(event)",
-                    "comment": null,
-                    "returns": {
-                      "type": "void"
-                    },
-                    "throws": [],
-                    "parameters": [
-                      {
-                        "name": "event",
-                        "type": "LayerChangeEvent"
-                      }
-                    ],
-                    "exceptions": []
-                  }
-                ]
-              },
-              "name": "MainThread",
-              "comment": "LayerChangeEventListener.MainThread receives LayerChangeEvents on the main UI thread.",
-              "nestedClasses": [
-                {
-                  "implementedInterfaces": [
-                    {
-                      "name": "MainThread",
-                      "comment": "LayerChangeEventListener.MainThread receives LayerChangeEvents on the main UI thread.",
-                      "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread"
-                    },
-                    {
-                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
-                      "comment": null,
-                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
-                    }
-                  ],
-                  "methods": {
-                    "constructor": [],
-                    "static": [],
-                    "instance": []
-                  },
-                  "name": "Weak",
-                  "comment": "A LayerChangeEventListener.MainThread which registers as a WeakReference.  This will be\ngarbage collected without a stronger external reference.",
-                  "nestedClasses": [],
-                  "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread$Weak",
-                  "enumClasses": [],
-                  "fields": [],
-                  "derivedClasses": []
-                }
-              ],
-              "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread",
-              "enumClasses": [],
-              "fields": [],
-              "derivedClasses": [
-                {
-                  "name": "Weak",
-                  "comment": "A LayerChangeEventListener.MainThread which registers as a WeakReference.  This will be\ngarbage collected without a stronger external reference.",
-                  "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread$Weak"
-                }
-              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerChangeEventListener",
@@ -3577,13 +3689,8 @@
             },
             {
               "name": "Weak",
-              "comment": "A LayerChangeEventListener.MainThread which registers as a WeakReference.  This will be\ngarbage collected without a stronger external reference.",
-              "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread$Weak"
-            },
-            {
-              "name": "MainThread",
-              "comment": "LayerChangeEventListener.MainThread receives LayerChangeEvents on the main UI thread.",
-              "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$MainThread"
+              "comment": "A LayerChangeEventListener.BackgroundThread which registers as a WeakReference.  This\nwill be garbage collected without a stronger external reference.",
+              "fullname": "com.layer.sdk.listeners.LayerChangeEventListener$Weak"
             }
           ]
         },
@@ -3594,7 +3701,7 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public void onTypingIndicator(com.layer.sdk.LayerClient client, com.layer.sdk.messaging.Conversation conversation, java.lang.String userId, com.layer.sdk.listeners.LayerTypingIndicatorListener.TypingIndicator typingIndicator)",
+                "declarationSignature": "void onTypingIndicator(com.layer.sdk.LayerClient client, com.layer.sdk.messaging.Conversation conversation, java.lang.String userId, com.layer.sdk.listeners.LayerTypingIndicatorListener.TypingIndicator typingIndicator)",
                 "name": "onTypingIndicator",
                 "callSignature": "onTypingIndicator(client, conversation, userId, typingIndicator)",
                 "comment": "Called when a remote typing indicator is received.",
@@ -3656,6 +3763,65 @@
               "enumClasses": [],
               "fields": [],
               "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread"
+                },
+                {
+                  "name": "LayerTypingIndicatorListener",
+                  "comment": "LayerTypingIndicatorListener provides listeners with callbacks when a remote typing indication is\nreceived.",
+                  "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "BackgroundThread",
+              "comment": null,
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "BackgroundThread",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$BackgroundThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": null,
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$BackgroundThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
+              "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$BackgroundThread",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$BackgroundThread$Weak"
+                }
+              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener",
@@ -3729,6 +3895,16 @@
               "name": "Weak",
               "comment": "A LayerTypingIndicatorListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
               "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$Weak"
+            },
+            {
+              "name": "Weak",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$BackgroundThread$Weak"
+            },
+            {
+              "name": "BackgroundThread",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerTypingIndicatorListener$BackgroundThread"
             }
           ]
         },
@@ -3739,7 +3915,7 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public void onAuthenticated(com.layer.sdk.LayerClient client, java.lang.String userId)",
+                "declarationSignature": "void onAuthenticated(com.layer.sdk.LayerClient client, java.lang.String userId)",
                 "name": "onAuthenticated",
                 "callSignature": "onAuthenticated(client, userId)",
                 "comment": null,
@@ -3760,7 +3936,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onDeauthenticated(com.layer.sdk.LayerClient client)",
+                "declarationSignature": "void onDeauthenticated(com.layer.sdk.LayerClient client)",
                 "name": "onDeauthenticated",
                 "callSignature": "onDeauthenticated(client)",
                 "comment": null,
@@ -3777,7 +3953,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onAuthenticationChallenge(com.layer.sdk.LayerClient client, java.lang.String nonce)",
+                "declarationSignature": "void onAuthenticationChallenge(com.layer.sdk.LayerClient client, java.lang.String nonce)",
                 "name": "onAuthenticationChallenge",
                 "callSignature": "onAuthenticationChallenge(client, nonce)",
                 "comment": null,
@@ -3798,7 +3974,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onAuthenticationError(com.layer.sdk.LayerClient client, com.layer.sdk.exceptions.LayerException exception)",
+                "declarationSignature": "void onAuthenticationError(com.layer.sdk.LayerClient client, com.layer.sdk.exceptions.LayerException exception)",
                 "name": "onAuthenticationError",
                 "callSignature": "onAuthenticationError(client, exception)",
                 "comment": null,
@@ -3848,12 +4024,81 @@
               "enumClasses": [],
               "fields": [],
               "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread"
+                },
+                {
+                  "name": "LayerAuthenticationListener",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "BackgroundThread",
+              "comment": null,
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "BackgroundThread",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener$BackgroundThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": null,
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener$BackgroundThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
+              "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener$BackgroundThread",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener$BackgroundThread$Weak"
+                }
+              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener",
           "enumClasses": [],
           "fields": [],
           "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener$BackgroundThread$Weak"
+            },
+            {
+              "name": "BackgroundThread",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener$BackgroundThread"
+            },
             {
               "name": "Weak",
               "comment": "A LayerAuthenticationListener which registers as a WeakReference.  This will be garbage\ncollected without a stronger external reference.",
@@ -3868,7 +4113,7 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public void onConnectionConnected(com.layer.sdk.LayerClient client)",
+                "declarationSignature": "void onConnectionConnected(com.layer.sdk.LayerClient client)",
                 "name": "onConnectionConnected",
                 "callSignature": "onConnectionConnected(client)",
                 "comment": null,
@@ -3885,7 +4130,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onConnectionDisconnected(com.layer.sdk.LayerClient client)",
+                "declarationSignature": "void onConnectionDisconnected(com.layer.sdk.LayerClient client)",
                 "name": "onConnectionDisconnected",
                 "callSignature": "onConnectionDisconnected(client)",
                 "comment": null,
@@ -3902,7 +4147,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public void onConnectionError(com.layer.sdk.LayerClient client, com.layer.sdk.exceptions.LayerException exception)",
+                "declarationSignature": "void onConnectionError(com.layer.sdk.LayerClient client, com.layer.sdk.exceptions.LayerException exception)",
                 "name": "onConnectionError",
                 "callSignature": "onConnectionError(client, exception)",
                 "comment": null,
@@ -3952,12 +4197,81 @@
               "enumClasses": [],
               "fields": [],
               "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread"
+                },
+                {
+                  "name": "LayerConnectionListener",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerConnectionListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "BackgroundThread",
+              "comment": null,
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "BackgroundThread",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.listeners.LayerConnectionListener$BackgroundThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": null,
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerConnectionListener$BackgroundThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
+              "fullname": "com.layer.sdk.listeners.LayerConnectionListener$BackgroundThread",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerConnectionListener$BackgroundThread$Weak"
+                }
+              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerConnectionListener",
           "enumClasses": [],
           "fields": [],
           "derivedClasses": [
+            {
+              "name": "Weak",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerConnectionListener$BackgroundThread$Weak"
+            },
+            {
+              "name": "BackgroundThread",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerConnectionListener$BackgroundThread"
+            },
             {
               "name": "Weak",
               "comment": "A LayerConnectionListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
@@ -3972,7 +4286,7 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public void onPolicyListUpdate(com.layer.sdk.LayerClient client, java.util.List oldPolicyList, java.util.List newPolicyList)",
+                "declarationSignature": "void onPolicyListUpdate(com.layer.sdk.LayerClient client, java.util.List oldPolicyList, java.util.List newPolicyList)",
                 "name": "onPolicyListUpdate",
                 "callSignature": "onPolicyListUpdate(client, oldPolicyList, newPolicyList)",
                 "comment": "Alerts a listener to policy updates.",
@@ -4029,6 +4343,65 @@
               "enumClasses": [],
               "fields": [],
               "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [
+                {
+                  "name": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.internal.utils.ListenerIterable$BackgroundThread"
+                },
+                {
+                  "name": "LayerPolicyListener",
+                  "comment": "LayerPolicyListener allows an external class to monitor a LayerClient for policy updates.",
+                  "fullname": "com.layer.sdk.listeners.LayerPolicyListener"
+                }
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "BackgroundThread",
+              "comment": null,
+              "nestedClasses": [
+                {
+                  "implementedInterfaces": [
+                    {
+                      "name": "BackgroundThread",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.listeners.LayerPolicyListener$BackgroundThread"
+                    },
+                    {
+                      "name": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef",
+                      "comment": null,
+                      "fullname": "com.layer.sdk.internal.utils.ListenerIterable$WeakRef"
+                    }
+                  ],
+                  "methods": {
+                    "constructor": [],
+                    "static": [],
+                    "instance": []
+                  },
+                  "name": "Weak",
+                  "comment": null,
+                  "nestedClasses": [],
+                  "fullname": "com.layer.sdk.listeners.LayerPolicyListener$BackgroundThread$Weak",
+                  "enumClasses": [],
+                  "fields": [],
+                  "derivedClasses": []
+                }
+              ],
+              "fullname": "com.layer.sdk.listeners.LayerPolicyListener$BackgroundThread",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": [
+                {
+                  "name": "Weak",
+                  "comment": null,
+                  "fullname": "com.layer.sdk.listeners.LayerPolicyListener$BackgroundThread$Weak"
+                }
+              ]
             }
           ],
           "fullname": "com.layer.sdk.listeners.LayerPolicyListener",
@@ -4039,6 +4412,16 @@
               "name": "Weak",
               "comment": "A LayerPolicyListener which registers as a WeakReference.  This will be garbage collected\nwithout a stronger external reference.",
               "fullname": "com.layer.sdk.listeners.LayerPolicyListener$Weak"
+            },
+            {
+              "name": "Weak",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerPolicyListener$BackgroundThread$Weak"
+            },
+            {
+              "name": "BackgroundThread",
+              "comment": null,
+              "fullname": "com.layer.sdk.listeners.LayerPolicyListener$BackgroundThread"
             }
           ]
         }
@@ -4146,17 +4529,7 @@
         {
           "implementedInterfaces": [],
           "methods": {
-            "constructor": [
-              {
-                "declarationSignature": "protected Metadata()",
-                "name": "Metadata",
-                "callSignature": "Metadata()",
-                "comment": null,
-                "throws": [],
-                "parameters": [],
-                "exceptions": []
-              }
-            ],
+            "constructor": [],
             "static": [
               {
                 "declarationSignature": "public static com.layer.sdk.messaging.Metadata newInstance()",
@@ -4377,61 +4750,6 @@
                 },
                 "throws": [],
                 "parameters": [],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "protected abstract com.layer.sdk.internal.utils.MetadataUtils.Value get(com.layer.sdk.internal.utils.MetadataUtils.KeyPath keyPath)",
-                "name": "get",
-                "callSignature": "get(keyPath)",
-                "comment": null,
-                "returns": {
-                  "type": "com.layer.sdk.internal.utils.MetadataUtils$Value"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "keyPath",
-                    "type": "com.layer.sdk.internal.utils.MetadataUtils$KeyPath"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "protected abstract com.layer.sdk.internal.utils.MetadataUtils.Value put(com.layer.sdk.internal.utils.MetadataUtils.KeyPath keyPath, com.layer.sdk.internal.utils.MetadataUtils.Value value)",
-                "name": "put",
-                "callSignature": "put(keyPath, value)",
-                "comment": null,
-                "returns": {
-                  "type": "com.layer.sdk.internal.utils.MetadataUtils$Value"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "keyPath",
-                    "type": "com.layer.sdk.internal.utils.MetadataUtils$KeyPath"
-                  },
-                  {
-                    "name": "value",
-                    "type": "com.layer.sdk.internal.utils.MetadataUtils$Value"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "protected abstract com.layer.sdk.internal.utils.MetadataUtils.Value remove(com.layer.sdk.internal.utils.MetadataUtils.KeyPath keyPath)",
-                "name": "remove",
-                "callSignature": "remove(keyPath)",
-                "comment": null,
-                "returns": {
-                  "type": "com.layer.sdk.internal.utils.MetadataUtils$Value"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "keyPath",
-                    "type": "com.layer.sdk.internal.utils.MetadataUtils$KeyPath"
-                  }
-                ],
                 "exceptions": []
               }
             ]
@@ -5601,6 +5919,11 @@
                   "type": "Property"
                 },
                 {
+                  "name": "PARTICIPANT_COUNT",
+                  "comment": "Conversation participants count, including the authenticated user, sortable and supports comparison by Equality, Inclusion or Relation",
+                  "type": "Property"
+                },
+                {
                   "name": "CREATED_AT",
                   "comment": "Timestamp of Conversation creation (epoch time in milliseconds), sortable and supports comparison by Equality, Inclusion or Relation",
                   "type": "Property"
@@ -5712,18 +6035,7 @@
           "nestedClasses": [],
           "fullname": "com.layer.sdk.messaging.ConversationOptions",
           "enumClasses": [],
-          "fields": [
-            {
-              "name": "mDeliveryReceiptsEnabled",
-              "comment": null,
-              "type": "boolean"
-            },
-            {
-              "name": "distinct",
-              "comment": null,
-              "type": "boolean"
-            }
-          ],
+          "fields": [],
           "derivedClasses": []
         },
         {
@@ -6396,26 +6708,7 @@
         {
           "implementedInterfaces": [],
           "methods": {
-            "constructor": [
-              {
-                "declarationSignature": "protected Policy(com.layer.sdk.policy.Policy.PolicyType type, java.lang.String sentByUserId)",
-                "name": "Policy",
-                "callSignature": "Policy(type, sentByUserId)",
-                "comment": null,
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "type",
-                    "type": "PolicyType"
-                  },
-                  {
-                    "name": "sentByUserId",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              }
-            ],
+            "constructor": [],
             "static": [
               {
                 "declarationSignature": "public static com.layer.sdk.policy.Policy.Builder builder(com.layer.sdk.policy.Policy.PolicyType type)",
@@ -6579,18 +6872,7 @@
               "derivedClasses": []
             }
           ],
-          "fields": [
-            {
-              "name": "mPolicyType",
-              "comment": null,
-              "type": "PolicyType"
-            },
-            {
-              "name": "mSentByUserId",
-              "comment": null,
-              "type": "String"
-            }
-          ],
+          "fields": [],
           "derivedClasses": []
         }
       ],
