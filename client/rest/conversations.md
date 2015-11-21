@@ -62,7 +62,7 @@ Many developers however need to see recently active Conversations, so a paramete
 
 | Name    |  Type  | Description |
 |---------|--------|-------------|
-| order_by | string | Either *created_at* to sort by Conversation created date (descending order) or *last_message* to sort by most recently sent last message (descending order) |
+| sort_by | string | Either *created_at* to sort by Conversation created date (descending order) or *last_message* to sort by most recently sent last message (descending order) |
 
 Sorting example:
 
@@ -70,7 +70,7 @@ Sorting example:
 curl  -X GET \
       -H "Accept: application/vnd.layer+json; version=1.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
-      https://api.layer.com/conversations?order_by=last_message&page_size=50&from_id=layer:///conversations/UUID
+      https://api.layer.com/conversations?sort_by=last_message&page_size=50&from_id=layer:///conversations/UUID
 ```
 
 Any developer who sorts using the `last_message` value is responsible for understanding that results can change while paging.  The following recommendations should be followed in using this ordering:
