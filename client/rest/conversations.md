@@ -72,15 +72,21 @@ curl  -X GET \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/conversations?sort_by=last_message&page_size=50&from_id=layer:///conversations/UUID
 ```
+Expected results for sorting by last message are as follows:
+
+1. Results are in descending order; most recently active Conversation comes first
+2. A Conversation that does not have a last message is sorted using its `created_at` value instead.  This means that a Conversation without any messages can still be sorted ahead of a Conversation whose last message is old.
 
 Any developer who sorts using the `last_message` value is responsible for understanding that results can change while paging.  The following recommendations should be followed in using this ordering:
 
 1. Any Conversation for which a Message Creation Websocket Event is received is now the most recent Conversation:
       1. If the Conversation is already loaded and the app needs a correct order, Move the Conversation to the top of the list.
       2. If the Conversation is not yet loaded, it should be loaded using `GET /conversations/UUID` and inserted at the top of the list.
-2. Alternatively, if an application needs to always maintain a correctly sorted list, the application can listen for all Conversation Patch websocket event that changes the Conversation's `last_message` property
-      1. If the Conversation isn't yet loaded, load it.
-      2. The `last_message` may have changed due to a new message being sent or the prior Last Message being deleted, so it must be sorted into the list rather than inserted at the top.
+      3. Alternatively, if an application needs to always maintain a correctly sorted list, the application can listen for all Conversation Patch websocket event that changes the Conversation's `last_message` property
+        1. If the Conversation isn't yet loaded, load it.
+        2. The `last_message` may have changed due to a new message being sent or the prior Last Message being deleted, so it must be sorted into the list rather than inserted at the top.
+2. Any Conversation Creation Websocket Event will make the new Conversation the most recent Conversation, and thus should be inserted at the top of the list.  This is true even if the newly created Conversation does not have any messages.
+
 
 # Retrieving a Conversation
 
