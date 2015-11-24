@@ -82,10 +82,10 @@ Any developer who sorts using the `last_message` value is responsible for unders
 1. Any Conversation for which a Message Creation Websocket Event is received is now the most recent Conversation:
       1. If the Conversation is already loaded and the app needs a correct order, Move the Conversation to the top of the list.
       2. If the Conversation is not yet loaded, it should be loaded using `GET /conversations/UUID` and inserted at the top of the list.
-      3. Alternatively, if an application needs to always maintain a correctly sorted list, the application can listen for all Conversation Patch websocket event that changes the Conversation's `last_message` property
-        1. If the Conversation isn't yet loaded, load it.
-        2. The `last_message` may have changed due to a new message being sent or the prior Last Message being deleted, so it must be sorted into the list rather than inserted at the top.
-2. Any Conversation Creation Websocket Event will make the new Conversation the most recent Conversation, and thus should be inserted at the top of the list.  This is true even if the newly created Conversation does not have any messages.
+2. Alternatively, if an application needs to always maintain a correctly sorted list, the application can listen for all Conversation Patch websocket event that changes the Conversation's `last_message` property
+  1. If the Conversation isn't yet loaded, load it.
+  2. The `last_message` may have changed due to a new message being sent or the prior Last Message being deleted, so it must be sorted into the list rather than inserted at the top.
+3. Any Conversation Creation Websocket Event will make the new Conversation the most recent Conversation, and thus should be inserted at the top of the list.  This is true even if the newly created Conversation does not have any messages.
 
 
 # Retrieving a Conversation
