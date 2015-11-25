@@ -94,6 +94,13 @@
         },
         {
           "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic) BOOL debuggingEnabled",
+          "comment" : "When YES, LayerKit will log detailed debugging information to both the XCode debugger and the file system.",
+          "name" : "debuggingEnabled",
+          "discussion" : "When debugging is enabled, all components will begin to synchronously log detailed information to both the file system and the debugger."
+        },
+        {
+          "declared" : "LYRClient.h",
           "declaration" : "@property (nonatomic, weak) id<LYRClientDelegate> delegate",
           "comment" : "The object that acts as the delegate of the receiving client.",
           "name" : "delegate"
@@ -194,6 +201,19 @@
             "comment" : "Returns the canonical object identifier for a given identifier.",
             "name" : "canonicalObjectIdentifierForIdentifier:",
             "declaration" : "- (NSURL *)canonicalObjectIdentifierForIdentifier:(NSURL *)identifier"
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)captureDebugSnapshotWithCompletion:(void ( ^ ) ( NSURL *snapshotPath , NSError *error ))completion",
+            "comment" : "Captures a debug snapshot of the current state of the Layer powered application and persists it to the file system.",
+            "name" : "captureDebugSnapshotWithCompletion:",
+            "discussion" : "The debug snapshot is a zip file containing the following: 1. A JSON dump of diagnostic information about the LYRClient 2. A copy of the local database, 3. A copy of any accumulated log files.",
+            "parameters" : [
+              {
+                "name" : "completion",
+                "description" : "A block to be called upon completion of the asynchronous request for a debug snapshot. The block takes one parameter: an NSURL location of the snapshot on the file system."
+              }
+            ]
           },
           {
             "declared" : "LYRClient.h",
@@ -432,6 +452,22 @@
               {
                 "name" : "completion",
                 "description" : "A block to be called upon completion of the asynchronous request for a nonce. The block takes two parameters: the nonce value that was obtained (or nil\nin the case of failure) and an error object that upon failure describes the nature of the failure."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)setLogLevel:(LYRLogLevel)level forComponent:(LYRLogComponent)component",
+            "comment" : "Configures the log level for the specified component",
+            "name" : "setLogLevel:forComponent:",
+            "parameters" : [
+              {
+                "name" : "level",
+                "description" : "The log level to be set for the component."
+              },
+              {
+                "name" : "component",
+                "description" : "The component to configure."
               }
             ]
           },
@@ -1929,6 +1965,106 @@
         {
           "name" : "LYRErrorPolicyNotFound",
           "declared" : "LYRErrors.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRConstants.h",
+      "name" : "LYRLogComponent",
+      "values" : [
+        {
+          "name" : "LYRLogComponentUndefined",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentInitialization",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentCertification",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentAuthentication",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentTransport",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentTransportPush",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentPlatformPush",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentModel",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentSQLite",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentSynchronization",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentInboundReconciliation",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentOutboundReconciliation",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentMessagingPublicAPI",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentRichContent",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentApplicationState",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogComponentCount",
+          "declared" : "LYRConstants.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRConstants.h",
+      "name" : "LYRLogLevel",
+      "values" : [
+        {
+          "name" : "LYRLogLevelOff",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogLevelError",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogLevelWarn",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogLevelInfo",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogLevelDebug",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRLogLevelVerbose",
+          "declared" : "LYRConstants.h"
         }
       ]
     },
