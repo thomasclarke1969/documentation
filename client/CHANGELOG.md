@@ -1,5 +1,13 @@
 # Layer Client API Change Log
 
+## 1.0.2
+
+
+#### Bug Fixes
+
+* Fixed sorting by `last_message` and paginating.
+* Optimized posting conversations
+
 ## 1.0.1
 
 
