@@ -49,9 +49,9 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:messageText];
 LYRPushNotificationConfiguration *defaultConfiguration = [LYRPushNotificationConfiguration new];
 defaultConfiguration.alert = messageText;
 defaultConfiguration.sound = @"layerbell.caf";
-NSDictionary *pushOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: defaultConfiguration };
+NSDictionary *messageOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: defaultConfiguration };
 
-LYRMessage *message = [layerClient newMessageWithParts:@[part] options:pushOptions error:nil];
+LYRMessage *message = [layerClient newMessageWithParts:@[part] options:messageOptions error:nil];
 
 //Sends the specified message
 NSError *error = nil;
@@ -124,9 +124,9 @@ When you send the message, you just need add the category name to the push confi
     defaultConfiguration.alert = pushMessage;
     //The following dictionary will appear in push payload
     defaultConfiguration.category = LQSCategoryIdentifier;
-    NSDictionary *pushOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: defaultConfiguration };
+    NSDictionary *messageOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: defaultConfiguration };
     
-    LYRMessage *message = [self.layerClient newMessageWithParts:@[messagePart] options:pushOptions error:nil];
+    LYRMessage *message = [self.layerClient newMessageWithParts:@[messagePart] options:messageOptions error:nil];
 ```
 
 ## Additional Push Configuration
