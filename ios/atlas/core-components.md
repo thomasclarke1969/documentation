@@ -64,7 +64,7 @@ The following code shows how to initialize the `ATLConversationViewController` w
     [self.navigationController pushViewController:controller animated:YES];
 ```
 
-Currently `ATLConversationViewController` is designed to work as part of the `UINavigationController` navigation stack. As a workaround you can wrap the `ATLConversationListViewController` into a `UINavigationController` as the `rootViewController`.
+Currently `ATLConversationViewController` is designed to work as part of the `UINavigationController` navigation stack, and in tandem with Conversation List. If you want to show the Conversation View without a Conversation List you can wrap the `ATLConversationViewController` into a `UINavigationController` as the `rootViewController` as a workaround.
 ```objective-c
     ATLSampleConversationViewController *controller = [ATLSampleConversationViewController conversationViewControllerWithLayerClient:self.layerClient];
     controller.conversation = conversation;
