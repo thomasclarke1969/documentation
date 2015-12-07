@@ -49,9 +49,9 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:messageText];
 LYRPushNotificationConfiguration *defaultConfiguration = [LYRPushNotificationConfiguration new];
 defaultConfiguration.alert = messageText;
 defaultConfiguration.sound = @"layerbell.caf";
-NSDictionary *pushOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: defaultConfiguration };
+NSDictionary *messageOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: defaultConfiguration };
 
-LYRMessage *message = [layerClient newMessageWithParts:@[part] options:pushOptions error:nil];
+LYRMessage *message = [layerClient newMessageWithParts:@[part] options:messageOptions error:nil];
 
 //Sends the specified message
 NSError *error = nil;
@@ -73,6 +73,71 @@ We currently recommend that developers do not rely on silent notifications. Weâ€
 
 If you want reliable, immediate delivery of push notifications we recommend utilizing the LYRMessagePushNotificationAlertMessageKey option to set Alert text and to use the "Show unread in badges" feature in the dashboard. If you try to use silent notifications and emit local notifications then you will always be subject to latency and a variable amount of batching. Unfortunately, the behavior is out of our control at this time.
 ```
+
+## Notification Actions
+
+In iOS 8 Apple introduced the ability to have custom actions appear when someone taps on a push notification on the iPhone and Apple Watch. For more information, check out the [Apple documentation](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/IPhoneOSClientImp.html#//apple_ref/doc/uid/TP40008194-CH103-SW26) on push categories. You can set the push category in `LYRPushNotificationConfiguration`. The following example shows how you can you add a Accept/Ignore button when someone taps on a push.
+
+```objective-c
+    // Constants
+    NSString *const LQSCategoryIdentifier = @"category_lqs";
+    NSString *const LQSAcceptIdentifier = @"ACCEPT_IDENTIFIER";
+    NSString *const LQSIgnoreIdentifier = @"IGNORE_IDENTIFIER";
+    
+- (void)setupPushNotificationOptions
+{
+    UIMutableUserNotificationAction *acceptAction =
+    [[UIMutableUserNotificationAction alloc] init];
+    acceptAction.identifier = LQSAcceptIdentifier;
+    acceptAction.title = @"Show me!";
+    acceptAction.activationMode = UIUserNotificationActivationModeBackground;
+    acceptAction.destructive = NO;
+
+    UIMutableUserNotificationAction *ignoreAction =
+    [[UIMutableUserNotificationAction alloc] init];
+    ignoreAction.identifier = LQSIgnoreIdentifier;
+    ignoreAction.title = @"Ignore";
+    ignoreAction.activationMode = UIUserNotificationActivationModeBackground;
+    ignoreAction.destructive = YES;
+    
+    UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc]init];
+    category.identifier = LQSCategoryIdentifier;
+    [category setActions:@[acceptAction, ignoreAction]
+                    forContext:UIUserNotificationActionContextDefault];
+    [category setActions:@[acceptAction, ignoreAction] forContext:UIUserNotificationActionContextMinimal];
+
+    NSSet *categories = [NSSet setWithObjects:category, nil];
+    
+    UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeSound |UIUserNotificationTypeBadge;
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types
+                                                                             categories:categories];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
+```
+When you send the message, you just need add the category name to the push configuration.
+```objective-c
+    // Creates and returns a new message object with the given conversation and array of message parts
+    NSString *pushMessage= [NSString stringWithFormat:@"%@ says %@",self.layerClient.authenticatedUserID ,messageText];
+    
+    LYRPushNotificationConfiguration *defaultConfiguration = [LYRPushNotificationConfiguration new];
+    defaultConfiguration.alert = pushMessage;
+    //The following dictionary will appear in push payload
+    defaultConfiguration.category = LQSCategoryIdentifier;
+    NSDictionary *messageOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: defaultConfiguration };
+    
+    LYRMessage *message = [self.layerClient newMessageWithParts:@[messagePart] options:messageOptions error:nil];
+```
+
+## Additional Push Configuration
+
+Layer also lets you configure any element of Push Payload including 
+* alert, title, sound
+* localized push information
+* additional APNS parameters like ` launch-image` 
+* any custom key/value pairs defined by your application
+ 
+For more information about all these other options check out the [API Reference](https://developer.layer.com/docs/ios/api#lyrpushnotificationconfiguration) for `LYRPushNotificationConfiguration`.
 
 ## Receiving pushes
 
