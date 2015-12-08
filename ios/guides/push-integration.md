@@ -65,6 +65,32 @@ if (success) {
 
 If the options parameter is `nil`, the Layer push notification service will deliver your message via a silent push notification (see the [WARNING](#warning) below about silent notifications).
 
+## User-specific Push Messages
+
+You can use `setPushConfiguration` method of LYRPushNotificationConfiguration to specify user-specific messages.
+
+```objective-c
+// Push message for User 1
+LYRPushNotificationConfiguration *user1PushConfiguration = [LYRPushNotificationConfiguration new];
+user1PushConfiguration.title = @"hey user1";
+user1PushConfiguration.alert = @"alert";
+user1PushConfiguration.sound = @"sound.caff";
+
+// Push message for User 2
+LYRPushNotificationConfiguration *user2PushConfiguration = [LYRPushNotificationConfiguration new];
+user2PushConfiguration.title = @"hey user2";
+user2PushConfiguration.alert = @"alert";
+user2PushConfiguration.sound = @"sound.caff";
+
+// Only User 1 and User 2 will get a push. Everyone else will get the message without a Push notification.
+LYRPushNotificationConfiguration *configuration = [LYRPushNotificationConfiguration new];
+[configuration setPushConfiguration:user1PushConfiguration forParticipant:@"user1"];
+[configuration setPushConfiguration:user2PushConfiguration forParticipant:@"user2"];
+
+NSDictionary *messageOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: configuration };
+LYRMessage *message = [self.layerClient newMessageWithParts:@[messagePart] options:messageOptions error:nil];
+```
+
 <a name="warning"></a>
 ```emphasis
 **WARNING about silent and local notifications:**
