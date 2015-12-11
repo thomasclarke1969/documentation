@@ -4,7 +4,7 @@ LayerKit provides a flexible and expressive interface with which applications ca
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation];
-query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
+query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NO]];
 query.limit = 20;
 query.offset = 0;
 
