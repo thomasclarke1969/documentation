@@ -1,4 +1,4 @@
-#Send a Message
+# Send a Message
 The following demonstrates the logic needed to create a conversation and send a message between 3 users named "Device", "Simulator", and "Dashboard".
 
 ```objectivec
