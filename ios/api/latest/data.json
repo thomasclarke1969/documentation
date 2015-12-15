@@ -5,7 +5,7 @@
       "properties" : [
         {
           "declared" : "LYRActor.h",
-          "declaration" : "@property (nonatomic, readonly) NSString *LYR_QUERYABLE_FROM ( LYRMessage LYR_QUERYABLE_FROM ( LYRConversation )",
+          "declaration" : "@property (nonatomic, readonly, nullable) NSString *LYR_QUERYABLE_FROM ( LYRMessage LYR_QUERYABLE_FROM ( LYRConversation )",
           "comment" : "The userID of the authenticated user who sent the message.  Previously sentByUserID.",
           "name" : ")",
           "discussion" : "The userID property is queryable via the LYRPredicateOperatorIsEqualTo and LYRPredicateOperatorIsNotEqualTo predicate operators."
@@ -20,7 +20,7 @@
         "class" : [
           {
             "declared" : "LYRProgress.h",
-            "declaration" : "+ (instancetype)aggregateProgressWithProgresses:(NSArray *)progresses",
+            "declaration" : "+ (nonnull instancetype)aggregateProgressWithProgresses:(nullable NSArray *)progresses",
             "comment" : "Returns a new instance of aggregate progress object.",
             "name" : "aggregateProgressWithProgresses:",
             "parameters" : [
@@ -34,7 +34,7 @@
         "instance" : [
           {
             "declared" : "LYRProgress.h",
-            "declaration" : "- (void)addProgress:(LYRProgress *)progress",
+            "declaration" : "- (void)addProgress:(nonnull LYRProgress *)progress",
             "comment" : "progress An instance of {@link LYRProgress} to add to the aggregate.",
             "name" : "addProgress:"
           }
@@ -53,20 +53,20 @@
       "properties" : [
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic, copy, readonly) NSURL *appID",
+          "declaration" : "@property (nonatomic, copy, readonly, nonnull) NSURL *appID",
           "comment" : "The app key.",
           "name" : "appID"
         },
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic, readonly) NSString *authenticatedUserID",
+          "declaration" : "@property (nonatomic, readonly, nullable) NSString *authenticatedUserID",
           "comment" : "Returns a string object specifying the user ID of the currently authenticated user or nil if the client is not authenticated.",
           "name" : "authenticatedUserID",
           "discussion" : "A client is considered authenticated if it has previously established identity via the submission of an identity token\nand the token has not yet expired. The Layer server may at any time issue an authentication challenge and deauthenticate the client."
         },
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic) NSSet *autodownloadMIMETypes",
+          "declaration" : "@property (nonatomic, nullable) NSSet<NSString*> *autodownloadMIMETypes",
           "comment" : "Configures the set of MIME Types for {@link LYRMessagePart} objects that will be automatically downloaded upon synchronization.",
           "name" : "autodownloadMIMETypes",
           "discussion" : "A value of nil indicates that all content is to be downloaded automatically and an empty NSSet indicates that no content should be. The default value is a set containing the MIME Type @\"text\/plain\". Message parts belonging to latest messages will be auto-downloaded first."
@@ -101,7 +101,7 @@
         },
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic, weak) id<LYRClientDelegate> delegate",
+          "declaration" : "@property (nonatomic, weak, nullable) id<LYRClientDelegate> delegate",
           "comment" : "The object that acts as the delegate of the receiving client.",
           "name" : "delegate"
         },
@@ -126,7 +126,7 @@
         },
         {
           "declared" : "LYRClient.h",
-          "declaration" : "@property (nonatomic, readonly) NSOrderedSet *policies",
+          "declaration" : "@property (nonatomic, readonly, nullable) NSOrderedSet<LYRPolicy*> *policies",
           "comment" : "Returns the ordered set of {@link LYRPolicy} objects governing the behavior of the client.\n",
           "name" : "policies"
         }
@@ -148,13 +148,13 @@
             "declared" : "LYRClient.h",
             "comment" : "Creates and returns a new Layer client instance.",
             "name" : "clientWithAppID:",
-            "declaration" : "+ (instancetype)clientWithAppID:(NSURL *)appID"
+            "declaration" : "+ (nullable instancetype)clientWithAppID:(nonnull NSURL *)appID"
           }
         ],
         "instance" : [
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)addPolicy:(LYRPolicy *)policy error:(NSError **)error",
+            "declaration" : "- (BOOL)addPolicy:(nonnull LYRPolicy *)policy error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Adds the given policy to the receiver.",
             "name" : "addPolicy:error:",
             "parameters" : [
@@ -186,7 +186,7 @@
             ],
             "comment" : "Authenticates the client by submitting an Identity Token to Layer for evaluation.",
             "name" : "authenticateWithIdentityToken:completion:",
-            "declaration" : "- (void)authenticateWithIdentityToken:(NSString *)identityToken completion:(void ( ^ ) ( NSString *authenticatedUserID , NSError *error ))completion"
+            "declaration" : "- (void)authenticateWithIdentityToken:(nonnull NSString *)identityToken completion:(nonnull void ( ^ ) ( NSString *_Nullable authenticatedUserID , NSError *_Nullable error ))completion"
           },
           {
             "parameters" : [
@@ -200,11 +200,11 @@
             "declared" : "LYRClient.h",
             "comment" : "Returns the canonical object identifier for a given identifier.",
             "name" : "canonicalObjectIdentifierForIdentifier:",
-            "declaration" : "- (NSURL *)canonicalObjectIdentifierForIdentifier:(NSURL *)identifier"
+            "declaration" : "- (nullable NSURL *)canonicalObjectIdentifierForIdentifier:(nonnull NSURL *)identifier"
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)captureDebugSnapshotWithCompletion:(void ( ^ ) ( NSURL *snapshotPath , NSError *error ))completion",
+            "declaration" : "- (void)captureDebugSnapshotWithCompletion:(nonnull void ( ^ ) ( NSURL *_Nullable snapshotPath , NSError *_Nullable error ))completion",
             "comment" : "Captures a debug snapshot of the current state of the Layer powered application and persists it to the file system.",
             "name" : "captureDebugSnapshotWithCompletion:",
             "discussion" : "The debug snapshot is a zip file containing the following: 1. A JSON dump of diagnostic information about the LYRClient 2. A copy of the local database, 3. A copy of any accumulated log files.",
@@ -217,7 +217,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)connectWithCompletion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
+            "declaration" : "- (void)connectWithCompletion:(nullable void ( ^ ) ( BOOL success , NSError *_Nullable error ))completion",
             "comment" : "Signals the receiver to establish a network connection and initiate synchronization.",
             "name" : "connectWithCompletion:",
             "discussion" : "If the client has previously established an authenticated identity then the session is resumed and synchronization is activated.",
@@ -230,7 +230,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)countForQuery:(LYRQuery *)query completion:(void ( ^ ) ( NSUInteger count , NSError *error ))completion",
+            "declaration" : "- (void)countForQuery:(nonnull LYRQuery *)query completion:(nonnull void ( ^ ) ( NSUInteger count , NSError *_Nullable error ))completion",
             "comment" : "Executes the given query asynchronously and ppasses the result count and error back in a completion block.",
             "name" : "countForQuery:completion:",
             "parameters" : [
@@ -246,7 +246,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (NSUInteger)countForQuery:(LYRQuery *)query error:(NSError **)error",
+            "declaration" : "- (NSUInteger)countForQuery:(nonnull LYRQuery *)query error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Executes the given query and returns a count of the number of results.",
             "name" : "countForQuery:error:",
             "return" : "A count of the number of results or NSUIntegerMax if an error occurred.",
@@ -263,7 +263,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)deauthenticateWithCompletion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
+            "declaration" : "- (void)deauthenticateWithCompletion:(nullable void ( ^ ) ( BOOL success , NSError *_Nullable error ))completion",
             "comment" : "Deauthenticates the client, disposing of any previously established user identity and disallowing access to the Layer communication services until a new identity is established. All existing messaging data is purged from the database.",
             "name" : "deauthenticateWithCompletion:",
             "parameters" : [
@@ -281,7 +281,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)executeQuery:(LYRQuery *)query completion:(void ( ^ ) ( NSOrderedSet *resultSet , NSError *error ))completion",
+            "declaration" : "- (void)executeQuery:(nonnull LYRQuery *)query completion:(nonnull void ( ^ ) ( NSOrderedSet<id<LYRQueryable> > *_Nullable resultSet , NSError *_Nullable error ))completion",
             "comment" : "Executes the given query asynchronously and passes the results back in a completion block.",
             "name" : "executeQuery:completion:",
             "parameters" : [
@@ -297,7 +297,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (NSOrderedSet *)executeQuery:(LYRQuery *)query error:(NSError **)error",
+            "declaration" : "- (nullable NSOrderedSet<id<LYRQueryable> > *)executeQuery:(nonnull LYRQuery *)query error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Executes the given query and returns an ordered set of results.",
             "name" : "executeQuery:error:",
             "return" : "An ordered set of query results or nil if an error occurred.",
@@ -328,11 +328,11 @@
             "declared" : "LYRClient.h",
             "comment" : "Handles content transfer events from iOS and synchronizes the client if required.",
             "name" : "handleBackgroundContentTransfersForSession:completion:",
-            "declaration" : "- (BOOL)handleBackgroundContentTransfersForSession:(NSString *)sessionIdentifier completion:(void ( ^ ) ( NSArray *changes , NSError *error ))completion"
+            "declaration" : "- (BOOL)handleBackgroundContentTransfersForSession:(nonnull NSString *)sessionIdentifier completion:(nonnull void ( ^ ) ( NSArray<LYRObjectChange*> *_Nullable changes , NSError *_Nullable error ))completion"
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)insertPolicy:(LYRPolicy *)policy atIndex:(NSUInteger)index error:(NSError **)error",
+            "declaration" : "- (BOOL)insertPolicy:(nonnull LYRPolicy *)policy atIndex:(NSUInteger)index error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Inserts the given policy in the receiver's policy set at the specified index.",
             "name" : "insertPolicy:atIndex:error:",
             "parameters" : [
@@ -366,7 +366,7 @@
             "declared" : "LYRClient.h",
             "comment" : "Marks a set of messages as being read by the current user. If nil the operation will mark all unread messsages as being read by the current user.",
             "name" : "markMessagesAsRead:error:",
-            "declaration" : "- (BOOL)markMessagesAsRead:(NSSet *)messages error:(NSError **)error"
+            "declaration" : "- (BOOL)markMessagesAsRead:(nonnull NSSet<LYRMessage*> *)messages error:(NSError *_Nullable *_Nullable)error"
           },
           {
             "parameters" : [
@@ -388,7 +388,7 @@
             "declared" : "LYRClient.h",
             "comment" : "Creates a new Conversation with the given set of participants.",
             "name" : "newConversationWithParticipants:options:error:",
-            "declaration" : "- (LYRConversation *)newConversationWithParticipants:(NSSet *)participants options:(NSDictionary *)options error:(NSError **)error"
+            "declaration" : "- (nullable LYRConversation *)newConversationWithParticipants:(nonnull NSSet<NSString*> *)participants options:(nullable NSDictionary<NSString*,id> *)options error:(NSError *_Nullable *_Nullable)error"
           },
           {
             "parameters" : [
@@ -406,11 +406,11 @@
             "declared" : "LYRClient.h",
             "comment" : "Creates and returns a new message with the given set of message parts.",
             "name" : "newMessageWithParts:options:error:",
-            "declaration" : "- (LYRMessage *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error"
+            "declaration" : "- (nullable LYRMessage *)newMessageWithParts:(nonnull NSArray<LYRMessagePart*> *)messageParts options:(nullable NSDictionary<NSString*,id> *)options error:(NSError *_Nullable *_Nullable)error"
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query error:(NSError **)error",
+            "declaration" : "- (nullable LYRQueryController *)queryControllerWithQuery:(nonnull LYRQuery *)query error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Creates and returns a new query controller with the given query.",
             "name" : "queryControllerWithQuery:error:",
             "return" : "A newly created query controller.",
@@ -427,7 +427,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)removePolicy:(LYRPolicy *)policy error:(NSError **)error",
+            "declaration" : "- (BOOL)removePolicy:(nonnull LYRPolicy *)policy error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Removes the specified policy from the receiver.",
             "name" : "removePolicy:error:",
             "return" : "A Boolean value that indicates if the given policy was removed.",
@@ -444,7 +444,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)requestAuthenticationNonceWithCompletion:(void ( ^ ) ( NSString *nonce , NSError *error ))completion",
+            "declaration" : "- (void)requestAuthenticationNonceWithCompletion:(nonnull void ( ^ ) ( NSString *_Nullable nonce , NSError *_Nullable error ))completion",
             "comment" : "Requests an authentication nonce from Layer.",
             "name" : "requestAuthenticationNonceWithCompletion:",
             "discussion" : "Authenticating a Layer client requires that an Identity Token be obtained from a remote backend application that has been designated to act as an\nIdentity Provider on behalf of your application. When requesting an Identity Token from a provider, you are required to provide a nonce value that will be included\nin the cryptographically signed data that comprises the Identity Token. This method asynchronously requests such a nonce value from Layer.> %warning% > **Warning:** Nonce values can be issued by Layer at any time in the form of an authentication challenge. You must be prepared to handle server issued nonces as well as those\nexplicitly requested by a call to requestAuthenticationNonceWithCompletion:.",
@@ -487,7 +487,7 @@
             "declared" : "LYRClient.h",
             "comment" : "Inspects an incoming push notification and synchronizes the client if it was sent by Layer.",
             "name" : "synchronizeWithRemoteNotification:completion:",
-            "declaration" : "- (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void ( ^ ) ( NSArray *changes , NSError *error ))completion"
+            "declaration" : "- (BOOL)synchronizeWithRemoteNotification:(nonnull NSDictionary *)userInfo completion:(nonnull void ( ^ ) ( NSArray<LYRObjectChange*> *_Nullable changes , NSError *_Nullable error ))completion"
           },
           {
             "parameters" : [
@@ -505,11 +505,11 @@
             "declared" : "LYRClient.h",
             "comment" : "Tells the receiver to update the device token used to deliver Push Notifications to the current device via the Apple Push Notification Service.",
             "name" : "updateRemoteNotificationDeviceToken:error:",
-            "declaration" : "- (BOOL)updateRemoteNotificationDeviceToken:(NSData *)deviceToken error:(NSError **)error"
+            "declaration" : "- (BOOL)updateRemoteNotificationDeviceToken:(nullable NSData *)deviceToken error:(NSError *_Nullable *_Nullable)error"
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)validatePolicy:(LYRPolicy *)policy error:(NSError **)error",
+            "declaration" : "- (BOOL)validatePolicy:(nonnull LYRPolicy *)policy error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Validates the given policy to determine if it represents a valid configuration that can be added to the receiver.",
             "name" : "validatePolicy:error:",
             "return" : "A Boolean value that indicates if the given policy is valid or not.",
@@ -538,7 +538,7 @@
         },
         {
           "declared" : "LYRPredicate.h",
-          "declaration" : "@property (nonatomic, readonly) NSArray *subpredicates",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSArray *subpredicates",
           "comment" : "The receiver's subpredicates;",
           "name" : "subpredicates"
         }
@@ -547,7 +547,7 @@
         "class" : [
           {
             "declared" : "LYRPredicate.h",
-            "declaration" : "+ (instancetype)compoundPredicateWithType:(LYRCompoundPredicateType)compoundPredicateType subpredicates:(NSArray *)subpredicates",
+            "declaration" : "+ (nonnull instancetype)compoundPredicateWithType:(LYRCompoundPredicateType)compoundPredicateType subpredicates:(nonnull NSArray<__kindofLYRPredicate*> *)subpredicates",
             "comment" : "Creates and returns a new compound predicate with the given type and subpredicates in a given array.\n@property compoundPredicateType Compound predicate type, @see {@link LYRCompoundPredicateType}.\n@property subpredicates An array of {@link LYRPredicate} instances.",
             "name" : "compoundPredicateWithType:subpredicates:",
             "return" : "A newly created compound predicate object."
@@ -563,7 +563,7 @@
       "properties" : [
         {
           "declared" : "LYRConversation.h",
-          "declaration" : "@property (nonatomic, readonly) NSURL *LYR_QUERYABLE_PROPERTY",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSURL *LYR_QUERYABLE_PROPERTY",
           "comment" : "A unique identifier assigned to every conversation by Layer.",
           "name" : "LYR_QUERYABLE_PROPERTY",
           "discussion" : "The identifier property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotIn operators."
@@ -586,7 +586,7 @@
         "instance" : [
           {
             "declared" : "LYRConversation.h",
-            "declaration" : "- (BOOL)addParticipants:(NSSet *)participants error:(NSError **)error",
+            "declaration" : "- (BOOL)addParticipants:(nonnull NSSet<NSString*> *)participants error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Adds participants to a given conversation.",
             "name" : "addParticipants:error:",
             "return" : "A Boolean value indicating if the operation of adding participants was successful.",
@@ -617,11 +617,11 @@
             "declared" : "LYRConversation.h",
             "comment" : "Deletes a conversation in the specified mode.",
             "name" : "delete:error:",
-            "declaration" : "- (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error"
+            "declaration" : "- (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError *_Nullable *_Nullable)error"
           },
           {
             "declared" : "LYRConversation.h",
-            "declaration" : "- (void)deleteValueForMetadataAtKeyPath:(NSString *)keyPath",
+            "declaration" : "- (void)deleteValueForMetadataAtKeyPath:(nonnull NSString *)keyPath",
             "comment" : "Deletes a specific value by key path from the metadata dictionary.",
             "name" : "deleteValueForMetadataAtKeyPath:",
             "parameters" : [
@@ -633,7 +633,7 @@
           },
           {
             "declared" : "LYRConversation.h",
-            "declaration" : "- (BOOL)markAllMessagesAsRead:(NSError **)error",
+            "declaration" : "- (BOOL)markAllMessagesAsRead:(NSError *_Nullable *_Nullable)error",
             "comment" : "Marks all messages in the receiver as being read by the current user.",
             "name" : "markAllMessagesAsRead:",
             "return" : "YES if all unread messages were marked as read or NO if an error occurred.",
@@ -646,7 +646,7 @@
           },
           {
             "declared" : "LYRConversation.h",
-            "declaration" : "- (BOOL)removeParticipants:(NSSet *)participants error:(NSError **)error",
+            "declaration" : "- (BOOL)removeParticipants:(nonnull NSSet<NSString*> *)participants error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Removes participants from a given conversation.",
             "name" : "removeParticipants:error:",
             "return" : "A Boolean value indicating if the operation of removing participants was successful.",
@@ -677,7 +677,7 @@
             "declared" : "LYRConversation.h",
             "comment" : "Sends the specified message.",
             "name" : "sendMessage:error:",
-            "declaration" : "- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error"
+            "declaration" : "- (BOOL)sendMessage:(nonnull LYRMessage *)message error:(NSError *_Nullable *_Nullable)error"
           },
           {
             "declared" : "LYRConversation.h",
@@ -693,7 +693,7 @@
           },
           {
             "declared" : "LYRConversation.h",
-            "declaration" : "- (void)setValue:(id)value forMetadataAtKeyPath:(NSString *)keyPath",
+            "declaration" : "- (void)setValue:(nullable id)value forMetadataAtKeyPath:(nonnull NSString *)keyPath",
             "comment" : "Sets the value for the specified key path in the metadata dictionary.",
             "name" : "setValue:forMetadataAtKeyPath:",
             "parameters" : [
@@ -709,7 +709,7 @@
           },
           {
             "declared" : "LYRConversation.h",
-            "declaration" : "- (void)setValuesForMetadataKeyPathsWithDictionary:(NSDictionary *)metadata merge:(BOOL)merge",
+            "declaration" : "- (void)setValuesForMetadataKeyPathsWithDictionary:(nonnull NSDictionary<NSString*,id> *)metadata merge:(BOOL)merge",
             "comment" : "Sets multiple values on the metadata using an input dictionary, optionally merging with any existing values.",
             "name" : "setValuesForMetadataKeyPathsWithDictionary:merge:",
             "parameters" : [
@@ -734,14 +734,14 @@
       "properties" : [
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) LYRConversation *LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM ( LYRMessagePart )",
+          "declaration" : "@property (nonatomic, readonly, nonnull) LYRConversation *LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM ( LYRMessagePart )",
           "comment" : "The conversation that the receiver is a part of.",
           "name" : ")",
           "discussion" : "The conversation property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotIn operators."
         },
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSURL *LYR_QUERYABLE_PROPERTY",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSURL *LYR_QUERYABLE_PROPERTY",
           "comment" : "A unique identifier for the message.",
           "name" : "LYR_QUERYABLE_PROPERTY",
           "discussion" : "The identifier property is queryable via the LYRPredicateOperatorIsEqualTo, LYRPredicateOperatorIsNotEqualTo, LYRPredicateOperatorIsIn, and LYRPredicateOperatorIsNotIn operators."
@@ -754,19 +754,19 @@
         },
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSArray *parts",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSArray<LYRMessagePart*> *parts",
           "comment" : "An array of message parts (modeled by the {@link LYRMessagePart} class) that provide access to the content of the receiver.",
           "name" : "parts"
         },
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) NSDictionary *recipientStatusByUserID",
+          "declaration" : "@property (nonatomic, readonly, nullable) NSDictionary<NSString*NSNumber*> *recipientStatusByUserID",
           "comment" : "Returns a dictionary keyed the user ID of all participants in the Conversation that the receiver belongs to and whose\nvalues are an NSNumber representation of the receipient status ({@link LYRRecipientStatus} value) for their corresponding key.",
           "name" : "recipientStatusByUserID"
         },
         {
           "declared" : "LYRMessage.h",
-          "declaration" : "@property (nonatomic, readonly) LYRActor *sender",
+          "declaration" : "@property (nonatomic, readonly, nonnull) LYRActor *sender",
           "comment" : "The sender who sent the message.",
           "name" : "sender",
           "discussion" : "The sender can be an authenticated user or from a platform, specificed by the sender's properties userID and name.  They are mutually exclusive.  Both properties are queryable from LYRMessage."
@@ -776,7 +776,7 @@
         "instance" : [
           {
             "declared" : "LYRMessage.h",
-            "declaration" : "- (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error",
+            "declaration" : "- (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Deletes a message in the specified mode.",
             "name" : "delete:error:",
             "return" : "A Boolean value indicating if the request to delete the message was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
@@ -803,11 +803,11 @@
             "declared" : "LYRMessage.h",
             "comment" : "Marks the message as being read by the current user.",
             "name" : "markAsRead:",
-            "declaration" : "- (BOOL)markAsRead:(NSError **)error"
+            "declaration" : "- (BOOL)markAsRead:(NSError *_Nullable *_Nullable)error"
           },
           {
             "declared" : "LYRMessage.h",
-            "declaration" : "- (LYRRecipientStatus)recipientStatusForUserID:(NSString *)userID",
+            "declaration" : "- (LYRRecipientStatus)recipientStatusForUserID:(nonnull NSString *)userID",
             "comment" : "Retrieves the message state for a given participant in the conversation.",
             "name" : "recipientStatusForUserID:",
             "return" : "An {@link LYRRecipientStatus} value specifying the message status for the given participant or LYRRecipientStatusInvalid if the specified user is not a participant in the conversation.",
@@ -829,33 +829,33 @@
       "properties" : [
         {
           "declared" : "LYRMessagePart.h",
-          "declaration" : "@property (nonatomic, readonly) NSString *LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM ( LYRMessage )",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSString *LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM ( LYRMessage )",
           "comment" : "The MIME Type of the content represented by the receiver.",
           "name" : ")"
         },
         {
           "declared" : "LYRMessagePart.h",
-          "declaration" : "@property (nonatomic, readonly) NSURL *LYR_QUERYABLE_PROPERTY",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSURL *LYR_QUERYABLE_PROPERTY",
           "comment" : "A unique identifier for the message part.",
           "name" : "LYR_QUERYABLE_PROPERTY"
         },
         {
           "declared" : "LYRMessagePart.h",
-          "declaration" : "@property (nonatomic, readonly) NSData *data",
+          "declaration" : "@property (nonatomic, readonly, nullable) NSData *data",
           "comment" : "The content of the receiver as a data object.",
           "name" : "data",
           "discussion" : "Property will be nil if content is not availble. Note that this operation might be expensive if trying to read large data."
         },
         {
           "declared" : "LYRMessagePart.h",
-          "declaration" : "@property (nonatomic, readonly) NSURL *fileURL",
+          "declaration" : "@property (nonatomic, readonly, nullable) NSURL *fileURL",
           "comment" : "Returns a NSURL object to the filesystem location of the receiver’s content or nil if the content is not available locally or was transmitted inline.",
           "name" : "fileURL",
           "discussion" : "Property will be nil if content is not availble."
         },
         {
           "declared" : "LYRMessagePart.h",
-          "declaration" : "@property (nonatomic, readonly) LYRProgress *progress",
+          "declaration" : "@property (nonatomic, readonly, nonnull) LYRProgress *progress",
           "comment" : "Progress of the current transfer state.",
           "name" : "progress",
           "discussion" : "Property will return a new instance, if previous one has been released from the memory."
@@ -865,7 +865,7 @@
         "class" : [
           {
             "declared" : "LYRMessagePart.h",
-            "declaration" : "+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType data:(NSData *)data",
+            "declaration" : "+ (nonnull instancetype)messagePartWithMIMEType:(nonnull NSString *)MIMEType data:(nonnull NSData *)data",
             "comment" : "Creates a message part with the given MIME Type and data.",
             "name" : "messagePartWithMIMEType:data:",
             "return" : "A new message part with the given MIME Type and data.\n@raises NSInvalidArgumentException Raised if MIME Type or data is nil.",
@@ -882,7 +882,7 @@
           },
           {
             "declared" : "LYRMessagePart.h",
-            "declaration" : "+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType stream:(NSInputStream *)stream",
+            "declaration" : "+ (nonnull instancetype)messagePartWithMIMEType:(nonnull NSString *)MIMEType stream:(nonnull NSInputStream *)stream",
             "comment" : "Creates a message part with the given MIME Type and stream of data.",
             "name" : "messagePartWithMIMEType:stream:",
             "return" : "A new message part with the given MIME Type and stream of data.\n@raises NSInvalidArgumentException Raised if MIME Type or stream is nil.",
@@ -909,13 +909,13 @@
             "declared" : "LYRMessagePart.h",
             "comment" : "Create a message part with a string of text.",
             "name" : "messagePartWithText:",
-            "declaration" : "+ (instancetype)messagePartWithText:(NSString *)text"
+            "declaration" : "+ (nonnull instancetype)messagePartWithText:(nonnull NSString *)text"
           }
         ],
         "instance" : [
           {
             "declared" : "LYRMessagePart.h",
-            "declaration" : "- (LYRProgress *)downloadContent:(NSError **)error",
+            "declaration" : "- (nullable LYRProgress *)downloadContent:(NSError *_Nullable *_Nullable)error",
             "comment" : "Tells the receiver to schedule a download of the content, optionally reporting progress.",
             "name" : "downloadContent:",
             "return" : "An {@link LYRProgress} object that reports the progress of the download operation or nil if the content cannot be downloaded.",
@@ -928,14 +928,14 @@
           },
           {
             "declared" : "LYRMessagePart.h",
-            "declaration" : "- (NSInputStream *)inputStream",
+            "declaration" : "- (nullable NSInputStream *)inputStream",
             "comment" : "Returns a new input stream object for reading the content of the receiver as a stream.",
             "name" : "inputStream",
             "return" : "A new, unopened input stream object configured for reading the content of the part represented by the receiver, if the content is available, otherwise nil."
           },
           {
             "declared" : "LYRMessagePart.h",
-            "declaration" : "- (LYRProgress *)purgeContent:(NSError **)error",
+            "declaration" : "- (nullable LYRProgress *)purgeContent:(NSError *_Nullable *_Nullable)error",
             "comment" : "Tells the receiver to schedule a purge of the content, optionally reporting progress.",
             "name" : "purgeContent:",
             "return" : "An {@link LYRProgress} object that reports the progress of the content purging operation or nil if the content cannot be purged.",
@@ -957,25 +957,25 @@
       "properties" : [
         {
           "declared" : "LYRObjectChange.h",
-          "declaration" : "@property (nonatomic, readonly) id afterValue",
+          "declaration" : "@property (nonatomic, readonly, nullable) id afterValue",
           "comment" : "The value of property after the update or nil if the receiver has a change type of LYRObjectChangeTypeCreate or LYRObjectChangeTypeDelete.",
           "name" : "afterValue"
         },
         {
           "declared" : "LYRObjectChange.h",
-          "declaration" : "@property (nonatomic, readonly) id beforeValue",
+          "declaration" : "@property (nonatomic, readonly, nullable) id beforeValue",
           "comment" : "The value of property before the update or nil if the receiver has a change type of LYRObjectChangeTypeCreate or LYRObjectChangeTypeDelete.",
           "name" : "beforeValue"
         },
         {
           "declared" : "LYRObjectChange.h",
-          "declaration" : "@property (nonatomic, readonly) id object",
+          "declaration" : "@property (nonatomic, readonly, nonnull) id object",
           "comment" : "The object upon which the change has occured.",
           "name" : "object"
         },
         {
           "declared" : "LYRObjectChange.h",
-          "declaration" : "@property (nonatomic, readonly) NSString *property",
+          "declaration" : "@property (nonatomic, readonly, nullable) NSString *property",
           "comment" : "The name of the property that was updated or nil if the receiver has a change type of LYRObjectChangeTypeCreate or LYRObjectChangeTypeDelete.",
           "name" : "property"
         },
@@ -996,7 +996,7 @@
       "properties" : [
         {
           "declared" : "LYRPolicy.h",
-          "declaration" : "@property (nonatomic, copy) NSString *sentByUserID",
+          "declaration" : "@property (nonatomic, copy, nullable) NSString *sentByUserID",
           "comment" : "Specifies the sender of the content that the policy applies to. If nil, the policy applies to all senders.",
           "name" : "sentByUserID"
         },
@@ -1023,7 +1023,7 @@
             "declared" : "LYRPolicy.h",
             "comment" : "Creates and returns a new policy with the given type.",
             "name" : "policyWithType:",
-            "declaration" : "+ (instancetype)policyWithType:(LYRPolicyType)type"
+            "declaration" : "+ (nonnull instancetype)policyWithType:(LYRPolicyType)type"
           }
         ]
       }
@@ -1039,13 +1039,13 @@
         },
         {
           "declared" : "LYRPredicate.h",
-          "declaration" : "@property (nonatomic, copy, readonly) NSString *property",
+          "declaration" : "@property (nonatomic, copy, readonly, nonnull) NSString *property",
           "comment" : "Returns the property whose value the receiver will compare against the reference value.",
           "name" : "property"
         },
         {
           "declared" : "LYRPredicate.h",
-          "declaration" : "@property (nonatomic, readonly) id value",
+          "declaration" : "@property (nonatomic, readonly, nullable) id value",
           "comment" : "Returns the reference value used for comparison.",
           "name" : "value"
         }
@@ -1054,7 +1054,7 @@
         "class" : [
           {
             "declared" : "LYRPredicate.h",
-            "declaration" : "+ (instancetype)predicateWithProperty:(NSString *)property predicateOperator:(LYRPredicateOperator)predicateOperator value:(id)value",
+            "declaration" : "+ (nonnull instancetype)predicateWithProperty:(nonnull NSString *)property predicateOperator:(LYRPredicateOperator)predicateOperator value:(nullable id)value",
             "comment" : "Creates and returns a new predicate with the given property, operator, and value.\n@property property The property whose value is to be compared.\n@property predicateOperator The operator that determines how the property's value is compared to the reference value.\n@property value The reference value to use in the comparison.",
             "name" : "predicateWithProperty:predicateOperator:value:",
             "return" : "A newly created predicate object."
@@ -1092,71 +1092,71 @@
       "properties" : [
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSString *actionLocalizationKey",
+          "declaration" : "@property (copy, nonatomic, nullable) NSString *actionLocalizationKey",
           "comment" : "If specified, the system displays an alert that includes the Close and View buttons.",
           "name" : "actionLocalizationKey",
           "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSString *alert",
+          "declaration" : "@property (copy, nonatomic, nullable) NSString *alert",
           "comment" : "A string that is the displayed text in the push notification.",
           "name" : "alert"
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSArray *alertLocalizationArguments",
+          "declaration" : "@property (copy, nonatomic, nullable) NSArray<NSString*> *alertLocalizationArguments",
           "comment" : "An array of variable string values to appear in place of the format specifiers in loc-key.",
           "name" : "alertLocalizationArguments",
           "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSString *alertLocalizationKey",
+          "declaration" : "@property (copy, nonatomic, nullable) NSString *alertLocalizationKey",
           "comment" : "A key to an alert-message string in a Localizable.strings file for the current localization.",
           "name" : "alertLocalizationKey",
           "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSDictionary *apns",
+          "declaration" : "@property (copy, nonatomic, nullable) NSDictionary<NSString*NSString*> *apns",
           "comment" : "A dictionary with additional definable APNS values. Can include launch-image key.",
           "name" : "apns"
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSString *category",
+          "declaration" : "@property (copy, nonatomic, nullable) NSString *category",
           "comment" : "A string that sets the APNS category for the push.",
           "name" : "category"
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSDictionary *data",
+          "declaration" : "@property (copy, nonatomic, nullable) NSDictionary<NSString*NSString*> *data",
           "comment" : "A dictionary with optional additional text key-value pairs to be sent in the push notification.",
           "name" : "data"
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSString *sound",
+          "declaration" : "@property (copy, nonatomic, nullable) NSString *sound",
           "comment" : "The name of a sound file in the app bundle.",
           "name" : "sound"
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSString *title",
+          "declaration" : "@property (copy, nonatomic, nullable) NSString *title",
           "comment" : "A short string describing the purpose of the notification.",
           "name" : "title"
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSArray *titleLocalizationArguments",
+          "declaration" : "@property (copy, nonatomic, nullable) NSArray<NSString*> *titleLocalizationArguments",
           "comment" : "Variable string values to appear in place of the format specifiers in title-loc-key.",
           "name" : "titleLocalizationArguments",
           "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
         },
         {
           "declared" : "LYRPushNotificationConfiguration.h",
-          "declaration" : "@property (copy, nonatomic) NSString *titleLocalizationKey",
+          "declaration" : "@property (copy, nonatomic, nullable) NSString *titleLocalizationKey",
           "comment" : "The key to a title string in the Localizable.strings file for the current localization.",
           "name" : "titleLocalizationKey",
           "discussion" : "This property should only be set in a default configuration.  Setting this property in a per recipient configuration raises an exception."
@@ -1166,7 +1166,7 @@
         "instance" : [
           {
             "declared" : "LYRPushNotificationConfiguration.h",
-            "declaration" : "- (void)setPushConfiguration:(LYRPushNotificationConfiguration *)configuration forParticipant:(NSString *)participantIdentifier",
+            "declaration" : "- (void)setPushConfiguration:(nonnull LYRPushNotificationConfiguration *)configuration forParticipant:(nonnull NSString *)participantIdentifier",
             "comment" : "Sets a per participant configuration for the specified participant identifier.",
             "name" : "setPushConfiguration:forParticipant:",
             "discussion" : "This method is used on a default configuration to add per participant customization.  If this method is called on an instance that has per\nparticipant configurations, an exception is raised.",
@@ -1207,13 +1207,13 @@
         },
         {
           "declared" : "LYRQuery.h",
-          "declaration" : "@property (nonatomic) LYRPredicate *predicate",
+          "declaration" : "@property (nonatomic, nullable) LYRPredicate *predicate",
           "comment" : "The predicate of the receiver.",
           "name" : "predicate"
         },
         {
           "declared" : "LYRQuery.h",
-          "declaration" : "@property (nonatomic, readonly) Class<LYRQueryable> queryableClass",
+          "declaration" : "@property (nonatomic, readonly, nonnull) Class<LYRQueryable> queryableClass",
           "comment" : "Returns the queryable class that the receiver is bound to.",
           "name" : "queryableClass"
         },
@@ -1226,7 +1226,7 @@
         },
         {
           "declared" : "LYRQuery.h",
-          "declaration" : "@property (nonatomic) NSArray *sortDescriptors",
+          "declaration" : "@property (nonatomic, nullable) NSArray<NSSortDescriptor*> *sortDescriptors",
           "comment" : "Configures the sort descriptors used to order the result set.",
           "name" : "sortDescriptors",
           "discussion" : "The sort descriptors specify how the objects returned when the query is executed should be ordered (for example by creation date or index). The sort descriptors are\napplied in the order in which they appear in the sortDescriptors array. A value of nil (the default) means that no explicit sorting is applied and the results are returned in database row order."
@@ -1238,7 +1238,7 @@
         "class" : [
           {
             "declared" : "LYRQuery.h",
-            "declaration" : "+ (instancetype)queryWithQueryableClass:(Class<LYRQueryable>)queryableClass",
+            "declaration" : "+ (nonnull instancetype)queryWithQueryableClass:(nonnull Class<LYRQueryable>)queryableClass",
             "comment" : "Creates and returns a new query object for the given queryable class.",
             "name" : "queryWithQueryableClass:",
             "return" : "A newly created query object.",
@@ -1257,7 +1257,7 @@
       "properties" : [
         {
           "declared" : "LYRQueryController.h",
-          "declaration" : "@property (nonatomic, weak) id<LYRQueryControllerDelegate> delegate",
+          "declaration" : "@property (nonatomic, weak, nullable) id<LYRQueryControllerDelegate> delegate",
           "comment" : "Accesses the receiver's delegate.",
           "name" : "delegate"
         },
@@ -1270,7 +1270,7 @@
         },
         {
           "declared" : "LYRQueryController.h",
-          "declaration" : "@property (nonatomic, readonly) LYRQuery *query",
+          "declaration" : "@property (nonatomic, readonly, nonnull) LYRQuery *query",
           "comment" : "Returns the query of the receiver.",
           "name" : "query"
         },
@@ -1283,7 +1283,7 @@
         },
         {
           "declared" : "LYRQueryController.h",
-          "declaration" : "@property (nonatomic) NSSet *updatableProperties",
+          "declaration" : "@property (nonatomic, nullable) NSSet<NSString*> *updatableProperties",
           "comment" : "Configures the set of properties on the queried model class for which LYRQueryControllerChangeTypeUpdate changes will be emitted. The default value is nil, which means that all property changes will generate update notifications to the delegate.",
           "name" : "updatableProperties",
           "discussion" : "The set of updatable properties is used to enhance performance by suppressing the delivery of uninteresting update notifications to the delegate and the subsequent reloading of table or collection view cells. For example, given a collection view that is rendering {@link LYRMessage} objects but does not include read or delivery receipt status on the cell, the developer may wish to limit the updatable properties to isSent and isUnread so that the UI does not refresh as delivery and read receipts are synchronized from other participants of the conversation. A value of nil indicates that no filtering is to be applied and any update to an object in the collection will generate an update callback. An empty set disables all update notifications."
@@ -1300,7 +1300,7 @@
           },
           {
             "declared" : "LYRQueryController.h",
-            "declaration" : "- (BOOL)execute:(NSError **)error",
+            "declaration" : "- (BOOL)execute:(NSError *_Nullable *_Nullable)error",
             "comment" : "Executes the query and loads a result set into the receiver.",
             "name" : "execute:",
             "return" : "A Boolean value that indicates if execution of the query was successful.",
@@ -1313,7 +1313,7 @@
           },
           {
             "declared" : "LYRQueryController.h",
-            "declaration" : "- (void)executeWithCompletion:(void ( ^ ) ( BOOL success , NSError *error ))completion",
+            "declaration" : "- (void)executeWithCompletion:(nonnull void ( ^ ) ( BOOL success , NSError *_Nonnull error ))completion",
             "comment" : "Executes the query asynchronously and loads a result and error in a completion block.",
             "name" : "executeWithCompletion:",
             "parameters" : [
@@ -1325,7 +1325,7 @@
           },
           {
             "declared" : "LYRQueryController.h",
-            "declaration" : "- (NSIndexPath *)indexPathForObject:(id<LYRQueryable>)object",
+            "declaration" : "- (nullable NSIndexPath *)indexPathForObject:(nonnull id<LYRQueryable>)object",
             "comment" : "Returns the index path for the given object in the result set.",
             "name" : "indexPathForObject:",
             "return" : "The index path for the given object or nil if it does not exist in the result set.",
@@ -1338,7 +1338,7 @@
           },
           {
             "declared" : "LYRQueryController.h",
-            "declaration" : "- (NSDictionary *)indexPathsForObjectsWithIdentifiers:(NSSet *)objectIdentifiers",
+            "declaration" : "- (nonnull NSDictionary *)indexPathsForObjectsWithIdentifiers:(nonnull NSSet *)objectIdentifiers",
             "comment" : "Returns a dictionary mapping the given set of object identifiers to the NSIndexPath values that indicate\nwhere in the query controller's result set the corresponding objects appear. Any object identifiers that are not in\nthe result set (or are outside the pagination window) will not have an entry in the dictionary returned.",
             "name" : "indexPathsForObjectsWithIdentifiers:",
             "return" : "A dictionary mapping the object identifiers that are part of the query controller results to the index path that appear at.",
@@ -1371,7 +1371,7 @@
           },
           {
             "declared" : "LYRQueryController.h",
-            "declaration" : "- (id)objectAtIndexPath:(NSIndexPath *)indexPath",
+            "declaration" : "- (nullable id)objectAtIndexPath:(nonnull NSIndexPath *)indexPath",
             "comment" : "Returns the object for the given index path from the result set.",
             "name" : "objectAtIndexPath:",
             "return" : "The object at the specified index or nil if none could be found.",
@@ -1395,7 +1395,7 @@
         "instance" : [
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client didAuthenticateAsUserID:(NSString *)userID",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didAuthenticateAsUserID:(nonnull NSString *)userID",
             "comment" : "Tells the delegate that a client has successfully authenticated with Layer.",
             "name" : "layerClient:didAuthenticateAsUserID:",
             "parameters" : [
@@ -1411,7 +1411,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client didFailOperationWithError:(NSError *)error",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didFailOperationWithError:(nonnull NSError *)error",
             "comment" : "Tells the delegate that an operation encountered an error during a local mutation or synchronization activity.",
             "name" : "layerClient:didFailOperationWithError:",
             "parameters" : [
@@ -1427,7 +1427,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client didFailSynchronizationWithError:(NSError *)error",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didFailSynchronizationWithError:(nonnull NSError *)error",
             "comment" : "Tells the delegate the client encountered an error during synchronization.",
             "name" : "layerClient:didFailSynchronizationWithError:",
             "parameters" : [
@@ -1443,7 +1443,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client didFinishContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(id)object",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didFinishContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(nonnull id)object",
             "comment" : "Tells the delegate that a content transfer has finished.",
             "name" : "layerClient:didFinishContentTransfer:ofObject:",
             "parameters" : [
@@ -1463,7 +1463,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client didFinishSynchronizationWithChanges:(NSArray *)changes",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didFinishSynchronizationWithChanges:(nonnull NSArray<LYRObjectChange*> *)changes",
             "comment" : "Tells the delegate that a client has finished synchronization and applied a set of changes.",
             "name" : "layerClient:didFinishSynchronizationWithChanges:",
             "parameters" : [
@@ -1479,7 +1479,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client didLoseConnectionWithError:(NSError *)error",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didLoseConnectionWithError:(nonnull NSError *)error",
             "comment" : "Informs the delegate that the client has lost an established connection with Layer due to an error.",
             "name" : "layerClient:didLoseConnectionWithError:",
             "parameters" : [
@@ -1495,7 +1495,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client didReceiveAuthenticationChallengeWithNonce:(NSString *)nonce",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didReceiveAuthenticationChallengeWithNonce:(nonnull NSString *)nonce",
             "comment" : "Tells the delegate that the server has issued an authentication challenge to the client and a new Identity Token must be submitted.",
             "name" : "layerClient:didReceiveAuthenticationChallengeWithNonce:",
             "discussion" : "At any time during the lifecycle of a Layer client session the server may issue an authentication challenge and require that\nthe client confirm its identity. When such a challenge is encountered, the client will immediately become deauthenticated and will no\nlonger be able to interact with communication services until reauthenticated. The nonce value issued with the challenge must be submitted\nto the remote identity provider in order to obtain a new Identity Token.",
@@ -1512,7 +1512,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client objectsDidChange:(NSArray *)changes",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client objectsDidChange:(nonnull NSArray<LYRObjectChange*> *)changes",
             "comment" : "Tells the delegate that objects associated with the client have changed due to local mutation or synchronization activities.",
             "name" : "layerClient:objectsDidChange:",
             "parameters" : [
@@ -1528,7 +1528,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client willAttemptToConnect:(NSUInteger)attemptNumber afterDelay:(NSTimeInterval)delayInterval maximumNumberOfAttempts:(NSUInteger)attemptLimit",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client willAttemptToConnect:(NSUInteger)attemptNumber afterDelay:(NSTimeInterval)delayInterval maximumNumberOfAttempts:(NSUInteger)attemptLimit",
             "comment" : "Informs the delegate that the client is making an attempt to connect to Layer.",
             "name" : "layerClient:willAttemptToConnect:afterDelay:maximumNumberOfAttempts:",
             "parameters" : [
@@ -1552,7 +1552,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(LYRClient *)client willBeginContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(id)object withProgress:(LYRProgress *)progress",
+            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client willBeginContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(nonnull id)object withProgress:(nonnull LYRProgress *)progress",
             "comment" : "Tells the delegate that a content transfer will begin.",
             "name" : "layerClient:willBeginContentTransfer:ofObject:withProgress:",
             "parameters" : [
@@ -1576,7 +1576,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClientDidConnect:(LYRClient *)client",
+            "declaration" : "- (void)layerClientDidConnect:(nonnull LYRClient *)client",
             "comment" : "Informs the delegate that the client has successfully connected to Layer.",
             "name" : "layerClientDidConnect:",
             "parameters" : [
@@ -1588,7 +1588,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClientDidDeauthenticate:(LYRClient *)client",
+            "declaration" : "- (void)layerClientDidDeauthenticate:(nonnull LYRClient *)client",
             "comment" : "Tells the delegate that a client has been deauthenticated.",
             "name" : "layerClientDidDeauthenticate:",
             "discussion" : "The client may become deauthenticated either by an explicit call to deauthenticateWithCompletion: or by encountering an authentication challenge.",
@@ -1601,7 +1601,7 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClientDidDisconnect:(LYRClient *)client",
+            "declaration" : "- (void)layerClientDidDisconnect:(nonnull LYRClient *)client",
             "comment" : "Informs the delegate that the client has disconnected from Layer.",
             "name" : "layerClientDidDisconnect:",
             "parameters" : [
@@ -1622,7 +1622,7 @@
         "instance" : [
           {
             "declared" : "LYRProgress.h",
-            "declaration" : "- (void)progressDidChange:(LYRProgress *)progress",
+            "declaration" : "- (void)progressDidChange:(nonnull LYRProgress *)progress",
             "comment" : "Tells the delegate that the progress instance has changed.",
             "name" : "progressDidChange:",
             "discussion" : "Progress is observed via instance's fractionCompleted or completedUnitCount properties."
@@ -1638,7 +1638,7 @@
         "instance" : [
           {
             "declared" : "LYRQueryController.h",
-            "declaration" : "- (void)queryController:(LYRQueryController *)controller didChangeObject:(id)object atIndexPath:(NSIndexPath *)indexPath forChangeType:(LYRQueryControllerChangeType)type newIndexPath:(NSIndexPath *)newIndexPath",
+            "declaration" : "- (void)queryController:(nonnull LYRQueryController *)controller didChangeObject:(nonnull id)object atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(LYRQueryControllerChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath",
             "comment" : "Tells the delegate that a particular object in the result set of query controller has changed.",
             "name" : "queryController:didChangeObject:atIndexPath:forChangeType:newIndexPath:",
             "parameters" : [
@@ -1666,7 +1666,7 @@
           },
           {
             "declared" : "LYRQueryController.h",
-            "declaration" : "- (void)queryControllerDidChangeContent:(LYRQueryController *)queryController",
+            "declaration" : "- (void)queryControllerDidChangeContent:(nonnull LYRQueryController *)queryController",
             "comment" : "Tells the delegate that the result set of query controller has changed.",
             "name" : "queryControllerDidChangeContent:",
             "parameters" : [
@@ -1678,7 +1678,7 @@
           },
           {
             "declared" : "LYRQueryController.h",
-            "declaration" : "- (void)queryControllerWillChangeContent:(LYRQueryController *)queryController",
+            "declaration" : "- (void)queryControllerWillChangeContent:(nonnull LYRQueryController *)queryController",
             "comment" : "Tells the delegate that the result set of query controller is about to change.",
             "name" : "queryControllerWillChangeContent:",
             "parameters" : [
@@ -1698,7 +1698,7 @@
       "properties" : [
         {
           "declared" : "LYRQuery.h",
-          "declaration" : "@property (nonatomic, readonly) NSURL *identifier",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSURL *identifier",
           "comment" : "Returns the unique identifier for the receiver as a URL.",
           "name" : "identifier"
         }
