@@ -9,7 +9,7 @@ For applications that wish to send a simple push notification, the following pay
 ```json
 {
     "notification" : {
-        "title" : "Simon and Garfunkel"
+        "title": "Simon and Garfunkel",
         "text": "Hello darkness my old friend",
         "sound": "silence.aiff"
     }
@@ -91,6 +91,7 @@ The Layer Notification Service provides for advanced notification configuration 
         "apns": {
             "launch-image": ""
         },
+
         "data": {
             "key": "value"
         }
