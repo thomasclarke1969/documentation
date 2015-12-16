@@ -1,6 +1,6 @@
 # Notification Customization
 
-Sending a Layer message or announcement will deliver a push notification to all recipients. Developers are free to customize the `notification` if they so choose by setting a value for the `notification` key in the message or announcement `payload`.
+Sending a Layer message or announcement will deliver a push notification to all recipients. Developers are free to customize the `notification` if they so choose by setting a value for the `notification` key in the message or announcement payload.
 
 # Basic Customization
 
@@ -8,17 +8,17 @@ For applications that wish to send a simple push notification, the following pay
 
 ```json
 {
-    "notification" : [
+    "notification" : {
         "title" : "Simon and Garfunkel"
         "text": "Hello darkness my old friend",
         "sound": "silence.aiff"
-    ]
+    }
 }
 ```
 
 # Per Recipient Customization
 
-Applications that require customization on a per recipient basis can do so by supplying a value for the `recipients` key in the notification payload. The value for the `notification` key should be an array of objects that specify the notification title, text and sound for each recipient. If any option is not specified within the recipient array, the value will default to the value specified at the root of the `notification` structure.
+Applications that require customization on a per recipient basis can do so by supplying a value for the `recipients` key in the notification payload. This value should be an array of objects that specify the notification `title`, `text` and `sound` for each recipient. If any option is not specified within the `recipient` array, the value will default to the value specified at the root of the `notification` structure.
 
 | Name            | Type    | Description |
 |-----------------|---------|-------------|
@@ -61,7 +61,7 @@ The following rules apply to participant specific notifications:
 
 # Advanced Customization
 
-The Layer Notification Service provides for advanced notification configuration via the following keys. The following table shows how Layer Notification Keys map to notification provider keys.
+The Layer Notification Service provides for advanced notification configuration via the keys in following table. The table also shows how Layer notification keys map to both APNS and CGM push keys.
 
 | Name                  | APNs Key        | GCM Key         |
 |-----------------------|-----------------|-----------------|
@@ -75,11 +75,6 @@ The Layer Notification Service provides for advanced notification configuration 
 | **loc-key**           | loc-args        | body_loc_args   |
 | **launch_image**      | launch_image    | n/a             |
 | **data**              | data            | data            |
-
-Documentation on advanced configuration for notifications can be found at the following:
-
-* [Apple Push Notification Service](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html#//apple_ref/doc/uid/TP40008194-CH100-SW1)
-* [Android Google Cloud Notification Service](https://developers.google.com/cloud-messaging/http-server-ref)
 
 ```json
 {
@@ -102,5 +97,10 @@ Documentation on advanced configuration for notifications can be found at the fo
     }
 }
 ```
+
+Documentation on push configuration from the APNS and GCM can be found at the following links:
+
+* [Apple Push Notification Service](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html#//apple_ref/doc/uid/TP40008194-CH100-SW1)
+* [Android Google Cloud Notification Service](https://developers.google.com/cloud-messaging/http-server-ref)
 
 > Note that values for iOS badge counts cannot be provided because the pushes are fanned out to all participants. You can enable support for server-side badge count management in the Layer Dashboard if you wish to provide badge counts for your iOS users.
