@@ -11,6 +11,7 @@
       "delete-a-conversation": "Deleting Conversations",
       "send-a-message": "Sending Messages",
       "send-an-announcement": "Sending Announcements",
+      "notification-customization": "Notification Customization",
       "block-users": "Managing User Block Lists",
       "libraries": "Client Libraries"
     }
