@@ -1,6 +1,35 @@
 # Retrieving Conversations
 
-If you have a URL for a Conversation, you can download the Conversation object by using the following endpoint.
+Applications can retrieve conversations for a specific user or for a specific conversation URL. Use the following endpoint to request all conversations for a specific user.
+
+```request
+GET /apps/:app_uuid/users/:user_id/conversations
+```
+
+```console
+curl  -X GET \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations
+```
+
+
+Use the following endpoint to request a particular Conversation that a User is a member of.
+
+```request
+GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid
+```
+
+```console
+curl  -X GET \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations/CONVERSATION_UUID
+```
+
+Alternatively, if you have a URL for a Conversation, you can request the Conversation by using the following endpoint.
 
 ```request
 GET /apps/:app_uuid/conversations/:conversation_uuid
