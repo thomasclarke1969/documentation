@@ -15,7 +15,7 @@ curl  -X GET \
 ```
 
 
-Use the following endpoint to request a particular Conversation that a User is a member of.
+Use the following endpoint to request a specific Conversation for a user.
 
 ```request
 GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid
