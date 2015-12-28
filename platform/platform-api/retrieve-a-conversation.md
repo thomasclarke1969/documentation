@@ -35,6 +35,14 @@ Alternatively, if you have a URL for a Conversation, you can request the Convers
 GET /apps/:app_uuid/conversations/:conversation_uuid
 ```
 
+```console
+curl  -X GET \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
+      https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
+```
+
 ### Successful Response `200 (OK)`
 
 ```json
@@ -52,12 +60,4 @@ GET /apps/:app_uuid/conversations/:conversation_uuid
         "background_color": "#3c3c3c"
     }
 }
-```
-
-```console
-curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
-      -H 'Authorization: Bearer TOKEN' \
-      -H 'Content-Type: application/json' \
-      https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
 ```
