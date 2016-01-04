@@ -16,7 +16,7 @@ List<Message> results = layerClient.executeQuery(query, Query.ResultType.OBJECTS
 
 The following examples demonstrate multiple common queries that can be utilized by applications.
 
-##Conversation Queries
+## Conversation Queries
 
 ### Fetching all Conversations Sorted by Last Message Received
 ```java
