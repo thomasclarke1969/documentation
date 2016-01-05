@@ -70,8 +70,7 @@ List<Message> results = (List<Message>)layerClient.executeQuery(query, Query.Res
 List<URI> results = (List<URI>)layerClient.executeQuery(query, Query.ResultType.IDENTIFIERS);
 
 // Count of objects
-List<Integer> resultArray = (List<Integer>)layerClient.executeQuery(query, Query.ResultType.COUNT);
-int count = resultArray.get(0);
+Long resultArray = layerClient.executeForCount(query);
 ```
 
 
