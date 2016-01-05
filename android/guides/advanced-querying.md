@@ -65,8 +65,7 @@ Query query = Query.builder(Message.class)
     .predicate(new Predicate(Message.Property.IS_UNREAD, Predicate.Operator.EQUAL_TO, true))
     .build();
 
-List<Integer> resultArray = layerClient.executeQuery(query, Query.ResultType.COUNT);
-int count = resultArray.get(0).intValue();
+Long resultArray = layerClient.executeForCount(query);
 ```
 
 ### Fetching all Messages in a specific Conversation
