@@ -24,10 +24,6 @@
     "title": "Atlas",
     "section": {
       "setup-atlas": "Setup",
-      "core-components": "Core Components",
-      "plug-in-your-users": "Add Your Users",
-      "configuring-ui": "Customization",
-      "custom-payload": "Sending Custom Payload"
     }
   },
   "guides": {
