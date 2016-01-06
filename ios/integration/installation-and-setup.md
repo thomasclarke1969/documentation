@@ -1,10 +1,14 @@
 # Installation
 
-The simplest way to add LayerKit to your application is with [CocoaPods](http://www.cocoapods.org). CocoaPods provides a simple, versioned dependency management system that automates configuring libraries and frameworks. You can install Cocoapods via the following command. If you don't want to use Cocoapods follow these manual import [instructions](https://support.layer.com/hc/en-us/articles/204256740-Can-I-use-LayerKit-without-Cocoapods-).
+The simplest way to add LayerKit to your application is with [CocoaPods](http://www.cocoapods.org) or [Carthage](). Both package managers provide a simple, versioned dependency management system that automates configuring libraries and frameworks. If you don't want to use a package manager then follow the [manual installation instructions](https://support.layer.com/hc/en-us/articles/204256740-Can-I-use-LayerKit-without-Cocoapods-) on the Layer knowledge base.
+
+## Automated installation with CocoaPods
 
 ```emphasis
 LayerKit requires CocoaPods v0.39 or higher.
 ```
+
+You can install Cocoapods via the following command:
 
 ```console
 $ sudo gem install cocoapods
@@ -37,9 +41,41 @@ Cocoapods will download and install LayerKit and also create a .xcworkspace proj
 
 If you're are supporting iOS 9 (regardless if you're using Cocoapods or not) you need to follow [these instructions](https://support.layer.com/hc/en-us/articles/205034154) and update your Info.plist.
 
+## Automated installation with Carthage
+
+Install Carthage as detailed on the Carthage Github [README.md](https://github.com/Carthage/Carthage#installing-carthage).
+
+Create a `Cartfile` and add the following content:
+
+```
+github "layerhq/releases-ios"
+```
+
+Instruct Carthage to pull down the latest binary release of the LayerKit framework by running `carthage update`:
+
+```console
+$ carthage update
+```
+
+Drag LayerKit.framework from the appropriate platform directory in the Carthage/Build/ to the “Embedded Binaries” section of your Xcode project’s “General” settings.
+
+On your application targets’ “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script with the following contents:
+
+```console
+/usr/local/bin/carthage copy-frameworks
+```
+
+and add the paths to LayerKit (and any other frameworks you want to use) under “Input Files”, e.g.:
+
+```console
+$(SRCROOT)/Carthage/Build/iOS/LayerKit.framework
+```
+
+This script works around an [App Store submission bug](http://www.openradar.me/radar?id=6409498411401216) triggered by universal dynamic frameworks.
+
 ## Connect LayerKit
 
-Import the LayerKit headers into your `AppDelegate.h`
+Once you have completed installation of LayerKit, import the LayerKit headers into your `AppDelegate.h`
 
 ```objectivec
 #import <LayerKit/LayerKit.h>
