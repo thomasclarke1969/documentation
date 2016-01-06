@@ -1,6 +1,6 @@
 # Installation
 
-The simplest way to add LayerKit to your application is with [CocoaPods](http://www.cocoapods.org) or [Carthage](). Both package managers provide a simple, versioned dependency management system that automates configuring libraries and frameworks. If you don't want to use a package manager then follow the [manual installation instructions](https://support.layer.com/hc/en-us/articles/204256740-Can-I-use-LayerKit-without-Cocoapods-) on the Layer knowledge base.
+The simplest way to add LayerKit to your application is with [CocoaPods](http://www.cocoapods.org) or [Carthage](https://github.com/Carthage/Carthage). Both provide a simple, versioned dependency management system that automates configuring libraries and frameworks. If you don't want to use a package manager then follow the [manual installation instructions](https://support.layer.com/hc/en-us/articles/204256740-Can-I-use-LayerKit-without-Cocoapods-) on the Layer knowledge base.
 
 ## Automated installation with CocoaPods
 
