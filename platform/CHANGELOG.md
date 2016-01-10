@@ -1,5 +1,11 @@
 # Layer Platform API Change Log
 
+## January 11, 2016
+
+#### Enhancements
+
+* Add new message data access APIs.  These enable you to retrieve a list of messages or a single message from a conversation, either on behalf of a participant or irrespective of user.
+
 ## December 29, 2015
 
 #### Bug Fixes
