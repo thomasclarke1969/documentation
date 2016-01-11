@@ -1,8 +1,12 @@
 # Retrieving Messages
 
-Applications can retrieve lists of messages or a single message from a given conversation.  Depending on the use case, messages can be retrieved either on behalf of a specific conversation participant, or in a user-nonspecific manner.  When done on behalf of a user, the message will include attributes corresponding to that specific user, such as `is_unread` and `received_at`.  When utilizing the user-nonspecific endpoints, those attributes will be omitted.
+Depending on the use case, messages can be retrieved using either a System perspective or a User perspective.  The System perspective will list all messages in the conversation. A User perspective differs from the System in the following ways:
 
-Use the following endpoint to request all messages in a conversation on behalf of a specific user.
+- It provides a `received_at` property.
+- It provides an `is_unread` property.
+- It removes all messages that have been deleted by this user but not globally deleted.
+
+Use the following endpoint to request all messages in a conversation from a specific user's perspective.
 
 ```request
 GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid/messages
@@ -74,7 +78,7 @@ curl  -X GET \
 ]
 ```
 
-Use the following endpoint to request all messages in a conversation irrespective of user.
+Use the following endpoint to request all messages in a conversation from the System's perspective.
 
 ```request
 GET /apps/:app_uuid/conversations/:conversation_uuid/messages
@@ -147,7 +151,7 @@ curl  -X GET \
 ```
 
 
-Use the following endpoint to request a single message from a conversation on behalf of a specific user.
+Use the following endpoint to request a single message from a conversation from a specific user's perspective.
 
 ```request
 GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid/messages/:message_uuid
@@ -192,7 +196,7 @@ curl  -X GET \
 ```
 
 
-Use the following endpoint to request a single message from a conversation irrespective of user.
+Use the following endpoint to request a single message from a conversation from the System's perspective.
 
 ```request
 GET /apps/:app_uuid/conversations/:conversation_uuid/messages/:message_uuid
