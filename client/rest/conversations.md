@@ -420,8 +420,8 @@ You can set and delete metadata keys in a Conversation.
 
 ```json
 [
-  { "operation": "set", "path": "metadata.a.b.count", "value": "42" },
-  { "operation": "set", "path": "metadata.a.b.word_of_the_day", "value": "Argh" }
+  { "operation": "set", "property": "metadata.a.b.count", "value": "42" },
+  { "operation": "set", "property": "metadata.a.b.word_of_the_day", "value": "Argh" }
 ]
 ```
 
@@ -445,7 +445,7 @@ curl  -X PATCH \
       -H "Accept: application/vnd.layer+json; version=1.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/vnd.layer-patch+json" \
-      -d '[{ "operation": "set", "path": "metadata.a.b.count", "value": "42" }, { "operation": "set", "path": "metadata.a.b.word_of_the_day", "value": "Argh" }]' \
+      -d '[{ "operation": "set", "property": "metadata.a.b.count", "value": "42" }, { "operation": "set", "property": "metadata.a.b.word_of_the_day", "value": "Argh" }]' \
       https://api.layer.com/conversations/CONVERSATION_UUID
 ```
 
@@ -459,7 +459,7 @@ Note that the entire metadata structure can be replaced using:
 [
   {
     "operation": "set",
-    "path": "metadata",
+    "property": "metadata",
     "value": {
         "a": "b",
         "c": {
