@@ -185,6 +185,11 @@ The following is an example of a push payload from Layer:
 ```
 The conversation identifier is contained in `layer.conversation_identifier` and the message identifier is contained in `layer.message_identifier`.
 
+```emphasis
+** Performing actions after a push has been tapped.**
+A common use case is to switch to a conversation list or conversation view immediately after someone taps on a push notification. However, if you try to navigate to the conversation view before the sync has completed the new messages may not appear until the sync has finished. To remedy this `LYRClient` provides a method called `synchronizeWithRemoteNotification`. The code block inside `synchronizeWithRemoteNotification` will get executed immediately after the sync has finished. So we recommend navigating to the conversation list or conversation view  from within this method.
+```
+
 The following code will retrieve the LYRMessage object from a push notification:
 
 ```objective-c
