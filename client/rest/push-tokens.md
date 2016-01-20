@@ -4,7 +4,7 @@ When the Client API is used from mobile frameworks (React Native, Cordova, Titan
 
 ## Registering a Push Token
 
-You can create and send a Message using:
+You can register your device to start receiving push notifications from Layer using:
 
 ```request
 POST /push_tokens
