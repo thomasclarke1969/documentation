@@ -108,3 +108,11 @@ curl  -X GET \
     }
 }
 ```
+
+### Unsuccessful Response `404`
+
+If you try to retrieve a conversation that doesn't exist you'll get a `404` response code.
+
+### Successful Response `410 (GONE)`
+
+If you try to retrieve a conversation that has been deleted you'll get a `410` response code.
