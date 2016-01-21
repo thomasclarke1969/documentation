@@ -144,7 +144,7 @@ Conversations are not pushed to other participants, and are not queryable, until
 ```
 
 ## Recipient Status
-Layer allows you the current status of a message for every participant in a conversation. The states are the following:
+Layer provides access to the current status of a message for every participant in a conversation. The states are the following:
 
 * `Message.RecipientStatus.PENDING` - The message is waiting to be synced with the Layer service.
 * `Message.RecipientStatus.SENT` - The message has successfully reached the Layer service and is waiting to be synchronized with recipient devices.
