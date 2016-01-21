@@ -59,7 +59,7 @@ Layer does not place restrictions on the type of data you send through the servi
 The following demonstrates creating message parts with both text/plain and image/jpeg MIME types.
 
 ```java
-// Creates a message part with a string of next and text/plain MIME type.
+// Creates a message part with a string of "Hi!..." and text/plain MIME type.
 String messageText = "Hi! How are you";
 MessagePart messagePart = layerClient.newMessagePart("text/plain", messageText.getBytes());
 
