@@ -2,13 +2,16 @@
 
 LayerKit is a powerful tool that lets you add in-app messaging with very little overhead. LayerKit can work with any existing User Management system, takes care of synchronization and offline support, and includes features such as querying, Message delivery and read receipts, Conversation metadata, and typing indicators.
 
-**Authentication**<br/>
+## Authenticating
+
 In order for a user to send or recieve messages, you must Authenticate them first. Layer will accept any unique String as a User ID (UIDs, email addresses, phone numbers, usernames, etc), so you can use any new or existing User Management system. As part of the Authentication process, you will need to set up a Web Service which generates a unique Identity Token for each user on request.
 
-**Synchronization and Offline Support**<br/>
+## Synchronization and Offline Support
+
 When a user successfully authenticates, their entire Conversation and Message history is downloaded to the device. LayerKit then keeps this data in sync with the backend, so all operations, such as queries, execute locally. This means LayerKit handles offline support for you: if there is no network connection, messages are queued and will be sent when a connection is re-established.
 
-**Messaging**<br/>
+## Messaging
+
 LayerKit relies on three basic concepts in order to facilitate messaging:
 
 * **Conversation** - represented by the [LYRConversation](/docs/ios/api#lyrconversation) class. Conversations coordinate messaging within Layer and can contain up to 25 participants. All Messages sent are sent within the context of a conversation.
@@ -37,7 +40,8 @@ LYRMessage *message = [layerClient newMessageWithParts:@[ messagePart ] options:
 BOOL success = [conversation sendMessage:message error:&error];
 ```
 
-**Querying**<br/>
+## Querying
+
 LayerKit provides a powerful querying engine that lets you search for specific Conversations or Messages based on key properties. For example, you can find a list of all Conversations sorted by when the last message was received, or find all Messages in a Conversation that are unread. To build a Query, you specify which class you wish to execute the query on - either Conversations or Messages, and you can then specify any predicates, and how you want the results to be sorted.
 
 
@@ -46,7 +50,8 @@ LayerKit provides a powerful querying engine that lets you search for specific C
 You can use a query to see if a conversation between specific participants already exists before trying to create a new one. [Click here](https://support.layer.com/hc/en-us/articles/203303290-What-happens-if-2-separate-devices-create-conversations-with-identical-participant-sets-) to learn more.
 ```
 
-**Additional Features**
+## Additional Features
+
 * **Message Read and Delivery Receipts**<br/>
  For one on one Conversations, or small group Conversations, it makes sense to show the current state of a given message. LayerKit keeps track of whether a Message has been sent, and if it has, which Participants in the Conversation have downloaded that Message (marked as `Delivered`). You can then choose to mark any Message as `Read` once it is actually displayed in the UI.
 * **Conversation Metadata**<br/>
