@@ -20,6 +20,7 @@ POST /push_tokens
 | **device_id** | string | A stable id that identified the device, from the OS. This is only used to avoid duplicate tokens on a device |
 | **apns_bundle_id**  | string | (optional) The APNS bundle id corresponding to the token |
 | **gcm_sender_id**  | string | (optional) The GCM sender id corresponding to the token |
+| **ios_version**  | string | (optional) Should be a version number like `9.0`. This determines how pushes are sent to iOS device, which changed in iOS 8. The new behavior, which allows larger payloads, is the default |
 
 ### Example
 
@@ -29,6 +30,7 @@ POST /push_tokens
     "type": "apns",
     "device_id": "a7775566-bfbf-11e5-bf72-359a01002888",
     "apns_bundle_id": "com.layer.bundleid"
+    "ios_version": "9.0"
 }
 ```
 
