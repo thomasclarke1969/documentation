@@ -37,5 +37,11 @@ Packets will be named by the `type` field in this document:
 * **Response Packet**: The server sends this in response to a Request Packet
 * **Signal Packet**: An ephemeral event such as typing indicator is sent to or from the server
 
+## Managing a Websocket
+
+Websockets can close for a variety of reasons, caused by the client, the network or the server.  You should be prepared to create a new websocket when the old one closes.  When your session-token is either deleted or expired, the websocket session will automatically close as well.
+
+On reopenning a websocket, you can [catch up on missed events](#recovery).
+
 ## Sample Code
 For sample code, visit the [Layer for Web Sample Code](https://github.com/layerhq/samples-web-apis) repo on Github.
