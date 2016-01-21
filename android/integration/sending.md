@@ -18,7 +18,7 @@ If multiple users independently create distinct conversations with the same set 
 
 You can also have multiple conversations with the same set of users, should you choose.
 
-```
+```java
 ConversationOptions options = new ConversationOptions().distinct(false);
 Conversation topicA = layerClient.newConversation(options, Arrays.asList("USER-IDENTIFIER"));
 Conversation topicB = layerClient.newConversation(options, Arrays.asList("USER-IDENTIFIER"));
