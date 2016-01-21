@@ -86,7 +86,7 @@ HashMap location = new HashMap<String, String>();
 location.put("lat", "25.43567");
 location.put("lon", "123.54383");
 
-//Convert the location to data
+// Convert the location to data
 ByteArrayOutputStream locationData = new ByteArrayOutputStream();
 ObjectOutputStream outputStream = new ObjectOutputStream(locationData);
 outputStream.writeObject(location);
@@ -124,7 +124,7 @@ Once an `Message` object is initialized, it is ready for sending. The message is
 conversation.send(message);
 
 // Sends the message when it contains a part larger than 2kb, such as an image or
-//  video (this is referred to as Rich Content, see the Guide for more details)
+// video (this is referred to as Rich Content, see the Guide for more details)
 conversation.send(message, new LayerProgressListener() {
     public void onProgressStart(MessagePart messagePart, Operation operation) {
     }
@@ -154,10 +154,10 @@ Layer provides access to the current status of a message for the authenticated u
 You can check a message's status for an individual participant or get a map of the recipient status for all participants:
 
 ```java
-//Get the status for a specific participant
+// Get the status for a specific participant
 Message.RecipientStatus status = message.getRecipientStatus(userID);
 
-//Get statuses for all participants
+// Get statuses for all participants
 Map<String, Message.RecipientStatus> statuses = message.getRecipientStatus();
 ```
 
@@ -171,8 +171,8 @@ message.markAsRead();
 
 When displaying the message, you can get the Sender's User ID and, if necessary, do a lookup in your user management system:
 
-```
-//The sender's user id
+```java
+// The sender's user id
 String senderID = msg.getSender().getUserId();
 ```
 
