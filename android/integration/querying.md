@@ -8,7 +8,7 @@ Queries execute on the local database, and will only return results for conversa
 To demonstrate a simple example, the following queries Layer for the latest 20 messages in the given conversation.
 
 ```java
-//Return 20 most recent messages in myConversation
+// Return 20 most recent messages in myConversation
 Query query = Query.builder(Message.class)
     .predicate(new Predicate(Message.Property.CONVERSATION, Predicate.Operator.EQUAL_TO, myConversation))
     .sortDescriptor(new SortDescriptor(Message.Property.SENT_AT, SortDescriptor.Order.DESCENDING))
@@ -78,7 +78,7 @@ Long resultArray = layerClient.executeForCount(query);
 Queries are executed by calling executeQuery on a LayerClient object. The method takes a Query object. If successful, the method will return a List of object which represent the results of the query.
 
 ```java
-//Return up to 10 conversations with unread messages, newest first
+// Return up to 10 conversations with unread messages, newest first
 Query query = Query.builder(Conversation.class)
     .predicate(new Predicate(Conversation.Property.HAS_UNREAD_MESSAGES, Predicate.Operator.EQUAL_TO, true))
     .sortDescriptor(new SortDescriptor(Conversation.Property.LAST_MESSAGE_RECEIVED_AT, SortDescriptor.Order.DESCENDING))
