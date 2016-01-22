@@ -18,7 +18,7 @@ If multiple users independently create distinct conversations with the same set 
 
 You can also have multiple conversations with the same set of users, should you choose.
 
-```
+```java
 ConversationOptions options = new ConversationOptions().distinct(false);
 Conversation topicA = layerClient.newConversation(options, Arrays.asList("USER-IDENTIFIER"));
 Conversation topicB = layerClient.newConversation(options, Arrays.asList("USER-IDENTIFIER"));
@@ -59,7 +59,7 @@ Layer does not place restrictions on the type of data you send through the servi
 The following demonstrates creating message parts with both text/plain and image/jpeg MIME types.
 
 ```java
-// Creates a message part with a string of next and text/plain MIME type.
+// Creates a message part with a string of "Hi!..." and text/plain MIME type.
 String messageText = "Hi! How are you";
 MessagePart messagePart = layerClient.newMessagePart("text/plain", messageText.getBytes());
 
@@ -86,7 +86,7 @@ HashMap location = new HashMap<String, String>();
 location.put("lat", "25.43567");
 location.put("lon", "123.54383");
 
-//Convert the location to data
+// Convert the location to data
 ByteArrayOutputStream locationData = new ByteArrayOutputStream();
 ObjectOutputStream outputStream = new ObjectOutputStream(locationData);
 outputStream.writeObject(location);
@@ -124,7 +124,7 @@ Once an `Message` object is initialized, it is ready for sending. The message is
 conversation.send(message);
 
 // Sends the message when it contains a part larger than 2kb, such as an image or
-//  video (this is referred to as Rich Content, see the Guide for more details)
+// video (this is referred to as Rich Content, see the Guide for more details)
 conversation.send(message, new LayerProgressListener() {
     public void onProgressStart(MessagePart messagePart, Operation operation) {
     }
@@ -144,7 +144,7 @@ Conversations are not pushed to other participants, and are not queryable, until
 ```
 
 ## Recipient Status
-Layer allows you the current status of a message for every participant in a conversation. The states are the following:
+Layer provides access to the current status of a message for the authenticated user. The states are the following:
 
 * `Message.RecipientStatus.PENDING` - The message is waiting to be synced with the Layer service.
 * `Message.RecipientStatus.SENT` - The message has successfully reached the Layer service and is waiting to be synchronized with recipient devices.
@@ -154,10 +154,10 @@ Layer allows you the current status of a message for every participant in a conv
 You can check a message's status for an individual participant or get a map of the recipient status for all participants:
 
 ```java
-//Get the status for a specific participant
+// Get the status for a specific participant
 Message.RecipientStatus status = message.getRecipientStatus(userID);
 
-//Get statuses for all participants
+// Get statuses for all participants
 Map<String, Message.RecipientStatus> statuses = message.getRecipientStatus();
 ```
 
@@ -171,8 +171,8 @@ message.markAsRead();
 
 When displaying the message, you can get the Sender's User ID and, if necessary, do a lookup in your user management system:
 
-```
-//The sender's user id
+```java
+// The sender's user id
 String senderID = msg.getSender().getUserId();
 ```
 

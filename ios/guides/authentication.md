@@ -23,7 +23,8 @@ A `Provider ID` and `Key ID` must be retained by your backend application and us
 
 To manage your authentication keys please visit [Developer Dashboard](https://developer.layer.com).
 
-##Step 2 - Start the Authentication process
+## Step 2 - Start the Authentication process
+
 The main logic will reside in the `requestAuthenticationNonceWithCompletion` method.
 
 ```objectivec

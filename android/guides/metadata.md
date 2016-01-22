@@ -24,24 +24,24 @@ synchronization.
 Metadata access is performed via public instance methods on the Conversation model objects:
 
 ```java
-//Puts the metadata into this conversation. The 
+// Puts the metadata into this conversation. The 
 Metadata newData = Metadata.newInstance();
 newData.put(key, value);
 
-//Puts the given metadata map into the Conversation's metadata, either merging the provided
+// Puts the given metadata map into the Conversation's metadata, either merging the provided
 // metadata map with the existing metadata, or replacing (if `isMerge` is false).  When merging,
 // a `null` value removes any existing value for that key path.
 mConversation.putMetadata(newData, false);
 
 
-//Returns the metadata associated with this Conversation.
+// Returns the metadata associated with this Conversation.
 Metadata metadata = mConversation.getMetadata();
 
-//Puts the given value in the Conversation's metadata at the given key path.  
+// Puts the given value in the Conversation's metadata at the given key path.  
 // If a value already exists, it is overwritten with the new value.
 mConversation.putMetadataAtKeyPath(key, value);
 
-//Removes the given key path from the Conversation's metadata.
+// Removes the given key path from the Conversation's metadata.
 mConversation.removeMetadataAtKeyPath(key);
 ```
 

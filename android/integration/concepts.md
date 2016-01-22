@@ -25,7 +25,7 @@ MessagePart messagePart = layerClient.newMessagePart("text/plain", "Hi, how are 
 // Creates and returns a new message object with the given conversation and array of message parts
 Message message = layerClient.newMessage(conversation, Arrays.asList(messagePart));
 
-//Sends the specified message to the conversation
+// Sends the specified message to the conversation
 conversation.send(message);
 ```
 

@@ -64,17 +64,17 @@ public void onAuthenticationChallenge(final LayerClient layerClient, final Strin
 The final step is to verify that the Authentication process completed successfully, or to handle any errors.
 
 ```java
-//Called if there was a problem authenticating
-//Common causes include a malformed identity token, missing parameters in the identity
+// Called if there was a problem authenticating
+// Common causes include a malformed identity token, missing parameters in the identity
 // token, missing or incorrect nonce
 public void onAuthenticationError(LayerClient layerClient, LayerException e) {
-    //Handle the case where the User ID could not be Authenticated
+    // Handle the case where the User ID could not be Authenticated
     System.out.println("There was an error authenticating: " + e);
 }
 
-//Called when the user has successfully authenticated
+// Called when the user has successfully authenticated
 public void onAuthenticated(LayerClient client, String userID) {
-    //Handle the case where the User ID was Authenticated correctly (start the
+    // Handle the case where the User ID was Authenticated correctly (start the
     // Conversation Activity, for example)
     System.out.println("Authentication successful");
 }
@@ -83,9 +83,9 @@ public void onAuthenticated(LayerClient client, String userID) {
 You can choose to deauthenticate the User at any point by calling `layerClient.deauthenticate()`. This will effectively "log out" the User, preventing them from sending and receiving messages on the device (and they will not receive notifications). Deauthenticating will also delete any locally stored conversations and messages.
 
 ```java
-//Called after the user has been deauthenticated
+// Called after the user has been deauthenticated
 public void onDeauthenticated(LayerClient client) {
-    //Handle the case where the user deauthenticated (return to your App's login
+    // Handle the case where the user deauthenticated (return to your App's login
     // screen, for example)
     System.out.println("User is deauthenticated");
 }
