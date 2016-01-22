@@ -88,6 +88,8 @@ If there is a matching Distinct Conversation, and one of these  holds true, then
 2. The `metadata` property was included but with a value of `null`
 3. The `metadata` property value is identical to the metadata of the matching Distinct Conversation
 
+In addition to returning the existing Conversation, a `Location` header will be returned with the URL to that Conversation.
+
 ### Response Header
 
 ```text
