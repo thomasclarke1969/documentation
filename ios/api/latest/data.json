@@ -609,7 +609,7 @@
               },
               {
                 "name" : "mode",
-                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
+                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. for only the currently authenticated user' devices or synchronized across participants)."
               }
             ],
             "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
@@ -787,7 +787,7 @@
               },
               {
                 "name" : "mode",
-                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants)."
+                "description" : "The deletion mode, specifying how the message is to be deleted (i.e. for only the currently authenticated user's devices or synchronized across participants)."
               }
             ]
           },
@@ -1879,8 +1879,8 @@
       "name" : "LYRDeletionMode",
       "values" : [
         {
-          "name" : "LYRDeletionModeLocal",
-          "comment" : "Content is deleted from the current device only. This is an unsynchronized delete and content\n     will be synchronized to other devices and will be resynchronized if the client is deauthenticated.\n     ",
+          "name" : "LYRDeletionModeMyDevices",
+          "comment" : "Content is deleted for only the currently authenticated user. The deletion will also be synchronized \n     among all other devices for the current user.\n     ",
           "declared" : "LYRConstants.h"
         },
         {
@@ -1948,6 +1948,14 @@
         },
         {
           "name" : "LYRErrorDistinctConversationExists",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorParticipantNotAParticipantInConversation",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRErrorDistinctDeletedConversationExists",
           "declared" : "LYRErrors.h"
         },
         {
