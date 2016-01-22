@@ -98,7 +98,8 @@ Third Party Libraries
 
 If you build your own libraries and want to be included, send an email to [support@layer.com](mailto:support@layer.com).
 
-## Step 5
+## Step 5 - Create a Validated Session
+
 Notify the `layerClient` of the new identity token. Add the following code after the logic above.
 
 ```java
