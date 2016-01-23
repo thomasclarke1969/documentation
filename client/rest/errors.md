@@ -49,6 +49,7 @@ Clients must be prepared to handle a variety of errors that may be returned by t
 | 107 | `invalid_header` | Client | `406 (Not Acceptable)` | Invalid Accept header; must be of form application/vnd.layer+json; version=x.y |
 | 108 | `conflict` | Resource | `409 (Conflict)` | The distinct conversation already exists with conflicting metadata |
 | 109 | `method_not_allowed` |  Resource | `405 (Method Not Allowed)` | The HTTP method used is not allowed for the given resource |
+| 110 | `participant_blocked` |  Resource | `422 (Unprocessable Entity)` | The conversation could not be created because at least one participant is blocked. |
 
 
 ## Error Responses
@@ -85,3 +86,6 @@ This error typically occurs when:
 2. A request was made with an appropriate `Accept` header, but requested a version that is not available.
 3. A `PATCH` operation is performed with an incorrect `Content-Type` header; see [Layer-Patch](rest#layer-patch) for header requirements.
 
+## participant_blocked
+
+If user Alice has blocked user Bob, in addition to silently hiding messages from Bob to Alice, Layer prevents Alice from creating new conversations with Bob or adding Bob to conversations, which indicates some confusion. In order to successfully create the conversation, have Alice unblock Bob.
