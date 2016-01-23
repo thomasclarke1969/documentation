@@ -20,7 +20,8 @@
       "messages": "Messages",
       "receipts": "Read and Delivery Receipts",
       "rich-content": "Rich Content",
-      "errors": "Error Messages"
+      "errors": "Error Messages",
+      "push-tokens": "Push Tokens"
     }
   },
 
