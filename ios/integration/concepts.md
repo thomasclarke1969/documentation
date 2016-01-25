@@ -53,8 +53,8 @@ You can use a query to see if a conversation between specific participants alrea
 ## Additional Features
 
 * **Message Read and Delivery Receipts**<br/>
- For one on one Conversations, or small group Conversations, it makes sense to show the current state of a given message. LayerKit keeps track of whether a Message has been sent, and if it has, which Participants in the Conversation have downloaded that Message (marked as `Delivered`). You can then choose to mark any Message as `Read` once it is actually displayed in the UI.
+ For one-on-one Conversations, or small group Conversations, it makes sense to show the current state of a given message. LayerKit keeps track of whether a Message has been sent, and if it has, which Participants in the Conversation have downloaded that Message (marked as `Delivered`). You can then choose to mark any Message as `Read` once it is actually displayed in the UI.
 * **Conversation Metadata**<br/>
- If you want to store additional information about a Conversation that won't be changing very often, you can use Metadata. Each Conversation has its own Map where you can define any String Key / Value pair to set data that would otherwise be difficult to capture. Examples would include setting a Topic, "Liking" or "Favoriting" specific Message IDs in that Conversation, or setting GUI elements (such as visual themes) that are unique to that Conversation.
+ If you want to store additional information about a Conversation that won't be changing very often, you can use Metadata. Each Conversation has its own Map where you can define any String Key / Value pair to set data that would otherwise be difficult to capture. Examples would include setting a Topic, attaching dates or tags, or setting GUI elements (such as visual themes) that are unique to that Conversation.
 * **Typing Indicators**<br/>
  With LayerKit, you can drive changes to the UI based on whether the other participants in a Conversation are typing or not. When a user is inputting text, you simply send a typing indcator to the Conversation, and all other participants will be notified as to which users are actively typing.
