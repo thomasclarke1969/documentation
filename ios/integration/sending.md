@@ -1,10 +1,10 @@
 # Sending Messages
-Once authenticated, users can send and receive messages, which are associated with a specific conversation object.
+Once authenticated, users can send and receive messages, which are associated with a specific Conversation object.
 
-[LYRConversation](/docs/ios/api#lyrconversation) objects are created by calling `newConversationWithParticipants:options:error:`on [LYRClient](/docs/ios/api#lyrclient). By default, new conversations are set to be distinct, which ensures that there is only one unique conversation between the given set of users. Note: this feature was introduced in SDK version 0.14.0 and older versions of the SDK do not support the notion of distinct conversations (they are classified as "non-distinct"). The initialization variables are the following:
+[LYRConversation](/docs/ios/api#lyrconversation) objects are created by calling `newConversationWithParticipants:options:error:`on [LYRClient](/docs/ios/api#lyrclient). By default, new Conversations are set to be distinct, which ensures that there is only one unique Conversation between the given set of users. Note: this feature was introduced in SDK version 0.14.0 and older versions of the SDK do not support the notion of distinct Conversations (they are classified as "non-distinct"). The initialization variables are the following:
 
-* `participants` - A mandatory array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a conversation is represented with that same user identifier.
-* `options` - An optional dictionary of initialization options. You can initialize of metadata via the `LYRConversationOptionsMetadataKey` key, and you can specify if this conversation should or should not be distinct by using the `LYRConversationOptionsDistinctByParticipantsKey` key.
+* `participants` - A mandatory array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a Conversation is represented with that same user identifier.
+* `options` - An optional dictionary of initialization options. You can initialize of metadata via the `LYRConversationOptionsMetadataKey` key, and you can specify if this Conversation should or should not be distinct by using the `LYRConversationOptionsDistinctByParticipantsKey` key.
 * `error` - An optional pointer to an error object whose value will be set if an error occurs.
 
 ```objectivec
@@ -17,9 +17,9 @@ LYRConversation *conversation = [layerClient newConversationWithParticipants:[NS
 Note, that it is not necessary to include the currently authenticated user in the participant array. They are implicit in all new conversations.***
 ```
 
-If multiple users independently create distinct conversations with the same set of users, the server will automatically merge the conversations. This means that some properties of the conversation may change after it is created, but the Layer SDK will handle these changes for you.
+If multiple users independently create distinct Conversations with the same set of users, the server will automatically merge the Conversations. This means that some properties of the Conversation may change after it is created, but the Layer SDK will handle these changes for you.
 
-You can also have multiple conversations with the same set of users, should you choose.
+You can also have multiple Conversations with the same set of users, should you choose.
 
 ```
 NSError *error = nil;
@@ -30,7 +30,7 @@ LYRConversation *topicB = [layerClient newConversationWithParticipants:[NSSet se
 
 ## Add/Remove Participants
 
-Once a conversation has been created, participant lists remain mutable, meaning participants can be added or removed. The Layer service does not enforce ownership of conversations so any client can both add or remove participants from a conversation.
+Once a Conversation has been created, participant lists remain mutable, meaning participants can be added or removed. The Layer service does not enforce ownership of Conversations so any client can both add or remove participants from a Conversation.
 
 ```objectivec
 // Adds a participant to an existing conversation
@@ -46,7 +46,7 @@ BOOL success = [conversation removeParticipants:@[ @"USER-IDENTIFIER" ] error:&e
 ```
 
 ```emphasis
-Note, adding or removing participants from a distinct conversation removes the distinct status. For example, if you have the following conversations:
+Note, adding or removing participants from a distinct Conversation removes the distinct status. For example, if you have the following Conversations:
 
 - Conversation A is distinct and has participants "1" and "2"
 - Conversation B is distinct and has participants "1", "2", and "3"
@@ -87,12 +87,13 @@ LYRMessagePart *part = [LYRMessagePart messagePartWithText:@"Hi, how are you?"];
 <a name="warning"></a>
 ```emphasis
 **NOTE**
-While Layer does not place any restrictions on the MIME Type, Google and Apple dictate that the MIMEType string MUST conform to a "\*/\*" convention.  If the MIME Type does not contain a forward slash (/) you may have issues sending messages. For a comprehensive list of MIME Type values check out the [IANA's official registry of media types](http://www.iana.org/assignments/media-types/media-types.xhtml).
+While Layer does not place any restrictions on the MIME Type, Google
+and Apple dictate that the MIME Type string MUST conform to a "\*/\*" convention.  If the MIME Type does not contain a forward slash (/) you may have issues sending messages. For a comprehensive list of MIME Type values check out the [IANA's official registry of media types](http://www.iana.org/assignments/media-types/media-types.xhtml).
 ```
 
 ## LYRMessage
 
-The [LYRMessage](/docs/ios/api#lyrmessage) object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the [LYRMessagePart](/docs/ios/api#lyrmessagepart) object.
+The [LYRMessage](/docs/ios/api#lyrmessage) object represents an individual message within a Conversation. A message within the Layer service can consist of one or many pieces of content, represented by the [LYRMessagePart](/docs/ios/api#lyrmessagepart) object.
 
 [LYRMessage](/docs/ios/api#lyrmessage) objects are initialized by calling `newMessageWithParts:options:error:` on [LYRClient](/docs/ios/api#lyrclient). This creates an [LYRMessage](/docs/ios/api#lyrmessage) object that is ready to be sent. The initialization variables are the following:
 
@@ -110,12 +111,12 @@ LYRMessage *message = [layerClient newMessageWithParts:@[ messagePart ] options:
 ```emphasis
 **IMPORTANT**
 
-By default, LayerKit will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2k like images or movies, please read the [Rich Content](/docs/ios/guides#richcontent) guide.
+By default, LayerKit will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2KB like images or movies, please read the [Rich Content](/docs/ios/guides#richcontent) guide.
 ```
 
 ## Sending The Message
 
-Once an [LYRMessage](/docs/ios/api#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:error` on `LYRConversation`.
+Once a [LYRMessage](/docs/ios/api#lyrmessage) object is initialized, it is ready to be sent. The message is sent by calling `sendMessage:error` on `LYRConversation`.
 
 ```objectivec
 //Sends the specified message
@@ -135,12 +136,12 @@ The `sendMessage:error` method returns a boolean value which indicates if the me
 ```emphasis
 **Best Practice**
 
-Conversations are not pushed to other participants, and are not queryable, until the first message is sent. Depending on your app's flow, you can rely on [distinct converesations](https://support.layer.com/hc/en-us/articles/204193200-Why-can-t-participants-query-a-newly-created-conversation-), or use a server to server connection with the [Platform API](/docs/platform#create-a-conversation) to create either distinct or non-distinct conversion which will be synced across all users on creation.
+Conversations are not pushed to other participants, and are not queryable, until the first message is sent. Depending on your app's flow, you can rely on [distinct conversations](https://support.layer.com/hc/en-us/articles/204193200-Why-can-t-participants-query-a-newly-created-conversation-), or use a server to server connection with the [Platform API](/docs/platform#create-a-conversation) to create either distinct or non-distinct Conversation which will be synced across all users on creation.
 ```
 
 ### Recipient Status
 
-Layer declares 4 recipient statuses which allows applications to monitor the actual status of a message for every individual participants in a conversation. The states are the following:
+Layer declares 4 recipient statuses which allows applications to monitor the actual status of a message for every individual participants in a Conversation. The states are the following:
 
 * `LYRRecipientStatusInvalid` - The message status cannot be determined.
 * `LYRRecipientStatusSent` - The message has successfully reached the Layer service and is waiting to be synchronized with recipient devices.
@@ -162,7 +163,7 @@ NSError *error = nil;
 BOOL success = [message markAsRead:&error];
 ```
 
-Additionally, applications can mark a conversation as read which marks all unread messages in a conversations as read.
+Additionally, applications can mark a Conversation as read which marks all unread messages in a Conversations as read.
 
 ```objectivec
 NSError *error = nil;

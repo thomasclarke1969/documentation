@@ -1,9 +1,9 @@
 # Sending Messages
-Once authenticated, users can send and receive messages, which are associated with a specific conversation object.
+Once authenticated, users can send and receive messages, which are associated with a specific Conversation object.
 
 Conversation objects are created by calling `layerClient.newConversation()`. This method takes a list of participant identifiers.  As Layer Authentication allows you to represent users within the Layer service via your backend’s federated identifier, participants are represented with those same user identifiers.
 
-By default, new conversations are set to be `distinct`, which ensures that there is only one unique conversation between the given set of users. *Note:* this feature was introduced in SDK version 0.14.0 and older versions of the SDK do not support the notion of distinct conversations (they are classified as "non-distinct").
+By default, new Conversations are set to be `distinct`, which ensures that there is only one unique Conversation between the given set of users. *Note:* this feature was introduced in SDK version 0.14.0 and older versions of the SDK do not support the notion of distinct Conversations (they are classified as "non-distinct").
 
 ```java
 // Creates and returns a distinct conversation object with the given user
@@ -11,12 +11,12 @@ Conversation conversation = layerClient.newConversation(Arrays.asList("USER-IDEN
 ```
 
 ```emphasis
-Note, that it is not necessary to include the currently authenticated user in the participant array. They are added to new conversations automatically when the first message gets sent to that conversation.
+Note, that it is not necessary to include the currently authenticated user in the participant array. They are added to new Conversations automatically when the first message gets sent to that Conversation.
 ```
 
-If multiple users independently create distinct conversations with the same set of users, the server will automatically merge the conversations. This means that some properties of the conversation may change after it is created, but the Layer SDK will handle these changes for you.
+If multiple users independently create distinct Conversations with the same set of users, the server will automatically merge the Conversations. This means that some properties of the Conversation may change after it is created, but the Layer SDK will handle these changes for you.
 
-You can also have multiple conversations with the same set of users, should you choose.
+You can also have multiple Conversations with the same set of users, should you choose.
 
 ```java
 ConversationOptions options = new ConversationOptions().distinct(false);
@@ -26,7 +26,7 @@ Conversation topicB = layerClient.newConversation(options, Arrays.asList("USER-I
 
 ## Add/Remove Participants
 
-Once a conversation has been created, participant lists remain mutable, meaning participants can be both added and removed. The Layer service does not enforce any ownership, so any client can both add and remove participants.
+Once a Conversation has been created, participant lists remain mutable, meaning participants can be both added and removed. The Layer service does not enforce any ownership, so any client can both add and remove participants.
 
 ```java
 // Adds a participant to a given conversation
@@ -37,7 +37,7 @@ conversation.removeParticipants(Arrays.asList("948374848"));
 ```
 
 ```emphasis
-Note, adding or removing participants from a distinct conversation removes the distinct status. For example, if you have the following conversations:
+Note, adding or removing participants from a distinct Conversation removes the distinct status. For example, if you have the following Conversations:
 
 - Conversation A is distinct and has participants "1" and "2"
 - Conversation B is distinct and has participants "1", "2", and "3"
@@ -48,9 +48,9 @@ Adding user "3" to Conversation A will result in the following:
 - Conversation B is distinct and has participants "1", "2", and "3"
 ```
 
-Once you have created a conversation, you are able to send messages as the authenticated user.
+Once you have created a Conversation, you are able to send messages as the authenticated user.
 
-The `Message` object represents an individual message within a conversation. A message within the Layer service can consist of one or many pieces of content, represented by the `MessagePart` object.
+The `Message` object represents an individual message within a Conversation. A message within the Layer service can consist of one or many pieces of content, represented by the `MessagePart` object.
 
 ## MessagePart
 
@@ -96,7 +96,8 @@ MessagePart locationPart = layerClient.newMessagePart("text/location", locationD
 <a name="warning"></a>
 ```emphasis
 **NOTE**
-While Layer does not place any restrictions on the MIME Type, Google and Apple dictate that the MIMEType string MUST conform to a "\*/\*" convention.  If the MIME Type does not contain a forward slash (/) you may have issues sending messages. For a comprehensive list of MIME Type values check out the [IANA's official registry of media types](http://www.iana.org/assignments/media-types/media-types.xhtml).
+While Layer does not place any restrictions on the MIME Type, Google
+and Apple dictate that the MIME Type string MUST conform to a "\*/\*" convention.  If the MIME Type does not contain a forward slash (/) you may have issues sending messages. For a comprehensive list of MIME Type values check out the [IANA's official registry of media types](http://www.iana.org/assignments/media-types/media-types.xhtml).
 ```
 
 ## Message
@@ -112,12 +113,12 @@ The service declares 4 recipient states; Invalid, Sent, Delivered, and Read. The
 ```emphasis
 **IMPORTANT**
 
-By default, Layer will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2kb like images or movies, please read the [Rich Content](/docs/android/guides#richcontent) guide.
+By default, Layer will automatically download content for message parts whose content size is less that 2KB. If you want to send content larger than 2KB like images or movies, please read the [Rich Content](/docs/android/guides#richcontent) guide.
 ```
 
 ## Sending The Message
 
-Once an `Message` object is initialized, it is ready for sending. The message is sent by calling `send()` on the `Conversation` object.
+Once a `Message` object is initialized, it is ready for sending. The message is sent by calling `send()` on the `Conversation` object.
 
 ```java
 // Sends the specified message
@@ -140,11 +141,11 @@ conversation.send(message, new LayerProgressListener() {
 ```emphasis
 **Best Practice**
 
-Conversations are not pushed to other participants, and are not queryable, until the first message is sent. Depending on your app's flow, you can rely on [distinct converesations](https://support.layer.com/hc/en-us/articles/204193200-Why-can-t-participants-query-a-newly-created-conversation-), or use a server to server connection with the [Platform API](/docs/platform#create-a-conversation) to create either distinct or non-distinct conversion which will be synced across all users on creation.
+Conversations are not pushed to other participants, and are not queryable, until the first message is sent. Depending on your app's flow, you can rely on [distinct converesations](https://support.layer.com/hc/en-us/articles/204193200-Why-can-t-participants-query-a-newly-created-conversation-), or use a server to server connection with the [Platform API](/docs/platform#create-a-conversation) to create either distinct or non-distinct Conversation which will be synced across all users on creation.
 ```
 
 ## Recipient Status
-Layer provides access to the current status of a message for the authenticated user. The states are the following:
+Layer allows you access to the current status of a message for every participant in a Conversation. The states are the following:
 
 * `Message.RecipientStatus.PENDING` - The message is waiting to be synced with the Layer service.
 * `Message.RecipientStatus.SENT` - The message has successfully reached the Layer service and is waiting to be synchronized with recipient devices.
