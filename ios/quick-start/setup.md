@@ -63,13 +63,13 @@ $ curl  -X POST \
       -H 'Accept: application/vnd.layer+json; version=1.0' \
       -H 'Authorization: Bearer PLATFORM_API_TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"parts": [{"body": "Message from Platform API!", "mime_type": "text/plain"}], 
-           "notification": {"text": "New Message from Platform API"}, 
-           "sender": {"name": "Platform"}, 
+      -d '{"parts": [{"body": "Message from Platform API!", "mime_type": "text/plain"}],
+           "notification": {"text": "New Message from Platform API"},
+           "sender": {"name": "Platform"},
            "recipients": ["Simulator","Device"]}' \
       https://api.layer.com/apps/APP_UUID/announcements
 ```
- Before sending this command, you will need to replace two fields: PLATFORM_API_TOKEN and APP_UUID. You can find these values under the "[Keys](https://developer.layer.com/projects/keys)" section of the developer dashboard. The PLATFORM_API_TOKEN must be generated as it is not created by default. Once you have executed the curl command, tap on the Bell icon again and you should see an announcement with the text "Message from Platform API!" from the sender "Platform". To learn more about announcements, check out the [Announcements](https://developer.layer.com/docs/platform#send-an-announcement) documentation. 
+ Before sending this command, you will need to replace two fields: PLATFORM_API_TOKEN and APP_UUID. You can find these values in [Developer Dashboard](https://developer.layer.com/projects). The PLATFORM_API_TOKEN must be generated as it is not created by default. Once you have executed the curl command, tap on the Bell icon again and you should see an announcement with the text "Message from Platform API!" from the sender "Platform". To learn more about announcements, check out the [Announcements](https://developer.layer.com/docs/platform#send-an-announcement) documentation.
 ### Cross Platform Messaging
 Also developing for Android? Build the [Android](/docs/android) Quick Start App using the same App ID, and your users will receive their messages no matter where they are!
 
