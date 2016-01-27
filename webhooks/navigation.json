@@ -1,0 +1,61 @@
+{
+  "introduction": {
+    "title": "Introduction",
+    "section": {
+      "overview": "Overview",
+      "event-types": "Event Types",
+      "status": "Status"
+    }
+  },
+  "rest": {
+    "title": "REST API",
+    "section": {
+      "overview": "Overview",
+      "authentication": "Authentication",
+      "content-negotiation": "Content Negotiation",
+      "register": "Registering Webhooks",
+      "verify": "Verifying Webhooks",
+      "list": "Listing Webhooks",
+      "get": "Fetching Webhooks",
+      "activate": "Activating Webhooks",
+      "deactivate": "Deactivating Webhooks",
+      "delete": "Deleting Webhooks",
+      "errors": "Errors"
+    }
+  },
+  "requests": {
+    "title": "Requests",
+    "section": {
+      "overview": "Overview",
+      "request-headers": "Request Headers",
+      "validating-payload": "Validating Payload Integrity",
+      "responding": "Responding to a Webhook",
+      "request-fields": "Request Fields"
+    }
+  },
+  "payloads": {
+    "title": "Payloads",
+    "section": {
+      "message-sent": "Message Sent",
+      "message-delivered": "Message Delivered",
+      "message-read": "Message Read",
+      "message-deleted": "Message Deleted",
+      "conversation-created": "Conversation Created",
+      "conversation-deleted": "Conversation Deleted",
+      "conversation-updated-participants": "Participant Change",
+      "conversation-updated-metadata": "Metadata Change"
+    }
+  },
+  "changelog": {
+    "title": "Changelog",
+    "section": {
+      "changelog": "Changelog"
+    }
+  },
+  "support": {
+    "title": "Support",
+    "section": {
+      "support": "Resources"
+    }
+  }
+}
