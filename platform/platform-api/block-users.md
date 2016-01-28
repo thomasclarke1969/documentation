@@ -10,7 +10,7 @@ The Layer Platform API allows you to manage the Layer Block List in order to ali
 Supports bulk operations for updating the Block List for `user_id`. Requires `Content-Type: application/vnd.layer-patch.json`.
 
 ```request
-PATCH https://api.layer.com/apps/:app_id/users/:user_id
+PATCH https://api.layer.com/apps/:app_uuid/users/:user_id
 ```
 
 ### Parameters
