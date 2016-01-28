@@ -3,7 +3,7 @@
 You can get the details and status of a single webhook by requesting it from the API:
 
 ```request
-GET /apps/:app_id/webhooks/:webhook_id
+GET /apps/:app_uuid/webhooks/:webhook_uuid
 ```
 
 ### Response `200 (OK)`

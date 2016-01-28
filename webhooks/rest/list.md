@@ -3,7 +3,7 @@
 You can request a list of all of your webhooks from the API:
 
 ```request
-GET /apps/:app_id/webhooks
+GET /apps/:app_uuid/webhooks
 ```
 
 ### Response `200 (OK)`

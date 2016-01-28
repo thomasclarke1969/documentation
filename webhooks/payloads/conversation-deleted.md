@@ -1,4 +1,4 @@
-# `conversation.deleted`
+# Conversation Deleted
 
 A `conversation.deleted` event is sent when a Conversation is globally deleted.  Note that there are other forms of deletion; these do not at this time trigger a webhook event.
 

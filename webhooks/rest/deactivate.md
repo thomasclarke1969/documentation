@@ -3,7 +3,7 @@
 If you want to pause activity around a webhook, you can deactivate it, and then reactivate it later.
 
 ```request
-POST /apps/:app_id/webhooks/:webhook_id/deactivate
+POST /apps/:app_uuid/webhooks/:webhook_uuid/deactivate
 ```
 
 ### Response `200 (OK)`

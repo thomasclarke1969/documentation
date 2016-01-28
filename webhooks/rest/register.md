@@ -13,7 +13,7 @@ You can register a new webhook using the following endpoint.
 | **config**   | dictionary   | A free form dictionary of supplemental data specific to the webhook |
 
 ```request
-POST /apps/:app_id/webhooks
+POST /apps/:app_uuid/webhooks
 ```
 
 ### Example Request: Register a Webhook

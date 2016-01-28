@@ -8,7 +8,7 @@ If the webhook status is `inactive`, you can use this API to start the process o
 Failing to complete the [Verification Step](#verify) will cause your webhook status to revert to `inactive`.
 
 ```request
-POST /apps/:app_id/webhooks/:webhook_id/activate
+POST /apps/:app_uuid/webhooks/:webhook_uuid/activate
 ```
 
 ### Response `200 (OK)`
