@@ -2172,7 +2172,7 @@
         },
         {
           "name" : "LYRQueryControllerChangeTypeUpdate",
-          "comment" : "An object is being deleted from the result set.\n     ",
+          "comment" : "An object in the result set has changed state.\n     ",
           "declared" : "LYRQueryController.h"
         }
       ]
