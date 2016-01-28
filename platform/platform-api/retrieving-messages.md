@@ -14,7 +14,7 @@ GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid/messages
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations/CONVERSATION_ID/messages
@@ -86,7 +86,7 @@ GET /apps/:app_uuid/conversations/:conversation_uuid/messages
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_ID/messages
@@ -159,7 +159,7 @@ GET /apps/:app_uuid/users/:user_id/messages/:message_uuid
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/messages/MESSAGE_ID
@@ -204,7 +204,7 @@ GET /apps/:app_uuid/conversations/:conversation_uuid/messages/:message_uuid
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_ID/messages/MESSAGE_ID
