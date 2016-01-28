@@ -92,7 +92,7 @@ You can either specify `sender.user_id` or `sender.name`, but not both.
 
 ```console
 curl  -X POST \
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], "notification": {"text": "Howdy"}, "sender": {"name": "Your Master"}}' \

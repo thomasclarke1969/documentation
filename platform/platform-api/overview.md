@@ -21,7 +21,7 @@ All data is sent and received as `JSON`.
 The API is versioned using a custom media type that encodes the wire format and the version desired. Developers must explicitly request a specific version via the `Accept` header:
 
 ```text
-Accept: application/vnd.layer+json; version=1.0
+Accept: application/vnd.layer+json; version=1.1
 ```
 
 Failure to request a specific version of the API will result in `406 (Not Acceptable)`
@@ -44,7 +44,7 @@ For environments that are unable to send `PATCH` requests, a `POST` request with
 ```console
 curl  -X POST \
       -H 'X-HTTP-Method-Override: PATCH'
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[{"operation": "set",    "property": "metadata.stats.counter", "value": "10"}, {"operation": "delete", "property": "metadata.admin"}]' \
