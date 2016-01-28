@@ -24,7 +24,6 @@
       "errors": "Error Messages"
     }
   },
-
   "websockets": {
     "title": "WebSocket API",
     "section": {
@@ -33,6 +32,12 @@
       "request-packet": "Sending Requests",
       "signal-packet": "Typing Indicators",
       "recovery": "Recovery"
+    }
+  },
+  "changelog": {
+    "title": "Changelog",
+    "section": {
+      "changelog": "Changelog"
     }
   },
   "support": {

@@ -17,6 +17,12 @@
       "libraries": "Client Libraries"
     }
   },
+  "changelog": {
+    "title": "Changelog",
+    "section": {
+      "changelog": "Changelog"
+    }
+  },
   "support": {
     "title": "Support",
     "section": {
