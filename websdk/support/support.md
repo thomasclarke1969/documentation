@@ -5,15 +5,17 @@ There are several resources at your disposal when you have a question or need ad
 ## Questions about Plans and Pricing
 If you have questions regarding your account, the pricing plans, billing, or other non-technical questions, email [growth@layer.com](mailto:growth@layer.com)
 
-## The Help Center
-If you have specific questions regarding features, integration, or troubleshooting, first check the commonly asked questions in the [Help Center](https://support.layer.com/hc).
-
 ## Contact Us
 If you still have questions, please fill out [this support form](https://support.layer.com/hc/en-us/requests/new) and our team will respond.
 
+## Report Issues
+If you have issues to report, you can use the [Github Issue Tracker](https://github.com/layerhq/layer-websdk/issues) to report issues.
+
 For the fastest resolution, please include the following information:
 
-- Platform (iOS, Android, Web Client, Platform API)
-- A description of the issue you are trying to address
-- Detailed reproduction steps
+- Platform: Clearly state that your using the Web SDK.
+- Version: List the version of the Web SDK that you are using.
+- Browser: What browsers have you observed the problem in?
+- Description: A description of the issue you are trying to address
+- Replication: Detailed reproduction steps
 - Any other relevant information
