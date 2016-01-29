@@ -100,17 +100,8 @@ What are the trade-offs between the standard authentication process and this alt
 
     ```javascript
     client.on('deauthenticated', function() {
-        if (!userClickedLogout) showMyLoginPage();
+        showMyLoginPage();
     });
     ```
 
-4. You can choose to deauthenticate the User at any point by calling `client.logout()`. This will effectively "log out" the User, deleting their session and any access to their account through that session.
-
-    ```javascript
-    // Called after the user has been deauthenticated
-    client.on('deauthenticated', function() {
-        // Handle the case where the user deauthenticated (return to your App's login
-        // screen, for example)
-        console.log('User is deauthenticated');
-    }
-    ```
+4. You can choose to deauthenticate the User at any point by calling `client.logout()`. This will effectively "log out" the User, deleting their session and any access to their account through that session. As above, it will also trigger the `deauthenticated` event.
