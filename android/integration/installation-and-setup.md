@@ -98,7 +98,7 @@ The `LayerClient` object is the primary interface for interacting with the Layer
 We have created an application for you titled %%C-INLINE-APPNAME%% and the sample code below contains your application's key.
 ```
 
-Key's are application specific and should be kept private. Copy and paste the following one of the following examples into the `onCreate()` method of your `Application` object or main `Activity`.
+Key's are application specific and should be kept private. Copy and paste the following one of the following examples into the `onCreate()` method of your `Application` class or main `Activity`.
 
 ```java
 // Create a LayerClient ready to receive push notifications through GCM
