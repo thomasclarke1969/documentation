@@ -1,0 +1,43 @@
+{
+  "integration": {
+    "title": "Integration",
+    "section": {
+      "introduction": "Introduction",
+      "concepts": "Concepts",
+      "installation-and-setup": "Installation and Setup",
+      "authentication": "Authentication",
+      "sending": "Sending",
+      "querying": "Querying",
+      "metadata": "Metadata",
+      "typing-indicator": "Typing Indicator",
+      "deleting": "Deleting",
+      "known-limitations": "Known Limitations"
+    }
+  },
+  "guides": {
+    "title": "Guides",
+    "section": {
+      "authentication": "Authentication",
+      "richcontent": "Rich Content",
+      "metadata": "Metadata",
+      "online-manager": "Connectivity",
+      "synchronization": "Synchronization"
+    }
+  },
+  "changelog": {
+    "title": "Changelog",
+    "section": {
+      "changelog": "Changelog"
+    }
+  },
+  "api": {
+    "title": "API Reference",
+    "url": "http://static.layer.com/sdk/docs/"
+  },
+  "support": {
+    "title": "Support",
+    "section": {
+      "support": "Resources"
+    }
+  }
+}
