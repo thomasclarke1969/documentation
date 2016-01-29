@@ -1,0 +1,115 @@
+# Authentication
+
+```emphasis
+Once you are ready for production implementation, you will need to write your own backend controller to generate an identity token. You will not be able to use the authentication implementation from the Quick Start guide.
+```
+
+To authenticate a user, the SDK requires that your backend server application generate an identity token and return it to your application.
+
+## Step 1 - Backend Setup
+
+A `Provider ID` and `Key ID` must be retained by your back end application and used in the generation of the token.
+
+```emphasis
+**Provider ID** - The following `Provider ID` is specific to your account and should be kept private at all times.
+```
+
+%%C-PROVIDERID%%
+
+```emphasis
+**Key ID** - In order to acquire a `Key ID`, you must first generate an RSA cryptographic key pair by clicking the button below. Layer will upload the public portion to our service and the private key will appear in a pop up. Please copy and save the private key as it must be retained by your backend application and used to sign Identity Tokens.
+```
+
+%%C-KEYID%%
+
+To manage your authentication keys please visit [Developer Dashboard](/projects).
+
+## Step 2 - Start the Authentication process
+
+The authentication process is started by instantiating a new Client:
+
+```javascript
+var client = new layer.Client({
+    appId: "%%C-INLINE-APPID%%"
+});
+```
+
+The client will obtain a nonce and trigger a `ready` event.
+
+## Step 3 - POST the nonce and generate identity token
+
+The main authentication logic will reside in the `challenge` event handler:
+
+```javascript
+client.on('challenge', function(evt) {
+  /*
+   * CODE goes here. Post the nonce to your backend, generate and return an Identity Token
+   */
+});
+```
+
+## Step 4 - Generate an identity token in your backend
+
+A nonce value will be passed into the `challenge` event parameter. POST that value to your backend and sign it using JWT.
+
+`Identity Tokens` are a pair of JSON dictionary structures (the JWS Header and Claim) and a cryptographic signature generated over them. The structure is as follows:
+
+```
+// JWS Header
+{
+    "typ": "JWT", // String - Expresses a MIME Type of application/JWT
+    "alg": "RS256" // String - Expresses the type of algorithm used to sign the token, must be RS256
+    "cty": "layer-eit;v=1", // String - Express a Content Type of Layer External Identity Token, version 1
+    "kid": "%%C-INLINE-KEYID%%" // String - Layer Key ID used to sign the token. This is your actual Key ID
+}
+
+// JWS Claim
+{
+    "iss": "%%C-INLINE-PROVIDERID%%", // String - The Layer Provider ID, this is your actual provider ID
+    "prn": "APPLICATION USER ID", // String - Provider's internal ID for the authenticating user
+    "iat": "TIME OF TOKEN ISSUANCE AS INTEGER", // Integer - Time of Token Issuance in RFC 3339 seconds
+    "exp": "TIME OF TOKEN EXPIRATION AS INTEGER", // Integer - Arbitrary time of Token Expiration in RFC 3339 seconds
+    "nce": "LAYER ISSUED NONCE" // The nonce obtained via the Layer client SDK.
+}
+```
+
+JWT Libraries are available for many languages:
+
+* [Node.js](https://github.com/brianloveswords/node-jws)
+* [Go](https://github.com/dgrijalva/jwt-go)
+* [Python](https://github.com/progrium/pyjwt/)
+* [Ruby](https://github.com/progrium/ruby-jwt)
+
+To assist in setting up a backend, Layer provides sample backend implementations for the following languages:
+
+* [Node.js](https://github.com/layerhq/layer-identity-token-nodejs) (also available as a [Parse Cloud module](https://github.com/layerhq/layer-parse-module))
+* [Python](https://github.com/layerhq/layer-identity-token-python)
+* [Ruby](https://github.com/layerhq/layer-identity-token-ruby)
+* [Java](https://github.com/layerhq/layer-identity-token-java)
+* [Scala](https://github.com/layerhq/layer-identity-token-scala)
+* [PHP](https://github.com/layerhq/layer-identity-token-php)
+* [Go](https://github.com/layerhq/support/tree/master/identity-services-samples/go)
+
+Third Party Libraries
+* [Ruby Gem](https://rubygems.org/gems/layer-identity_token)
+* [.Net C#](https://github.com/khanhvu161188/LayerNet)
+* [Layer Token Service](https://github.com/dreimannzelt/layer-token_service)  - basic webservice for testing your Layer client
+
+If you build your own libraries and want to be included, send an email to [support@layer.com](mailto:support@layer.com).
+
+## Step 5 - Create a Validated Session
+
+Notify the layer Client of the new identity token. Add the following code:
+
+```javascript
+client.on('challenge', function(evt) {
+  // Provide your own getIdentityToken to get the token from your server
+  getIdentityToken(evt.nonce, function(identityToken) {
+    // Use the evt.callback method to provide your token back to the client
+    evt.callback(identityToken);
+  });
+});
+```
+Assuming that the identity token is valid, the client will obtain a session token that will validate all API requests.
+
+You can validate your identity token by using the [identity token validation tool](/projects/tools) in your developer dashboard.

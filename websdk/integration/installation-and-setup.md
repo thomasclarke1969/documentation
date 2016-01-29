@@ -1,0 +1,54 @@
+# Installation
+
+The Layer Web SDK is built as a UMD module that can be loaded via NPM, CDN or directly from github.
+
+#### CDN
+
+Simplest approach to install the Web SDK is to add the following script tag:
+
+```html
+<script src='//cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
+```
+
+All classes can then be accessed via tha `layer` namespace:
+
+```javascript
+var client = new layer.Client({
+    appId: "%%C-INLINE-APPID%%"
+});
+```
+
+#### NPM
+
+```console
+npm install layer-websdk --save
+```
+
+All classes can then be accessed via the layer module:
+
+```javascript
+var layer = require('layer-websdk');
+
+var client = new layer.Client({
+    appId: "%%C-INLINE-APPID%%"
+});
+```
+
+#### Github
+
+Layer Web SDK source is available from our [Github repo](https://github.com/layerhq/layer-websdk).
+
+```console
+git clone git@github.com:layerhq/layer-websdk.git
+cd layer-websdk
+npm install
+grunt build
+```
+
+The build command will generate a `build` folder that contains `client.min.js`.
+
+Other grunt commands:
+
+* `grunt debug`: Generates `build/client.debug.js` which provides source-mapped files if you need to step through the Web SDK.
+* `grunt docs`: Generates the `docs` folder with the API documentation.
+* `grunt test`: Run the unit tests
