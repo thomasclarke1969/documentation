@@ -5,5 +5,5 @@ The Layer Web SDK is Layer's Javascript API for accessing Layer Services.  Its b
 ```emphasis
 **This public beta is NOT production ready**
 
-While we will not stop you from using it in production, your expectations of polish and support will need to account for this. There are known limitations and known concerns with the Layer Web SDK.
+While we will not stop you from using it in production, your expectations of polish and support will need to account for this. There are known limitations and known concerns with the Web SDK.
 ```
