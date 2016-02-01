@@ -6,8 +6,14 @@ Conversation objects are created by calling `layerClient.newConversation()`. Thi
 By default, new Conversations are set to be `distinct`, which ensures that there is only one unique Conversation between the given set of users. *Note:* this feature was introduced in SDK version 0.14.0 and older versions of the SDK do not support the notion of distinct Conversations (they are classified as "non-distinct").
 
 ```java
-// Creates and returns a distinct conversation object with the given user
-Conversation conversation = layerClient.newConversation(Arrays.asList("USER-IDENTIFIER"));
+Conversation conversation;
+try {
+   // Try creating a new distinct conversation with the given user
+   conversation = layerClient.newConversation(Arrays.asList("USER-IDENTIFIER"));
+} catch (LayerConversationException e) {
+   // If a distinct conversation with the given user already exists, use that one instead
+   conversation = e.getConversation();
+}
 ```
 
 ```emphasis
