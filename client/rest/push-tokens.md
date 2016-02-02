@@ -29,7 +29,7 @@ POST /push_tokens
     "token": "105ebe3fcb7e93efda22257caaf5b9c465043f6d0b2abf3bc8ae7c939655e949",
     "type": "apns",
     "device_id": "a7775566-bfbf-11e5-bf72-359a01002888",
-    "apns_bundle_id": "com.layer.bundleid"
+    "apns_bundle_id": "com.layer.bundleid",
     "ios_version": "9.0"
 }
 ```
