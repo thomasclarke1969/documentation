@@ -3,44 +3,47 @@ The Layer Android SDK receives pushes through both the Layer push protocol and G
 
 # Generating Google Cloud Messaging Credentials
 ## Setup Google Cloud Messaging on the Web
-Go to the [Google Developer Console](https://console.developers.google.com) and click `Create Project`.
+Go to the [Google Developer Console](https://console.developers.google.com) and click the `Select a Project` dropdown. Select `Create a project...`
 
-![](android-push-0.jpg)
+![](GoogleDevCon1.jpg)
 
 Name your project and click `Create`
 
-![](android-push-1.jpg)
+![](GoogleDevCon2.jpg)
 
-Select your newly created project from the project menu and note the numeric `Project Number`. You will need to input this number into the Layer Dashboard. It will also be used when initializing the Layer SDK in your application.
+Select your newly created project from the project menu and note the numeric `Project Number`. You will need to input this number into the Layer Dashboard. It will also be used when initializing the Layer SDK in your application
 
-![](android-push-2.jpg)
+![](GoogleDevCon3.jpg)
 
-Under your Project Settings
+You must first turn on GCM for this project. To do so, open the control panel on the left and navigate to `API Manager`
 
-You must first turn on GCM for this project. To do so, on the left menu navigate to APIs & auth -> APIs.  Then find "Google Cloud Messaging for Android" and switch it from OFF to ON.
+![](GoogleDevCon4.jpg)
 
-![](android-push-gcm.jpg)
+Find `Google Cloud Messaging for Android` and click on it to navigate to the API page
 
-Next, you must create a new Server API key under APIs & auth -> Credentials
+![](GoogleDevCon5.jpg)
 
-![](android-push-3.jpg)
+Turn on GCM for this project by clicking `Enable API`
 
-Under "Public API Access", click "Create new Key".
+![](GoogleDevCon6.jpg)
 
-![](android-push-4.jpg)
+Next, you must create a new Server API key under API Manager -> Credentials. Expand the `New credentials` dropdown and select `API key`
 
-In the popup, select "Server key"
+![](GoogleDevCon7.jpg)
 
-![](android-push-5.jpg)
+In the popup, select `Server key`
+
+![](GoogleDevCon8.jpg)
 
 Type `0.0.0.0/0` in the "Accept requests from these server IP addresses" field, and click "Create"
 
-![](android-push-6.jpg)
+![](GoogleDevCon9.jpg)
 
 
-Note the alphanumeric `API Key`. You will need to input this key into the Layer Dashboard.
+A popup will display the alphanumeric `API Key`. You will need to input this key into the Layer Dashboard. You can find it in the future in the Credentials list.
 
-![](android-push-7.jpg)
+![](GoogleDevCon10.jpg)
+
 # Setup Google Cloud Messaging in the Layer Dashboard
 
 Navigate to the Layer Developer Portal and login with your credentials. Select the application for which you would like to upload certificates from the Application drop-down menu. Click on the “Push” section of the left hand navigation.
