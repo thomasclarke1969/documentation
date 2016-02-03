@@ -2,7 +2,7 @@
 
 In the Layer ecosystem, Rich Content refers to
 
-* Any MessagePart whose decoded body size is <= 2KB
+* Any MessagePart whose decoded body size is > 2KB
 * The capacity for these bodys to represent a wide range of Mime Types
 
 Rich Content represents a set of APIs and services for handling larger parts.  The MessagePart handles uploading and downloading content > 2KB from a cloud storage server.
