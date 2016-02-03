@@ -1,0 +1,55 @@
+.conversation-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.conversation-list .conversation-list-item {
+  padding: 10px 12px;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid #e4e9ec;
+}
+
+.conversation-list .conversation-list-item.unread-messages {
+  font-weight: bold;
+}
+
+.conversation-list .conversation-list-item.selected-conversation {
+  background-color: #F5F5F5;
+  border-left: 3px solid #19a5e4;
+  max-width: 100%;
+}
+
+.conversation-list-item .main {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.conversation-list-item .main .title {
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  white-space: nowrap;
+  color: black;
+}
+
+.conversation-list-item .main .delete {
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: solid 1px rgba(0, 0, 0, 0.35);
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 20px;
+}
+
+
+.conversation-list-item:hover .main .delete {
+  opacity: 1;
+}

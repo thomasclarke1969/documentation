@@ -1,0 +1,60 @@
+.message-list {
+  display: block;
+  position: relative;
+  height: 100%;
+  padding: 0 12px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+.message-list .layer-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  margin-left: -200px;
+  margin-top: -200px;
+  opacity: 0.1;
+}
+.message-list .timestamp {
+  flex: 1;
+  color: rgba(0,0,0,0.4);
+  font-size: 12px;
+  text-align: right;
+}
+.message-item {
+  display: flex;
+  margin-bottom: 15px;
+}
+.message-item:first-child {
+  margin-top: 15px;
+}
+
+.message-item .bubble {
+  display: flex;
+  border-radius: 16px;
+  background-color: #19A5E4;
+  overflow: hidden;
+  margin: 1px 0;
+  max-width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #fff;
+}
+
+.message-item .name {
+  color: rgba(0,0,0,0.4);
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.1;
+  margin-bottom: 1px;
+  padding-left: 8px;
+}
+.message-item .message-status {
+  display: block;
+  color: rgba(0,0,0,0.4);
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.1;
+}
+

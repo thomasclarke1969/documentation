@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Layer Backbone tutorial</title>
+  <meta name="description" content="Layer Backbone tutorial">
+
+  <!-- Backbone and its Dependencies -->
+  <script src='https://code.jquery.com/jquery-2.2.0.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js'></script>
+
+  <!-- Styles -->
+  <link href="styles/layout.css" rel="stylesheet">
+  <link href="styles/conversation-list.css" rel="stylesheet">
+  <link href="styles/conversation-list-header.css" rel="stylesheet">
+  <link href="styles/user-list-dialog.css" rel="stylesheet">
+  <link href="styles/message-list.css" rel="stylesheet">
+  <link href="styles/message-composer.css" rel="stylesheet">
+
+  <!-- Layer Web SDK -->
+  <script src='https://cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
+
+  <!-- Config -->
+  <script>
+    window.layerSampleConfig = {
+      appId: 'layer:///apps/staging/1d980162-c5ee-11e5-bb69-e08c0300541f',
+      userId: 'Web Tutorial'
+    };
+    window.layerSampleApp = {};
+  </script>
+
+  <!-- Views -->
+  <script src="app/views/conversation-list.js"></script>
+  <script src="app/views/user-list-dialog.js"></script>
+  <script src="app/views/titlebar.js"></script>
+  <script src="app/views/conversation-list-header.js"></script>
+
+  <!-- Controllers and Utilities -->
+  <script src="app/controller.js"></script>
+  <script src="app/index.js"></script>
+  <script src="app/identity-services.js"></script>
+</head>
+<body>
+  <div class="messenger">
+    <div class="user-list-dialog"></div>
+    <div class="left-panel">
+      <div class="panel-header conversations-header"></div>
+      <div class="conversation-list"></div>
+    </div>
+    <div class="right-panel">
+      <div class='conversation-header panel-header'></div>
+      <div class="message-list"></div>
+      <div class="message-composer"></div>
+    </div>
+  </div>
+</body>
+</html>

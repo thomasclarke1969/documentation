@@ -1,0 +1,19 @@
+.message-composer {
+  display: flex;
+  height: 50px;
+  border-top: 1px solid #dedede;
+}
+.message-composer .message-textarea {
+  flex-grow: 1;
+  font-size: 14px;
+  text-indent: 8px;
+  resize: none;
+  outline: none;
+  margin: 10px;
+  color: rgba(0,0,0,0.87);
+  line-height: 30px;
+  overflow: hidden;
+  background-color: #fafbfc;
+  border: 1px solid #E4E9EC;
+  border-radius: 4px;
+}
