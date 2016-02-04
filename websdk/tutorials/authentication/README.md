@@ -2,12 +2,12 @@
 
 Your application will undoubtedly run better if its authenticated.  So, lets build a simple application that authenticates, and on completing authentication, welcomes the user.
 
-We start with a very basic BackboneJS project template:
+We start with a very basic project template:
 
-* index.js: This initializes the Controller and will initialize all Layer services
-* controller.js: This is your controller
-* views: This folder contains your UI Views
-* An identity-services.js script that gets you an identity token from Layer's Sample Identity Service
+* [index.js](./index.js): This initializes the App and will initialize all Layer services
+* [controller.js](./controller.js): This is your App controller
+* [views/](./views/): This folder contains your UI Views
+* [identity-services.js](./identity-services.js): script that gets you an identity token from Layer's Sample Identity Service
 * A CSS folder to make everything render nicely as we progress
 * An html file because, well, it would be embarrassing to forget that.
 
@@ -32,14 +32,9 @@ The Layer Client is your main interface to the Layer Services.  Before writing a
 Open your `index.js` file and add:
 
 ```javascript
-/**
- * Initialize Layer Client with `appId`.
- */
 layerSampleApp.client = new layer.Client({
     appId: window.layerSampleConfig.appId
 });
-
-var client = layerSampleApp.client;
 ```
 
 ## Step 3: Handle the Authentication Challenge
@@ -56,11 +51,7 @@ On getting an Identity Token via `getIdentityToken`'s callback, we call the chal
 Open your `index.js` file and insert this code after the client has been instantiated:
 
 ```javascript
-/**
- * Client authentication challenge.
- * Sign in to Layer sample identity provider service.
- */
-client.on('challenge', function(evt) {
+layerSampleApp.client.on('challenge', function(evt) {
     layerSampleApp.Identities.getIdentityToken({
         appId: window.layerSampleConfig.appId,
         userId: window.layerSampleConfig.userId,
@@ -81,14 +72,12 @@ Once the Layer Client has created a Session, it will trigger its `ready` event. 
 Open your `index.js` file and add after the client has been instantiated:
 
 ```javascript
-client.on('ready', function(evt) {
-    layerSampleApp.Controller(layerSampleApp.client);
+layerSampleApp.client.on('ready', function(evt) {
+    layerSampleApp.initialize();
 });
 ```
 
-You can now remove the original call to `Controller(...)` in your index.js file.
-
-You can now run this app.  It will render the same exact UI as before, but assuming authentication is happening correctly, it will render the UI AFTER you have authenticated.
+You can now run this app.  It will render the same exact UI as before, but assuming authentication is happening correctly, it will render the UI after you have authenticated.
 
 ## Step 5: Render a Welcome Message
 
@@ -113,7 +102,7 @@ Open up `views/titlebar.js`, and replace the render method with:
 
 ```javascript
 render: function(conversation) {
-      var title = 'Logged in as: ' +
+    var title = 'Logged in as: ' +
         layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId);
     this.$el.html('<div class="title">' + title + '</div>');
 }

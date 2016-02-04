@@ -10,10 +10,10 @@ Once we have a Conversation we can then [Send a Message](#sending-messages) on t
 
 Starting from where we left off in the [Authentication Tutorial)(#authentication), we add the following to the template project:
 
-* conversation-list.js: Placeholder for adding a Conversation List Panel
-* conversation-list-header.js: Adds a header over your Conversation List Panel, and a `New Conversation` button.
-* user-list-dialog.js: Adds a dialog for selecting users to create a Conversation with
-* controller.js:
+* [conversation-list.js](./views/conversation-list.js): Placeholder for adding a Conversation List Panel
+* [conversation-list-header.js](./views/conversation-list-header.js): Adds a header over your Conversation List Panel, and a `New Conversation` button.
+* [user-list-dialog.js](./views/user-list-dialog.js): Adds a dialog for selecting users to create a Conversation with
+* [controller.js](./views/controller.js):
   * Initializes the above views
   * Wires the `New Conversation` button to open the User List Dialog
   * Wires the User List Dialog's `OK` button to call `createConversation` stub function
@@ -59,10 +59,7 @@ Instantiate your query in the `initializeQueries` function:
 
 ```javascript
 function initializeQueries() {
-    /**
-    * Create the Conversation List Query
-    */
-    conversationQuery = client.createQuery({
+    conversationQuery = layerSampleApp.client.createQuery({
         model: layer.Query.Conversation
     });
 }
@@ -70,7 +67,7 @@ function initializeQueries() {
 
 Once the conversationQuery has completed connecting to the server and downloading the user's Conversations, it will trigger a `change` event handler:
 
-```
+```javascript
 conversationQuery.on('change', function() {
     conversationListView.render(conversationQuery.data);
 });
@@ -87,23 +84,23 @@ A simple Conversation list consists of iterating over all Conversations and rend
 Open up your `views/conversation-list.js` file and replace the `render` method with:
 
 ```javascript
-renderRow: function(conversation) {
+render: function(conversations) {
+  if (conversations) this.conversations = conversations;
+  this.$el.empty();
+
+  // Iterate through conversations and append HTML
+  this.conversations.forEach(function(conversation) {
+    var title = conversation.participants.join(', ');
+
     this.$el.append(
       '<div class="conversation-list-item">' +
           '<div class="info">' +
               '<div class="main">' +
-                  '<div class="title">' + conversation.participants.join(', ') + '</div>' +
+                  '<div class="title">' + title + '</div>' +
               '</div>' +
           '</div>' +
       '</div>'
     );
-},
-
-render: function(conversations) {
-  if (conversations) this.conversations = conversations;
-  this.$el.empty();
-  this.conversations.forEach(function(conversation) {
-    this.renderRow(conversation);
   }, this);
 }
 ```
@@ -112,35 +109,21 @@ So we iterate over each Conversation.  Each conversation is rendered by getting 
 
 You can run this now.  It should render a single Conversation that looks something like `1, 2, 3, 4, 5`.
 
-Ok, we can do better, lets get a displayable name for each participant from the Identities service.  Lets add a `renderTitle` method which uses the `Identities.getDisplayName` function to get
-a display name for each user, and update `renderRow` to call it:
+Ok, we can do better, lets get a displayable name for each participant from the Identities service.  Lets create a `betterTitle` function that uses the `Identities.getDisplayName` to get a display name for each user, and set that to be our new `title` variable:
 
 ```javascript
-renderTitle: function(conversation) {
-  return '<div class="title">' +
-    conversation.participants.map(function(userId) {
-      return layerSampleApp.Identities.getDisplayName(userId)
-    }).join(', ') +
-    '</div>';
-},
+function betterTitle(conversation) {
+  return conversation.participants.map(function(userId) {
+    return layerSampleApp.Identities.getDisplayName(userId);
+  }).join(', ');
+}
 
-renderRow: function(conversation) {
-    this.$el.append(
-      '<div class="conversation-list-item">' +
-        '<div class="info">' +
-          '<div class="main">' +
-             this.renderTitle(conversation) +
-          '</div>' +
-        '</div>' +
-      '</div>'
-    );
-},
-
+var title = betterTitle(conversation);
 ```
 
 You can now run this.  Your Conversation should now display something a bit more usable, like `Web, User 2, User 3, User 4, User 5`.
 
-## Step 4: Add a new Conversation
+## Step 4: Create a new Conversation
 
 Well, that was a nice list of one Conversation.  This will be a little more convincing if we have more Conversations.  Your application should already have a `New` button for creating a Conversation.  Selecting it shows a dialog listing people you can create a Conversation with.  Selecting a few users and hitting `OK` calls the empty `controller.js` `createConversation` function.  Lets make that function create actual Conversations.
 
@@ -148,13 +131,12 @@ Open up `controller.js` and add the following to the `createConversation` functi
 
 ```javascript
 function createConversation(participants) {
-    var conversation = client.createConversation({
+    var conversation = layerSampleApp.client.createConversation({
         participants: participants,
         distinct: true
     });
 }
 ```
-
 
 Some explanation is required here:
 
@@ -168,37 +150,44 @@ You should be able to run this app, and add a few more Conversations to your lis
 
 Lets finish up this tutorial by making sure we are able to select a Conversation.  We'll need to be able to do that before we can start dealing with sending or receiving Messages.
 
-Lets start with some basic rendering and selection events.  Open `views/conversation-list.js` and replace the `renderRow` method with:
+Lets start with some basic rendering and selection events.  Open `views/conversation-list.js` and replace the `render` method with:
 
 ```javascript
-var cssClasses = ['conversation-list-item'];
+render: function(conversations) {
+  if (conversations) this.conversations = conversations;
+  this.$el.empty();
 
-// Highlight the selected Conversation
-if (this.selectedConversation && conversation.id === this.selectedConversation.id) {
-    cssClasses.push('selected-conversation');
+  this.conversations.forEach(function(conversation) {
+    var title = betterTitle(conversation);
+
+    var cssClasses = ['conversation-list-item'];
+
+    // Highlight the selected Conversation
+    if (this.selectedConversation && conversation.id === this.selectedConversation.id) {
+        cssClasses.push('selected-conversation');
+    }
+
+    var $div = $('<div/>', { class: cssClasses.join(' ') });
+    $div.append(
+      '<div class="info">' +
+          '<div class="main">' +
+              '<div class="title">' + title + '</div>' +
+          '</div>' +
+      '</div>'
+    );
+    this.$el.append($div);
+
+    // Click handler to trigger an event when each conversation is selected
+    $div.on('click', function(evt) {
+        this.trigger('conversation:selected', conversation.id);
+    }.bind(this));
+  }, this);
 }
-var row =
-this.$el.append(
-    '<div class=" ' + cssClasses.join(' ') + '">' +
-        '<div class="info">' +
-            '<div class="main">' +
-                this.renderTitle(conversation) +
-            '</div>' +
-        '</div>' +
-    '</div>'
-).children().last();
-
-// Setup Conversation select click handler
-row.on('click', function(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    this.trigger('conversation:selected', conversation.id);
-}.bind(this));
 ```
 
 So, if we have a `selectedConversation`, and its the same as the Conversation Row being rendered, it will get the `selected-conversation` css class.
 
-And if the user clicks on a row, it will trigger an event for the controller.
+And if the user clicks on a row, it will trigger a `conversation:selected` event for the app.
 
 Also open `controller.js` and update the `initializeViews` function, adding:
 
@@ -213,7 +202,7 @@ And then after the end of the `createConversation` function, add a new function:
 ```javascript
 function selectConversation(conversationId) {
     // Get the Conversation instance associated with the selected Conversation ID
-    var conversation = client.getConversation(conversationId);
+    var conversation = layerSampleApp.client.getConversation(conversationId);
 
     // Set our activeConversation state
     activeConversation = conversation;
@@ -230,12 +219,10 @@ Lets wrap up this section on selecting conversations by updating the rendering o
 
 ```javascript
 render: function(conversation) {
-    var title;
+    var title = '';
 
     if (conversation) {
-        title = conversation.participants.map(function(userId) {
-            return layerSampleApp.Identities.getDisplayName(userId);
-        }).join(', ');
+        title = betterTitle(conversation);
     }
     else {
         title = 'Logged in as: ' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId);
@@ -247,7 +234,7 @@ render: function(conversation) {
 
 In other words: If there is no `conversation` parameter, tell us who is logged in, otherwise, use the `Identities.getDisplayName` function to help render the Conversation participants in the titlebar.
 
-And update the `controller.js` `selectConversation` function with:
+In the `controller.js` file update the `selectConversation` function with:
 
 ```javascript
 titlebarView.render(conversation);
@@ -261,7 +248,7 @@ A quick little cleanup step to make this nice:  Open up `controller.js` and add 
 
 ```javascript
 function createConversation(participants) {
-    var conversation = client.createConversation({
+    var conversation = layerSampleApp.client.createConversation({
         participants: participants,
         distinct: true
     });
