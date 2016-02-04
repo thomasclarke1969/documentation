@@ -189,20 +189,6 @@
             "declaration" : "- (void)authenticateWithIdentityToken:(nonnull NSString *)identityToken completion:(nonnull void ( ^ ) ( NSString *_Nullable authenticatedUserID , NSError *_Nullable error ))completion"
           },
           {
-            "parameters" : [
-              {
-                "name" : "identifier",
-                "description" : "The object identifier for which to return the canonical identifier."
-              }
-            ],
-            "return" : "The canonical object identifier for the given input identifier or nil if none could be computed.",
-            "discussion" : "This method enables the migration of object identifiers created by LayerKit < v0.9.0 to the canonical\nformat emitted by v0.9.0 and higher clients. If the given identifier already is a new style identifier, then it is returned. If\nthe input identifier is a legacy identifier, then the canonical identifier is computed and returned. If no conversation or message can\nbe found by treating the identifier as a legacy or canonical identifier then nil is returned (typically indicating that the content has\nnot yet been synchronized).",
-            "declared" : "LYRClient.h",
-            "comment" : "Returns the canonical object identifier for a given identifier.",
-            "name" : "canonicalObjectIdentifierForIdentifier:",
-            "declaration" : "- (nullable NSURL *)canonicalObjectIdentifierForIdentifier:(nonnull NSURL *)identifier"
-          },
-          {
             "declared" : "LYRClient.h",
             "declaration" : "- (void)captureDebugSnapshotWithCompletion:(nonnull void ( ^ ) ( NSURL *_Nullable snapshotPath , NSError *_Nullable error ))completion",
             "comment" : "Captures a debug snapshot of the current state of the Layer powered application and persists it to the file system.",
@@ -479,15 +465,15 @@
               },
               {
                 "name" : "completion",
-                "description" : "The block that will be called once Layer has successfully downloaded new data associated with the userInfo dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with an appropriate fetch result for the given changes. Note that this block is only called if the method returns YES."
+                "description" : "The block that will be called once Layer has successfully downloaded new data associated with the userInfo dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with an appropriate fetch result for the given objects. Note that this block is only called if the method returns YES."
               }
             ],
             "return" : "A Boolean value that determines whether the push was handled. Will be NO if this was not a push notification meant for Layer and the completion block will not be called.",
-            "discussion" : "> %note% > **Note:** The receiver must be authenticated else a warning will be logged and NO will be returned. The completion is only invoked if the return value is YES.",
+            "discussion" : "The completion block will either return an error or one or both of the resulting objects depending on the information provided in the userInfo parameter.  In valid cases, just message is returned for an announcement payload, and both message and conversation for a message payload.> %note% > **Note:** The receiver must be authenticated else a warning will be logged and NO will be returned. The completion is only invoked if the return value is YES.",
             "declared" : "LYRClient.h",
             "comment" : "Inspects an incoming push notification and synchronizes the client if it was sent by Layer.",
             "name" : "synchronizeWithRemoteNotification:completion:",
-            "declaration" : "- (BOOL)synchronizeWithRemoteNotification:(nonnull NSDictionary *)userInfo completion:(nonnull void ( ^ ) ( NSArray<LYRObjectChange*> *_Nullable changes , NSError *_Nullable error ))completion"
+            "declaration" : "- (BOOL)synchronizeWithRemoteNotification:(nonnull NSDictionary *)userInfo completion:(nonnull void ( ^ ) ( LYRConversation *_Nullable conversation , LYRMessage *_Nullable message , NSError *_Nullable error ))completion"
           },
           {
             "parameters" : [
@@ -521,6 +507,26 @@
               {
                 "name" : "error",
                 "description" : "A pointer to an error that upon failure is set to an error object describing why validation was unsuccessful."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (void)waitForCreationOfObjectWithIdentifier:(nonnull NSURL *)objectIdentifier timeout:(NSTimeInterval)timeout completion:(nonnull void ( ^ ) ( id _Nullable object , NSError *_Nullable error ))completion",
+            "comment" : "Waits for the creation of an object with the specified identifier and calls the completion block with the object if found or an error if it times out.",
+            "name" : "waitForCreationOfObjectWithIdentifier:timeout:completion:",
+            "parameters" : [
+              {
+                "name" : "objectIdentifier",
+                "description" : "The identifier of the object expected to be created."
+              },
+              {
+                "name" : "timeout",
+                "description" : "The specified time the method should wait for the object creation before timing out."
+              },
+              {
+                "name" : "completion",
+                "description" : "The block that will be called once the operation completes with either the expected object or an error."
               }
             ]
           }
@@ -1427,22 +1433,6 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didFailSynchronizationWithError:(nonnull NSError *)error",
-            "comment" : "Tells the delegate the client encountered an error during synchronization.",
-            "name" : "layerClient:didFailSynchronizationWithError:",
-            "parameters" : [
-              {
-                "name" : "client",
-                "description" : "The client that failed synchronization."
-              },
-              {
-                "name" : "error",
-                "description" : "An error describing the nature of the sync failure."
-              }
-            ]
-          },
-          {
-            "declared" : "LYRClient.h",
             "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didFinishContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(nonnull id)object",
             "comment" : "Tells the delegate that a content transfer has finished.",
             "name" : "layerClient:didFinishContentTransfer:ofObject:",
@@ -1458,22 +1448,6 @@
               {
                 "name" : "object",
                 "description" : "Object whose content did finish transfering."
-              }
-            ]
-          },
-          {
-            "declared" : "LYRClient.h",
-            "declaration" : "- (void)layerClient:(nonnull LYRClient *)client didFinishSynchronizationWithChanges:(nonnull NSArray<LYRObjectChange*> *)changes",
-            "comment" : "Tells the delegate that a client has finished synchronization and applied a set of changes.",
-            "name" : "layerClient:didFinishSynchronizationWithChanges:",
-            "parameters" : [
-              {
-                "name" : "client",
-                "description" : "The client that received the changes."
-              },
-              {
-                "name" : "changes",
-                "description" : "An array of NSDictionary objects, each one describing a change."
               }
             ]
           },
@@ -1726,6 +1700,14 @@
         },
         {
           "name" : "LYRClientErrorConnectionTimeout",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorAsyncTimeout",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorInvalidIdentifier",
           "declared" : "LYRErrors.h"
         },
         {
