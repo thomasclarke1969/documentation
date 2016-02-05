@@ -2,6 +2,10 @@
 
 A `conversation.updated.metadata` event is sent whenever there is a change to any Conversation's metadata.  The event is triggered for changes made by users and by the Platform API.
 
+```request
+POST https://mydomain.com/my-webhook-endpoint
+```
+
 ```json
 {
     "event": {

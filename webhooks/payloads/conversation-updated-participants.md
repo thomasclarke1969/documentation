@@ -2,6 +2,10 @@
 
 A `conversation.updated.participants` event is sent whenever there is a change to any Conversation's pariticipant list.  The event is triggered for changes made by users and by the Platform API.
 
+```request
+POST https://mydomain.com/my-webhook-endpoint
+```
+
 ```json
 {
     "event": {

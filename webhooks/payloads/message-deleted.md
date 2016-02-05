@@ -2,6 +2,10 @@
 
 A `message.deleted` event is sent when a Message is globally deleted.  This will be triggered for Messages deleted by both users and via the Platform API.  Note that there are other forms of deletion; these do not at this time trigger a webhook event.
 
+```request
+POST https://mydomain.com/my-webhook-endpoint
+```
+
 ```json
 {
     "event": {

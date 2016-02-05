@@ -4,6 +4,10 @@ A `message.sent` event is sent when a new Message is sent.  This will be trigger
 
 NOTE: Announcements will **not** generate a `message.sent` event.
 
+```request
+POST https://mydomain.com/my-webhook-endpoint
+```
+
 ```json
 {
     "event": {
