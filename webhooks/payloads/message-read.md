@@ -2,6 +2,10 @@
 
 A `message.read` event is sent when a Message recipient acknowledges having read a Message.  For a Conversation with 6 participants, you should receive up to 5 of these per message (the sender of a message does not send a read receipt).
 
+```request
+POST https://mydomain.com/my-webhook-endpoint
+```
+
 ```json
 {
     "event": {

@@ -2,6 +2,10 @@
 
 A `message.delivered` event is sent when a Message recipient acknowledges delivery of a Message.  For a Conversation with 6 participants, you should receive up to 5 of these per message (the sender of the message does not send a delivery receipt).
 
+```request
+POST https://mydomain.com/my-webhook-endpoint
+```
+
 ```json
 {
     "event": {

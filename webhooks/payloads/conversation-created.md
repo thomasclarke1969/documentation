@@ -2,6 +2,10 @@
 
 A `conversation.created` event is sent when a new Conversation is created.  This will be triggered for Conversations created by both users and via the Platform API.
 
+```request
+POST https://mydomain.com/my-webhook-endpoint
+```
+
 ```json
 {
     "event": {
