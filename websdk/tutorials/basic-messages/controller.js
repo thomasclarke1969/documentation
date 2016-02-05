@@ -111,7 +111,10 @@
       // Step 3: Update Mesage Query here
     }
 
-    // Step 2: Send message function
+    function sendMessage(text) {
+      
+      // Step 2: Send a message
+    }
 
     // Initialize Everything:
     initializeViews();

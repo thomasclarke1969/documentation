@@ -26,7 +26,7 @@ Open up your `index.html` file and update the appId variable:
 ```javascript
 window.layerSampleConfig = {
     appId: '%%C-INLINE-APPID%%',
-    userId: 'Web Tutorial'
+    userId: window.prompt('Please enter a user name', 'Web Tutorial')
 };
 ```
 
@@ -38,7 +38,7 @@ You should now be able to run this application, quickly verify that you can:
 
 ## Step 2: Send a Message
 
-Recall that the `views/message-composer.js` file renders a text box; typing in text and hitting ENTER triggers a `message:new` event, which in turn triggers the `controller.js` `sendMessage` function.  Lets implement that method.  Open up `controller.js` and add `sendMessage` function at the bottom:
+Recall that the `views/message-composer.js` file renders a text box; typing in text and hitting ENTER triggers a `message:new` event, which in turn triggers the `controller.js` `sendMessage` function.  Lets implement that method.  Open up `controller.js` and update `sendMessage` function at the bottom:
 
 ```javascript
 function sendMessage(text) {
@@ -274,7 +274,7 @@ If you open this app in two browsers, one logged in as `Web Tutorial` and the se
 
 ### Working with Receipts in the Conversation List
 
-Each Conversation keeps track of how many unread Messages it has within its `unreadCount` property.  This lets you emphasize Conversations with unread Messages when rendering.  Open up `views/conversation-list.js` and update the `renderRow` method, adding this below your declaration of the `cssClasses` variable:
+Each Conversation keeps track of how many unread Messages it has within its `unreadCount` property.  This lets you emphasize Conversations with unread Messages when rendering.  Open up `views/conversation-list.js` and update the `render` method, adding this below your declaration of the `cssClasses` variable:
 
 ```javascript
 if (conversation.unreadCount) {

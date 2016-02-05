@@ -84,23 +84,30 @@ A simple Conversation list consists of iterating over all Conversations and rend
 Open up your `views/conversation-list.js` file and replace the `render` method with:
 
 ```javascript
+function conversationRow(title, cssClasses) {
+  var row = $('<div/>', { class: cssClasses.join(' ') });
+  row.append(
+    '<div class="info">' +
+        '<div class="main">' +
+            '<div class="title">' + title + '</div>' +
+        '</div>' +
+    '</div>'
+  );
+  return row;
+}
+
 render: function(conversations) {
   if (conversations) this.conversations = conversations;
   this.$el.empty();
 
   // Iterate through conversations and append HTML
   this.conversations.forEach(function(conversation) {
-    var title = conversation.participants.join(', ');
+      var title = conversation.participants.join(', ');
+      var cssClasses = ['conversation-list-item'];
 
-    this.$el.append(
-      '<div class="conversation-list-item">' +
-          '<div class="info">' +
-              '<div class="main">' +
-                  '<div class="title">' + title + '</div>' +
-              '</div>' +
-          '</div>' +
-      '</div>'
-    );
+      var row = conversationRow(title, cssClasses);
+
+      this.$el.append(row);
   }, this);
 }
 ```
@@ -112,13 +119,13 @@ You can run this now.  It should render a single Conversation that looks somethi
 Ok, we can do better, lets get a displayable name for each participant from the Identities service.  Lets create a `betterTitle` function that uses the `Identities.getDisplayName` to get a display name for each user, and set that to be our new `title` variable:
 
 ```javascript
-function betterTitle(conversation) {
-  return conversation.participants.map(function(userId) {
-    return layerSampleApp.Identities.getDisplayName(userId);
-  }).join(', ');
+function betterTitle(participants) {
+    return participants.map(function(userId) {
+        return layerSampleApp.Identities.getDisplayName(userId);
+    }).join(', ');
 }
 
-var title = betterTitle(conversation);
+var title = betterTitle(conversation.participants);
 ```
 
 You can now run this.  Your Conversation should now display something a bit more usable, like `Web, User 2, User 3, User 4, User 5`.
@@ -158,29 +165,22 @@ render: function(conversations) {
   this.$el.empty();
 
   this.conversations.forEach(function(conversation) {
-    var title = betterTitle(conversation);
+      var title = betterTitle(conversation);
+      var cssClasses = ['conversation-list-item'];
 
-    var cssClasses = ['conversation-list-item'];
+      // Highlight the selected Conversation
+      if (this.selectedConversation && conversation.id === this.selectedConversation.id) {
+          cssClasses.push('selected-conversation');
+      }
 
-    // Highlight the selected Conversation
-    if (this.selectedConversation && conversation.id === this.selectedConversation.id) {
-        cssClasses.push('selected-conversation');
-    }
+      var row = conversationRow(title, cssClasses);
 
-    var $div = $('<div/>', { class: cssClasses.join(' ') });
-    $div.append(
-      '<div class="info">' +
-          '<div class="main">' +
-              '<div class="title">' + title + '</div>' +
-          '</div>' +
-      '</div>'
-    );
-    this.$el.append($div);
+      this.$el.append(row);
 
-    // Click handler to trigger an event when each conversation is selected
-    $div.on('click', function(evt) {
-        this.trigger('conversation:selected', conversation.id);
-    }.bind(this));
+      // Click handler to trigger an event when each conversation is selected
+      row.on('click', function(evt) {
+          this.trigger('conversation:selected', conversation.id);
+      }.bind(this));
   }, this);
 }
 ```
@@ -219,10 +219,10 @@ Lets wrap up this section on selecting conversations by updating the rendering o
 
 ```javascript
 render: function(conversation) {
-    var title = '';
+    var title;
 
     if (conversation) {
-        title = betterTitle(conversation);
+        title = betterTitle(conversation.participants);
     }
     else {
         title = 'Logged in as: ' + layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId);

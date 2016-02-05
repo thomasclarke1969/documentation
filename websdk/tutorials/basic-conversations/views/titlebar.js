@@ -21,4 +21,10 @@
       // Step 5: Change title when a conversation is selected
     }
   });
+
+  function betterTitle(participants) {
+      return participants.map(function(userId) {
+          return layerSampleApp.Identities.getDisplayName(userId);
+      }).join(', ');
+  }
 })();
