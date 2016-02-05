@@ -7,22 +7,6 @@
       "status": "Status"
     }
   },
-  "rest": {
-    "title": "REST API",
-    "section": {
-      "overview": "Overview",
-      "authentication": "Authentication",
-      "content-negotiation": "Content Negotiation",
-      "register": "Registering Webhooks",
-      "verify": "Verifying Webhooks",
-      "list": "Listing Webhooks",
-      "get": "Fetching Webhooks",
-      "activate": "Activating Webhooks",
-      "deactivate": "Deactivating Webhooks",
-      "delete": "Deleting Webhooks",
-      "errors": "Errors"
-    }
-  },
   "requests": {
     "title": "Requests",
     "section": {
@@ -44,6 +28,22 @@
       "conversation-deleted": "Conversation Deleted",
       "conversation-updated-participants": "Participant Change",
       "conversation-updated-metadata": "Metadata Change"
+    }
+  },
+  "rest": {
+    "title": "REST API",
+    "section": {
+      "overview": "Overview",
+      "authentication": "Authentication",
+      "content-negotiation": "Content Negotiation",
+      "register": "Registering Webhooks",
+      "verify": "Verifying Webhooks",
+      "list": "Listing Webhooks",
+      "get": "Fetching Webhooks",
+      "activate": "Activating Webhooks",
+      "deactivate": "Deactivating Webhooks",
+      "delete": "Deleting Webhooks",
+      "errors": "Errors"
     }
   },
   "changelog": {
