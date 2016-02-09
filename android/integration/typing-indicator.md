@@ -1,7 +1,7 @@
-#Typing Indicator
+# Typing Indicator
 The Layer SDK provides a simple API which allows applications to both broadcast and receive typing indicator events. This functionality allows Layer powered applications to implement dynamic UI in response to typing events. 
 
-##Broadcasting
+## Broadcasting
 Applications can broadcast typing events by calling `send(...)` on the `Conversation` object. This will send a typing indicator event on behalf of the currently authenticated user. All participants in the conversation will receive the typing indicator.  The Layer SDK supports three typing indicatory states: `TypingIndicator.STARTED`, `TypingIndicator.PAUSED`, `TypingIndicator.FINISHED`. 
 
 ```
@@ -9,7 +9,7 @@ Applications can broadcast typing events by calling `send(...)` on the `Conversa
 mConversation.send(TypingIndicator.STARTED);
 ```
 
-##Receiving 
+## Receiving 
 Applications are notified of typing indicator events via `LayerTypingIndicatorListener`. Applications should register as a `LayerTypingIndicatorListener` in order to be notified when another device is typing.
 
 ```
@@ -25,7 +25,7 @@ public class MyApplication extends Application implements LayerTypingIndicatorLi
      @Override
     protected void onPause() {
         // Stop receiving remote typing indications from Layer when this Activity pauses
-        mClient.unregisterTypingIndicator(this);
+        layerClient.unregisterTypingIndicator(this);
         super.onPause();
     }
      
