@@ -74,7 +74,8 @@
         conversationListView.render(conversationQuery.data);
       });
 
-      // Step 3: Setup the Message Query here
+      // Tutorial Step 3: Setup the Message Query here
+
     }
 
     /**
@@ -108,12 +109,13 @@
 
       titlebarView.render(conversation);
 
-      // Step 3: Update Mesage Query here
+      // Tutorial Step 3: Update Mesage Query here
+
     }
 
     function sendMessage(text) {
-      
-      // Step 2: Send a message
+      // Tutorial Step 2: Send a message
+
     }
 
     // Initialize Everything:

@@ -34,7 +34,7 @@
         createConversation(participants);
       });
 
-      // Step 5: Select conversation listener
+      // Tutorial Step 5: Select Conversation listener
     }
 
     /**
@@ -44,8 +44,8 @@
      * data changes.
      */
     function initializeQueries() {
+      // Tutorial Step 2: Create Query here
 
-      // Step 2: Create Query here
     }
 
     /**
@@ -55,9 +55,21 @@
       userListView.show();
     }
 
-    // Step 4: Create a new conversation function
+    /**
+     * Handle the user creating a Conversation from the User List Dialog.
+     */
+    function createConversation(participants) {
+      // Tutorial Step 4: Create a Conversation
 
-    // Step 5: Select conversation function
+    }
+
+    /**
+     * Handle the user selecting a Conversation
+     */
+    function selectConversation(conversationId) {
+      // Tutorial Step 5: Select a Conversation Handler
+
+    }
 
     // Initialize Everything:
     initializeViews();

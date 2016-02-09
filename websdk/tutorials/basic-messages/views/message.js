@@ -16,11 +16,11 @@
      * Render the Message.
      */
     render: function(message) {
-      this.$el.append('Your Message goes here');
+      this.$el.append('This is a Message');
 
-      // Step 4: Render a single message here
+      // Tutorial Step 4: Render a single message here
 
-      // Step 5: Mark message as read here
+      // Tutorial Step 5: Mark message as read here
     }
   });
 })();

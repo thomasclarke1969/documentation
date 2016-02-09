@@ -3,10 +3,10 @@
 
 window.addEventListener('load', function() {
 
-  // Step 2: Instantiate the Client
+  // Tutorial Step 2: Instantiate the Client
 
-  // Step 3: Handle authentication challenge
+  // Tutorial Step 3: Handle authentication challenge
 
-  // Step 4: Call layerSampleApp.initialize() once the client is ready
+  // Tutorial Step 4: Initialize UI once the client is ready
   layerSampleApp.initialize();
 });

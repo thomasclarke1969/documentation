@@ -14,11 +14,10 @@
      * into displayable names.
      */
     render: function(conversation) {
+      // Tutorial Step 5: Change title when a conversation is selected
       var title = 'Logged in as: ' +
         layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId);
       this.$el.html('<div class="title">' + title + '</div>');
-
-      // Step 5: Change title when a conversation is selected
     }
   });
 

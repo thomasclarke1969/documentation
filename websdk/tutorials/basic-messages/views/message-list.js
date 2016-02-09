@@ -12,8 +12,8 @@
     },
 
     render: function(messages) {
+      // Tutorial Step 3: Render messages here
 
-      // Step 3: Render messages here
     },
 
     /**

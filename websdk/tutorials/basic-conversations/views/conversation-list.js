@@ -12,9 +12,9 @@
       this.$el.append("Your conversation list goes here");
     },
 
-    // Step 2, 3 and 5: Render conversation list here
+
     render: function() {
-      
+      // Tutorial Steps 2, 3 and 5: Render conversation list here
     }
   });
 })();

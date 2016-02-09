@@ -4,4 +4,4 @@ This tutorial helps build a simple chat application using Layer's Web SDK. It's 
 
 If your looking for a sample chat application rather than a tutorial, check our [Sample Apps](https://github.com/layerhq/samples-web-apis) where you will find examples built using different Javascript frameworks.
 
-> This chat application requires you to use [Layer Atlas](https://atlas.layer.com) Application ID and an Identity Service provided by Layer for building samples (NOT for production applications).
+> This chat application requires you to use the [Layer Atlas](https://atlas.layer.com) Application ID and an Identity Service provided by Layer for building samples (NOT for production applications).

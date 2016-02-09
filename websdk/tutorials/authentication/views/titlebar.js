@@ -14,10 +14,9 @@
      * into displayable names.
      */
     render: function(conversation) {
+      // Tutorial Steps 5 and 6: Show the User Name
       var title = 'Welcome to the Tutorial Sample App';
       this.$el.html('<div class="title">' + title + '</div>');
-
-      // Step 5 and 6: Update title with user logged in
     }
   });
 })();
