@@ -129,6 +129,18 @@
           "declaration" : "@property (nonatomic, readonly, nullable) NSOrderedSet<LYRPolicy*> *policies",
           "comment" : "Returns the ordered set of {@link LYRPolicy} objects governing the behavior of the client.\n",
           "name" : "policies"
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly) LYRClientSynchronizationPolicy synchronizationPolicy",
+          "comment" : "The synchronization policy the client was initialized with.",
+          "name" : "synchronizationPolicy"
+        },
+        {
+          "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSDictionary *synchronizationPolicyOptions",
+          "comment" : "The synchronization policy options the client was initialized with.",
+          "name" : "synchronizationPolicyOptions"
         }
       ],
       "comment" : "The LYRClient class and related classes provide an API for rich messaging via the Layer platform. This API supports the exchange of multi-part Messages within multi-user Conversations and advanced features such\nas mutation of the participants, deletion of messages or the entire conversation, and the attachment of free-form user defined metadata. The API is sychronization based, fully supporting offline usage and providing full access\nto the history of messages across devices.",
@@ -141,14 +153,18 @@
               {
                 "name" : "appID",
                 "description" : "An app id url obtained from the Layer Developer Portal. {@link https:\/\/developer.layer.com\/projects}"
+              },
+              {
+                "name" : "options",
+                "description" : "Options to the client initialization. @see LYRClientOptionSynchronizationPolicy."
               }
             ],
             "return" : "Returns a newly created Layer client object, or nil in the case the client cannot not be initialized due to file protection.",
             "discussion" : "> %warning% > **Warning:** Throws NSInternalInconsistencyException when creating another Layer Client instance with the same appID value under the same process (application).\nHowever multiple instances of Layer Client with the same appID are allowed if running the code under Unit Tests.  Make sure to initialize the client when the\nfile access is available if the app uses NSFileProtection.",
             "declared" : "LYRClient.h",
             "comment" : "Creates and returns a new Layer client instance.",
-            "name" : "clientWithAppID:",
-            "declaration" : "+ (nullable instancetype)clientWithAppID:(nonnull NSURL *)appID"
+            "name" : "clientWithAppID:options:",
+            "declaration" : "+ (nullable instancetype)clientWithAppID:(nonnull NSURL *)appID options:(nullable NSDictionary *)options"
           }
         ],
         "instance" : [
@@ -586,6 +602,18 @@
           "declaration" : "@property (nonatomic, readonly) BOOL isDeleted",
           "comment" : "Returns a Boolean value that indicates if the receiver has been deleted.",
           "name" : "isDeleted"
+        },
+        {
+          "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) NSUInteger totalNumberOfMessages",
+          "comment" : "Property gives the total number of messages in the conversation, even in case when not all the messages have been synchronized with the client.",
+          "name" : "totalNumberOfMessages"
+        },
+        {
+          "declared" : "LYRConversation.h",
+          "declaration" : "@property (nonatomic, readonly) NSUInteger totalNumberOfUnreadMessages",
+          "comment" : "Property gives the total number of unread messages in the conversation, even in case when not all the messages have been synchronized with the client.",
+          "name" : "totalNumberOfUnreadMessages"
         }
       ],
       "methods" : {
@@ -726,6 +754,40 @@
               {
                 "name" : "merge",
                 "description" : "A Boolean flag that specifies whether the metadata is to be assigned directly or merged with any existing values."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (BOOL)synchronizeAllMessages:(LYRMessageSyncOptions)messageSyncOption error:(NSError *_Nullable *_Nullable)error",
+            "comment" : "Tells the client to synchronize all historic messages or all unread messages that haven't been synchronized with this client yet.",
+            "name" : "synchronizeAllMessages:error:",
+            "return" : "YES in case the request for the operation was successfull; otherwise NO.",
+            "parameters" : [
+              {
+                "name" : "messageSyncOption",
+                "description" : "If used with LYRMessageSyncToFirstUnread, the client will try to only synchronize all messages up to the first unread message found in the conversation;\nif LYRMessageSyncAll is passed, the client will load all historic messages in the conversation."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the synhcronization process could not be performed."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRConversation.h",
+            "declaration" : "- (BOOL)synchronizeMoreMessages:(NSUInteger)minimumNumberOfMessages error:(NSError *_Nullable *_Nullable)error",
+            "comment" : "Tells the client to synchronize more historic messages that are in the conversation.",
+            "name" : "synchronizeMoreMessages:error:",
+            "return" : "YES in case the request for the operation was successfull; otherwise NO.",
+            "parameters" : [
+              {
+                "name" : "minimumNumberOfMessages",
+                "description" : "The number of historic messages the client should try to fetch during synchronization."
+              },
+              {
+                "name" : "error",
+                "description" : "A pointer to an error object that, upon failure, will be set to an error describing why the synhcronization process could not be performed."
               }
             ]
           }
@@ -1751,6 +1813,18 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRClientErrorManualSyncFailedNoConnection",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorManualSyncIgnoredAlreadyInProgress",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorManualSyncIgnoredAlreadyFullySynced",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRClientErrorZipArchiveCreationFailure",
           "declared" : "LYRErrors.h"
         },
@@ -1785,6 +1859,27 @@
         {
           "name" : "LYRClientErrorInvalidClassType",
           "declared" : "LYRErrors.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRConstants.h",
+      "name" : "LYRClientSynchronizationPolicy",
+      "values" : [
+        {
+          "name" : "LYRClientSynchronizationPolicyCompleteHistory",
+          "comment" : "Client will perform the synchronization process by fetching the complete history for all conversations, using this sync policy.\n     ",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRClientSynchronizationPolicyUnreadOnly",
+          "comment" : "Client will perform the synchronization process by fetching all the messages up to first unread message in for each conversation.\n     ",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRClientSynchronizationPolicyMessageCount",
+          "comment" : "Client will perform the synchronization process by fetching last few recent messages -- count is defined with the LYRClientOptionSynchronizationMessageCount key.\n     ",
+          "declared" : "LYRConstants.h"
         }
       ]
     },
@@ -2054,6 +2149,22 @@
         },
         {
           "name" : "LYRLogLevelVerbose",
+          "declared" : "LYRConstants.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRConstants.h",
+      "name" : "LYRMessageSyncOptions",
+      "values" : [
+        {
+          "name" : "LYRMessageSyncAll",
+          "comment" : "Using this option with [conversation synchronizeAllMessages:error:] method will\n     tell the client to synchronize all messages for that conversation.\n     ",
+          "declared" : "LYRConstants.h"
+        },
+        {
+          "name" : "LYRMessageSyncToFirstUnread",
+          "comment" : "Using this option with [conversation synchronizeAllMessages:error:] method will\n     tell the client to synchronize all messages up to the first unread mesasge in that conversation.\n     ",
           "declared" : "LYRConstants.h"
         }
       ]
