@@ -1,10 +1,16 @@
 # Sending Messages
 Once authenticated, users can send and receive messages, which are associated with a specific Conversation object.
 
-[LYRConversation](/docs/ios/api#lyrconversation) objects are created by calling `newConversationWithParticipants:options:error:`on [LYRClient](/docs/ios/api#lyrclient). By default, new Conversations are set to be distinct, which ensures that there is only one unique Conversation between the given set of users. Note: this feature was introduced in SDK version 0.14.0 and older versions of the SDK do not support the notion of distinct Conversations (they are classified as "non-distinct"). The initialization variables are the following:
+By default, new Conversations are set to be distinct, which ensures that there is only one unique Conversation between the given set of users.
+
+```emphasis
+Note: Distinct Conversations was introduced in SDK version 0.14.0. Older versions of the SDK do not support the notion of distinct Conversations (they are classified as "non-distinct").
+```
+
+[LYRConversation](/docs/ios/api#lyrconversation) objects are created by calling `newConversationWithParticipants:options:error:` on [LYRClient](/docs/ios/api#lyrclient). The initialization variables are the following:
 
 * `participants` - A mandatory array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a Conversation is represented with that same user identifier.
-* `options` - An optional dictionary of initialization options. You can initialize of metadata via the `LYRConversationOptionsMetadataKey` key, and you can specify if this Conversation should or should not be distinct by using the `LYRConversationOptionsDistinctByParticipantsKey` key.
+* `options` - An optional dictionary of initialization options. [Metadata](/docs/ios/guides#metadata) can be configured during initialization via the `LYRConversationOptionsMetadataKey` key with an `NSDictionary<NSString *, NSString *>` value. Whether or not the `Conversation` should be distinct can be configured via the `LYRConversationOptionsDistinctByParticipantsKey` with a boolean value.
 * `error` - An optional pointer to an error object whose value will be set if an error occurs.
 
 ```objectivec
@@ -14,7 +20,7 @@ LYRConversation *conversation = [layerClient newConversationWithParticipants:[NS
 ```
 
 ```emphasis
-Note, that it is not necessary to include the currently authenticated user in the participant array. They are implicit in all new conversations.***
+Note: It is not necessary to include the currently authenticated user in the participant array. They are implicit in all new conversations.***
 ```
 
 If multiple users independently create distinct Conversations with the same set of users, the server will automatically merge the Conversations. This means that some properties of the Conversation may change after it is created, but the Layer SDK will handle these changes for you.
@@ -46,7 +52,7 @@ BOOL success = [conversation removeParticipants:@[ @"USER-IDENTIFIER" ] error:&e
 ```
 
 ```emphasis
-Note, adding or removing participants from a distinct Conversation removes the distinct status. For example, if you have the following Conversations:
+Note: Adding or removing participants from a distinct Conversation removes the distinct status. For example, if you have the following Conversations:
 
 - Conversation A is distinct and has participants "1" and "2"
 - Conversation B is distinct and has participants "1", "2", and "3"
@@ -156,12 +162,14 @@ LYRRecipientStatus status = [recipientStatuses[layerClient.authenticatedUserID] 
 NSLog(@"Recipient Status is %ld", status);
 ```
 
-Applications can only mark messages as read as the system handles all other recipient states. This is done by calling `markAsRead:` on the message object.
+Applications can only update a message's recipient status by marking it as read. This is done by calling `markAsRead:` on the message object.
 
 ```objectivec
 NSError *error = nil;
 BOOL success = [message markAsRead:&error];
 ```
+
+The system handles all other recipient states.
 
 Additionally, applications can mark a Conversation as read which marks all unread messages in a Conversations as read.
 

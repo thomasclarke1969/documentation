@@ -22,16 +22,15 @@ Change notifications occur for both [LYRMessage](/docs/ios/api#lyrmessage) and [
 
 ```objectivec
 for (LYRObjectChange *change in changes) {
-        id changeObject = change.object;
-        if ([changeObject isKindOfClass:[LYRConversation class]]) {
+    id changeObject = change.object;
+    if ([changeObject isKindOfClass:[LYRConversation class]]) {
 		// Object is a conversation
 	}
 
-        if ([changeObject isKindOfClass:[LYRMessage class]]) {
+    if ([changeObject isKindOfClass:[LYRMessage class]]) {
 		// Object is a message
 	}
 }
-
 ```
 
 Change notifications will alert your application to object creation, update and deletion events. In order to acquire the specific type of change, your application can retrieve the `type` property from the `LYRObjectChange` object.
@@ -66,7 +65,7 @@ To above code can be combined in the following code block:
         if ([changeObject isKindOfClass:[LYRConversation class]]) {
             // Object is a conversation
             LYRConversation *message = changeObject;
-            
+
             switch (updateKey) {
                 case LYRObjectChangeTypeCreate:
                     //
@@ -83,7 +82,7 @@ To above code can be combined in the following code block:
         } else {
             // Object is a message
             LYRMessage *message = changeObject;
-            
+
             switch (updateKey) {
                 case LYRObjectChangeTypeCreate:
                     //

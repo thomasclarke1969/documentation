@@ -2,7 +2,7 @@
 Layer provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with a `LYRQuery` object and can act on `LYRConversation`, `LYRMessage`, or `LYRAnnoucement` objects.
 
 ```emphasis
-Queries execute on the local database, and will only return results for conversations and messages where the authenticated user is a participant. Queries will **not** return empty conversations - a conversation must have at least one message in it in order to be written to the local database. 
+Queries execute on the local database, and will only return results for conversations and messages where the authenticated user is a participant. Queries will **not** return empty conversations - a conversation must have at least one message in it in order to be written to the local database.
 ```
 
 To demonstrate a simple example, the following queries LayerKit for the latest 20 messages in the given conversation.
@@ -55,7 +55,7 @@ query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" as
 
 ## Limits and offsets
 
-To facilitate pagination, queries may be further constrained by applying limit and offset values. The limit onfigures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
+To facilitate pagination, queries may be further constrained by applying limit and offset values. The limit configures the maximum number of objects to be returned when the query is executed. The offset configures the number of rows that are to be skipped in the result set before results are returned.
 
 ```objectivec
 query.limit = 20;
@@ -91,7 +91,7 @@ if (!error) {
 }
 ```
 
-Additionally, when querying for results with a `resultType` of `LYRQueryResultTypeCount`, `LYRClient` declares a convenience method that returns an `NSUInteger`, `countForQuery:error:`.
+Additionally, `LYRClient` declares `countForQuery:error:` for queries with a `resultType` of `LYRQueryResultTypeCount`. This method returns an `NSUInteger`.
 
 ```objectivec
 NSError *error;
@@ -136,6 +136,10 @@ In order to acquire the number of objects in a result set, applications can call
 {
     return [self.queryController numberOfObjectsInSection:section];
 }
+```
+
+```emphasis
+Note: Currently there is only one section, at index `0`.
 ```
 
 In order to acquire an object for a given position, applications can call `objectAtIndexPath:`. This method can be used in your implementation of `cellForRow:atIndexPath:` in order to acquire the proper `LYRConversation` object to display.

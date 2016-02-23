@@ -35,7 +35,8 @@ Applications can fetch metadata for a given conversation by accessing the public
 ```objective-c
 NSString *title = [conversation.metadata valueForKey:@"title"];
 ```
-Below is an example of retrieving nested data. For the example, given the above metadata structure, an application will return the value of "333333."
+
+Applications can also fetch metadata using a keypath. For the example, given the above metadata structure, this code will return the value of "333333":
 ```objective-c
 NSString *color = [conversation.metadata valueForKeyPath:@"theme.background_color"];
 ```

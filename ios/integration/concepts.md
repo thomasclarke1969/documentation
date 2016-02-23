@@ -4,7 +4,7 @@ LayerKit is a powerful tool that lets you add in-app messaging with very little 
 
 ## Authenticating
 
-In order for a user to send or recieve messages, you must Authenticate them first. Layer will accept any unique String as a User ID (UIDs, email addresses, phone numbers, usernames, etc), so you can use any new or existing User Management system. As part of the Authentication process, you will need to set up a Web Service which generates a unique Identity Token for each user on request.
+In order for a user to send or recieve messages, you must Authenticate them first. Layer will accept any unique String as a User ID (UIDs, email addresses, phone numbers, usernames, etc), so you can design your own authentication system or use what you already have. As part of the Authentication process, you will need to set up a Web Service which generates a unique Identity Token for each user on request.
 
 ## Synchronization and Offline Support
 
