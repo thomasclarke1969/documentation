@@ -91,7 +91,7 @@ The [LYRClient](docs/ios/api#lyrclient) object is the primary interface for inte
 ```
 
 ```emphasis
-We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sample code below contains your application's key.
+If you are [logged in](https://developer.layer.com/login?rt=/projects), We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sample code below contains your application's key.
 ```
 
 Keys are application specific and should be kept private. Copy and paste the following into `application:didFinishLaunchingWithOptions:` in your `AppDelegate`.
