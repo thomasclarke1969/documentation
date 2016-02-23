@@ -1,6 +1,6 @@
 # Rich Content
 
-A MessagePart may contains a `content` property representing Rich Content.  Rich Content refers to content larger than 2kb, such that the content must be stored on a cloud storage system rather than within the Message Service.
+A MessagePart may contain a `content` property representing Rich Content.  Rich Content refers to content larger than 2kb, such that the content must be stored on a cloud storage system rather than within the Message Service.
 
 ```json
 {

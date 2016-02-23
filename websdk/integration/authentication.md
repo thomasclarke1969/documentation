@@ -21,7 +21,7 @@ Once this has been obtained, the `challenge` event is triggered with the nonce. 
 
 After this is passed back to the app, you can finish the authentication process by calling the `challenge` event's `callback(token)`.  This will enable the Client to generate a session and then trigger a `ready` event.
 
-<a href="https://s3.amazonaws.com/static.layer.com/web/docs/android_auth.png" target="_blank"><img src="https://s3.amazonaws.com/static.layer.com/web/docs/android_auth.png" alt="Authentication flow on Android"></a>
+<a href="https://s3.amazonaws.com/static.layer.com/web/docs/websdk_auth.png" target="_blank"><img src="https://s3.amazonaws.com/static.layer.com/web/docs/websdk_auth.png" alt="Authentication flow on Web SDK"></a>
 
 
 If you'd like to learn more about Authentication and the Authentication process, this [Knowledge Base article](https://support.layer.com/hc/en-us/articles/204225940-How-does-Authentication-work) is a good place to start.

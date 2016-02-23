@@ -109,7 +109,7 @@ If you have already created a Provisioning Profile in the past you will need to 
 # Upload Your Certificate to Layer
 
 ```emphasis
-Please note, Layer supports both production and development Apple Push Notifications. You can upload up to 5 different certificates per project. Layer will automatically detect the type of certificate you've uploaded and use the correct one at runtime.
+Please note, Layer supports both production and development Apple Push Notifications. Layer will automatically detect the type of certificate you've uploaded and use the correct one at runtime.
 ```
 
 Navigate to the Layer [Developer Dashboard](https://developer.layer.com) and login with your credentials. Select the application for which you would like to upload certificates from the Projects drop-down menu. Click on the “Push” section of the left hand navigation.
