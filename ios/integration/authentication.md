@@ -26,7 +26,7 @@ You can use this as a template to connect to your own Identity Service, which wi
 [layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
 
    /*
-    * 2. Connect to your Identity Web Service to generate an Identity Token. In addition
+    * 2. Connect to your Authentication Web Service to generate an Identity Token. In addition
     *    to your Layer App ID, User ID, and nonce, you can choose to pass in any other
     *    parameters that make sense (such as a password), depending on your App's login
     *    process.
