@@ -10,7 +10,7 @@ Note: Distinct Conversations was introduced in SDK version 0.14.0. Older version
 [LYRConversation](/docs/ios/api#lyrconversation) objects are created by calling `newConversationWithParticipants:options:error:` on [LYRClient](/docs/ios/api#lyrclient). The initialization variables are the following:
 
 * `participants` - A mandatory array of user identifiers. As Layer Authentication allows you to represent users within the Layer service via your backend’s identifier for that user, a participant in a Conversation is represented with that same user identifier.
-* `options` - An optional dictionary of initialization options. Metadata can be configured during initialization via the `LYRConversationOptionsMetadataKey` key with an `NSDictionary<NSString *, NSString *>` value. Whether or not the `Conversation` should be distinct can be configured via the `LYRConversationOptionsDistinctByParticipantsKey` with a boolean value.
+* `options` - An optional dictionary of initialization options. [Metadata](/docs/ios/guides#metadata) can be configured during initialization via the `LYRConversationOptionsMetadataKey` key with an `NSDictionary<NSString *, NSString *>` value. Whether or not the `Conversation` should be distinct can be configured via the `LYRConversationOptionsDistinctByParticipantsKey` with a boolean value.
 * `error` - An optional pointer to an error object whose value will be set if an error occurs.
 
 ```objectivec
