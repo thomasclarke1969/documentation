@@ -34,7 +34,7 @@ Not a fan of scripts? That's OK, just follow these instructions:<br/>
   $ pod install
   ```
 3. Open QuickStart.xcworkspace in Xcode.
-4. Replace `LAYER_APP_ID` in LQSAppDelegate.m (line 16) with the App ID. Your App ID can be found in the dashboard under the "Keys" section.</br>
+4. Replace `LAYER_APP_ID` in LQSAppDelegate.m (line 16) with the App ID. Your App ID can be found in the [Dashboard](https://developer.layer.com/projects/keys) under the "Keys" section.</br>
   **Warning: If you skip this step you will get an error on app launch.**
 
 ## See Layer in Action
