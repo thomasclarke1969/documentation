@@ -1,5 +1,11 @@
 # Layer Platform API Change Log
 
+## February 24, 2016
+
+#### Enhancements
+
+* Add support for rich content.  Now you can post messages with content exceeding 2KB.  This functionality has existed in Client API since day one, and Platform API now supports it as well.
+
 ## January 11, 2016
 
 #### Enhancements
