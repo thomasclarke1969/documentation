@@ -23,42 +23,42 @@ With Atlas, you can have Avatar Bubbles appear alongside Conversation and Messag
 ```
 
 ## Controllers
-When creating a conversation, there are 2 different view controllers that need to pull from you list of users:
+When creating a conversation, there are two different view controllers that need to be populated from your list of users:
 1. [Address Bar View Controller](#abvc) - List of Users in Conversation
-2. [Participant Table View Controller](#ptvc) - List of total Users 
+2. [Participant Table View Controller](#ptvc) - List of total Users
 Both View Controllers assume the list of participants
 
 ## <a name="abvc"></a> Address Bar View Controller (ATLAddressBarViewController)
 The Address Bar View Controller appears at the top of the ATLConversationViewController. When creating a new conversation you can add the participants in the view, or initiate the the Participant Table View Controller. If the conversation exists then the address will contain a read-only list of participants.
 
 ### Initialization
-The ConversationViewController includes an instance of the `ATLAddressBarViewController` by default. You will need to implement the AddressBarViewController delegate methods. 
+The ConversationViewController includes an instance of the `ATLAddressBarViewController` by default. You will need to implement the AddressBarViewController [delegate methods](https://github.com/layerhq/Atlas-iOS/blob/master/Code/Controllers/ATLAddressBarViewController.h).
 ```objective-c
 - (void)viewDidLoad {
     [super viewDidLoad];
-...    
+...
     self.addressBarController.delegate = self;
 ...
 }
 ```
 
 ### Configuring Add Contacts Button
-When the user taps the + in the Address Bar, the `ATLAddressBarViewController` notifies the `ATLAddressBarViewControllerDelegate` delegate of the action. This is a great time to initiate `ATLParticipantTableViewController`. 
+When the user taps the + in the Address Bar, the `ATLAddressBarViewController` notifies the `ATLAddressBarViewControllerDelegate` delegate of the action. This is a great time to initiate `ATLParticipantTableViewController`.
 ```objective-c
 - (void)addressBarViewController:(ATLAddressBarViewController *)addressBarViewController didTapAddContactsButton:(UIButton *)addContactsButton
 {
-    // On initialization, pass in a NSSet of Objects that adhere to the ATLParticipant Protocol    
-    SampleParticipantTableViewController *controller = [SampleParticipantTableViewController 
+    // On initialization, pass in a NSSet of Objects that adhere to the ATLParticipant Protocol
+    SampleParticipantTableViewController *controller = [SampleParticipantTableViewController
     participantTableViewControllerWithParticipants:[NSSet setWithArray:users] sortType:ATLParticipantPickerSortTypeFirstName];
     controller.delegate = self;
-    
+
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 ```
 
 ### Configuring Address Bar Search
-When the user types in the Address Bar, the `ATLAddressBarViewController` notifies the `ATLAddressBarViewControllerDelegate` delegate of the action. 
+When the user types in the Address Bar, the `ATLAddressBarViewController` notifies the `ATLAddressBarViewControllerDelegate` delegate of the action.
 ```objective-c
 -(void)addressBarViewController:(ATLAddressBarViewController *)addressBarViewController searchForParticipantsMatchingText:(NSString *)searchText completion:(void (^)(NSArray *))completion {
     // Search your users here (Pseudocode)
@@ -105,7 +105,7 @@ When the user selects a participant, the `ATLParticipantTableViewController` not
         } else {
             NSLog(@"Error search for participants: %@", error);
         }
-    }];    
+    }];
 }
 ```
 

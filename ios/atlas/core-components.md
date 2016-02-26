@@ -4,6 +4,8 @@ To implement Atlas fully, you must at least subclass these view controllers:
 1. [Conversation List View Controller](#clvc) - List of Conversations
 2. [Conversation View Controller](#cvc) - List of Messages and Input
 
+We recommend that you subclass the Atlas classes that you intend to use. In the examples below, `SampleConversationListViewController` is a subclass of `ATLConversationListViewController`, and so on. This gives you the flexibilty to design classes for your use cases, and interface with Atlas via inherited methods and implementing a few data source and delegate methods.
+
 ## <a name="clvc"></a> Conversation List View Controller (ATLConversationListViewController)
 The Conversation List View Controller is a `UITableViewController` that contains a list of all the conversations that the authenticated user ID belongs to. By default, the cell will contain a title and will show the last message text in conversation.
 
@@ -33,7 +35,7 @@ You can configure the conversation title by implementing the `ATLConversationLis
 ```
 
 ###  Notification when Conversation is selected
-When the user selects a conversation, the `ATLConversationListViewController` notifies the `ATLConversationListViewControllerDelegate` delegate of the action. This is a great time to initiate `ATLConversationViewController`. 
+When the user selects a conversation, the `ATLConversationListViewController` notifies the `ATLConversationListViewControllerDelegate` delegate of the action. This is a great time to initiate `ATLConversationViewController`.
 
 ```objective-c
 - (void)conversationListViewController:(ATLConversationListViewController *)conversationListViewController didSelectConversation:(LYRConversation *)conversation {
@@ -52,7 +54,7 @@ When the user selects a conversation, the `ATLConversationListViewController` no
 ```
 
 ## <a name="cvc"></a> Conversation View Controller (ATLConversationViewController)
-The Conversation View Controller is a `UICollectionViewController` that contains all the messages in the conversation. The area at the top where the participants are listed is called the Address Bar. The area at the bottom of the screen where the user can input text, select an image, or send a location is called the Message Input Toolbar. 
+The Conversation View Controller is a `UICollectionViewController` that contains all the messages in the conversation. The area at the top where the participants are listed is called the Address Bar. The area at the bottom of the screen where the user can input text, select an image, or send a location is called the Message Input Toolbar.
 
 ### Initializing
 The following code shows how to initialize the `ATLConversationViewController` when someone taps on a conversation in a  `ATLConversationListViewController`.
@@ -136,11 +138,11 @@ Atlas will automatically highlight links and phone numbers. You can control what
 ...
 }
 
-- (void)userDidTapLink:(NSNotification *)notification { 
-   [[UIApplication sharedApplication] openURL:notification.object]; 
+- (void)userDidTapLink:(NSNotification *)notification {
+   [[UIApplication sharedApplication] openURL:notification.object];
 }
 
-- (void)userDidTapPhoneNumber:(NSNotification *)notification { 
+- (void)userDidTapPhoneNumber:(NSNotification *)notification {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", notification.object]]];
 }
 ```
