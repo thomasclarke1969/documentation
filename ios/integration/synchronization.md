@@ -101,6 +101,37 @@ To above code can be combined in the following code block:
 }
 ```
 
+## Listening for a specific conversation or message
+
+A common use case is to create a conversation/message via the [Platform API](https://developer.layer.com/docs/platform#create-a-conversation), and then access it in the SDK. A common mistake developers make is to try to query for the conversation/message before it's been synchronized to the device. To assist in receiving the object, LayerKit provides a convenience method that notifies you when that conversation/message has been synchronized if it hasn’t already called `waitForCreationOfObjectWithIdentifier`.
+
+```objectivec
+    NSURL *messageURL = [NSURL URLWithString:@"layer:///messages/2f002ba4-2a08-4019-9fa6-0fe30e2ac3f7"];
+    // Retrieve LYRMessage from Message URL
+    LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" predicateOperator:LYRPredicateOperatorIsEqualTo value:messageURL];
+    
+    NSError *error = nil;
+    NSOrderedSet *messages = [self.layerClient executeQuery:query error:&error];
+    if (error) {
+        // query failed
+    }
+    __block LYRMessage *message = messages.firstObject;
+    if (!message) {
+        // The message hasn't been synchronized
+        [self.layerClient waitForCreationOfObjectWithIdentifier:messageURL timeout:3.0f completion:^(id  _Nullable object, NSError * _Nullable error) {
+            if (object) {
+                message = (LYRMessage*)object;
+                // do something
+            } else {
+                // object wasn't created in timeout with error
+            }
+        }];
+    } else {
+        // do something
+    }
+```
+
 ## Client Delegate
 The `LYRClientDelegate` protocol also declares synchronization methods which alert your application when objects have changed or when an operation has failed.
 
