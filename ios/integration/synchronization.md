@@ -122,13 +122,13 @@ A common use case is to create a conversation/message via the [Platform API](htt
         [self.layerClient waitForCreationOfObjectWithIdentifier:messageURL timeout:3.0f completion:^(id  _Nullable object, NSError * _Nullable error) {
             if (object) {
                 message = (LYRMessage*)object;
-                // do something
+                // proceed with object
             } else {
                 // object wasn't created in timeout with error
             }
         }];
     } else {
-        // do something
+        // proceed with object
     }
 ```
 
