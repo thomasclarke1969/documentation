@@ -1,5 +1,11 @@
 # Layer Platform API Change Log
 
+## March 1, 2016
+
+#### Enhancements
+
+* Add support for deleting messages.
+
 ## February 24, 2016
 
 #### Enhancements
