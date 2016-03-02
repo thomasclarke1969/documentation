@@ -17,7 +17,10 @@ Optionally, the count of Unread Announcements can be summed with the enabled bad
 
 Many applications have additional countable objects within their data models that the developer may wish to include in the badge count.
 To accommodate these cases, the Platform API exposes endpoints for managing an eternal badge count. The external badge count is an
-integer value that is summed with the appropriate messaging counts and sent along with each push notification that originates from Layer.
+integer value that is summed with the appropriate messaging counts and sent along with each push notification that originates from Layer. When a badge
+is set for a user with one or more iOS devices, a push notification is immediately dispatched to update the badge with the latest state. As messaging 
+tends to be a faster moving data source, Layer recommends utilizing this push to maintain an accurate badge rather than reading the Layer badge
+and sending external pushes that include a badge from a secondary source.
 
 ## Setting a User's Badge
 
@@ -27,6 +30,8 @@ You can set an external unread count for a particular user using:
 PUT https://api.layer.com/apps/:app_uuid/users/:user_id/badge
 Content-Type: application/json
 ```
+
+Note that a push notification is immediately dispatched to all of the specified user's iOS device to set the new badge value.
 
 ### Parameters
 
@@ -63,6 +68,9 @@ You can read the badge for a particular user using:
 GET https://api.layer.com/apps/:app_uuid/users/:user_id/badge
 Content-Type: application/json
 ```
+
+Note that while you can read the badge values at any time, it is not recommended that you attempt to reflect Layer badging
+values in externally sent push notifications as messaging data is fast moving.
 
 ### Successful Response (200 OK)
 
