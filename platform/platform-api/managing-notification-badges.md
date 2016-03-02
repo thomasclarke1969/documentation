@@ -40,10 +40,10 @@ Content-Type: application/json
 { "external_unread_count": 13 }
 ```
 
-### Successful Response
+### Successful Response (200 OK)
 
-```text
-204 (No Content)
+```json
+{ "external_unread_count": 13, "unread_conversation_count": 10, "unread_message_count": 50 }
 ```
 
 ```console
@@ -64,7 +64,7 @@ GET https://api.layer.com/apps/:app_uuid/users/:user_id/badge
 Content-Type: application/json
 ```
 
-### Successful Response
+### Successful Response (200 OK)
 
 ```json
 { "external_unread_count": 13, "unread_conversation_count": 10, "unread_message_count": 50 }
