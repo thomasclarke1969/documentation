@@ -8,7 +8,7 @@ You can register a new webhook using the following endpoint.
 |---------|:------:|-------------|
 | **version**    | string   | The version of the Layer Webhooks protocol to use (for now, always use `"1.0"`) |
 | **target_url**    | string   | Destination URL for the webhook (must be HTTPS) |
-| **event_types** | string[] | Types of [events](/docs/webhooks/introduction#event-types) that will cause this webhook to be triggered |
+| **events** | string[] | Types of [events](/docs/webhooks/introduction#event-types) that will cause this webhook to be triggered |
 | **secret** | string  | String used to generate an hash of each webhook payload to allow your server to [verify its authenticity](#secrets) |
 | **config**   | dictionary   | A free form dictionary of supplemental data specific to the webhook |
 
