@@ -15,7 +15,7 @@ DELETE /apps/:app_uuid/conversations/:conversation_uuid/messages/:message_uuid
 curl  -X DELETE \
       -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
-      https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations/CONVERSATION_ID/messages/MESSAGE_ID
+      https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_ID/messages/MESSAGE_ID
 ```
 
 ### Successful Response
