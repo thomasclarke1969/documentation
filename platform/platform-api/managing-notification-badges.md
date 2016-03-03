@@ -50,7 +50,7 @@ Note that a push notification is immediately dispatched to all of the specified 
 ### Response `204 (No Response)`
 
 ```console
-curl  -X POST \
+curl  -X PUT \
       -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
