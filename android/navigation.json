@@ -46,7 +46,8 @@
     }
   },
   "api": {
-    "title": "API Reference"
+    "title": "API Reference",
+    "url": "http://static.layer.com/docs/android/api"
   },
   "support": {
     "title": "Support",
