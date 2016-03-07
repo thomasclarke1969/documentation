@@ -20,7 +20,6 @@ POST https://mydomain.com/my-webhook-endpoint
     },
     "message": {
         "id": "layer:///messages/940de862-3c96-11e4-baad-164230d1df67",
-        "url": "https://api.layer.com/apps/082d4684-0992-11e5-a6c0-1697f925ec7b/messages/940de862-3c96-11e4-baad-164230d1df67",
         "conversation": {
             "id": "layer:///conversations/e67b5da2-95ca-40c4-bfc5-a2a8baaeb50f",
             "url": "https://api.layer.com/apps/082d4684-0992-11e5-a6c0-1697f925ec7b/conversations/e67b5da2-95ca-40c4-bfc5-a2a8baaeb50f"

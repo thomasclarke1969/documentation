@@ -5,8 +5,8 @@
 
 This project requires Xcode and the iOS SDK v8.0, and uses [Cocoapods](cocoapods.org).
 
-1. Clone the project from GitHub: `$ git clone https://github.com/layerhq/Layer-Parse-iOS-Example.git`
-2. Install the dependencies in the root directory via CocoaPods: `$ pod install`
+1. Clone the project from GitHub: `git clone https://github.com/layerhq/Layer-Parse-iOS-Example.git`
+2. Install the dependencies in the root directory via CocoaPods: `pod install`
 3. Open `Layer-Parse-iOS-Example.xcworkspace` in Xcode.
 4. Replace `LayerAppIDString` , `ParseAppIDString` , and `ParseClientKeyString` in `AppDelegate.m` with your Layer and Parse credentials.
 5. Add the [Layer Parse Module](https://github.com/layerhq/layer-parse-module) to your Parse Cloud Code to serve as an authentication manager.
@@ -17,7 +17,7 @@ This project requires Xcode and the iOS SDK v8.0, and uses [Cocoapods](cocoapods
 
 ### ParseUI and SignUp
 
-The `ViewController` controls the ParseUI and Layer+Atlas instantiation.  If there is no localized Parse user then we present a `PFLogInViewController` that includes an instance of `PFSignUpViewController`.  
+The `ViewController` controls the ParseUI and Layer+Atlas instantiation.  If there is no localized Parse user then we present a `PFLogInViewController` that includes an instance of `PFSignUpViewController`.
 
 ```objc
     if (![PFUser currentUser]) { // No user logged in
@@ -26,7 +26,7 @@ The `ViewController` controls the ParseUI and Layer+Atlas instantiation.  If the
         ...
         // Create the sign up view controller
         PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
-        
+
         // Assign our sign up controller to be displayed from the login controller
         [self.logInViewController setSignUpController:signUpViewController];
         ...

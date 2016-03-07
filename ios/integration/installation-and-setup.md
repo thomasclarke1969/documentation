@@ -11,13 +11,13 @@ LayerKit requires CocoaPods v0.39 or higher.
 You can install Cocoapods via the following command:
 
 ```console
-$ sudo gem install cocoapods
+sudo gem install cocoapods
 ```
 
 Navigate to your project's root directory and run `pod init` to create a `Podfile`.
 
 ```console
-$ pod init
+pod init
 ```
 
 Open up the `Podfile` and add `LayerKit` to your project's target. LayerKit is a [dynamic framework](http://blog.cocoapods.org/CocoaPods-0.36/) so the `use_frameworks!` tag also needs to be added to your Podfile. Here's an example Podfile:
@@ -34,7 +34,7 @@ end
 Save the file and run the following to install LayerKit.
 
 ```console
-$ pod install --verbose
+pod install --verbose
 ```
 
 Cocoapods will download and install LayerKit and also create a .xcworkspace project.
@@ -54,7 +54,7 @@ github "layerhq/releases-ios"
 Instruct Carthage to pull down the latest binary release of the LayerKit framework by running `carthage update`:
 
 ```console
-$ carthage update
+carthage update
 ```
 
 Drag LayerKit.framework from the appropriate platform directory in the Carthage/Build/ to the “Embedded Binaries” section of your Xcode project’s “General” settings.
@@ -91,10 +91,10 @@ The [LYRClient](docs/ios/api#lyrclient) object is the primary interface for inte
 ```
 
 ```emphasis
-We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sample code below contains your application's key.
+If you are [logged in](https://developer.layer.com/login?rt=/projects), We have created an application for you titled, %%C-INLINE-APPNAME%%, and the sample code below contains your application's key.
 ```
 
-Key's are application specific and should be kept private. Copy and paste the following into `application:didFinishLaunchingWithOptions:` in your `AppDelegate`.
+Keys are application specific and should be kept private. Copy and paste the following into `application:didFinishLaunchingWithOptions:` in your `AppDelegate`.
 
 ```objectivec
 // Initializes a LYRClient object

@@ -15,10 +15,16 @@ The recommended path for installation is [CocoaPods](http://cocoapods.org/). You
 pod 'Atlas'
 ```
 
+Since Atlas has a direct dependency on LayerKit, the use of dynamic frameworks is required; therefore please add the following line to the top of you podfile:
+
+```
+use_frameworks!
+```
+
 Complete the installation by executing:
 
 ```sh
-$ pod install
+pod install
 ```
 
 #### Source Code Installation

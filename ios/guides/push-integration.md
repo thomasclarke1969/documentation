@@ -190,53 +190,32 @@ The conversation identifier is contained in `layer.conversation_identifier` and 
 A common use case is to switch to a conversation list or conversation view immediately after someone taps on a push notification. However, if you try to navigate to the conversation view before the sync has completed the new messages may not appear until the sync has finished. To remedy this `LYRClient` provides a method called `synchronizeWithRemoteNotification`. The code block inside `synchronizeWithRemoteNotification` will get executed immediately after the sync has finished. So we recommend navigating to the conversation list or conversation view  from within this method.
 ```
 
-The following code will retrieve the LYRMessage object from a push notification:
+The following code prints out the contents of LYRMessage object from a push notification:
 
 ```objective-c
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NS
-Dictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     NSError *error;
-
-    BOOL success = [self.applicationController.layerClient synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
-        if (changes) {
-            if ([changes count]) {
-                message = [self messageFromRemoteNotification:userInfo];
-                completionHandler(UIBackgroundFetchResultNewData);
-            } else {
-                completionHandler(UIBackgroundFetchResultNoData);
+    BOOL success = [self.layerClient synchronizeWithRemoteNotification:userInfo completion:^(LYRConversation * _Nullable conversation, LYRMessage * _Nullable message, NSError * _Nullable error) {
+        if (conversation || message) {
+            LYRMessagePart *messagePart = message.parts[0];
+            if([messagePart.MIMEType  isEqual: @"text/plain"]) {
+                NSLog(@"Pushed Message Contents: %@",[[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding]);
+            } else if ([messagePart.MIMEType  isEqual: @"image/png"]){
+                NSLog(@"Pushed Message Contents was an image");
             }
+            completionHandler(UIBackgroundFetchResultNewData);
         } else {
-            completionHandler(UIBackgroundFetchResultFailed);
+            completionHandler(error ? UIBackgroundFetchResultFailed : UIBackgroundFetchResultNoData);
         }
     }];
-    if (!success) {
+    
+    if (success) {
+        NSLog(@"Application did complete remote notification sync");
+    } else {
+        NSLog(@"Failed processing push notification with error: %@", error);
         completionHandler(UIBackgroundFetchResultNoData);
     }
-
-- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
-{
-    static NSString *const LQSPushMessageIdentifierKeyPath = @"layer.message_identifier";
-
-    // Retrieve message URL from Push Notification
-    NSURL *messageURL = [NSURL URLWithString:[remoteNotification valueForKeyPath:LQSPushMessageIdentifierKeyPath]];
-
-    // Retrieve LYRMessage from Message URL
-    LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" predicateOperator:LYRPredicateOperatorIsIn value:[NSSet setWithObject:messageURL]];
-
-    NSError *error = nil;
-    NSOrderedSet *messages = [self.layerClient executeQuery:query error:&error];
-    if (messages) {
-        NSLog(@"Query contains %lu messages", (unsigned long)messages.count);
-        LYRMessage *message= messages.firstObject;
-        LYRMessagePart *messagePart = message.parts[0];
-        NSLog(@"Pushed Message Contents: %@", [[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding]);
-    } else {
-        NSLog(@"Query failed with error %@", error);
-    }
-
-    return [messages firstObject];
 }
 ```
 

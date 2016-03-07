@@ -10,7 +10,7 @@ The end result of this tutorials looks like:
 ## Create custom UICollectionViewCell class
 The custom cell in this tutorial will be named `StarCollectionViewCell` and will show a simple hard coded text string in the center of the cell and a Info button.
 
-1. Your new custom class must subclass `ATLMessagePresenting`
+1. Your new custom class must implementation `ATLMessagePresenting`
 
     ```objective-c
     @interface StarCollectionViewCell : UICollectionViewCell <ATLMessagePresenting>
@@ -64,14 +64,13 @@ The custom cell in this tutorial will be named `StarCollectionViewCell` and will
     }
     ```
 
-3. Implement `ATLMessagePresenting` methods
-    `updateWithSender` and `shouldDisplayAvatarItem` are not used in this example so have them return immediately.
+3. Implement `ATLMessagePresenting` methods. `updateWithSender` and `shouldDisplayAvatarItem` are not used in this example so have them return immediately.
     ```objective-c
     - (void)updateWithSender:(id<ATLParticipant>)sender{return;}
     - (void)shouldDisplayAvatarItem:(BOOL)shouldDisplayAvatarItem{return;}
     ```
 
-    `presentMessage` contains the message object associated with the cell.  Retrieve the data from message parts and update cell.
+    `presentMessage` contains the message object associated with the cell.  Retrieve the data from message parts and update the cell.
 
     ```objective-c
     - (void)presentMessage:(LYRMessage *)message {
@@ -90,7 +89,7 @@ The custom cell in this tutorial will be named `StarCollectionViewCell` and will
         }
     }
     ```
-FYI: `ATLMimeTypeCustomObject` is defined in the next step.
+`ATLMimeTypeCustomObject` is defined in the next step.
 
 ## Configure ConversationViewController
 
@@ -102,21 +101,19 @@ FYI: `ATLMimeTypeCustomObject` is defined in the next step.
     NSString *const ATLMimeTypeCustomCellInfo = @"application/json+starcellinfo";
     ```
 
-2. In `viewDidLoad`,configure right accessory button to a custom image
+2. In `viewDidLoad`, use a custom image for the right accessory button
     ```objective-c
         // Change right accessory button to a star
         self.messageInputToolbar.rightAccessoryImage = [UIImage imageNamed:@"star.png"];
     ```
 
-3. In `viewDidLoad`, Register Custom Cell Class
-    This tells the view controller that there's a custom cell that could be used.
+3. In `viewDidLoad`, register a custom cell class. This tells the view controller that there's a custom cell that could be used.
     ```objective-c
         // Register custom cell class for star cell
         [self registerClass:[StarCollectionViewCell class] forMessageCellWithReuseIdentifier:ATLMIMETypeCustomObjectReuseIdentifier];
     ```
 
-4. Implement `messagesForMediaAttachments` DataSource method
-    `messagesForMediaAttachments` is the method that gets called when you press the right accessory button before it sends the message.  This is where you can configure the `LYRMessages` that get sent. In this example, we will create a message with 2 message parts with JSON blocks containing information to be displayed in the cell and information about the cell itself.
+4. Implement the `messagesForMediaAttachments` datasource method. `messagesForMediaAttachments` is the method that gets called when you press the right accessory button before it sends the message.  This is where you can configure the `LYRMessages` that get sent. In this example, we will create a message with 2 message parts with JSON blocks containing information to be displayed in the cell and information about the cell itself.
 
     ```objective-c
     - (NSOrderedSet *)conversationViewController:(ATLConversationViewController *)viewController messagesForMediaAttachments:(NSArray *)mediaAttachments
@@ -143,8 +140,7 @@ FYI: `ATLMimeTypeCustomObject` is defined in the next step.
     }
     ```
 
-5. Implement `reuseIdentifierForMessage` DataSource method
-    This is where we tell Atlas to use the custom cell when the message contains the custom mimetype.
+5. Implement the `reuseIdentifierForMessage` datasource method. This is where we tell Atlas to use the custom cell when the message contains the custom mimetype.
 
     ```objective-c
     - (NSString *)conversationViewController:(ATLConversationViewController *)viewController reuseIdentifierForMessage:(LYRMessage *)message
@@ -160,8 +156,7 @@ FYI: `ATLMimeTypeCustomObject` is defined in the next step.
     }
     ```
 
-6. Implement `heightForMessage` DataSource method
-    The custom cell has a custom height that's store in the MessagePart of the Message.
+6. Implement the `heightForMessage` datasource method. The custom cell has a custom height that's store in the MessagePart of the Message.
 
     ```objective-c
     - (CGFloat)conversationViewController:(ATLConversationViewController *)viewController heightForMessage:(LYRMessage *)message withCellWidth:(CGFloat)cellWidth
@@ -190,9 +185,7 @@ FYI: `ATLMimeTypeCustomObject` is defined in the next step.
 
 ## Configure ConversationListViewController
 
-Implement `lastMessageTextForConversation` DataSource method
-
-This will the configure the message inside `conversationListViewController` to show some custom text if the last message contained the custom mimetype:
+Implement the `lastMessageTextForConversation` datasource method. This will the configure the message inside `conversationListViewController` to show some custom text if the last message contained the custom mimetype:
 ```objective-c
 - (NSString *)conversationListViewController:(ATLConversationListViewController *)conversationListViewController lastMessageTextForConversation:(LYRConversation *)conversation {
     LYRMessagePart *part = conversation.lastMessage.parts[0];
