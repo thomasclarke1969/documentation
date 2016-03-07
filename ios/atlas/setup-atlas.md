@@ -24,7 +24,7 @@ use_frameworks!
 Complete the installation by executing:
 
 ```sh
-$ pod install
+pod install
 ```
 
 #### Source Code Installation
