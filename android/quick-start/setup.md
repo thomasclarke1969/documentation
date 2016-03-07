@@ -9,7 +9,7 @@ To get the Quick Start project running you will need [Android Studio](https://de
 1. Clone the project from GitHub:
 
   ```console
-  $ git clone https://github.com/layerhq/quick-start-android.git
+  git clone https://github.com/layerhq/quick-start-android.git
   ```
 2. Open the workspace in Android Studio
 3. Replace LAYER_APP_ID in MainActivity.java (line 11) with your App ID. Your App ID can be found in the dashboard under the "Keys" section.<br/>

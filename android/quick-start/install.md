@@ -9,7 +9,7 @@ Before you get started, we highly recommend that you download the [Android Quick
 You can download the Quick Start Android source code by running the following command:
 
 ```console
-$ git clone https://github.com/layerhq/quick-start-android.git
+git clone https://github.com/layerhq/quick-start-android.git
 ```
 
 ##Install the Layer SDK Jar
@@ -86,7 +86,7 @@ Below is an example with a `com.myapp.package` package; replace with your own pa
        <receiver android:name="com.layer.sdk.services.GcmBroadcastReceiver"
           android:permission="com.google.android.c2dm.permission.SEND">
           <intent-filter android:priority="950">
-             <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>             
+             <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
              <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
              <category android:name="com.myapp.package"/>
           </intent-filter>

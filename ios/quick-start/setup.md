@@ -18,7 +18,7 @@ There are two ways to set up the project. The easiest method is via our install 
 ### Option 1: Script
 If you execute this command in your terminal, we will place a version of the Quick Start Project in your `~/Downloads` folder, pre-configured with your Layer App ID:<br/>
 ```console
-$ curl -L https://raw.githubusercontent.com/layerhq/quick-start-ios/master/install.sh | bash -s "%%C-INLINE-APPID%%"
+curl -L https://raw.githubusercontent.com/layerhq/quick-start-ios/master/install.sh | bash -s "%%C-INLINE-APPID%%"
 ```
 ### Option 2: Manual Instructions
 Not a fan of scripts? That's OK, just follow these instructions:<br/>
@@ -26,12 +26,12 @@ Not a fan of scripts? That's OK, just follow these instructions:<br/>
 1. Clone the project from GitHub:
 
   ```console
-  $ git clone https://github.com/layerhq/quick-start-ios.git
+  git clone https://github.com/layerhq/quick-start-ios.git
   ```
 2. Install the dependencies via CocoaPods:
 
   ```console
-  $ pod install
+  pod install
   ```
 3. Open QuickStart.xcworkspace in Xcode.
 4. Replace `LAYER_APP_ID` in LQSAppDelegate.m (line 16) with the App ID. Your App ID can be found in the [Dashboard](https://developer.layer.com/projects/keys) under the "Keys" section.</br>
@@ -59,7 +59,7 @@ Now that you've sent a message, let's send a photo. Click on the Camera icon in 
 ### Announcements
 See that bell in the upper left corner? Tap on that and you'll see a list of what we call "Announcements". Announcements are messages that are sent directly to users, outside of the context of a conversation. They're great for telling two users that they have been matched in a dating app, broadcasting details about a special offer to a subset of users in a shopping app, informing all users of new features in your latest app update, etc. If you've launched the Quick Start app for the first time you probably won't have any announcements. Not to worry, sending announcements is easy with Layer's [Platform API](https://developer.layer.com/docs/platform). Here is a sample `curl` command you can execute from the terminal to quickly send an announcement to your device and simulator:
 ```console
-$ curl  -X POST \
+curl  -X POST \
       -H 'Accept: application/vnd.layer+json; version=1.0' \
       -H 'Authorization: Bearer PLATFORM_API_TOKEN' \
       -H 'Content-Type: application/json' \
