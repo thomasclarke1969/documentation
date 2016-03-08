@@ -109,7 +109,7 @@ In iOS 8 Apple introduced the ability to have custom actions appear when someone
     NSString *const LQSCategoryIdentifier = @"category_lqs";
     NSString *const LQSAcceptIdentifier = @"ACCEPT_IDENTIFIER";
     NSString *const LQSIgnoreIdentifier = @"IGNORE_IDENTIFIER";
-    
+
 - (void)setupPushNotificationOptions
 {
     UIMutableUserNotificationAction *acceptAction =
@@ -125,7 +125,7 @@ In iOS 8 Apple introduced the ability to have custom actions appear when someone
     ignoreAction.title = @"Ignore";
     ignoreAction.activationMode = UIUserNotificationActivationModeBackground;
     ignoreAction.destructive = YES;
-    
+
     UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc]init];
     category.identifier = LQSCategoryIdentifier;
     [category setActions:@[acceptAction, ignoreAction]
@@ -133,7 +133,7 @@ In iOS 8 Apple introduced the ability to have custom actions appear when someone
     [category setActions:@[acceptAction, ignoreAction] forContext:UIUserNotificationActionContextMinimal];
 
     NSSet *categories = [NSSet setWithObjects:category, nil];
-    
+
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeSound |UIUserNotificationTypeBadge;
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types
                                                                              categories:categories];
@@ -145,24 +145,24 @@ When you send the message, you just need add the category name to the push confi
 ```objective-c
     // Creates and returns a new message object with the given conversation and array of message parts
     NSString *pushMessage= [NSString stringWithFormat:@"%@ says %@",self.layerClient.authenticatedUserID ,messageText];
-    
+
     LYRPushNotificationConfiguration *defaultConfiguration = [LYRPushNotificationConfiguration new];
     defaultConfiguration.alert = pushMessage;
     //The following dictionary will appear in push payload
     defaultConfiguration.category = LQSCategoryIdentifier;
     NSDictionary *messageOptions = @{ LYRMessageOptionsPushNotificationConfigurationKey: defaultConfiguration };
-    
+
     LYRMessage *message = [self.layerClient newMessageWithParts:@[messagePart] options:messageOptions error:nil];
 ```
 
 ## Additional Push Configuration
 
-Layer also lets you configure any element of Push Payload including 
+Layer also lets you configure any element of Push Payload including
 * alert, title, sound
 * localized push information
-* additional APNS parameters like ` launch-image` 
+* additional APNS parameters like ` launch-image`
 * any custom key/value pairs defined by your application
- 
+
 For more information about all these other options check out the [API Reference](https://developer.layer.com/docs/ios/api#lyrpushnotificationconfiguration) for `LYRPushNotificationConfiguration`.
 
 ## Receiving pushes
@@ -209,7 +209,7 @@ The following code prints out the contents of LYRMessage object from a push noti
             completionHandler(error ? UIBackgroundFetchResultFailed : UIBackgroundFetchResultNoData);
         }
     }];
-    
+
     if (success) {
         NSLog(@"Application did complete remote notification sync");
     } else {
@@ -223,10 +223,15 @@ The following code prints out the contents of LYRMessage object from a push noti
 
 ![](ios-badge-count-options.jpg)
 
-Layer makes it easy to  update your application icon badge count automatically. To enable this feature, go to the Push section in the [Developer Dashboard](http://developer.layer.com). Layer provides 3 options for the badge count:
+Layer makes it easy to  update your application icon badge count automatically. To enable this feature, go to the Push section in the [Developer Dashboard](http://developer.layer.com/). Layer provides 4 options for the badge count:
 *  Unread messages count - The total unread message count across all conversations
 *  Unread conversations count - The count of conversations that contain unread messages
+*  External count only - The externally set badge count available via the [Platform API](/docs/platform#managing-notification-badges)
 *  Don't send badge count - Badge count is untouched
+
+Want to include [Announcements](/docs/platform#send-an-announcement) with your badge count? Make sure you check the following checkbox:
+
+* Include announcements - Count announcements in addition with one of the above options
 
 The default setting is "Unread messages count". The above setting is a server-side change, and requires no client-side iOS code changes. Please note that when you update the setting the change may take a few minutes to propagate.
 
