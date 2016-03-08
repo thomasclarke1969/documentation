@@ -20,7 +20,7 @@ LayerKit relies on three basic concepts in order to facilitate messaging:
 
 The following code demonstrates sending a message with LayerKit. Each line of code will be discussed in detail below.
 
-```objectivec
+```objectivec:swift
 // Declares a MIME type string
 static NSString *const MIMETypeTextPlain = @"text/plain";
 
@@ -38,6 +38,24 @@ LYRMessage *message = [layerClient newMessageWithParts:@[ messagePart ] options:
 
 // Sends the specified message
 BOOL success = [conversation sendMessage:message error:&error];
+%%:%%
+// Declares a MIME type string
+let MIMETypeTextPlain: String = "text/plain"
+
+// Creates and returns a new conversation object with a single participant represented by
+// your backend's user identifier for the participant
+var error: NSError? = nil
+var conversation: LYRConversation = layerClient.newConversationWithParticipants(Set<AnyObject>.setWithArray(["USER-IDENTIFIER"]), options: nil, error: error!)
+
+// Creates a message part with a text/plain MIMEType
+var messageData: NSData = "Hi, how are you?".dataUsingEncoding(NSUTF8StringEncoding)
+var messagePart: LYRMessagePart = LYRMessagePart.messagePartWithMIMEType(MIMETypeTextPlain, data: messageData)
+
+// Creates and returns a new message object with the given conversation and array of message parts
+var message: LYRMessage = layerClient.newMessageWithParts([messagePart], options: nil, error: error!)
+
+// Sends the specified message
+var success: Bool = conversation.sendMessage(message, error: error!)
 ```
 
 ## Queries
