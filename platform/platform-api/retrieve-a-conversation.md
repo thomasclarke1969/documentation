@@ -1,8 +1,14 @@
 # Retrieving Conversations
 
-Applications can retrieve conversations for a specific user or for a specific conversation URL. User-specific requests will return conversation and message attributes that correspond to the user, such as `last_message` and `unread_message_count`.
+Depending on the use case, Conversations can be retrieved using either a System perspective or a User perspective.  A User perspective differs from the System in the following ways:
 
-Use the following endpoint to request all conversations for a specific user.
+* User Perspective Conversation has a `last_message` property
+* User Perspective Conversation has an `unread_message_count` property
+* System Perspective can still retrieve a Conversation that the user has been removed from.
+
+## Retrieve Conversations (User Perspective)
+
+Use the following endpoint to request all conversations for a specific user:
 
 ```request
 GET /apps/:app_uuid/users/:user_id/conversations
@@ -16,8 +22,68 @@ curl  -X GET \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations
 ```
 
+### Pagination
 
-Use the following endpoint to request a specific Conversation for a user.
+All requests that list resources support the pagination API, which includes:
+
+#### Parameters
+
+| Name    |  Type | Description |
+|---------|-------|-------------|
+| **page_size** | number  | Number of results to return; default and maximum value of 100. |
+| **from_id** | string | Get the Conversations after this ID in the list (before this ID chronologically); can be passed as a layer URI `layer:///conversations/uuid` or as just a UUID |
+
+#### Headers
+
+All List Resource requests will return a header indicating the total number of results
+to page through.
+
+```text
+Layer-Count: 4023
+```
+
+Pagination Example:
+
+```console
+curl  -X GET \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations?page_size=50&from_id=layer:///conversations/UUID
+```
+
+### Sorting Conversations
+
+The default sort is by Conversation `created_at`.  This is done because this is a fixed ordering, and means that paging can be done without Conversations moving around while paging.  This means developers do not need to worry about missed Conversations and changes in ordering of already loaded results.
+
+Many developers however need to see recently active Conversations, so a parameter has been added to this request:
+
+| Name    |  Type  | Description |
+|---------|--------|-------------|
+| sort_by | string | Either *created_at* to sort by Conversation created date (descending order) or *last_message* to sort by most recently sent last message (descending order) |
+
+Sorting example:
+
+```console
+curl  -X GET \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations?sort_by=last_message&page_size=50&from_id=layer:///conversations/UUID
+```
+
+Expected results for sorting by last message are as follows:
+
+1. Results are in descending order; most recently active Conversation comes first
+2. A Conversation that does not have a last message is sorted using its `created_at` value instead.  This means that a Conversation without any messages can still be sorted ahead of a Conversation whose last message is old.
+
+```emphasis
+Paging through results when sorting by `last_message` leaves your application open to missing some Conversations and getting other Conversations multiple times as the results may shift around due to user activity.
+```
+
+## Retrieve One Conversation (User Perspective)
+
+Use the following endpoint to request a specific Conversation for a user:
 
 ```request
 GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid
@@ -76,7 +142,9 @@ curl  -X GET \
 }
 ```
 
-Alternatively, if you have a URL for a Conversation, you can request the Conversation by using the following endpoint.
+## Retrieve One Conversation (System Perspective)
+
+You can request the System Perspective of the Conversation by using the following endpoint:
 
 ```request
 GET /apps/:app_uuid/conversations/:conversation_uuid

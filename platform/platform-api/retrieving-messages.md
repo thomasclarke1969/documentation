@@ -4,9 +4,11 @@ Depending on the use case, messages can be retrieved using either a System persp
 
 - It provides a `received_at` property.
 - It provides an `is_unread` property.
-- It removes all messages that have been deleted by this user but not globally deleted.
+- It removes all messages that have been deleted for this user but which have not been globally deleted.
 
-Use the following endpoint to request all messages in a conversation from a specific user's perspective.
+## Retrieve Messages (User Perspective)
+
+Use the following endpoint to request all messages in a conversation from a specific user's perspective:
 
 ```request
 GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid/messages
@@ -78,7 +80,9 @@ curl  -X GET \
 ]
 ```
 
-Use the following endpoint to request all messages in a conversation from the System's perspective.
+## Retrieve Messages (System Perspective)
+
+Use the following endpoint to request all messages in a conversation from the System's perspective:
 
 ```request
 GET /apps/:app_uuid/conversations/:conversation_uuid/messages
@@ -150,8 +154,44 @@ curl  -X GET \
 ]
 ```
 
+## Pagination
 
-Use the following endpoint to request a single message from a conversation from a specific user's perspective.
+All requests that list resources support the pagination API, which includes:
+
+### Parameters
+
+| Name    |  Type | Description |
+|---------|-------|-------------|
+| **page_size** | number  | Number of results to return; default and maximum value of 100. |
+| **from_id** | string | Get the Messages after this ID in the list (before this ID chronologically); can be passed as a layer URI `layer:///messages/uuid` or as just a UUID |
+
+### Headers
+
+All List Resource requests will return a header indicating the total number of results to page through.
+
+```text
+Layer-Count: 4023
+```
+
+Pagination example:
+
+```console
+curl  -X GET \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
+      https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_ID/messages?from_id=UUID
+```
+
+### Response `200 (OK)`
+
+```text
+[<Message>, <Message>]
+```
+
+## Retrieve One Message (User Perspective)
+
+Use the following endpoint to request a single message from a conversation from a specific user's perspective:
 
 ```request
 GET /apps/:app_uuid/users/:user_id/messages/:message_uuid
@@ -195,8 +235,9 @@ curl  -X GET \
 }
 ```
 
+## Retrieve One Message (System Perspective)
 
-Use the following endpoint to request a single message from a conversation from the System's perspective.
+Use the following endpoint to request a single message from a conversation from the System's perspective:
 
 ```request
 GET /apps/:app_uuid/conversations/:conversation_uuid/messages/:message_uuid
