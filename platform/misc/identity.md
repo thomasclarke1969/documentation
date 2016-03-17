@@ -143,11 +143,8 @@ An Identity can be downloaded from layer's servers.  While in most cases its exp
 GET https://api.layer.com/apps/:app_uuid/users/:user_id/identity
 ```
 
-### Successful Response
+### Successful Response `200 (OK)`
 
-```text
-200 (OK)
-```
 ```json
 {
     "display_name": "Frodo the Dodo",
