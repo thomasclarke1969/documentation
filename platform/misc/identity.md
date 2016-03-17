@@ -24,7 +24,7 @@ All fields below are optional and may be blank, with the exception of `display_n
 Register an Identity with Layer's servers.  One might do this after a user signs up with your service.  The `display_name` field is required in all `POST` requests.
 
 ```request
-POST https://api.layer.com/apps/:app_uuid/users/:user_id/identity
+POST /apps/:app_uuid/users/:user_id/identity
 ```
 
 ### Example Request
@@ -61,12 +61,12 @@ curl  -X POST \
       https://api.layer.com/apps/APP_UUID/useres/USER_ID/identity
 ```
 
-## PATCH an Identity
+## Update an Identity
 
-An Identity can be edited by changing its properties.  Properties are changed using PATCH operations as described in the [Layer Patch](https://github.com/layerhq/layer-patch) Format.
+An Identity can be updated by changing its properties.  Properties are changed using PATCH operations as described in the [Layer Patch](https://github.com/layerhq/layer-patch) Format.
 
 ```request
-PATCH https://api.layer.com/apps/:app_uuid/users/:user_id/identity
+PATCH /apps/:app_uuid/users/:user_id/identity
 ```
 
 ### Example Request
@@ -100,7 +100,7 @@ curl  -X PATCH \
 An Identity can be also be edited by replacing its properties.  The `display_name` field is required in all `PUT` requests.
 
 ```request
-PUT https://api.layer.com/apps/:app_uuid/users/:user_id/identity
+PUT /apps/:app_uuid/users/:user_id/identity
 ```
 
 ### Example Request
@@ -176,7 +176,7 @@ curl  -X GET \
 Delete an Identity from Layer's servers.  One might do this after a user leaves your service.
 
 ```request
-DELETE https://api.layer.com/apps/:app_uuid/users/:user_id/identity
+DELETE /apps/:app_uuid/users/:user_id/identity
 ```
 
 ### Successful Response
@@ -192,4 +192,3 @@ curl  -X DELETE \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/useres/USER_ID/identity
 ```
-
