@@ -6,6 +6,16 @@ The `LYRIdentity` class represents a synchronized user identity model from an ap
 
 All `LYRConversation` `participants` and `LYRMessage` `sender` objects are of type `LYRIdentity`, with a minimum of property `userID`. All followed identity's properties updated via authentication handshake or Platform API are synchronized to the clients. Conversation participants are already implicitly followed and cannot be explicitly unfollowed.  Non-conversation participant identities can be explicitly followed by calling `LYRClient` method `followUserIDs:error:` and unfollowed via `unfollowedUserIDs:error:`.  Following a userID ensures the client synchronizes new identity information for the associated identity.
 
+```objectivec
+// Follow a userID to create a queryable `LYRIdentity` object that receives updates via Platform API
+NSError *error;
+BOOL success = [layerClient followUserIDs:[NSSet setWithObject:@"userID"] error:&error];
+
+// Unfollows a userID to stop receiving identity mutation updates
+NSError *error;
+BOOL success = [layerClient unfollowUserIDs:[NSSet setWithObject:@"userID"] error:&error];
+```
+
 ## Querying
 
 `LYRIdentity` conforms to the `LYRQueryable` protocol and in addition to default `LYRPredicateOperator`s is also specially queryable via `LYRPredicateOperatorLike` which allows for wildcard querying.
@@ -22,5 +32,4 @@ query.predicate = [LYRPredicate predicateWithProperty:@"displayName" predicateOp
 // Queries for all identities that start with `random` and end with `ame`
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRIdentity class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"displayName" predicateOperator:LYRPredicateOperatorLike value:@"random_ame"];
-
 ```
