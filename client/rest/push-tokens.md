@@ -3,8 +3,7 @@
 When the Client API is used from mobile frameworks (React Native, Cordova, Titanium, etc.), users can register and unregister the native push tokens for APNs and GCM to allow OS notifications for the app, just like with a native Layer mobile app.
 
 ```emphasis
-Before registering
-push tokens for your clients, you need to configure your APNS and/or GCE credentials in the [Developer Dashboard](https://developer.layer.com/projects).  Select the Push link in the Developer Dashboard and follow the instructions to enable notifications for Android and/or IOS.
+Before registering push tokens for your clients, you need to configure your APNS and/or GCE credentials in the [Developer Dashboard](https://developer.layer.com/projects).  Select the Push link in the Developer Dashboard and follow the instructions to enable notifications for Android and/or IO.S
 ```
 
 ### Testing Push Configuration
