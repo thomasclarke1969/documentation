@@ -16,7 +16,7 @@ The [Web SDK Sample Apps](https://github.com/layerhq/layer-js-sampleapps) reposi
 
 Examples are provided in:
 
-* React
-* Angular
-* Backbone
+* [React](https://github.com/layerhq/layer-js-sampleapps/blob/master/react)
+* [Angular](https://github.com/layerhq/layer-js-sampleapps/blob/master/angular)
+* [Backbone](https://github.com/layerhq/layer-js-sampleapps/blob/master/backbone)
 
