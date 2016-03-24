@@ -3,7 +3,20 @@
 The Layer Web SDK is Layer's Javascript API for accessing Layer Services.  Its built on top of Layer's [Client APIs](/docs/client) which provides REST and Websocket APIs.  Typical javascript applications will be far easier to build using the Layer Web SDK which manages authentication, connections, websocket retries, etc.
 
 ```emphasis
-**This public beta is NOT production ready**
-
-While we will not stop you from using it in production, your expectations of polish and support will need to account for this. There are known limitations and known concerns with the Web SDK.
+The Web SDK is currently in **public beta**
 ```
+
+## Samples and Demos
+
+The [Web SDK Sample Apps](https://github.com/layerhq/layer-js-sampleapps) repository is a good starting place for:
+
+* Testing out the functionality of the Web SDK
+* Experimenting and tinkering with Web SDK code to understand how it works
+* Starting templates for some basic UI components
+
+Examples are provided in:
+
+* React
+* Angular
+* Backbone
+
