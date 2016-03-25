@@ -1,10 +1,11 @@
 # Identity
 
 The `LYRIdentity` class represents a synchronized user identity model from an application's own provider to the Layer platform.  Identities can be created via extension of the [authentication handshake](/docs/ios/integration/authentication) or via [Platform API](/docs/platform/).
+All `LYRConversation` `participants` and `LYRMessage` `sender` objects are of type `LYRIdentity`, with a minimum of property `userID`.  All additional identity information is synchronized to the client when available.
 
 ## Following
 
-All `LYRConversation` `participants` and `LYRMessage` `sender` objects are of type `LYRIdentity`, with a minimum of property `userID`. All followed identity's properties updated via authentication handshake or Platform API are synchronized to the clients. Conversation participants are already implicitly followed and cannot be explicitly unfollowed.  Non-conversation participant identities can be explicitly followed by calling `LYRClient` method `followUserIDs:error:` and unfollowed via `unfollowedUserIDs:error:`.  Following a userID ensures the client synchronizes new identity information for the associated identity.
+UserIDs can be followed to receive identity updates when they change on the platform.  Conversation participants are already implicitly followed and cannot be explicitly unfollowed.  Non-conversation participant identities can be explicitly followed by calling `LYRClient` method `followUserIDs:error:` and unfollowed via `unfollowedUserIDs:error:`.  This is useful for presenting a list of identities a user can begin a new conversation with, without relying on an external user management system.
 
 ```objectivec
 // Follow a userID to create a queryable `LYRIdentity` object that receives updates via Platform API
@@ -29,7 +30,7 @@ query.predicate = [LYRPredicate predicateWithProperty:@"displayName" predicateOp
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRIdentity class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"displayName" predicateOperator:LYRPredicateOperatorLike value:@"rando%"];
 
-// Queries for all identities that start with `random` and end with `ame`
+// Queries for all identities that start with `random`, any character, and end with `ame`
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRIdentity class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"displayName" predicateOperator:LYRPredicateOperatorLike value:@"random_ame"];
 ```
