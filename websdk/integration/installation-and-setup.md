@@ -10,7 +10,7 @@ Simplest approach to install the Web SDK is to add the following script tag:
 <script src='//cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
 ```
 
-All classes can then be accessed via tha `layer` namespace:
+All classes can then be accessed via the `layer` namespace:
 
 ```javascript
 var client = new layer.Client({
@@ -24,7 +24,7 @@ var client = new layer.Client({
 npm install layer-websdk --save
 ```
 
-All classes can then be accessed via the layer module:
+All classes can then be accessed via the `layer` module:
 
 ```javascript
 var layer = require('layer-websdk');
