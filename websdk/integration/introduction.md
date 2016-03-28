@@ -20,3 +20,4 @@ Examples are provided in:
 * [Angular](https://github.com/layerhq/layer-js-sampleapps/blob/master/angular)
 * [Backbone](https://github.com/layerhq/layer-js-sampleapps/blob/master/backbone)
 
+React developers should take a look at our experimental [Flux-friendly component](https://github.com/layerhq/layer-js-sampleapps/tree/master/react/layer-react) and provide feedback via [Github Issues](https://github.com/layerhq/layer-js-sampleapps/issues).  Once we've gather more feedback from the React community we will review turning this into an NPM repository.
