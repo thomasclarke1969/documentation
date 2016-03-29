@@ -36,9 +36,9 @@ You can use this as a template to connect to your own Identity Service, which wi
     /*
      * 3. Submit identity token to Layer for validation
      */
-     [layerClient authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
-         if (authenticatedUserID) {
-             NSLog(@"Authenticated as User: %@", authenticatedUserID);
+     [layerClient authenticateWithIdentityToken:identityToken completion:^(LYRIdentity *authenticatedUser, NSError *error) {
+         if (authenticatedUser) {
+             NSLog(@"Authenticated as User: %@", authenticatedUser);
          }
      }];
 }];

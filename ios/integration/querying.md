@@ -1,5 +1,5 @@
 # Querying
-Layer provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with a `LYRQuery` object and can act on `LYRConversation`, `LYRMessage`, or `LYRAnnoucement` objects.
+Layer provides a flexible and expressive interface with which applications can query for messaging content. Querying is performed with a `LYRQuery` object and can act on `LYRConversation`, `LYRMessage`, `LYRAnnouncement`, `LYRMessagePart`, or `LYRIdentity` objects.
 
 ```emphasis
 Queries execute on the local database, and will only return results for conversations and messages where the authenticated user is a participant. Queries will **not** return empty conversations - a conversation must have at least one message in it in order to be written to the local database.
@@ -25,7 +25,7 @@ if (!error) {
 
 ## Constructing a query
 
-An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol. Currently, `LYRConversation`, `LYRMessage`, and `LYRAnnouncement` are the only classes which conform to the protocol.
+An instance of an `LYRQuery` object is initialized with a `Class` object representing the class upon which the query will be performed. Querying is available on classes that conform to the `LYRQueryable` protocol, which are `LYRConversation`, `LYRMessage`, `LYRAnnouncement`, `LYRMessagePart`, and `LYRIdentity`.
 
 ```objectivec
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
