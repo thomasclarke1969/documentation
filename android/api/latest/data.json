@@ -62,7 +62,7 @@
                 "declarationSignature": "public static void applicationCreated(android.app.Application application)",
                 "name": "applicationCreated",
                 "callSignature": "applicationCreated(application)",
-                "comment": "Called from `Application.onCreate()` to start Application lifecycle tracking.",
+                "comment": "Called from `Application.onCreate()` to start Application lifecycle tracking.\n<p>\nNote: `applicationCreated(Application)` should be called before `LayerClient.newInstance(...)`\n</p>",
                 "returns": {
                   "type": "void"
                 },
@@ -1831,17 +1831,17 @@
                   "fields": [
                     {
                       "name": "ALL_MESSAGES",
-                      "comment": null,
+                      "comment": "Synchronize all Messages",
                       "type": "HistoricSyncPolicy"
                     },
                     {
                       "name": "FROM_EARLIEST_UNREAD_MESSAGE",
-                      "comment": null,
+                      "comment": "Synchronize Messages from the earliest unread Message up to the present",
                       "type": "HistoricSyncPolicy"
                     },
                     {
                       "name": "FROM_LAST_MESSAGE",
-                      "comment": null,
+                      "comment": "Synchronize only the last Message",
                       "type": "HistoricSyncPolicy"
                     }
                   ],
@@ -1868,8 +1868,8 @@
               "enumClasses": [],
               "fields": [
                 {
-                  "name": "LOCAL",
-                  "comment": "Deletes this LayerObject locally on this device.",
+                  "name": "ALL_MY_DEVICES",
+                  "comment": "Deletes this LayerObject for current user across all his devices.",
                   "type": "DeletionMode"
                 },
                 {
@@ -3918,7 +3918,7 @@
                 "declarationSignature": "void onAuthenticated(com.layer.sdk.LayerClient client, java.lang.String userId)",
                 "name": "onAuthenticated",
                 "callSignature": "onAuthenticated(client, userId)",
-                "comment": null,
+                "comment": "The LayerClient reports that it is authenticated and ready for messaging.  It is possible to\nbe authenticated but not connected (offline mode); check connection state and connect as\nneeded.",
                 "returns": {
                   "type": "void"
                 },
@@ -3926,10 +3926,12 @@
                 "parameters": [
                   {
                     "name": "client",
+                    "description": "The LayerClient reporting authentication.",
                     "type": "LayerClient"
                   },
                   {
                     "name": "userId",
+                    "description": "The user ID the LayerClient has authenticated as.  This ID comes from the\n              externally-generated `identity token` provided when answering an authentication\n              challenge.",
                     "type": "String"
                   }
                 ],
@@ -3939,7 +3941,7 @@
                 "declarationSignature": "void onDeauthenticated(com.layer.sdk.LayerClient client)",
                 "name": "onDeauthenticated",
                 "callSignature": "onDeauthenticated(client)",
-                "comment": null,
+                "comment": "The LayerClient reports that it is deauthenticated, no longer ready to communicate.",
                 "returns": {
                   "type": "void"
                 },
@@ -3947,6 +3949,7 @@
                 "parameters": [
                   {
                     "name": "client",
+                    "description": "The LayerClient reporting deauthentication.",
                     "type": "LayerClient"
                   }
                 ],
@@ -3956,7 +3959,7 @@
                 "declarationSignature": "void onAuthenticationChallenge(com.layer.sdk.LayerClient client, java.lang.String nonce)",
                 "name": "onAuthenticationChallenge",
                 "callSignature": "onAuthenticationChallenge(client, nonce)",
-                "comment": null,
+                "comment": "During authentication, Layer presents a cryptographic `nonce` which must be used to\nexternally-generate an `identity token`.  When generated, respond to the authentication\nchallenge by supplying the `identity token` to LayerClient.answerAuthenticationChallenge().",
                 "returns": {
                   "type": "void"
                 },
@@ -3964,10 +3967,12 @@
                 "parameters": [
                   {
                     "name": "client",
+                    "description": "LayerClient generating the authentication challenge.",
                     "type": "LayerClient"
                   },
                   {
                     "name": "nonce",
+                    "description": "Cryptographic `nonce` for use when generating an `identity token`.",
                     "type": "String"
                   }
                 ],
@@ -3997,13 +4002,13 @@
             ]
           },
           "name": "LayerAuthenticationListener",
-          "comment": null,
+          "comment": "LayerAuthenticationListener allows a listener to receive authentication callbacks from a\nLayerClient.  At least one LayerAuthenticationListener must handle authentication challenges in\norder for the LayerClient to successfully authenticate.",
           "nestedClasses": [
             {
               "implementedInterfaces": [
                 {
                   "name": "LayerAuthenticationListener",
-                  "comment": null,
+                  "comment": "LayerAuthenticationListener allows a listener to receive authentication callbacks from a\nLayerClient.  At least one LayerAuthenticationListener must handle authentication challenges in\norder for the LayerClient to successfully authenticate.",
                   "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener"
                 },
                 {
@@ -4034,7 +4039,7 @@
                 },
                 {
                   "name": "LayerAuthenticationListener",
-                  "comment": null,
+                  "comment": "LayerAuthenticationListener allows a listener to receive authentication callbacks from a\nLayerClient.  At least one LayerAuthenticationListener must handle authentication challenges in\norder for the LayerClient to successfully authenticate.",
                   "fullname": "com.layer.sdk.listeners.LayerAuthenticationListener"
                 }
               ],
@@ -4915,7 +4920,7 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public abstract void delete(com.layer.sdk.LayerClient.DeletionMode deletionMode)",
+                "declarationSignature": "void delete(com.layer.sdk.LayerClient.DeletionMode deletionMode)",
                 "name": "delete",
                 "callSignature": "delete(deletionMode)",
                 "comment": "Deletes a Message according to the DeletionMode provided.  Any in-memory representations of\nthe Message will now return `true` on Message.isDeleted().\n\nMessage deletion can be monitored by registering a LayerChangeEventListener and listening for\nMessage DELETE events.",
@@ -4933,7 +4938,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract void markAsRead()",
+                "declarationSignature": "void markAsRead()",
                 "name": "markAsRead",
                 "callSignature": "markAsRead()",
                 "comment": "Marks a Message as `read` and synchronizes the \"read receipt\" among all participants in the\nConversation, as well as all other devices the authenticated user logs in on.\n\nRecipient status can be monitored by registering a LayerChangeEventListener and\nlistening for UPDATE events on the \"recipientStatus\" attribute.",
@@ -4945,7 +4950,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract android.net.Uri getId()",
+                "declarationSignature": "android.net.Uri getId()",
                 "name": "getId",
                 "callSignature": "getId()",
                 "comment": "A unique identifier for this Message.",
@@ -4958,7 +4963,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract long getPosition()",
+                "declarationSignature": "long getPosition()",
                 "name": "getPosition",
                 "callSignature": "getPosition()",
                 "comment": "Returns the conversational order of this Message within its Conversation.  Prior to sending,\nthe return value will be equal to Long.MAX_VALUE.",
@@ -4971,7 +4976,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract com.layer.sdk.messaging.Conversation getConversation()",
+                "declarationSignature": "com.layer.sdk.messaging.Conversation getConversation()",
                 "name": "getConversation",
                 "callSignature": "getConversation()",
                 "comment": "Returns the Conversation that the Message is a part of.",
@@ -4984,7 +4989,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.util.List getMessageParts()",
+                "declarationSignature": "java.util.List getMessageParts()",
                 "name": "getMessageParts",
                 "callSignature": "getMessageParts()",
                 "comment": "Returns a list of message parts (modeled by the `MessagePart` class) that provide access to\nthe content of Message.",
@@ -4997,7 +5002,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract boolean isSent()",
+                "declarationSignature": "boolean isSent()",
                 "name": "isSent",
                 "callSignature": "isSent()",
                 "comment": "A message is considered `sent` after synchronization with the Layer Cloud..\n\nLayerChangeEventListeners can capture the `isSent` transition by listening for deletes.",
@@ -5010,7 +5015,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract boolean isDeleted()",
+                "declarationSignature": "boolean isDeleted()",
                 "name": "isDeleted",
                 "callSignature": "isDeleted()",
                 "comment": "A message is considered `deleted` after LayerClient.deleteMessage() has been called on it.\n\nLayerChangeEventListeners can capture the `deleted` transition by listening for deletes.",
@@ -5023,7 +5028,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.util.Date getSentAt()",
+                "declarationSignature": "java.util.Date getSentAt()",
                 "name": "getSentAt",
                 "callSignature": "getSentAt()",
                 "comment": "The date and time that the message was originally sent.",
@@ -5036,7 +5041,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.util.Date getReceivedAt()",
+                "declarationSignature": "java.util.Date getReceivedAt()",
                 "name": "getReceivedAt",
                 "callSignature": "getReceivedAt()",
                 "comment": "The date and time that the message was received by the authenticated user, or `null` if they\nare the sender.",
@@ -5049,7 +5054,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract com.layer.sdk.messaging.Actor getSender()",
+                "declarationSignature": "com.layer.sdk.messaging.Actor getSender()",
                 "name": "getSender",
                 "callSignature": "getSender()",
                 "comment": "Returns the Actor object representing the message sender.",
@@ -5062,7 +5067,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.util.Map getRecipientStatus()",
+                "declarationSignature": "java.util.Map getRecipientStatus()",
                 "name": "getRecipientStatus",
                 "callSignature": "getRecipientStatus()",
                 "comment": "Returns a dictionary keyed by the user ID of all participants in the conversation that the\nmessage is a part of, and whose values are `RecipientStatus` representations of each\nrecipient's status.\n\nLayerChangeEventListeners can capture recipient status transitions by listening for updates\non the \"receipt\" attribute.",
@@ -5074,7 +5079,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract com.layer.sdk.messaging.Message.RecipientStatus getRecipientStatus(java.lang.String userId)",
+                "declarationSignature": "com.layer.sdk.messaging.Message.RecipientStatus getRecipientStatus(java.lang.String userId)",
                 "name": "getRecipientStatus",
                 "callSignature": "getRecipientStatus(userId)",
                 "comment": "Retrieves the message state for a given participant in the conversation.\n\nLayerChangeEventListeners can capture recipient status transitions by listening for updates\non the \"receipt\" attribute.",
@@ -5093,7 +5098,7 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract com.layer.sdk.messaging.MessageOptions getOptions()",
+                "declarationSignature": "com.layer.sdk.messaging.MessageOptions getOptions()",
                 "name": "getOptions",
                 "callSignature": "getOptions()",
                 "comment": "Gets this Message's MessageOptions.  Options are mutable until the message gets sent.  After\nsending, the return value becomes `null`.",
