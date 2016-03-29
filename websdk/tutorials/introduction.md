@@ -5,7 +5,7 @@ This tutorial helps build a simple chat application using Layer's Web SDK. It us
 If you are looking for a sample chat application rather than a tutorial, check our [Sample Apps](https://github.com/layerhq/samples-web-apis) where you will find examples built using different Javascript frameworks.
 
 ```emphasis
-This chat application should work with your %%C-INLINE-APPNAME%% (App ID is `%%C-INLINE-APPID%%`). You can also create a new Application from the Developer Dashboard to run this tutorial.
+This chat application should work with your %%C-INLINE-APPNAME%%. You can also create a new Application from the Developer Dashboard to run this tutorial.
 ```
 
 There are three Tutorials:
