@@ -51,8 +51,7 @@
     }
   },
   "api": {
-    "title": "API Reference",
-    "url": "http://static.layer.com/docs/ios/api"
+    "title": "API Reference"
   },
   "support": {
     "title": "Support",
