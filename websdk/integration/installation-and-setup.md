@@ -7,8 +7,10 @@ The Layer Web SDK is built as a UMD module that can be loaded via NPM, CDN or di
 Simplest approach to install the Web SDK is to add the following script tag:
 
 ```html
-<script src='//cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
+<script src='//cdn.layer.com/sdk/1.0/layer-websdk.min.js'></script>
 ```
+
+* For stricter code control, use `//cdn.layer.com/sdk/1.0.0/layer-websdk.min.js` instead.
 
 All classes can then be accessed via the `layer` namespace:
 
