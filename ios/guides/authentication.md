@@ -58,6 +58,10 @@ A Layer `Identity Token` is a JSON Web Token (JWT) structure that encodes a cryp
     "iat": "TIME OF TOKEN ISSUANCE AS INTEGER", // Integer - Time of Token Issuance in RFC 3339 seconds
     "exp": "TIME OF TOKEN EXPIRATION AS INTEGER", // Integer - Arbitrary time of Token Expiration in RFC 3339 seconds
     "nce": "LAYER ISSUED NONCE" // The nonce obtained via the Layer client SDK.
+    "first_name" : "IDENTITY FIRST NAME FOR USER ID" // String - Provider's internal first name.  Optional.
+    "last_name" : "IDENTITY LAST NAME FOR USER ID" // String - Provider's internal last name.  Optional.
+    "display_name" : "IDENTITY DISPLAY NAME FOR USER ID" // String - Provider's internal display name.  Optional.
+    "avatar_url" : "IDENTITY AVATAR URL FOR USER ID" // String - Provider's internal avatar URL. Optional.
 }
 ```
 

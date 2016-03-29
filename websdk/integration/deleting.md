@@ -4,20 +4,16 @@ The Layer SDK supports the deletion of both conversations and messages. Deletion
 
 ```javascript
 // Deletes a message
-message.delete(true);
+message.delete(layer.Constants.DELETION_MODE.ALL);
 
 // Deletes a conversation.
-conversation.delete(true);
+conversation.delete(layer.Constants.DELETION_MODE.ALL);
 ```
 
-There are two types of deletion; but at this time, only one is supported:
+In the near future, more deletion modes will be supported.  To account for that, it is important that all delete calls provide a deletion model.
 
-```javascript
-// Delete the message/conversation for All users:
-message.delete(true);
-conversation.delete(true);
+Deletion Modes:
 
-// Not Yet Available: Delete the message/conversation for the current user:
-message.delete(false);
-conversation.delete(false);
-```
+* layer.Constants.DELETION_MODE.ALL: Delete the resource for all users
+* layer.Constants.DELETION_MODE.SELF: Not yet supported
+
