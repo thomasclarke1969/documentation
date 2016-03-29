@@ -7,7 +7,7 @@ If you've gotten this far, you can now create Conversations with users, and your
 * Send read receipts
 * Display read status
 
-Starting from where we left off in [Basic Conversations](#basic-conversations), we add the following to the template project:
+Starting from where we left off in [Basic Conversations](#conversations), we add the following to the template project:
 
 * message-list.js: Placeholder for adding a Messages List Panel.
 * message-composer.js: Provides a textinput that triggers a `message:new` event when the user types in text and hits ENTER.
@@ -213,7 +213,7 @@ And update the `render` method with:
 
 Running the application will now show a reasonable Sender name.  You can try this out by logging into two browsers, one browser logged in as `Tutorial User` and the second as `User 4`.  Have `User 4` create a Conversation with `Tutorial User` and send messages in that Conversation.  `Tutorial User` should see the Conversation added to the Conversation List and should be able to respond with Messages.  Messages should be clearly labeled as coming from `User 4` or `Tutorial User`.
 
-One last refinement is needed for the `getSenderName` method.  Occasionally, a Message is sent via [Layer's Platform API](/docs/platform#send-a-message), and are sent as from a Service (`Admin`, `Moderator`, `Snarky-Response-Bot`, etc...) rather than from a participant of the Conversation.  Lets make sure our method can handle that:
+One last refinement is needed for the `getSenderName` method.  Occasionally, a Message is sent via [Layer's Platform API](/docs/platform/messages), and are sent as from a Service (`Admin`, `Moderator`, `Snarky-Response-Bot`, etc...) rather than from a participant of the Conversation.  Lets make sure our method can handle that:
 
 ```javascript
 getSenderName: function(message) {

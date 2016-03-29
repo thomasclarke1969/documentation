@@ -11,10 +11,10 @@ Once we have a Conversation, we can then send a Message on that Conversation.  B
 
 Starting from where we left off in the [Authentication Tutorial](#authentication), we add the following to the template project:
 
-* [conversation-list.js](./views/conversation-list.js): Placeholder for adding a Conversation List Panel.
-* [conversation-list-header.js](./views/conversation-list-header.js): Adds a header over your Conversation List Panel, and a `New Conversation` button.
-* [user-list-dialog.js](./views/user-list-dialog.js): Adds a dialog to help create a Conversation.
-* [controller.js](./views/controller.js):
+* `conversation-list.js`: Placeholder for adding a Conversation List Panel.
+* `conversation-list-header.js`: Adds a header over your Conversation List Panel, and a `New Conversation` button.
+* `user-list-dialog.js`: Adds a dialog to help create a Conversation.
+* `controller.js`:
   * Initializes the above views
   * Wires the `New Conversation` button to open the User List Dialog
   * Wires the User List Dialog's `OK` button to call the empty `createConversation` function
