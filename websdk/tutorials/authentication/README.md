@@ -67,10 +67,11 @@ layerSampleApp.client.on('challenge', function(evt) {
 
 There is some stuff going on here that we are avoiding discussing; what is this Identity Service? How does one build an Identity Service?  This tutorial is about how to develop using the Web SDK, and so we've provided a sample Identity Service; you can learn more about building your own Identity Service in our [Authentication Guide](/docs/websdk/guides/#authentication).  Here's what you *Should* understand from this:
 
-1. Creating a Client instance caused it to get a *Nonce* and provide it to your app.
-2. Your app used it to get an *Identity Token*.
-3. Your app provides the *Identity Token* to the Client via `evt.callback(identityToken)`.
-4. The Client will now establish an authenticated session with the Layer servers.
+1. Creating a Client instance caused it to get a *Nonce* from *Layer's server*.
+2. The *Nonce* is provided to your app via the `challenge` event.
+3. Your app uses the *Nonce* to get an *Identity Token* from *your server* (such as is done above with the `getIdentityToken()` call).
+4. Your app provides the *Identity Token* to the Client via `evt.callback(identityToken)`.
+5. The Client will now establish an authenticated session with *Layer's server*.
 
 ## Step 4: Handle the Ready Event
 
@@ -101,11 +102,11 @@ render: function(conversation) {
 
 The Client has a `userId` property that stores the userId of the user of the current session.  That userId may be any string, but is typically a unique identifier string from your own database, and is rarely an ID that has meaning to the user.
 
-Run this app; you should see a UI that logs in and then displays `Logged in as: 1`.
+Run this app; you should see a UI that logs in and then displays `Logged in as: 0`.
 
 ## Step 6: Fixing the Welcome Message
 
-So, why did it show the userId as `1`?  Because for this Sample Identity Service, Unique User ID strings are `0`, `1`, `2`, etc...  We don't actually want to display the userId, we want to display the user's name.  The `identity-services.js` file exposes a `getDisplayName` function that takes the userId as input and returns the display name.
+So, why did it show the userId as `0`?  Because for this Sample Identity Service, Unique User ID strings are `0`, `1`, `2`, `3`, etc...  We don't actually want to display the userId, we want to display the user's name.  The `identity-services.js` file exposes a `getDisplayName` function that takes the userId as input and returns the display name.
 
 Open up `views/titlebar.js`, and replace the render method with:
 

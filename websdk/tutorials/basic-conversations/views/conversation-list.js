@@ -13,8 +13,8 @@
     },
 
 
-    render: function() {
-      // Tutorial Steps 2, 3 and 5: Render conversation list here
+    render: function(conversations) {
+      // Tutorial Steps 3, 4 and 5: Render conversation list here
     }
   });
 })();

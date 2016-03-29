@@ -44,7 +44,7 @@
      * data changes.
      */
     function initializeQueries() {
-      // Tutorial Step 2: Create Query here
+      // Tutorial Step 3: Create Query here
 
     }
 
@@ -59,7 +59,7 @@
      * Handle the user creating a Conversation from the User List Dialog.
      */
     function createConversation(participants) {
-      // Tutorial Step 4: Create a Conversation
+      // Tutorial Step 2 and 6: Create a Conversation
 
     }
 
@@ -74,5 +74,6 @@
     // Initialize Everything:
     initializeViews();
     initializeQueries();
+    createConversation(['0', '1', '2', '3', '4', '5']);
   };
 })();

@@ -2,7 +2,8 @@
 
 Everyone prefers a chat application that actually sends messages.
 However, before we can send a Message, we need to be able to create and select Conversations.
-Once we have a Conversation we can then send a Message on that Conversation.  By the end of this tutorial, you should know how to:
+
+Once we have a Conversation, we can then send a Message on that Conversation.  By the end of this tutorial, you should know how to:
 
 * Create a Conversation
 * Get a list of all of your Conversations
@@ -37,11 +38,43 @@ You should now be able to run this application, quickly verify that you can:
 2. Use the `NEW` button to open the User List Dialog, showing a list of users.
 3. Click `Cancel` and `OK` in the User List Dialog to close the dialog (no other behavior besides closing the dialog at this point).
 
-## Step 2: Create a Query
+## Step 2: Create a Conversation
+
+Before we get started rendering a list of Conversations, lets make sure that your application has a Conversation to show.
+
+Open up `controller.js` and add the following to the `createConversation` function:
+
+```javascript
+function createConversation(participants) {
+    // Tutorial Step 2: Create a Conversation
+    var conversation = layerSampleApp.client.createConversation({
+        participants: participants,
+        distinct: true
+    });
+    console.log('Conversation created (locally) with participants ' +
+        conversation.participants);
+}
+```
+
+Some explanation is required here:
+
+1. Calling `client.createConversation()` creates the conversation locally; these conversations won't show up on any remote clients until we send our first message on the conversation.
+2. We are creating conversations where `distinct = true` (this happens to be the default).  This means that if you try to create a Conversation with `User 4` and `User 5` and you already have a Distinct Conversation with exactly those two users, you will be sent to the existing Conversation.
+3. The `participants` parameter to the `creatConversation` function is an array of userIds, which in this sample app are `0`, `1`, `2`, `3`, `4` and/or `5`.
+4. When launching the application, it will automatically call `createConversation()` to create a Conversation with `['0', '1', '2', '3', '4', '5']` (see bottom of `controller.js` where this is called).
+
+You should be able to run this application and see a console log statement that your Conversation has been created.
+
+### Testing the `New` button
+
+Your application should already have a `New` button for creating a Conversation.  Selecting it shows a dialog listing people you can create a Conversation with (obtained from the Sample Identity Service).  Selecting a few users and hitting `OK` calls your `createConversation` function with the array of userIds you selected in the UI.  Clicking `OK` should log additional Conversations created.
+
+
+## Step 3: Create a Query
 
 Conversations are accessed via Querys.  Creating a `layer.Query` instance will allow us to see all existing Conversations and list them.  Furthermore, the Query will monitor for any changes to the Query results and update its data as Conversations are created, deleted or modified locally or remotely.
 
-Lets start with some *very* basic rendering; Open up your `views/conversation-list.js` file, and add a `render` method:
+Lets start with some *very* basic rendering; Open up your `views/conversation-list.js` file, and update the `render` method:
 
 ```javascript
 render: function(conversations) {
@@ -59,14 +92,14 @@ Instantiate your query in the `initializeQueries` function:
 
 ```javascript
 function initializeQueries() {
-    // Tutorial Step 2: Create Query here
+    // Tutorial Step 3: Create Query here
     conversationQuery = layerSampleApp.client.createQuery({
         model: layer.Query.Conversation
     });
 }
 ```
 
-Once the conversationQuery has completed connecting to the server and downloading the user's Conversations, it will trigger a `change` event handler which you put into your `initializeQueries` function:
+Once the conversationQuery has completed connecting to the server and downloading the user's Conversations, it will trigger this `change` event handler which you put into your `initializeQueries` function:
 
 ```javascript
 conversationQuery.on('change', function() {
@@ -76,9 +109,9 @@ conversationQuery.on('change', function() {
 
 We access the Query's data using its `data` property which provides us with an array of all Conversations for this user (paged 100 at a time).  We provide those Conversations to our new `render` method in the ConversationListView.
 
-You should be able to run this app and see your Conversation List Panel rendering that the Query has found a single Conversation.
+You should be able to run this app and see your Conversation List Panel rendering that the Query has found a single Conversation.  Click the `New` button and add more Conversations to see the number of Conversations increase.
 
-## Step 3: Render the Conversation List
+## Step 4: Render the Conversation List
 
 A simple Conversation list consists of iterating over all Conversations and rendering the participants of each Conversation.  Each time `conversationQuery` triggers a `change` event, there has been a change to the contents of its `data` property and we tell the ConversatinList View to rerender the list.
 
@@ -102,7 +135,7 @@ buildConversationRow: function(conversation) {
 
 
 render: function(conversations) {
-    // Tutorial Step 2, 3 and 5: Render conversation list here
+    // Tutorial Step 3, 4 and 5: Render conversation list here
     if (conversations) this.conversations = conversations;
     this.$el.empty();
 
@@ -116,7 +149,7 @@ render: function(conversations) {
 
 So we iterate over each Conversation.  Each conversation is rendered by getting the `conversation.participants` array and displaying all of the User IDs.
 
-You can run this now.  It should render a single Conversation that looks something like `1, 2, 3, 4, 5`.
+You can run this now.  It should render a single Conversation that looks something like `0, 1, 2, 3, 4, 5`.
 
 Ok, we can do better, lets get a displayable name for each participant from the Identities service.  Lets create a `betterTitle` method that uses the `Identities.getDisplayName` to get a display name for each user, and set that to be our new title.
 
@@ -135,35 +168,13 @@ buildConversationRow: function(conversation) {
     ...
 ```
 
-You can now run this.  Your Conversation should now display something a bit more usable, like `Web, Tutorial User, User 2, User 3, User 4, User 5`.
+You can now run this.  Your Conversation should now display something a bit more usable, like `Tutorial User, User 2, User 3, User 4, User 5`.
 
-## Step 4: Create a new Conversation
-
-Well, that was a nice list of one Conversation.  This will be a little more convincing if we have more Conversations.  Your application should already have a `New` button for creating a Conversation.  Selecting it shows a dialog listing people you can create a Conversation with (obtained from the Sample Identity Service).  Selecting a few users and hitting `OK` calls the controller's empty `createConversation` function.  Lets make that function create actual Conversations.
-
-Open up `controller.js` and add the following to the `createConversation` function:
-
-```javascript
-function createConversation(participants) {
-    // Tutorial Step 4: Create a Conversation
-    var conversation = layerSampleApp.client.createConversation({
-        participants: participants,
-        distinct: true
-    });
-}
-```
-
-Some explanation is required here:
-
-1. Calling `client.createConversation()` creates the conversation locally; these conversations won't show up on any remote clients until we send our first message on the conversation.
-2. We are creating conversations where `distinct = true` (this happens to be the default).  This means that if you try to create a Conversation with `User 4` and `User 5` and you already  have a Distinct Conversation with exactly those two users, you will be sent to the existing Conversation.
-3. The `participants` parameter to the `creatConversation` function is userIds, which in this sample app are `1`, `2`, `3`, `4` and/or `5`.
-
-You should be able to run this app, and add a few more Conversations to your list.
+You can now use the `New` button to add Conversations and see a Conversation list be generated.
 
 ## Step 5: Selecting a Conversation
 
-Lets finish up this tutorial by making sure we are able to select a Conversation.  We'll need to be able to do that before we can send or display Messages.  Lets start with some basic rendering and selection events.
+In order to send a Message, we'll need a Conversation to send the Message on.  That means we need the user to be able to select a Conversation.  Lets start with some basic rendering and selection events.
 
 Open `views/conversation-list.js` and replace the `buildConversationRow` method with:
 
@@ -229,6 +240,10 @@ function selectConversation(conversationId) {
 
 So here we set the ConversationList View's `selectedConversation` so that it can render the selected Conversation with emphasis.
 
+You should be able to run this sample, add new Conversations, and see the selection state change as you click on a Conversation.
+
+### Setting the Titlebar
+
 Lets wrap up this section on selecting conversations by updating the rendering of the Titlebar View.
 
 Open up `views/titlebar.js` and replace the `render` method with:
@@ -249,7 +264,7 @@ render: function(conversation) {
 }
 ```
 
-In other words: If there is no `conversation` parameter, tell us who is logged in, otherwise, use `betterTitle` to help render the Conversation participants in the titlebar using their full names rather than just their User IDs of `1`, `2`, `3`, etc.
+In other words: If there is no `conversation` parameter, tell us who is logged in, otherwise, use `betterTitle` to help render the Conversation participants in the titlebar using their full names rather than just their User IDs of `0`, `1`, `2`, `3`, etc.
 
 Open your `controller.js` file update the `selectConversation` function with:
 
@@ -261,7 +276,7 @@ You should now be able to run this application, and see selecting conversations 
 
 ## Step 6: Cleanup
 
-A quick little cleanup step to make this nice:  Open up `controller.js` and add to the end of the `createConversation` function a call to `selectConversation`.
+A quick little cleanup step to make this nice:  Open up `controller.js` and add to a call to `selectConversation` to the end of the `createConversation` function.
 
 ```javascript
 function createConversation(participants) {

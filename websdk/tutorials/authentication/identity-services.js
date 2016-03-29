@@ -12,7 +12,6 @@
   var layerSampleApp = window.layerSampleApp;
 
   var sampleIdentities = {
-    '0': 'User 0',
     '1': 'User 1',
     '2': 'User 2',
     '3': 'User 3',
@@ -35,7 +34,7 @@
   function getIdentityToken(options) {
     var id = options.appId.replace(/^.*\//, '');
     layer.xhr({
-      url: 'https://layer-identity-provider.herokuapp.com/apps/' + id + '/atlas_identities',
+      url: 'https://layer-identity-provider.herokuapp.com/apps/' + id + '/identities',
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json'
