@@ -24,6 +24,15 @@
       "synchronization": "Synchronization"
     }
   },
+  "tutorials": {
+    "title": "Tutorials",
+    "section": {
+      "introduction": "Introduction",
+      "authentication": "Authentication",
+      "conversations": "Conversations",
+      "messages": "Messages"
+    }
+  },
   "changelog": {
     "title": "Changelog",
     "section": {
