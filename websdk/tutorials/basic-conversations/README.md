@@ -69,6 +69,7 @@ You should be able to run this application and see a console log statement that 
 
 Your application should already have a `New` button for creating a Conversation.  Selecting it shows a dialog listing people you can create a Conversation with (obtained from the Sample Identity Service).  Selecting a few users and hitting `OK` calls your `createConversation` function with the array of userIds you selected in the UI.  Clicking `OK` should log additional Conversations created.
 
+Note that throughout the this tutorial we will be creating Conversations locally but NOT saving them to the server.  Thus you will have to recreate any Conversations you create each time you reload.  Once you start sending Messages, the Conversations will be sent to the server.
 
 ## Step 3: Create a Query
 

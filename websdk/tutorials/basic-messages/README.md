@@ -318,7 +318,7 @@ If you open this app in two browsers, one logged in as `Tutorial User` and the s
 
 Each Conversation keeps track of how many unread Messages it has with an `unreadCount` property.  This lets you emphasize Conversations with unread Messages when rendering.
 
-Open up `views/conversation-list.js` and update the `render` method, adding this below your declaration of the `cssClasses` variable:
+Open up `views/conversation-list.js` and update the `buildConversationRow` method, adding this below your declaration of the `cssClasses` variable:
 
 ```javascript
 // Tutorial Step 5: Add Unread Message Highlighting
