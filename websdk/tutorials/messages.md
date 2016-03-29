@@ -11,7 +11,7 @@ If you've gotten this far, you can now create Conversations with users, and your
 * Send read receipts
 * Display read status
 
-Starting from where we left off in [Basic Conversations](#conversations), we add the following to the template project:
+Starting from where we left off in the [Working with Conversations Tutorial](#conversations), we add the following to the template project:
 
 * message-list.js: Placeholder for adding a Messages List Panel.
 * message-composer.js: Provides a textinput that triggers a `message:new` event when the user types in text and hits ENTER.
@@ -167,7 +167,7 @@ You should be able to run this app:
 1. Open the application
 2. Select a Conversation
 
-You should your Messages rendered showing something nicer than `This is a Message`.  This is pretty basic, so we're going to make this a bit nicer.
+You should now see your Messages rendered showing something nicer than `This is a Message`.  This is pretty basic, so we're going to make this a bit nicer.
 
 ### A Nicer Sent Date
 

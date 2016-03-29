@@ -89,7 +89,7 @@ render: function(conversations) {
 }
 ```
 
-So, if this is called with an array of Conversations it will simply report on the number of Conversations in my account.
+So, if this is called with an array of Conversations it will simply report on the number of Conversations in your account.
 
 Next, open your `controller.js` file and lets setup the Query.
 
