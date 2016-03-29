@@ -76,3 +76,6 @@ Message Parts represent the individual pieces of content embedded within a messa
 
 A Message uses MessageParts to group diverse types of information together.  For example a message can contain a `text/plain` part such as "Here's my picture", an `image/png` part with an image, and a `location/coordinate` part to indicate where the photo was taken.  These three MessageParts together represent a single Message.  More detail can be found in [The MessagePart Object](#message-part).
 
+## Push Notifications
+
+When a mobile device receives a new Message, a notification is often needed to let them know that a new Message has arrived.  The Client API lets you control details of the notification for each Message you send.  More detail can be found in the [Push Notifications](/docs/client/rest#push-notifications) section.
