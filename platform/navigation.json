@@ -30,6 +30,7 @@
   "misc": {
     "title": "Additional APIs",
     "section": {
+      "identity": "Managing Identity",
       "managing-notification-badges": "Notification Badges",
       "notification-customization": "Notification Customization",
       "block-users": "Managing User Block Lists"
