@@ -502,7 +502,7 @@
                 "description" : "The block that will be called once Layer has successfully downloaded new data associated with the userInfo dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with an appropriate fetch result for the given objects. Note that this block is only called if the method returns YES."
               }
             ],
-            "return" : "A Boolean value that determines whether the push was handled. Will be NO if this was not a push notification meant for Layer and the completion block will not be called.",
+            "return" : "A Boolean value that determines whether the push was handled. Will be NO if this was not a push notification meant for Layer or if called while the application is active, and the completion block will not be called.",
             "discussion" : "The completion block will either return an error or one or both of the resulting objects depending on the information provided in the userInfo parameter.  In valid cases, just message is returned for an announcement payload, and both message and conversation for a message payload.> %note% > **Note:** The receiver must be authenticated else a warning will be logged and NO will be returned. The completion is only invoked if the return value is YES.",
             "declared" : "LYRClient.h",
             "comment" : "Inspects an incoming push notification and synchronizes the client if it was sent by Layer.",
@@ -819,7 +819,7 @@
             "parameters" : [
               {
                 "name" : "minimumNumberOfMessages",
-                "description" : "The number of historic messages the client should try to fetch during synchronization."
+                "description" : "The number of historic messages the client should try to fetch during synchronization; value should be greated than zero."
               },
               {
                 "name" : "error",
@@ -1883,6 +1883,10 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRClientErrorManualSyncIgnoredNothingToSync",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRClientErrorZipArchiveCreationFailure",
           "declared" : "LYRErrors.h"
         },
@@ -1931,12 +1935,12 @@
         },
         {
           "name" : "LYRClientSynchronizationPolicyUnreadOnly",
-          "comment" : "Client will perform the synchronization process by fetching all the messages up to first unread message in for each conversation.\n     ",
+          "comment" : "Client will perform the synchronization process by fetching all the messages up to first unread message in for each conversation.\n     If all messages in a conversations have been marked as read, the client will fetch the last (most recent) message in the conversation in the initial sync.\n     ",
           "declared" : "LYRConstants.h"
         },
         {
           "name" : "LYRClientSynchronizationPolicyMessageCount",
-          "comment" : "Client will perform the synchronization process by fetching last few recent messages -- count is defined with the LYRClientOptionSynchronizationMessageCount key.\n     ",
+          "comment" : "Client will perform the synchronization process by fetching last few recent messages -- count is defined with the LYRClientOptionSynchronizationMessageCount key\n     that needs to be passed along in the options dictionary of the client initializer.\n     ",
           "declared" : "LYRConstants.h"
         }
       ]
