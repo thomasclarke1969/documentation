@@ -295,4 +295,4 @@ function createConversation(participants) {
 
 You should be able to run this, and when you create a new conversation, it should be selected.
 
-Recall that this Conversation does not yet exist on the server, and won't be sent to the server until we send a Message.  We've simply selected the local copy of the Conversation.  The ID of this Conversation is *also* local-only, and will be replaced with a permanent ID once its created on the server.  So while you can use this Conversation's `id` property, be aware that its ID will change.
+Recall that this Conversation does not yet exist on the server, and won't be sent to the server until we send a Message.  We've simply selected the local copy of the Conversation.
