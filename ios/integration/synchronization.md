@@ -103,7 +103,7 @@ To above code can be combined in the following code block:
 
 ## Historic Synchronization
 
-Historic sync allows the client to specify which existing message to automatically retrieve after it has authenticated and connected. By default, the Layer SDK will sync all messages starting with the earliest unread message in each conversation.
+Historic sync allows the client to specify which existing message to automatically retrieve after it has authenticated and connected. Tweaking these settings allows you to deliver a better onboarding experience to the messaging component of your app by improving performance, reducing the time it takes to begin displaying content, and minimizing data consumption. By default, the Layer SDK will sync all messages starting with the earliest unread message in each conversation.
 
 The historic sync policy is set when you [create a Layer client](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRClient.h#L271-L280) by passing in `options` in the initializer.
 
