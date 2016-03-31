@@ -117,7 +117,7 @@ We currently support [three sync policies](https://github.com/layerhq/releases-i
 
 * `LYRClientSynchronizationPolicyUnreadOnly`: This will sync all messages as far back as the first unread message in each conversation. If all messages have been marked as read, this syncs the last (most recent) message in each conversation. This is the default policy.
 
-* `LYRClientSynchronizationPolicyMessageCount`: This will sync a specified number of messages, starting from the most recent.  `LYRClientOptionSynchronizationMessageCount` determines how many messages to sync:  
+* `LYRClientSynchronizationPolicyMessageCount`: This will sync a specified number of messages, starting from the most recent. `LYRClientOptionSynchronizationMessageCount` determines how many messages to sync:  
 
   ```objective-c
   // Sync the 20 most recent messages in each conversation
