@@ -134,7 +134,7 @@ If Layer is configured with `LYRClientSynchronizationPolicyUnreadOnly` or `LYRCl
 * `totalNumberOfMessages`: An `NSUInteger` representing the total number of messages in the conversation, including those that have not yet been synced
 * `totalNumberOfUnreadMessages`: An `NSUInteger` representing the total number of unread messages, including those that have not yet been synced
 * `-(BOOL)synchronizeMoreMessages:(NSUInteger)minimumNumberOfMessages error:(NSError *)error`: Invoke this method to sync at least `minimumNumberOfMessages` more messages than what is already synced, starting from the most recent and counting backwards
-* `-(BOOL)synchronizeAllMessages:(LYRMessageSyncOptions)messageSyncOption error:(NSError *)error`: Invoke this method to sync all past messages in this conversation. You can also sync messages up to the first unread messages by specifying [`LYRMessageSyncToFirstUnread`](https://github.com/layerhq/releases-ios/blob/6352aa0aff5f04bbbb1d5a337f1f3258a97795fb/LayerKit.embeddedframework/LayerKit.framework/Versions/A/Headers/LYRConstants.h#L113) as the `messageSyncOption`. This option is useful in combination with `LYRClientSynchronizationPolicyUnreadOnly`. 
+* `-(BOOL)synchronizeAllMessages:(LYRMessageSyncOptions)messageSyncOption error:(NSError *)error`: Invoke this method to sync all past messages in this conversation. You can also sync messages up to the first unread messages by specifying [`LYRMessageSyncToFirstUnread`](https://github.com/layerhq/releases-ios/blob/6352aa0aff5f04bbbb1d5a337f1f3258a97795fb/LayerKit.framework/Headers/LYRConstants.h#L109-L113) as the `messageSyncOption`. This option is useful in combination with `LYRClientSynchronizationPolicyUnreadOnly`. 
 
 ## Listening for a specific conversation or message
 
