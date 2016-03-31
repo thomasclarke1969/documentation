@@ -101,6 +101,39 @@ To above code can be combined in the following code block:
 }
 ```
 
+## Historic Synchronization
+
+Historic sync allows the client to specify which existing message to automatically retrieve after it has authenticated and connected. By default, the Layer SDK will sync all messages starting with the earliest unread message in each conversation.
+
+The historic sync policy is set when you [create a Layer client](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRClient.h#L271-L280) by passing in `options` in the initializer.
+
+```objective-c
+[LYRClient clientWithAppID:@"APP_ID" options:@{LYRClientOptionSynchronizationPolicy: @(LYRClientSynchronizationPolicyUnreadOnly)}]	// Default policy
+```
+
+We currently support [three sync policies](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRConstants.h#L83):
+
+* `LYRClientSynchronizationPolicyCompleteHistory`: This will sync all messages for all conversations. Depending on how much history is in the conversations the authenticating user is part of, this may consume a lot of bandwidth and significantly affect app performance during the sync.
+
+* `LYRClientSynchronizationPolicyUnreadOnly`: This will sync all messages as far back as the first unread message in each conversation. If all messages have been marked as read, this syncs the last (most recent) message in each conversation. This is the default policy.
+
+* `LYRClientSynchronizationPolicyMessageCount`: This will sync a specified number of messages, starting from the most recent.  `LYRClientOptionSynchronizationMessageCount` determines how many messages to sync:  
+
+  ```objective-c
+  // Sync the 20 most recent messages in each conversation
+  [LYRClient clientWithAppID:@"APP_ID" options:@{
+    LYRClientOptionSynchronizationPolicy: @(LYRClientSynchronizationPolicyMessageCount),
+    LYRClientOptionSynchronizationMessageCount: @(20)
+  }
+  ```
+
+If Layer is configured with `LYRClientSynchronizationPolicyUnreadOnly` or `LYRClientSynchronizationPolicyMessageCount` (that is, Layer doesn't automatically sync all available messages), you can then sync more history as needed using a few [properties and methods on `LYRConversation`](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRConversation.h#L263):
+
+* `totalNumberOfMessages`: An `NSUInteger` representing the total number of messages in the conversation, including those that have not yet been synced
+* `totalNumberOfUnreadMessages`: An `NSUInteger` representing the total number of unread messages, including those that have not yet been synced
+* `-(BOOL)synchronizeMoreMessages:(NSUInteger)minimumNumberOfMessages error:(NSError *)error`: Invoke this method to sync at least `minimumNumberOfMessages` more messages than what is already synced, starting from the most recent and counting backwards
+* `-(BOOL)synchronizeAllMessages:(LYRMessageSyncOptions)messageSyncOption error:(NSError *)error`: Invoke this method to sync all past messages in this conversation. You can also sync messages up to the first unread messages by specifying [`LYRMessageSyncToFirstUnread`](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRConstants.h#L113) as the `messageSyncOption`. This option is useful in combination with `LYRClientSynchronizationPolicyUnreadOnly`. 
+
 ## Listening for a specific conversation or message
 
 A common use case is to create a conversation/message via the [Platform API](https://developer.layer.com/docs/platform#create-a-conversation), and then access it in the SDK. A common mistake developers make is to try to query for the conversation/message before it's been synchronized to the device. To assist in receiving the object, LayerKit provides a convenience method that notifies you when that conversation/message has been synchronized if it hasn’t already called `waitForCreationOfObjectWithIdentifier`.
@@ -110,7 +143,7 @@ A common use case is to create a conversation/message via the [Platform API](htt
     // Retrieve LYRMessage from Message URL
     LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
     query.predicate = [LYRPredicate predicateWithProperty:@"identifier" predicateOperator:LYRPredicateOperatorIsEqualTo value:messageURL];
-    
+
     NSError *error = nil;
     NSOrderedSet *messages = [self.layerClient executeQuery:query error:&error];
     if (error) {
