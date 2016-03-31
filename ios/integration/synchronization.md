@@ -108,7 +108,9 @@ Historic sync allows the client to specify which existing message to automatical
 The historic sync policy is set when you [create a Layer client](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRClient.h#L271-L280) by passing in `options` in the initializer.
 
 ```objective-c
-[LYRClient clientWithAppID:@"APP_ID" options:@{LYRClientOptionSynchronizationPolicy: @(LYRClientSynchronizationPolicyUnreadOnly)}]	// Default policy
+[LYRClient clientWithAppID:@"APP_ID" options:@{
+    LYRClientOptionSynchronizationPolicy: @(LYRClientSynchronizationPolicyUnreadOnly)
+}]	// Default policy
 ```
 
 We currently support [three sync policies](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRConstants.h#L83):
@@ -122,8 +124,8 @@ We currently support [three sync policies](https://github.com/layerhq/releases-i
   ```objective-c
   // Sync the 20 most recent messages in each conversation
   [LYRClient clientWithAppID:@"APP_ID" options:@{
-    LYRClientOptionSynchronizationPolicy: @(LYRClientSynchronizationPolicyMessageCount),
-    LYRClientOptionSynchronizationMessageCount: @(20)
+      LYRClientOptionSynchronizationPolicy: @(LYRClientSynchronizationPolicyMessageCount),
+      LYRClientOptionSynchronizationMessageCount: @(20)
   }
   ```
 
