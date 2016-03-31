@@ -105,7 +105,7 @@ To above code can be combined in the following code block:
 
 Historic sync allows the client to specify which existing message to automatically retrieve after it has authenticated and connected. Tweaking these settings allows you to deliver a better onboarding experience to the messaging component of your app by improving performance, reducing the time it takes to begin displaying content, and minimizing data consumption. By default, the Layer SDK will sync all messages starting with the earliest unread message in each conversation.
 
-The historic sync policy is set when you [create a Layer client](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRClient.h#L271-L280) by passing in `options` in the initializer.
+The historic sync policy is set when you [create a Layer client](https://github.com/layerhq/releases-ios/blob/6352aa0aff5f04bbbb1d5a337f1f3258a97795fb/LayerKit.embeddedframework/LayerKit.framework/Versions/A/Headers/LYRClient.h#L271-L280) by passing in `options` in the initializer.
 
 ```objective-c
 [LYRClient clientWithAppID:@"APP_ID" options:@{
@@ -129,12 +129,12 @@ We currently support [three sync policies](https://github.com/layerhq/releases-i
   }
   ```
 
-If Layer is configured with `LYRClientSynchronizationPolicyUnreadOnly` or `LYRClientSynchronizationPolicyMessageCount` (that is, Layer doesn't automatically sync all available messages), you can then sync more history as needed using a few [properties and methods on `LYRConversation`](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRConversation.h#L263):
+If Layer is configured with `LYRClientSynchronizationPolicyUnreadOnly` or `LYRClientSynchronizationPolicyMessageCount` (that is, Layer doesn't automatically sync all available messages), you can then sync more history as needed using a few [properties and methods on `LYRConversation`](https://github.com/layerhq/releases-ios/blob/6352aa0aff5f04bbbb1d5a337f1f3258a97795fb/LayerKit.embeddedframework/LayerKit.framework/Versions/A/Headers/LYRConversation.h#L266-L274):
 
 * `totalNumberOfMessages`: An `NSUInteger` representing the total number of messages in the conversation, including those that have not yet been synced
 * `totalNumberOfUnreadMessages`: An `NSUInteger` representing the total number of unread messages, including those that have not yet been synced
 * `-(BOOL)synchronizeMoreMessages:(NSUInteger)minimumNumberOfMessages error:(NSError *)error`: Invoke this method to sync at least `minimumNumberOfMessages` more messages than what is already synced, starting from the most recent and counting backwards
-* `-(BOOL)synchronizeAllMessages:(LYRMessageSyncOptions)messageSyncOption error:(NSError *)error`: Invoke this method to sync all past messages in this conversation. You can also sync messages up to the first unread messages by specifying [`LYRMessageSyncToFirstUnread`](https://github.com/layerhq/releases-ios/blob/master/LayerKit.framework/Headers/LYRConstants.h#L113) as the `messageSyncOption`. This option is useful in combination with `LYRClientSynchronizationPolicyUnreadOnly`. 
+* `-(BOOL)synchronizeAllMessages:(LYRMessageSyncOptions)messageSyncOption error:(NSError *)error`: Invoke this method to sync all past messages in this conversation. You can also sync messages up to the first unread messages by specifying [`LYRMessageSyncToFirstUnread`](https://github.com/layerhq/releases-ios/blob/6352aa0aff5f04bbbb1d5a337f1f3258a97795fb/LayerKit.embeddedframework/LayerKit.framework/Versions/A/Headers/LYRConstants.h#L113) as the `messageSyncOption`. This option is useful in combination with `LYRClientSynchronizationPolicyUnreadOnly`. 
 
 ## Listening for a specific conversation or message
 
