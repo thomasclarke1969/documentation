@@ -682,7 +682,7 @@
                 "description" : "The deletion mode, specifying how the message is to be deleted (i.e. for only the currently authenticated user' devices or synchronized across participants)."
               }
             ],
-            "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.\n@raises NSInvalidArgumentException Raised if message is nil.",
+            "return" : "A Boolean value indicating if the request to delete the conversation was submitted for synchronization.",
             "discussion" : "This method deletes a conversation and all associated messages for all current participants.",
             "declared" : "LYRConversation.h",
             "comment" : "Deletes a conversation in the specified mode.",
@@ -700,6 +700,20 @@
                 "description" : "A key path into the metadata dictionary specifying the value to be deleted."
               }
             ]
+          },
+          {
+            "parameters" : [
+              {
+                "name" : "error",
+                "description" : "A pointer to an error that upon failure is set to an error object describing why the deletion failed."
+              }
+            ],
+            "return" : "A Boolean value indicating if the request to leave the conversation was submitted for synchronization.",
+            "discussion" : "This method removes the authenticated user from the conversation and deletes the conversation from all of their devices.A user can only leave a conversation if they are a current participant and the conversation has not been deleted.",
+            "declared" : "LYRConversation.h",
+            "comment" : "Leaves the conversation.",
+            "name" : "leave:",
+            "declaration" : "- (BOOL)leave:(NSError *_Nullable *_Nullable)error"
           },
           {
             "declared" : "LYRConversation.h",
@@ -1935,7 +1949,7 @@
         },
         {
           "name" : "LYRClientSynchronizationPolicyUnreadOnly",
-          "comment" : "Client will perform the synchronization process by fetching all the messages up to first unread message in for each conversation.\n     If all messages in a conversations have been marked as read, the client will fetch the last (most recent) message in the conversation in the initial sync.\n     ",
+          "comment" : "Client will perform the synchronization process by fetching all the messages up to first unread message in for each conversation.\n     If all messages in a conversations have been marked as read, the client will fetch the last (most recent) message in the conversation in the initial sync.",
           "declared" : "LYRConstants.h"
         },
         {
