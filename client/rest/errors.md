@@ -50,13 +50,8 @@ Clients must be prepared to handle a variety of errors that may be returned by t
 | 108 | `conflict` | Resource | `409 (Conflict)` | The distinct conversation already exists with conflicting metadata |
 | 109 | `method_not_allowed` |  Resource | `405 (Method Not Allowed)` | The HTTP method used is not allowed for the given resource |
 | 110 | `participant_blocked` |  Resource | `422 (Unprocessable Entity)` | The conversation could not be created because at least one participant is blocked. |
+| 111 | `id_in_use` |  Resource | `409 (Conflict)` | The id specified for this conversation is not unique. |
 
-
-## Error Responses
-
-## service_unavailable
-
-There are issues on the server; typically these resolve in a few minutes, and you can retry your request soon.  If the issue does not clear, contact support@layer.com.
 
 ## invalid_app_id
 
@@ -89,3 +84,12 @@ This error typically occurs when:
 ## participant_blocked
 
 If user Alice has blocked user Bob, in addition to silently hiding messages from Bob to Alice, Layer prevents Alice from creating new conversations with Bob or adding Bob to conversations, which indicates some confusion. In order to successfully create the conversation, have Alice unblock Bob.
+| 111 | `id_in_use` |  Resource | `409 (Conflict)` | The id specified for this conversation is not unique. |
+
+## id_in_use
+
+If you specify a random uuid when creating a conversation or message, it will become the id for that object. This error means that the id you've chosen is already in use. Most likely this means that you tried to create a conversation and succeeded but never got acknowledgement from the server, and now you're retrying with the same ID as part of the [Deduplication](introduction#deduplication) process.
+
+The conversation or message will be included in the error body for you to compare, and if they are in fact the same you can proceed. In the unlikely case that your randomly chosen uuid conflicted with some unrelated conversation you can just choose a new id and retry.
+
+If you see this error frequently outside of a deduplication process, you should verify that you are generating unique uuids before each create request.

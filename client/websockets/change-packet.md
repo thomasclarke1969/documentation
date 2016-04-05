@@ -82,50 +82,132 @@ A Change Packet containing a create event is received whenever the server receiv
 
 A Change Packet containing a delete event is received whenever the server  detects that a Message or Conversation has been deleted.  Note that you will receive these not just for Messages and Conversations deleted by others, but also by yourself.
 
-The `data` field will contain a `destroy` field indicating if the deletion is local or for all users; See [DELETE Requests](rest#delete-operations).
+The `data` field will contain a `mode` field indicating if the deletion is for `all_participants` (deleted for all users) or `my_devices` (deleted for this user's account only); See [DELETE Requests](rest#deleting-a-conversation).
 
-Expected responses to a Deletion Event:
+There are three types of Delete Events your app may encounter:
+
+### Delete for `all_participants`
+
+Both Messages and Conversations can be deleted for all users; you know it is this type of deletion when the mode is `all_participants`.
+
+```json
+ {
+   "type": "change",
+   "counter": 9,
+   "timestamp": "2015-01-19T09:15:43+00:00",
+   "body": {
+     "operation": "delete",
+     "object": {
+       "type": "Message",
+       "id": "layer:///messages/f3cc7b32-3c92-11e4-baad-164230d1df68",
+       "url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df68"
+     },
+     "data": {
+       "mode": "all_participants"
+     }
+   }
+ }
+ ```
+ 
+ ```json
+ {
+   "type": "change",
+   "counter": 8,
+   "timestamp": "2015-01-19T09:15:43+00:00",
+   "body": {
+     "operation": "delete",
+     "object": {
+       "type": "Conversation",
+       "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
+       "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
+     },
+     "data": {
+       "mode": "all_participants",
+       "from_position": null
+     }
+   }
+ }
+ ```
+
+### Deleting for `my_devices`
+
+Both Messages and Conversations can be deleted for this user only; you know it is this type of deletion when the mode is `my_devices`.
+
+```json
+ {
+   "type": "change",
+   "counter": 9,
+   "timestamp": "2015-01-19T09:15:43+00:00",
+   "body": {
+     "operation": "delete",
+     "object": {
+       "type": "Message",
+       "id": "layer:///messages/f3cc7b32-3c92-11e4-baad-164230d1df68",
+       "url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df68"
+     },
+     "data": {
+       "mode": "my_devices"
+     }
+   }
+ }
+ ```
+
+```json
+ {
+   "type": "change",
+   "counter": 8,
+   "timestamp": "2015-01-19T09:15:43+00:00",
+   "body": {
+     "operation": "delete",
+     "object": {
+       "type": "Conversation",
+       "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
+       "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
+     },
+     "data": {
+       "mode": "my_devices",
+       "from_position": null
+     }
+   }
+ }
+ ```
+ 
+ ### Deleting `from_position`
+ 
+This last one is a special case of _Deleting for `my_devices`_ where the Conversation was deleted for all of the user's devices, but the user did not leave the Conversation.  And then a New Message shows up causing the Conversation to be recreated for that user (see [Leave Parameter in Delete](rest#deleting-a-conversation)).  The `from_position` tells your app to delete all Messages whose `position` field are less than or equal to this value, and then **do not delete the Conversation**.
+
+ ```json
+ {
+   "type": "change",
+   "counter": 8,
+   "timestamp": "2015-01-19T09:15:43+00:00",
+   "body": {
+     "operation": "delete",
+     "object": {
+       "type": "Conversation",
+       "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
+       "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
+     },
+     "data": {
+       "mode": "my_devices",
+       "from_position": 123456
+     }
+   }
+ }
+ ```
+
+### Expected actions by your App
+
+Expected responses to a Deletion Event are the same for _Deleting for `all_participants`_ and _Deleting for `my_devices`_:
 
 1. Remove the object from your UI if you are rendering the object
 2. Remove the object from any data caches/data stores
 
-```json
-{
-  "type": "change",
-  "counter": 8,
-  "timestamp": "2015-01-19T09:15:43+00:00",
-  "body": {
-    "operation": "delete",
-    "object": {
-      "type": "Conversation",
-      "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
-      "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
-    },
-    "data": {
-      "destroy": true
-    }
-  }
-}
-```
+Expected response to _Deleting `from_position`_:
 
-```json
-{
-  "type": "change",
-  "counter": 9,
-  "timestamp": "2015-01-19T09:15:43+00:00",
-  "body": {
-    "operation": "delete",
-    "object": {
-      "type": "Message",
-      "id": "layer:///messages/f3cc7b32-3c92-11e4-baad-164230d1df68",
-      "url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df68"
-    },
-    "data": {
-      "destroy": true
-    }
-  }
-}
-```
+1. Delete all messages in the Conversation whose `position` is less than or equal to the `from_position` value from your UI and stores.
+2. Do NOT delete the Conversation
+
 
 ## Update Events
 

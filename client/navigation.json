@@ -6,6 +6,7 @@
       "concepts": "Concepts",
       "authentication": "Authentication",
       "hypermedia": "URLs and Root Request",
+      "deduplication": "De-duplicating Requests",
       "conversation": "Conversations",
       "message": "Messages",
       "message-part": "Message Parts",

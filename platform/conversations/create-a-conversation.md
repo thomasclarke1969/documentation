@@ -122,7 +122,7 @@ If the matching Distinct Conversation has metadata different from what was reque
 
 ```json
 {
-    "id": "resource_conflict",
+    "id": "conflict",
     "code": 108,
     "message": "The requested Distinct Conversation was found but had metadata that did not match your request.",
     "url": "https://developer.layer.com/api.md#creating-a-conversation",

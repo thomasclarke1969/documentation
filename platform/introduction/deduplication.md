@@ -20,4 +20,4 @@ try {
 }
 ```
 
-`If-None-Match` is only required if you are retrying failed requests.
+`If-None-Match` is only required if you want the ability to retry failed requests.

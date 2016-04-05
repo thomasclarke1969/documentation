@@ -117,6 +117,7 @@ POST /conversations/:conversation_uuid/messages
 | **parts.encoding**  | string | If sending base64 encoded data, specify `base64` else omit this field |
 | **parts.content**  | Content | If sending Rich Content, use the Content object |
 | **notification**            | object | See the [Push Notifications Section](#push-notifications) for detailed options |
+| **id**       | string | Optional UUID or Layer ID, used for [deduplication](introduction#deduplication) |
 
 ### Example
 
@@ -183,6 +184,48 @@ curl  -X POST \
 }
 ```
 
+### Response `409 (Conflict)`
+
+If using [deduplication](introduction#deduplication), you may get a conflict if retrying the request:
+
+```json
+{
+  "id": "id_in_use",
+  "code": 111,
+  "message": "The requested Message already exists",
+  "url": "https://developer.layer.com/docs/client/websockets#create-requests",
+  "data": {
+    "id": "layer:///messages/940de862-3c96-11e4-baad-164230d1df67",
+    "url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df67",
+    "receipts_url": "https://api.layer.com/messages/940de862-3c96-11e4-baad-164230d1df67/receipts",
+    "conversation": {
+      "id": "layer:///conversations/f3cc7b32-3c92-11e4-baad-164230d1df67",
+      "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
+    },
+    "parts": [
+      {
+        "body": "Hello, World!",
+        "mime_type": "text/plain"
+      },
+      {
+        "body": "YW55IGNhcm5hbCBwbGVhc3VyZQ==",
+        "mime_type": "image/jpeg",
+        "encoding": "base64"
+      }
+    ],
+    "sent_at": "2014-09-09T04:44:47+00:00",
+    "sender": {
+      "name": null,
+      "user_id": "5678"
+    },
+    "recipient_status": {
+      "5678": "read",
+      "1234": "sent"
+    }
+  }
+}
+```
+
 ## Special Rules
 
 1. Message parts whose bodies cannot be encoded as a JSON string need to be encoded as Base64, and the message part's `encoding` property should be "base64".
@@ -213,21 +256,14 @@ Messages will sometimes need to be deleted, and this can be done using a REST `d
 
 | Name    |  Type | Description |
 |---------|-------|-------------|
-| **destroy** | boolean  | True to delete it from the server; false to remove it only from this account. |
+| **mode** | string  | "all_participants" or "my_devices" selects whether to delete it for everyone, or just to remove the Message from this user's account. |
 
-When deleting resources with the Layer API you have the option of destroying the resource, or only deleting it from the current account.
+Note that there is no undelete, regardless of whether the Message is deleted for all users or just for this user.
 
-* **delete** (`destroy=false`): The content is deleted from all of the clients associated with the authenticated user.
-* **destroy** (`destroy=true`): The content is deleted from all of the clients of all users with access to it.
-
-```emphasis
-Note, delete is not supported at this time, so `destroy=true` is the only accepted way to do deletion at this time.
-```
-
-You can destroy a Message using:
+You can delete a Message using:
 
 ```request
-DELETE /messages/:message_uuid?destroy=true
+DELETE /messages/:message_uuid?mode=all_participants
 ```
 
 ```console
@@ -235,7 +271,7 @@ curl  -X DELETE \
       -H "Accept: application/vnd.layer+json; version=1.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/json" \
-      https://api.layer.com/messages/MESSAGE_UUID?destroy=true
+      https://api.layer.com/messages/MESSAGE_UUID?mode=all_participants
 ```
 
 ### Response `204 (No Content)`

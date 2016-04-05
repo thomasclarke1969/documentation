@@ -136,8 +136,10 @@ POST /conversations
 | **participants** | string[]  | Array of User IDs (strings) identifying who will participate in the Conversation |
 | **distinct** | boolean | Create or find a Distinct Conversation with these participants |
 | **metadata** | object | Arbitrary set of name value pairs representing initial state of Conversation metadata |
+| **id**       | string | Optional UUID or Layer ID, used for [deduplication](introduction#deduplication) |
 
 ### Example
+
 ```json
 {
   "participants": [ "1234", "5678" ],
@@ -170,6 +172,32 @@ curl  -X POST \
   "unread_message_count": 0,
   "metadata": {
     "background_color": "#3c3c3c"
+  }
+}
+```
+
+### Response `409 (Conflict)`
+
+If using [deduplication](introduction#deduplication), you may get a conflict if retrying the request:
+
+```json
+{
+  "id": "id_in_use",
+  "code": 111,
+  "message": "The requested Conversation already exists",
+  "url": "https://developer.layer.com/docs/client/websockets#create-requests",
+  "data": {
+    "id": "layer:///conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+    "url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c",
+    "messages_url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c/messages",
+    "created_at": "2015-10-10T22:51:12.010Z",
+    "last_message": null,
+    "participants": [ "1234", "5678" ],
+    "distinct": false,
+    "unread_message_count": 0,
+    "metadata": {
+      "background_color": "#3c3c3c"
+    }
   }
 }
 ```
@@ -228,7 +256,7 @@ If the matching Distinct Conversation has metadata different from what was reque
 
 ```json
 {
-  "id": "resource_conflict",
+  "id": "conflict",
   "code": 108,
   "message": "The requested Distinct Conversation was found but had metadata that did not match your request.",
   "url": "https://developer.layer.com/api.md#creating-a-conversation",
@@ -259,33 +287,31 @@ The actual timing ends up being something like this:
 1. Create a local representation of the Message
 2. Fire an xhr call to the server to create the Message on the server
 3. Get a websocket event notifying you that a new Message was created; there is no information to clearly associate this information with the xhr request you just made, so you add a new Message to your Conversation. You now have two copies of your Message, one with an ID, the other waiting for the ID. Both of them are presumably rendered in your View.
-4. Get the response and assign the id provided by the server to your object; you now need to destroy one of your two Messages.
+4. Get the response and assign the id provided by the server to your object; you now need to delete one of your two Messages.
 
 To avoid this issue, developers can create Messages and Conversations using [The Websocket API](websocket#create-requests) which supports the desired behavior.
 
-# Destroying a Conversation
+# Deleting a Conversation
 
 Conversations will sometimes need to be deleted, and this can be done using a REST `delete` method called on the URL for the resource to be deleted.
 
 ### Parameters
 
-| Name    |  Type | Description |
-|---------|-------|-------------|
-| **destroy** | boolean  | True to delete it from the server; false to remove it only from this account. |
+| Name     |  Type | Description |
+|----------|-------|-------------|
+| **mode** | string  | "all_participants" or "my_devices" selects whether to delete it for everyone, or just to remove the Conversation from this user's account. |
+| **leave**| boolean | If true, and if mode="my_devices", the user is leaving the Conversation, and is no longer a participant. default is false. |
 
-When deleting resources with the Layer API you have the option of destroying the resource, or only deleting it from the current account.
+There are three permutations allowed:
 
-* **delete** (`destroy=false`): The content is deleted from all of the clients associated with the authenticated user.
-* **destroy** (`destroy=true`): The content is deleted from all of the clients of all users with access to it.
+* **mode=all_participants**: The Conversation is entirely deleted for all users.
+* **mode=my_devices&leave=false**: The Conversation is deleted for this user only, but this user is still a participant.  New Messages will cause the Conversation to be recreated, with Message history starting at with the Message after Deletion occurred.
+* **mode=my_devices&leave=true**: The Conversation is deleted for this user only, AND this user is removed as a participant.  Further Messages will not affect this user, and all users will see the user is no longer in the participant list.
 
-```emphasis
-Note, delete is not supported at this time, so `destroy=true` is the only accepted way to do deletion at this time.
-```
-
-You can destroy a Conversation using:
+You can delete a Conversation using:
 
 ```request
-DELETE /conversations/:conversation_uuid?destroy=true
+DELETE /conversations/:conversation_uuid?mode=all_participants
 ```
 
 ```console
@@ -293,7 +319,7 @@ curl  -X DELETE \
       -H "Accept: application/vnd.layer+json; version=1.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/json" \
-      https://api.layer.com/conversations/CONVERSATION_UUID?destroy=true
+      https://api.layer.com/conversations/CONVERSATION_UUID?mode=all_participants
 ```
 
 ### Response `204 (No Content)`
