@@ -22,16 +22,20 @@ In the event that the counter has changed by a value other than +1, an `Event.Re
 
 JavaScript based WebSocket may not always detect that you have lost a connection.  Chrome in particular will not detect that a WebSocket has lost a connection.  As such, recommended practice is to send "ping" requests through the WebSocket every 30 seconds.  Mobile devices and backgrounded tabs may chose to vary this recommendation to preserve battery life. If the WebSocket connection has been lost and you send a ping request, even Chrome will throw a connection error letting you know that there is a problem and that you may be failing to receive Change Packets.
 
-A ping operation is done by sending a `Counter.read` request to the server.  There are three possible outcomes of this request:
+A ping operation is done by sending a `Counter.read` request to the server.  There are four possible outcomes of this request:
 
 1. The connection fails, and the WebSocket throws an error
     * **Next Step**: initiate reconnect logic, and catchup on missed events on reconnecting.
-2. A response containing a counter arrives; the counter is the same as the last request.  All is well.
+2. The request fails to return a response (after waiting for 10 seconds, if there is no response, its safe to assume there is a problem).
+    * **Next Step**: initiate reconnect logic, and catchup on missed events on reconnecting.
+3. A response containing a counter arrives; the counter is the same as the last request.  All is well.
     * **Next Step**: none.
-3. A response containing a counter arrives; the counter has changed; this means Change Packets were probably missed.
+4. A response containing a counter arrives; the counter has changed; this means Change Packets were probably missed.
     * **Next Step**: Catchup on missed events
 
-The following simple script can be used; however, more sophisticated solutions may reset the timer any time any kind of WebSocket data arrives.  And may vary the interval if the tab is in the background.
+### Sending a Ping Request
+
+The following simple script can be used to send the Ping request; however, more sophisticated solutions may reset the timer any time any kind of WebSocket data arrives.
 
 ```javascript
 window.setInterval(function() {
@@ -45,17 +49,22 @@ window.setInterval(function() {
 }, 30000);
 ```
 
-Using the errors thrown by the ping request when your WebSocket connection has been lost, you can write the following code (though you should use something a bit more sophisticated than a simple 15 second timer to avoid running down batteries).  Note that as long as you are offline, the error handler should be fired, resulting in a 15 second loop:
+Using the errors thrown by the ping request when your WebSocket connection has been lost, you can write the following code.  Note that as long as you are offline, the error handler should be fired, resulting in a 15 second loop:
 
 ```javascript
 function myErrorHandler(err) {
+    // On Error: Wait 15 seconds and then create a new websocket
     window.setTimeout(function() {
         mysocket = new WebSocket('wss://api.layer.com/websocket?session_token=keuIjkPoPlkxw==',
                            'layer-1.0');
+
+       // On successfully opening the websocket, replay missed events
        mysocket.addEventListener("open", function() {
             // How to implement this is described in the next section
             replayFrom(lastEvent.timestamp);
        });
+
+       // Bind this new websocket's error handler to this handler
        mysocket.addEventHandler("error", myErrorHandler");
     }, 15000);
 }
@@ -64,7 +73,12 @@ mysocket.addEventHandler("error", myErrorHandler");
 
 Note that if you do NOT have the ping request firing periodically, you may go hours without any Change Packets from the server, nor will there be any clue to your user that they are no longer connected to the server.
 
-The response to a ping will contain the current event counter to enable the application to determine if events have been missed.  Note that the `counter` field will increment as a result of this request, but that the `counter` value returned in the data field will represent the state of the counter at the time of the request.
+### Using the Ping Response
+
+The response to a ping will contain the current event counter.  Note that the `counter` field will increment as a result of this request, but that the `counter` value returned in the data field will represent the state of the counter at the time of the request.  This means:
+
+1. You will get back a `counter` field in the `data` object, and a second `counter` field in the high level response
+2. These two counters will always be different values (`data` reports on the counter of the last packet sent to the client, the response reports the counter associated with this response packet).
 
 ```json
 {
@@ -80,6 +94,23 @@ The response to a ping will contain the current event counter to enable the appl
   }
 }
 ```
+
+The simplest way to use this response is to focus on the high level counter:
+
+```javascript
+ ws.addEventListener('message', onMessage);
+ var lastCounter = -1;
+ function onMessage(evt) {
+   var msg = JSON.parse(evt.data);
+   var skippedCounter = lastCounter + 1 !== msg.counter;
+   lastCounter = msg.counter;
+   if (skippedCounter) replayEvents();
+ }
+```
+
+This code snippet works regardless of whether the message received is a new Conversation, a read receipt, or the response to a Ping.
+
+### When Not to Ping
 
 Ideally, pinging would not be done if any WebSocket messages have been recently received:
 
