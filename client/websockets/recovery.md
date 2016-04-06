@@ -28,14 +28,14 @@ A ping operation is done by sending a `Counter.read` request to the server.  The
     * **Next Step**: initiate reconnect logic, and catchup on missed events on reconnecting.
 2. The request fails to return a response (after waiting for 10 seconds, if there is no response, its safe to assume there is a problem).
     * **Next Step**: initiate reconnect logic, and catchup on missed events on reconnecting.
-3. A response containing a counter arrives; the counter is the same as the last request.  All is well.
+3. A response containing a counter arrives; the counter is the same as the last packet from the server.  All is well.
     * **Next Step**: none.
 4. A response containing a counter arrives; the counter has changed; this means Change Packets were probably missed.
     * **Next Step**: Catchup on missed events
 
 ### Sending a Ping Request
 
-The following simple script can be used to send the Ping request; however, more sophisticated solutions may reset the timer any time any kind of WebSocket data arrives.
+The following simple script can be used to send the Ping request:
 
 ```javascript
 window.setInterval(function() {
@@ -49,13 +49,19 @@ window.setInterval(function() {
 }, 30000);
 ```
 
-Using the errors thrown by the ping request when your WebSocket connection has been lost, you can write the following code.  Note that as long as you are offline, the error handler should be fired, resulting in a 15 second loop:
+### Connection Error Handling
+
+If there is a connection problem, your ping request should cause the websocket to realize that and then trigger your onError handler. The following retry logic should continue to call your onError handler until you are back online.  Varying the 15 seconds suggested below with some exponential backoff may make sense depending upon your environment.
+
+Note that this error handler can fire due to your ping requests, but may also fire during the normal lifespan of your Websocket connection.
 
 ```javascript
+mysocket.addEventHandler("error", myErrorHandler);
+
 function myErrorHandler(err) {
     // On Error: Wait 15 seconds and then create a new websocket
     window.setTimeout(function() {
-        mysocket = new WebSocket('wss://api.layer.com/websocket?session_token=keuIjkPoPlkxw==',
+        mysocket = new WebSocket('wss://api.layer.com/websocket?session_token=donuts==',
                            'layer-1.0');
 
        // On successfully opening the websocket, replay missed events
@@ -68,10 +74,12 @@ function myErrorHandler(err) {
        mysocket.addEventHandler("error", myErrorHandler");
     }, 15000);
 }
-mysocket.addEventHandler("error", myErrorHandler");
 ```
 
+```emphasis
 Note that if you do NOT have the ping request firing periodically, you may go hours without any Change Packets from the server, nor will there be any clue to your user that they are no longer connected to the server.
+```
+
 
 ### Using the Ping Response
 
