@@ -83,7 +83,7 @@ Note that if you do NOT have the ping request firing periodically, you may go ho
 
 ### Using the Ping Response
 
-The response to a ping will contain the current event counter.  Note that the `counter` field will increment as a result of this request, but that the `counter` value returned in the data field will represent the state of the counter at the time of the request.  This means:
+The response to a ping will contain the current event counter.  Note that the `counter` field will increment as a result of this response, but that the `counter` value returned in the data field will represent the state of the counter at the time of the request.  This means:
 
 1. You will get back a `counter` field in the `data` object, and a second `counter` field in the high level response
 2. These two counters will always be different values (`data` reports on the counter of the last packet sent to the client, the response reports the counter associated with this response packet).
