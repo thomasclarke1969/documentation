@@ -71,7 +71,7 @@ function myErrorHandler(err) {
        });
 
        // Bind this new websocket's error handler to this handler
-       mysocket.addEventHandler("error", myErrorHandler");
+       mysocket.addEventHandler("error", myErrorHandler);
     }, 15000);
 }
 ```
