@@ -20,9 +20,9 @@ You can find specific articles on the following topics, amongst others:
 - Steps to go from [sandbox to production](https://support.layer.com/hc/en-us/articles/204471470)
 
 ## Logging on Android
-On Android, you have the ability to enable logging and email the output to yourself or [support@layer.com](mailto:support@layer.com) for further analysis.
+On Android, you have the ability to enable logging and email the output to yourself or [support@layer.com](mailto:support@layer.com) for further analysis. 
 
-1. Call `LayerClient.enableLogging()` before creating a new instance of the LayerClient object
+1. Call `LayerClient.setLoggingEnabled()` with `enabled` set to `true` before creating a new instance of the LayerClient object
 2. Add a widget (button or menu item) that will call `LayerClient.sendLogs()` somewhere in your app
 3. Deploy your app and authenticate a user
 4. When you encounter a problem, you can tap the widget to call `sendLogs`
@@ -32,6 +32,7 @@ On Android, you have the ability to enable logging and email the output to yours
     - A description of the issue you are trying to address
     - Detailed reproduction steps
     - Any other relevant information
+7. On sending the email, you will receive a confirmation email with support id. Please use that as reference in any further communication regarding this issue.
 
 If you are encountering problems in a Release build, or if there is another reason you cannot modify the source code to enable logging, you can turn on verbose logging from the console: `adb shell setprop log.tag.LayerSDK VERBOSE`.
 
