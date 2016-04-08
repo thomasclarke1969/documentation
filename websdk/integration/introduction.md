@@ -9,7 +9,7 @@ Depending on whether you want to learn to use the WebSDK or just see what can be
 
 ### Tutorials
 
-The [Web SDK Tutorials](/tutorials) are a good place to start if you want to quickly build your first app, see how the WebSDK helps to build that App and understand concepts of using the WebSDK.
+The [Web SDK Tutorials](/tutorials) are a good place to start if you want to quickly build your first app, see how the WebSDK helps to build that App, and understand concepts of using the WebSDK.
 
 ### Samples and Demos
 
