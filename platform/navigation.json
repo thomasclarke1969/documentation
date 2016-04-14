@@ -1,51 +1,51 @@
 {
-  "introduction": {
-    "title": "Introduction",
-    "section": {
-      "overview": "Overview",
-      "authentication": "Authenticating Users",
-      "deduplication": "De-duplicating Requests",
-      "libraries": "Client Libraries"
-    }
-  },
-  "conversations": {
-    "title": "Conversations",
-    "section": {
-      "retrieve-a-conversation": "Retrieving Conversations",
-      "create-a-conversation": "Creating Conversations",
-      "edit-a-conversation": "Editing Conversations",
-      "delete-a-conversation": "Deleting Conversations"
-    }
-  },
-  "messages": {
-    "title": "Messages",
-    "section": {
-      "send-a-message": "Sending Messages",
-      "rich-content": "Rich Content",
-      "retrieving-messages": "Retrieving Messages",
-      "deleting-messages": "Deleting Messages",
-      "send-an-announcement": "Sending Announcements"
-    }
-  },
-  "misc": {
-    "title": "Additional APIs",
-    "section": {
-      "identity": "Managing Identity",
-      "managing-notification-badges": "Notification Badges",
-      "notification-customization": "Notification Customization",
-      "block-users": "Managing User Block Lists"
-    }
-  },
-  "changelog": {
-    "title": "Changelog",
-    "section": {
-      "changelog": "Changelog"
-    }
-  },
-  "support": {
-    "title": "Support",
-    "section": {
-      "support": "Resources"
-    }
-  }
+	"introduction": {
+		"title": "Introduction",
+		"section": {
+			"overview": "Overview",
+			"authentication": "Authenticating Users",
+			"deduplication": "De-duplicating Requests",
+			"libraries": "Client Libraries"
+		}
+	},
+	"conversations": {
+		"title": "Conversations",
+		"section": {
+			"retrieve-a-conversation": "Retrieving Conversations",
+			"create-a-conversation": "Creating Conversations",
+			"edit-a-conversation": "Editing Conversations",
+			"delete-a-conversation": "Deleting Conversations"
+		}
+	},
+	"messages": {
+		"title": "Messages",
+		"section": {
+			"send-a-message": "Sending Messages",
+			"rich-content": "Rich Content",
+			"retrieving-messages": "Retrieving Messages",
+			"deleting-messages": "Deleting Messages",
+			"send-an-announcement": "Sending Announcements",
+			"notification-customization": "Notification Customization"
+		}
+	},
+	"users": {
+		"title": "Users",
+		"section": {
+			"identity": "Managing Identity",
+			"badging": "Notification Badges",
+			"blocking": "Managing Block Lists"
+		}
+	},
+	"changelog": {
+		"title": "Changelog",
+		"section": {
+			"changelog": "Changelog"
+		}
+	},
+	"support": {
+		"title": "Support",
+		"section": {
+			"support": "Resources"
+		}
+	}
 }
