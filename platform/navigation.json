@@ -33,7 +33,8 @@
 		"section": {
 			"identity": "Managing Identity",
 			"badging": "Notification Badges",
-			"blocking": "Managing Block Lists"
+			"blocking": "Managing Block Lists",
+			"suspension": "Access Suspension"
 		}
 	},
 	"changelog": {
