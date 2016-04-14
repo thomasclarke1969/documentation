@@ -5,11 +5,11 @@ The Layer Web SDK is Layer's Javascript API for accessing Layer Services.  Its b
 
 ## Samples, Demos and Tutorials
 
-Depending on whether you want to learn to use the WebSDK or just see what can be built with it, we have [Web SDK Tutorials](/tutorials) and [Web SDK Sample Apps](https://github.com/layerhq/layer-js-sampleapps).
+Depending on whether you want to learn to use the WebSDK or just see what can be built with it, we have [Web SDK Tutorials](https://developer.layer.com/docs/websdk/tutorials) and [Web SDK Sample Apps](https://github.com/layerhq/layer-js-sampleapps).
 
 ### Tutorials
 
-The [Web SDK Tutorials](/tutorials) are a good place to start if you want to quickly build your first app, see how the WebSDK helps to build that App, and understand concepts of using the WebSDK.
+The [Web SDK Tutorials](https://developer.layer.com/docs/websdk/tutorials) are a good place to start if you want to quickly build your first app, see how the WebSDK helps to build that App, and understand concepts of using the WebSDK.
 
 ### Samples and Demos
 
