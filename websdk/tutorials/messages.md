@@ -128,6 +128,8 @@ messagesQuery.update({
 });
 ```
 
+> Note: conversationId will be of the form layer:///conversations/UUID
+
 Whenever the Conversation changes, the Message Query's `update` method is called providing it with a new Query Predicate.  Each time the Predicate changes, new data is loaded from the server, triggering the `change` event handler that renders our Message List.
 
 You should be able to run this app and see your Message List Panel rendering when you select a Conversation.
