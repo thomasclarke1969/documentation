@@ -17,6 +17,7 @@ query.on('change', function(evt) {
     myMessageRenderer(messages);
 });
 ```
+> Note: myConversation.id will be of the form layer:///conversations/UUID
 
 ## Live Queries
 
