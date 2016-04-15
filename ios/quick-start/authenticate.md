@@ -8,10 +8,10 @@ Layer will cache authentication details so you only need authenticate users if y
 - (void)authenticateLayerWithUserID:(NSString *)userID completion:(void (^)(BOOL success, NSError * error))completion
 {
     // Check to see if the layerClient is already authenticated.
-    if (self.layerClient.authenticatedUserID) {
+    if (self.layerClient.authenticatedUser) {
         // If the layerClient is authenticated with the requested userID, complete the authentication process.
-        if ([self.layerClient.authenticatedUserID isEqualToString:userID]){
-            NSLog(@"Layer Authenticated as User %@", self.layerClient.authenticatedUserID);
+        if ([self.layerClient.authenticatedUser.userID isEqualToString:userID]){
+            NSLog(@"Layer Authenticated as User %@", self.layerClient.authenticatedUser.userID);
             if (completion) completion(YES, nil);
             return;
         } else {
@@ -67,12 +67,12 @@ Layer will cache authentication details so you only need authenticate users if y
             /*
              * 3. Submit identity token to Layer for validation
              */
-            [self.layerClient authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
-                if (authenticatedUserID) {
+            [self.layerClient authenticateWithIdentityToken:identityToken completion:^(LYRIdentity *authenticatedUser, NSError *error) {
+                if (authenticatedUser) {
                     if (completion) {
                         completion(YES, nil);
                     }
-                    NSLog(@"Layer Authenticated as User: %@", authenticatedUserID);
+                    NSLog(@"Layer Authenticated as User: %@", authenticatedUser.userID);
                 } else {
                     completion(NO, error);
                 }
