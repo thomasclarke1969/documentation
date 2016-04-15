@@ -52,7 +52,7 @@ LYRConversation *conversation = [[self.layerClient executeQuery:query error:&err
 
 ```objectivec
 // Fetches all conversations between the authenticated user and the supplied user
-NSArray *participants = @[ self.client.authenticatedUserID, @"<USER_ID>" ];
+NSArray *participants = @[ self.client.authenticatedUser.userID, @"<USER_ID>" ];
 LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
 query.predicate = [LYRPredicate predicateWithProperty:@"participants" predicateOperator:LYRPredicateOperatorIsEqualTo value:participants];
 
@@ -92,7 +92,7 @@ LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
 LYRPredicate *unreadPredicate =[LYRPredicate predicateWithProperty:@"isUnread" predicateOperator:LYRPredicateOperatorIsEqualTo value:@(YES)];
 
 // Messages must not be sent by the authenticated user
-LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sender.userID" predicateOperator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUserID];
+LYRPredicate *userPredicate = [LYRPredicate predicateWithProperty:@"sender.userID" predicateOperator:LYRPredicateOperatorIsNotEqualTo value:self.client.authenticatedUser.userID];
 
 query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[unreadPredicate, userPredicate]];
 query.resultType = LYRQueryResultTypeCount;
