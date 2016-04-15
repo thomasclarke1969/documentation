@@ -93,7 +93,7 @@ You can configure the recipient status under the message by implementing the `AT
 
     [[recipientStatus allKeys] enumerateObjectsUsingBlock:^(NSString *participant, NSUInteger idx, BOOL *stop) {
         LYRRecipientStatus status = [recipientStatus[participant] unsignedIntegerValue];
-        if ([participant isEqualToString:self.layerClient.authenticatedUserID]) {
+        if ([participant isEqualToString:self.layerClient.authenticatedUser.userID]) {
             return;
         }
 
