@@ -158,7 +158,7 @@ Applications can inspect recipient statuses by accessing the `recipientStatusByU
 
 ```objectivec
 NSDictionary *recipientStatuses = message.recipientStatusByUserID;
-LYRRecipientStatus status = [recipientStatuses[layerClient.authenticatedUserID] integerValue];
+LYRRecipientStatus status = [recipientStatuses[layerClient.authenticatedUser.userID] integerValue];
 NSLog(@"Recipient Status is %ld", status);
 ```
 

@@ -144,7 +144,7 @@ In iOS 8 Apple introduced the ability to have custom actions appear when someone
 When you send the message, you just need add the category name to the push configuration.
 ```objective-c
     // Creates and returns a new message object with the given conversation and array of message parts
-    NSString *pushMessage= [NSString stringWithFormat:@"%@ says %@",self.layerClient.authenticatedUserID ,messageText];
+    NSString *pushMessage= [NSString stringWithFormat:@"%@ says %@",self.layerClient.authenticatedUser.userID ,messageText];
 
     LYRPushNotificationConfiguration *defaultConfiguration = [LYRPushNotificationConfiguration new];
     defaultConfiguration.alert = pushMessage;

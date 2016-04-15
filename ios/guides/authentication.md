@@ -21,7 +21,7 @@ A `Provider ID` and `Key ID` must be retained by your backend application and us
 
 %%C-KEYID%%
 
-To manage your authentication keys please visit [Developer Dashboard](https://developer.layer.com).
+To manage your authentication keys please visit [Developer Dashboard](https://developer.layer.com/projects/keys).
 
 ## Step 2 - Start the Authentication process
 
@@ -95,8 +95,8 @@ If you build your own libraries and want to be included, send an email to [suppo
 Once you have received a valid Identity Token call the following code in the `requestAuthenticationNonceWithCompletion` method
 
 ```objectivec
-  [layerClient authenticateWithIdentityToken:@"generatedIdenityToken" completion:^(NSString *authenticatedUserID, NSError *error) {
-     NSLog(@"Authenticated as %@", authenticatedUserID);
+  [layerClient authenticateWithIdentityToken:@"generatedIdenityToken" completion:^(LYRIdentity *authenticatedUser, NSError *error) {
+     NSLog(@"Authenticated as %@", authenticatedUser.userID);
   }];
 ```
 
