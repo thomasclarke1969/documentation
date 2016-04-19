@@ -68,8 +68,8 @@ A nonce value will be passed into the `onAuthenticationChallenge` method. POST t
 {
     "iss": "%%C-INLINE-PROVIDERID%%", // String - The Layer Provider ID, this is your actual provider ID
     "prn": "APPLICATION USER ID", // String - Provider's internal ID for the authenticating user
-    "iat": "TIME OF TOKEN ISSUANCE AS INTEGER", // Integer - Time of Token Issuance in RFC 3339 seconds
-    "exp": "TIME OF TOKEN EXPIRATION AS INTEGER", // Integer - Arbitrary time of Token Expiration in RFC 3339 seconds
+    "iat": "TIME OF TOKEN ISSUANCE AS INTEGER", // Integer - Time of Token Issuance as Unix timestamp ex 1461020965
+    "exp": "TIME OF TOKEN EXPIRATION AS INTEGER", // Integer - Arbitrary time of Token Expiration as Unix timestamp ex 1461020965
     "nce": "LAYER ISSUED NONCE" // The nonce obtained via the Layer client SDK.
 }
 ```
