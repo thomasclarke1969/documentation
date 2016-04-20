@@ -34,7 +34,8 @@ If you'd like to learn more about Authentication and the Authentication process,
  *    to call `login()` to generate a new one.
  */
 var client = new layer.Client({
-    appId: "%%C-INLINE-APPID%%"
+    appId: "%%C-INLINE-APPID%%",
+    isTrustedDevice: false
 });
 
 /*
@@ -77,6 +78,7 @@ The [Client API](/docs/client/introduction#authentication) documents how to use 
 ```javascript
 var client = new layer.Client({
     appId: "%%C-INLINE-APPID%%",
+    isTrustedDevice: false,
     userId: 'frodo_the_dodo@layer.com',
     sessionToken: sessionTokenFromYourServer
 });
@@ -88,6 +90,16 @@ What are the trade-offs between the standard authentication process and this alt
 * The standard process lets authentication happen at any time; for sites where chat may not be the first thing the user does, this may be ideal.
 * Requiring that logging in wait for a request for a nonce, and then a request for a session token means slower logins.
 * The main advantage of the alternate process is that the time spent logging in makes a nice and simple place to do any additional authentication and be done with it.
+
+## Trusted Devices
+
+The Client constructor takes a property `isTrustedDevice` which defaults to `false`.  Setting this to true
+will cause the Client to store your Layer Session Token in persistent memory.  Calling the constructor with `isTrustedDevice: true` and `userId` property will cause the Client to attempt to restore that Session Token.  Suppose that `isTrustedDevice` is `true` and `userId` is `TestUser`, the Client will perform the following tests:
+
+* If there is no session cached for the user named "TestUser", then the `challenge` event handler will be called allowing authentication to procede.
+* If there is a session for the user named "TestUser" but its expired, then your `challenge` event handler will be called allowing authentication to procede.
+* If there is a session for "TestUser" and its valid, then your `ready` event handler will be called.
+
 
 ## Additional Notes
 

@@ -30,7 +30,8 @@ The authentication process is started by instantiating a new Client:
 
 ```javascript
 var client = new layer.Client({
-    appId: "%%C-INLINE-APPID%%"
+    appId: "%%C-INLINE-APPID%%",
+    isTrustedDevice: false
 });
 ```
 
