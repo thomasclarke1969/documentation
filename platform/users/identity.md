@@ -58,7 +58,7 @@ curl  -X POST \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       -d '{"display_name": "Frodo the Dodo", "first_name": "Frodo"}' \
-      https://api.layer.com/apps/APP_UUID/useres/USER_ID/identity
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/identity
 ```
 
 ## Update an Identity
@@ -92,7 +92,7 @@ curl  -X PATCH \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[{"operation": "set", "property": "last_name", "value": "Dodo"}]' \
-      https://api.layer.com/apps/APP_UUID/useres/USER_ID/identity
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/identity
 ```
 
 ## Replace an Identity
@@ -132,7 +132,7 @@ curl  -X PUT \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       -d '{"display_name": "Frodo the Dodo", "first_name": "Frodo"}' \
-      https://api.layer.com/apps/APP_UUID/useres/USER_ID/identity
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/identity
 ```
 
 ## Retrieve an Identity
@@ -165,7 +165,7 @@ curl  -X GET \
       -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      https://api.layer.com/apps/APP_UUID/useres/USER_ID/identity
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/identity
 ```
 
 ## Delete an Identity
@@ -187,5 +187,5 @@ curl  -X DELETE \
       -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      https://api.layer.com/apps/APP_UUID/useres/USER_ID/identity
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/identity
 ```
