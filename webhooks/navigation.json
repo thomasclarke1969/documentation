@@ -4,7 +4,8 @@
     "section": {
       "overview": "Overview",
       "events": "Events",
-      "status": "Status"
+      "status": "Status",
+      "libraries": "Client Libraries"
     }
   },
   "requests": {
