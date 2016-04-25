@@ -100,4 +100,31 @@ Once you have received a valid Identity Token call the following code in the `re
   }];
 ```
 
+## Troubleshooting
+
 You can validate your identity token by using the [identity token validation tool](/projects/tools) in your developer dashboard.
+
+### Error Messages
+
+| Name    | Description |
+|---------|:------:|
+| eit_claim_not_found | Invalid claim. Missing values.  |      
+| eit_claim_wrong_type |Invalid claim. Wrong value type specified. |        
+| eit_expired  | Token expired. Check your expiration timestamp found in the `exp` field. |             
+| eit_header_param_not_found | Invalid header. Missing parameters |    
+| eit_header_param_wrong_type | Invalid header. Wrong type |  
+| eit_header_param_wrong_value | Invalid header. Should be set to JWT |  
+| eit_key_deleted | The Key ID you specified has been deleted. Please use a different key or create a new one. | 
+| eit_key_disabled | The Key ID you specified has been disabled. Please use a different key or create a new one. |  
+| eit_key_malformed | The Key ID you specified is malformed |             
+| eit_key_not_found | 'Authentication Key in the `kid` field is invalid. Make sure you provide a valid Authentication Key (Should start with layer:///keys/...) |
+| eit_malformed_base64url | Invalid identity token structure. Should be Base64 URL encoded. |    
+| eit_malformed_json | Invalid identity token structure. Please refer to our documentation on how to create a valid token.  |      
+| eit_nonce_not_found | Nonce not found or has expired |          
+| eit_not_before | This identity token can not be used before the `iat` timestamp.  |             
+| eit_provider_not_bound_to_app | This Provider ID found in the `iss` field is not bound to a valid Application. |  
+| eit_provider_not_found | A valid Provider ID should be set in the `iss` field. |   
+| eit_signature_verification_failed |Signature verification failed. This usually means that the token was signed by a different private key which does not match the Authentication Key ID provided in the `kid` field. |
+| eit_user_suspended |  Provided User ID found in the `prn` field has been blacklisted.     |     
+| eit_wrong_jws_part_count | Invalid identity token structure. Please refer to our documentation on how to create a valid token. | 
+
