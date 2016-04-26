@@ -36,10 +36,11 @@ The Layer Client is your main interface to the Layer Services.  Before writing a
 Open your `index.js` file and add:
 
 ```javascript
-// Tutorial Step 2: Instantiate the Client
+// Tutorial Step 2: Instantiate the Client and start the authentication process
 layerSampleApp.client = new layer.Client({
     appId: window.layerSampleConfig.appId
-});
+})
+layerSampleApp.client.connect(window.layerSampleConfig.userId);
 ```
 
 ## Step 3: Handle the Authentication Challenge

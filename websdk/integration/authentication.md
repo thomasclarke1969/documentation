@@ -62,6 +62,11 @@ client.on('challenge', function(evt) {
 client.on('ready', function() {
     renderMyUI(client);
 });
+
+/*
+ * 5. When your ready, start the authentication process.
+ */
+client.connect(myUserId);
 ```
 
 ## The Alternate Authentication Process
@@ -72,17 +77,14 @@ The [Client API](/docs/client/introduction#authentication) documents how to use 
 2. Your server requests a nonce from Layer
 3. Your server uses the nonce to create an identity token
 4. Your server submits that identity token to Layer's servers and gets a Session Token
-5. Your server sends your session information to the browser (cookies?) and also sends the Layer session information in the form of a Layer Session Token.
+5. Your server sends its normal responses to logging in back to the browser.  Your server will ALSO send the Layer Session Token.
 6. Client initializes with your Session Token
 
 ```javascript
 var client = new layer.Client({
-    appId: "%%C-INLINE-APPID%%",
-    isTrustedDevice: false,
-    userId: 'frodo_the_dodo@layer.com',
-    sessionToken: sessionTokenFromYourServer
+    appId: "%%C-INLINE-APPID%%"
 });
-
+client.connectWithSession(yourUserId, sessionTokenFromYourServer);
 ```
 
 What are the trade-offs between the standard authentication process and this alterative?
@@ -100,6 +102,31 @@ will cause the Client to store your Layer Session Token in persistent memory.  C
 * If there is a session for the user named "TestUser" but its expired, then your `challenge` event handler will be called allowing authentication to procede.
 * If there is a session for "TestUser" and its valid, then your `ready` event handler will be called.
 
+Both authentication processes above can work with both
+
+```javascript
+var client = new layer.Client({
+    appId: "%%C-INLINE-APPID%%",
+    isTrustedDevice: true
+});
+```
+and
+```javascript
+var client = new layer.Client({
+    appId: "%%C-INLINE-APPID%%",
+    isTrustedDevice: false
+});
+```
+
+Further, you can change the property prior to calling `connect()` or `connectWithSession()`:
+
+```javascript
+var client = new layer.Client({
+    appId: "%%C-INLINE-APPID%%"
+});
+client.isTrustedDevice = true;
+client.connect(userId);
+```
 
 ## Additional Notes
 

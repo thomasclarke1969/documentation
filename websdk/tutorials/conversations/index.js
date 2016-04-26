@@ -7,7 +7,7 @@ window.addEventListener('load', function() {
    */
   layerSampleApp.client = new layer.Client({
     appId: window.layerSampleConfig.appId
-  });
+  }).connect(window.layerSampleConfig.userId);
 
   var client = layerSampleApp.client;
 

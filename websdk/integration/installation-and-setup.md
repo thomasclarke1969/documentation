@@ -18,6 +18,7 @@ All classes can then be accessed via the `layer` namespace:
 var client = new layer.Client({
     appId: "%%C-INLINE-APPID%%"
 });
+client.connect(userId);
 ```
 
 #### NPM
@@ -34,6 +35,7 @@ var layer = require('layer-websdk');
 var client = new layer.Client({
     appId: "%%C-INLINE-APPID%%"
 });
+client.connect(userId);
 ```
 
 #### From source
