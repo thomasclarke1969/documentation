@@ -57,6 +57,10 @@ curl  -X POST \
 
 Empty Body
 
+```emphasis
+Each user may have up to 25 push tokens.  If you attempt to add more than 25, the least recently used (LRU) push token will be unregistered in order to accommodate the one being added.  We reserve the right to change this limit in the future.
+```
+
 ## Unregister a Push Token
 
 You can delete a push token using:
