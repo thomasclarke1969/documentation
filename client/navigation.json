@@ -9,6 +9,7 @@
       "deduplication": "De-duplicating Requests",
       "conversation": "Conversations",
       "message": "Messages",
+      "announcement": "Announcements",
       "message-part": "Message Parts",
       "rich-content": "Rich Content"
     }
@@ -19,6 +20,7 @@
       "overview": "Overview",
       "conversations": "Conversations",
       "messages": "Messages",
+      "announcements": "Announcements",
       "push-tokens": "Push Tokens",
       "receipts": "Read and Delivery Receipts",
       "rich-content": "Rich Content",
