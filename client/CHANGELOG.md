@@ -1,5 +1,9 @@
 # Layer Client API Change Log
 
+## April 26, 2016
+
+Announcements Support added.
+
 ## April 5, 2016
 
 Improved deletion functionality.
