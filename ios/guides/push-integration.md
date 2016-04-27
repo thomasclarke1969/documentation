@@ -36,7 +36,7 @@ To unregister a user from receiving push notifications, you can pass `nil` to th
 
 ## Triggering Alerts
 
-By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. In the `options` dictionary you will need to set the push configuration as the value for the `LYRMessageOptionsPushNotificationConfigurationKey` key.
+By default, the Layer Push Notification service will deliver silent push notifications which will not trigger any alerts for your users. However, you can configure your messages to trigger a system alert at the time of message send. In the `LYRPushNotificationConfiguration` object you will need to set the alert text as the value for the `alert` key.
 
 The following demonstrates setting the alert text to be the same as the text of the message being sent.
 
@@ -97,7 +97,7 @@ LYRMessage *message = [self.layerClient newMessageWithParts:@[messagePart] optio
 
 We currently recommend that developers do not rely on silent notifications. We’ve done extensive testing on silent notifications internally with various combinations of sound, alert, and content-available flags and the net outcome is that there is no way to guarantee that iOS will wake the app up in response to a push notification. We believe this is because of how iOS handles power management.  For example: if you plug the device into a power source it will get woken up on every push. When it's not plugged in we've perceived that whether or not the app will be awakened is unpredictable.
 
-If you want reliable, immediate delivery of push notifications we recommend utilizing the LYRMessagePushNotificationAlertMessageKey option to set Alert text and to use the "Show unread in badges" feature in the dashboard. If you try to use silent notifications and emit local notifications then you will always be subject to latency and a variable amount of batching. Unfortunately, the behavior is out of our control at this time.
+If you want reliable, immediate delivery of push notifications we recommend utilizing the `alert` key in `LYRPushNotificationConfiguration` to set Alert text and to use the "Show unread in badges" feature in the dashboard. If you try to use silent notifications and emit local notifications then you will always be subject to latency and a variable amount of batching. Unfortunately, the behavior is out of our control at this time.
 ```
 
 ## Notification Actions
