@@ -185,5 +185,5 @@ The `LYRClientDelegate` protocol also declares synchronization methods which ale
 ```emphasis
 **Best Practice**
 
-For conversations with over 5 participants, you should disable delivery and read receipts to speed up syncing and improve overall performance. [Click here](https://support.layer.com/hc/en-us/articles/204144590-How-do-delivery-and-read-receipts-work-) to learn more.
+For conversations with over 5 participants, you should disable delivery receipts to speed up syncing and improve overall performance. Check the [How do delivery and read receipts work?](https://support.layer.com/hc/en-us/articles/204144590-How-do-delivery-and-read-receipts-work-) article to learn more.
 ```
