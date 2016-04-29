@@ -10,10 +10,10 @@ mConversation.send(TypingIndicator.STARTED);
 ```
 
 ## Receiving 
-Applications are notified of typing indicator events via `LayerTypingIndicatorListener`. Applications should register as a `LayerTypingIndicatorListener` in order to be notified when another device is typing.
+Applications are notified of typing indicator events via `LayerTypingIndicatorListener`. Activities should register a `LayerTypingIndicatorListener` in order to be notified when another device is typing.
 
 ```
-public class MyApplication extends Application implements LayerTypingIndicatorListener {
+public class MyActivity extends Activity implements LayerTypingIndicatorListener {
 
     @Override
     protected void onResume() {
