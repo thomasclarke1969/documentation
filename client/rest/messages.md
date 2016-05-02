@@ -90,7 +90,9 @@ curl  -X GET \
   "sent_at": "2014-09-09T04:44:47+00:00",
   "sender": {
     "name": null,
-    "user_id": "5678"
+    "user_id": "5678",
+    "display_name": "five six seven eight",
+    "avatar_url": ""
   },
   "recipient_status": {
     "5678": "read",
@@ -175,7 +177,9 @@ curl  -X POST \
   "sent_at": "2014-09-09T04:44:47+00:00",
   "sender": {
     "name": null,
-    "user_id": "5678"
+    "user_id": "5678",
+    "display_name": "five six seven eight",
+    "avatar_url": ""
   },
   "recipient_status": {
     "5678": "read",
@@ -216,7 +220,9 @@ If using [deduplication](introduction#deduplication), you may get a conflict if 
     "sent_at": "2014-09-09T04:44:47+00:00",
     "sender": {
       "name": null,
-      "user_id": "5678"
+      "user_id": "5678",
+      "display_name": "five six seven eight",
+      "avatar_url": ""
     },
     "recipient_status": {
       "5678": "read",

@@ -10,7 +10,8 @@
       "conversation": "Conversations",
       "message": "Messages",
       "message-part": "Message Parts",
-      "rich-content": "Rich Content"
+      "rich-content": "Rich Content",
+      "identity": "Identity"
     }
   },
   "rest": {
@@ -22,6 +23,7 @@
       "push-tokens": "Push Tokens",
       "receipts": "Read and Delivery Receipts",
       "rich-content": "Rich Content",
+      "identity": "Identity",
       "errors": "Error Messages"
     }
   },

@@ -24,7 +24,7 @@ The `object` field is used to identify the object that the Packet relates to.
 
 | Field | Description |
 |-------|-------------|
-| **type** | Type of Object: Conversation, Message |
+| **type** | Type of Object: Conversation, Message, Identity |
 | **id**   | The Layer ID of the Object: "layer:///Conversations/uuid" |
 | **url**  | URL to the specified Object
 
@@ -44,6 +44,8 @@ The `object` field is used to identify the object that the Packet relates to.
 
 A Change Packet containing a create event is received whenever the server receives a new Message or Conversation.  Note that you will receive these not just for new Messages and Conversations created by others, but also by yourself.  The `data` field will contain the full [Conversation](introduction#conversation) or [Message](introduction#message) object.
 
+### A Conversation has been Created
+
 ```json
 {
   "type": "change",
@@ -61,6 +63,8 @@ A Change Packet containing a create event is received whenever the server receiv
 }
 ```
 
+### A Message has been Created
+
 ```json
 {
   "type": "change",
@@ -77,6 +81,26 @@ A Change Packet containing a create event is received whenever the server receiv
   }
 }
 ```
+
+### An Identity has been Created
+
+```json
+{
+  "type": "change",
+  "counter": 7,
+  "timestamp": "2014-09-15T04:45:00+00:00",
+  "body": {
+    "operation": "create",
+    "object": {
+      "type": "Message",
+      "id": "layer:///messages/f3cc7b32-3c92-11e4-baad-164230d1df68",
+      "url": "https://api.layer.com/messages/f3cc7b32-3c92-11e4-baad-164230d1df68"
+    },
+    "data": <Message>
+  }
+}
+```
+
 
 ## Delete Events
 
@@ -108,7 +132,7 @@ Both Messages and Conversations can be deleted for all users; you know it is thi
    }
  }
  ```
- 
+
  ```json
  {
    "type": "change",
@@ -171,9 +195,9 @@ Both Messages and Conversations can be deleted for this user only; you know it i
    }
  }
  ```
- 
+
  ### Deleting `from_position`
- 
+
 This last one is a special case of _Deleting for `my_devices`_ where the Conversation was deleted for all of the user's devices, but the user did not leave the Conversation.  And then a New Message shows up causing the Conversation to be recreated for that user (see [Leave Parameter in Delete](rest#deleting-a-conversation)).  The `from_position` tells your app to delete all Messages whose `position` field are less than or equal to this value, and then **do not delete the Conversation**.
 
  ```json
@@ -192,6 +216,27 @@ This last one is a special case of _Deleting for `my_devices`_ where the Convers
        "mode": "my_devices",
        "from_position": 123456
      }
+   }
+ }
+ ```
+
+### Other Deletes
+
+After unfollowing a user, all of your devices should receive a delete event.  If the Platform API deletes an Identity, all followers of that Identity should receive a delete event.
+
+ ```json
+ {
+   "type": "change",
+   "counter": 8,
+   "timestamp": "2015-01-19T09:15:43+00:00",
+   "body": {
+     "operation": "delete",
+     "object": {
+       "type": "Identity",
+       "id": "layer:///identities/1234",
+       "url": "https://api.layer.com/identities/1234"
+     },
+     "data": null
    }
  }
  ```
@@ -224,6 +269,8 @@ The following properties can be updated via an Update Event:
 * **Message.recipient_status**: Recipient status is updated as delivery and read receipts are received
 * **Conversation.last_message**: The ID for the Message is provided each time a new Message becomes the most recent Message
 * **Conversation.unread_message_count**: Any time a Conversation's unread message count changes, you will be notified
+
+Any field of an Identity object other than the `user_id` field may change.
 
 Note that it is common to receive multiple Layer Patch Operations in a single Change Packet, resulting in multiple changes to a properties.
 
@@ -348,3 +395,33 @@ Whereas what is needed is: "recipient_status.fred\\.flinstone" which will set:
 
 Note the use of `id` instead of `value` in this Layer Patch Operation; this is a hint
 that you may want to lookup the object and set the `last_message` property to the entire object.
+
+### Update Identity
+
+```json
+{
+  "type": "change",
+  "counter": 13,
+  "timestamp": "2014-09-15T04:45:00+00:00",
+  "body": {
+    "operation": "update",
+    "object": {
+      "type": "Identity",
+      "id": "layer:///identities/1234",
+      "url": "https://api.layer.com/identities/1234"
+    },
+    "data": [
+      {
+        "operation": "set",
+        "property": "first_name",
+        "value": "One Two"
+      },
+      {
+        "operation": "set",
+        "property": "last_name",
+        "value": "Three Four"
+      }
+    ]
+  }
+}
+```

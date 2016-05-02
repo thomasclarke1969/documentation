@@ -58,9 +58,10 @@ The Sender object consists of two properties:
 | Name    | Type |  Description  |
 |---------|------|---------------|
 | **user_id** | string | The user_id is the ID of the participant that sent the message |
+| **display_name** | string | The display name used when rendering this user in a UI |
 | **name** | string | If sent by the [Platform API](https://developer.layer.com/docs/platform), the name is a system name such as "Administrator" or "Moderator"; else its null. |
 
-These two properties are mutually exclusive.  If one has a value, then the other must be null.
+If `name` has a value, all other properties will be null.  If `user_id` has a value then `name` will be null.  `display_name` may be null even if `user_id` has a value if a `display_name` has not been entered into the system.
 
 ### The `is_unread` property
 
@@ -79,3 +80,17 @@ A Message uses MessageParts to group diverse types of information together.  For
 ## Push Notifications
 
 When a mobile device receives a new Message, a notification is often needed to let them know that a new Message has arrived.  The Client API lets you control details of the notification for each Message you send.  More detail can be found in the [Push Notifications](/docs/client/rest#push-notifications) section.
+
+## What is an Identity?
+
+Every user within Layer is represented as a User ID, which can be any sort of unique identifier string, including ones that you are already using for user management (this could be a UUID, username, email address, phone number, etc).  If using nothing more than this withing the Layer Services, then the task of associating meaning to that User ID falls entirely to your application.
+
+An Identity, is an object within Layer's Servers that associate additional information with that User ID so that your application does not need to separately load this data from your servers; at a minimum, an Identity would associate a Display Name with that User ID.
+
+An Identity has the following properties (See The Identity Object)[#identity] for a complete list of properties)
+
+| Name    | Type |  Example | Description  |
+|---------|------|----------|--------------|
+| **user_id** | string | 'frodo115' | The user_id is the ID of the participant that sent the message |
+| **display_name** | string | 'Frodo the Dodo' | The display name used when rendering this user in a UI |
+| **avatar_url** | string | 'https://myserver.com/frodo115.gif' | A URL to an avatar image to display next to the user. |
