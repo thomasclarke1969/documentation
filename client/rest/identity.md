@@ -52,7 +52,7 @@ curl  -X GET \
       https://api.layer.com/identities?page_size=250&from_id=layer:///identities/frodo_the_dodo
 ```
 
-# Retreiving all Followers
+# Retreiving all Followed User IDs
 
 If you just need the `user_id` of every user followed by this user (commonly used prior to adding/removing follows), you can get the list using:
 
