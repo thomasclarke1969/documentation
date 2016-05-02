@@ -24,8 +24,7 @@ The `object` field is used to identify the object that the Packet relates to.
 
 | Field | Description |
 |-------|-------------|
-| **type** | Type of Object: Conversation, Announcement, Message |
-| **id**   | The Layer ID of the Object: "layer:///conversations/uuid" |
+| **type** | Type of Object: Conversation, Announcement, Message, Identity |
 | **url**  | URL to the specified Object
 
  When the server is sending a Change Packet to the client, the Object will look like:
@@ -44,6 +43,8 @@ The `object` field is used to identify the object that the Packet relates to.
 
 A Change Packet containing a create event is received whenever the server receives a new Message or Conversation.  Note that you will receive these not just for new Messages and Conversations created by others, but also by yourself.  The `data` field will contain the full [Conversation](introduction#conversation) or [Message](introduction#message) object.
 
+### A Conversation has been Created
+
 ```json
 {
   "type": "change",
@@ -60,6 +61,8 @@ A Change Packet containing a create event is received whenever the server receiv
   }
 }
 ```
+
+### A Message has been Created
 
 ```json
 {
@@ -91,6 +94,25 @@ A Change Packet containing a create event is received whenever the server receiv
       "url": "https://api.layer.com/announcements/f3cc7b32-3c92-11e4-baad-164230d1df68"
     },
     "data": <Announcement>
+  }
+}
+```
+
+### An Identity has been Created
+
+```json
+{
+  "type": "change",
+  "counter": 7,
+  "timestamp": "2014-09-15T04:45:00+00:00",
+  "body": {
+    "operation": "create",
+    "object": {
+      "type": "Identity",
+      "id": "layer:///identities/1234",
+      "url": "https://api.layer.com/identities/1234"
+    },
+    "data": <Identity>
   }
 }
 ```
@@ -217,22 +239,44 @@ This last one is a special case of _Deleting for `my_devices`_ where the Convers
 
 Deletion mode does not apply to Announcements:
 
+
+### Other Deletes
+
+After unfollowing a user, all of your devices should receive a delete event.  If the Platform API deletes an Identity, all followers of that Identity should receive a delete event.
+
  ```json
  {
    "type": "change",
    "counter": 9,
    "timestamp": "2015-01-19T09:15:43+00:00",
    "body": {
-     "operation": "delete",
-     "object": {
-       "type": "Announcement",
-       "id": "layer:///announcements/f3cc7b32-3c92-11e4-baad-164230d1df68",
-       "url": "https://api.layer.com/announcements/940de862-3c96-11e4-baad-164230d1df68"
-     },
-     "data": {}
-   }
- }
- ```
+      "operation": "delete",
+      "object": {
+        "type": "Identity",
+        "id": "layer:///identities/1234",
+        "url": "https://api.layer.com/identities/1234"
+      },
+      "data": null
+    }
+}
+```
+
+ ```json
+ {
+   "type": "change",
+   "counter": 9,
+   "timestamp": "2015-01-19T09:15:43+00:00",
+   "body": {
+      "operation": "delete",
+      "object": {
+        "type": "Announcement",
+        "id": "layer:///announcements/f3cc7b32-3c92-11e4-baad-164230d1df68",
+        "url": "https://api.layer.com/announcements/940de862-3c96-11e4-baad-164230d1df68"
+      },
+      "data": {}
+    }
+}
+```
 
 ### Expected actions by your App
 
@@ -262,6 +306,8 @@ The following properties can be updated via an Update Event:
 * **Message.recipient_status**: Recipient status is updated as delivery and read receipts are received
 * **Conversation.last_message**: The ID for the Message is provided each time a new Message becomes the most recent Message
 * **Conversation.unread_message_count**: Any time a Conversation's unread message count changes, you will be notified
+
+Any field of an Identity object other than the `user_id` field may change.
 
 Note that it is common to receive multiple Layer Patch Operations in a single Change Packet, resulting in multiple changes to a properties.
 
@@ -411,3 +457,33 @@ Announcements will also receive read receipts; especially useful if your user is
 
 Note the use of `id` instead of `value` in this Layer Patch Operation; this is a hint
 that you may want to lookup the object and set the `last_message` property to the entire object.
+
+### Update Identity
+
+```json
+{
+  "type": "change",
+  "counter": 13,
+  "timestamp": "2014-09-15T04:45:00+00:00",
+  "body": {
+    "operation": "update",
+    "object": {
+      "type": "Identity",
+      "id": "layer:///identities/1234",
+      "url": "https://api.layer.com/identities/1234"
+    },
+    "data": [
+      {
+        "operation": "set",
+        "property": "first_name",
+        "value": "One Two"
+      },
+      {
+        "operation": "set",
+        "property": "last_name",
+        "value": "Three Four"
+      }
+    ]
+  }
+}
+```
