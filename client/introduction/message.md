@@ -56,7 +56,7 @@ The Message Object represents a message sent by a user (or by a server) to the p
 | **sender** | object | Identifies who sent the message |
 | **sender.user_id** | string | The user_id is the ID of the participant that sent the message |
 | **sender.display_name** | string | The display name used when rendering this user in a UI |
-| **sender.avatar_url** | string | A URL to an avatar image to display next to the user. |
+| **sender.avatar_url** | string | A URL to an avatar image to display next to the user |
 | **sender.name** | string | If sent by the Platform API, the name is a system name such as "Administrator" or "Moderator" and is used instead of user_id |
 | **sent_at** | string | Date/time that the message was sent; "2014-09-09T04:44:47+00:00" |
 | **position** | integer | Position of the Message within the Conversation |
@@ -89,8 +89,8 @@ The Sender object consists of two properties:
 |---------|------|---------------|
 | **user_id** | string | The user_id is the ID of the participant that sent the message |
 | **display_name** | string  | The display name used when rendering this user in a UI |
-| **avatar_url** | string  | A URL to an avatar image to display next to the user. |
-| **name** | string | If sent by the Platform API, the name is a system name such as "Administrator" or "Moderator"; else its null. |
+| **avatar_url** | string  | A URL to an avatar image to display next to the user |
+| **name** | string | If sent by the Platform API, the name is a system name such as "Administrator" or "Moderator"; else its null |
 
 These two properties are mutually exclusive.  If one has a value, then the other must be null.
 
