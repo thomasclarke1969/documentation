@@ -53,15 +53,16 @@ A full JSON description of the Message object is shown in [The Message Object](#
 
 ### The `sender` property
 
-The Sender object consists of two properties:
+The Sender object consists of:
 
 | Name    | Type |  Description  |
 |---------|------|---------------|
 | **user_id** | string | The user_id is the ID of the participant that sent the message |
 | **display_name** | string | The display name used when rendering this user in a UI |
+| **avatar_url** | string  | A URL to an avatar image to display next to the user. |
 | **name** | string | If sent by the [Platform API](https://developer.layer.com/docs/platform), the name is a system name such as "Administrator" or "Moderator"; else its null. |
 
-If `name` has a value, all other properties will be null.  If `user_id` has a value then `name` will be null.  `display_name` may be null even if `user_id` has a value if a `display_name` has not been entered into the system.
+If `name` has a value, all other properties will be null.
 
 ### The `is_unread` property
 
