@@ -1,6 +1,6 @@
 # Retrieving All Followed Identities
 
-While many applications will just use the `display_name` and `avatar_url` that comes with each Message to display the sender of the Message, some may need additional information when rendering users.  To accomplish this, and to minimize the amount of on-demand fetching of users, your application can load the full Identity objects for all of the user's the authenticated user follows.
+While many applications will just use the `display_name` and `avatar_url` that comes with each Message to display the sender of the Message, some may need additional information when rendering users.  To accomplish this, and to minimize the amount of on-demand fetching of users, your application can load the full Identity objects for all of the user's the current user is following.  The set of followed identities is all users this user has ever had a conversation with plus anyone this user has explicitly followed.
 
 You can list Identities followed by your user using:
 
@@ -8,13 +8,19 @@ You can list Identities followed by your user using:
 GET /identities
 ```
 
-This will return an array of Identities ordered by creation time in descending order. Note that the set of followed identities is all users this user has ever had a conversation with plus anyone this user has explicitly followed.
+This will return an array of Identities ordered by creation time in descending order.
 
 ```console
 curl  -X GET \
       -H "Accept: application/vnd.layer+json; version=1.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/identities
+```
+
+### Response `200 (OK)`
+
+```text
+[<Identity>, <Identity>]
 ```
 
 ## Pagination
@@ -46,12 +52,6 @@ curl  -X GET \
       https://api.layer.com/identities?page_size=250&from_id=layer:///identities/frodo_the_dodo
 ```
 
-### Response `200 (OK)`
-
-```text
-[<Identity>, <Identity>]
-```
-
 # Retreiving all Followers
 
 If you just need the `user_id` of every user followed by this user (commonly used prior to adding/removing follows), you can get the list using:
@@ -61,7 +61,7 @@ If you just need the `user_id` of every user followed by this user (commonly use
 GET /following
 ```
 
-This will return an array of user_ids.  Note that the set of follows is all users this user has ever had a conversation with plus anyone this user has explicitly followed.
+This will return an array of user_ids (i.e. not the full Identity object).  Note that the results include all users this user has ever had a conversation with plus anyone this user has explicitly followed.
 
 ```console
 curl  -X GET \
@@ -141,7 +141,7 @@ curl  -X GET \
 
 # Get a Follows
 
-Unlike getting an Identity, this operation can be used to quickly test if the authenticated user is following the specified user:
+This operation can be used to quickly test if the authenticated user is following the specified user:
 
 ```request
 GET /following/:user_id

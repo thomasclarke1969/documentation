@@ -73,10 +73,10 @@ A Change Packet containing a create event is received whenever the server receiv
     "operation": "create",
     "object": {
       "type": "Message",
-      "id": "layer:///messages/f3cc7b32-3c92-11e4-baad-164230d1df68",
-      "url": "https://api.layer.com/messages/f3cc7b32-3c92-11e4-baad-164230d1df68"
+      "id": "layer:///identities/1234",
+      "url": "https://api.layer.com/identities/1234"
     },
-    "data": <Message>
+    "data": <Identity>
   }
 }
 ```
