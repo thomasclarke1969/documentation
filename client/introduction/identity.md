@@ -42,10 +42,10 @@ Note, that all values that are put into the Identity object can be observed by a
 Identity objects can be created in two ways:
 
 * Creating a Layer Session with an Identity Token will create an Identity if one does not yet exist.  The Identity Token can be used to define the following fields of your Identity:
-    * user_id
-    * display_name
-    * avatar_url
-    * public_key
+    * `user_id`
+    * `display_name`
+    * `avatar_url`
+    * `public_key`
 * Identities can be created, updated and deleted via the [Platform API](https://developer.layer.com/docs/platform/users#managing-identity); only the Platform API can be used to set ALL fields of the Identity.
 
 
