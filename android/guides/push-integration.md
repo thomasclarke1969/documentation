@@ -13,7 +13,7 @@ The sending client can now generate push notifications by specifying special opt
 
 ``` java
 private void sendTextMessage(String text) {
-    
+
     //Put the text into a message part, which has a MIME type of "text/plain" by default
     MessagePart messagePart = layerClient.newMessagePart(text);
 
@@ -145,68 +145,51 @@ Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action
 
 You can use your Layer Dashboard log to help debug push notifications from the Layer server's perspective.
 
-## Multiple GCM Senders in the Same App
-Google does support multiple GCM senders (Layer, etc.) for a single app, but you have to account for it.  If not, one or more GCM sender will fail to send GCM intents, and GCM intents that do come in may randomly fail to reach GCM receivers in your manifest.
+## Multiple GCM senders in the same app
+Google does support multiple GCM senders in a single app, but you have to account for it. If not, one or more GCM senders will fail to send GCM intents, and GCM intents that do come in may randomly fail to reach GCM receivers in your manifest.
 
-### GCM Registration
-GCM registration happens in two phases.  First, the device supplies a `Sender ID` to Google, and Google gives the device back a `Registration ID`.  The `Registration ID` is what the device sends to Layer so we can send GCM to that device.  The trick is, each app can only have one current `Registration ID` assigned by Google at a time; previously assigned `Registration ID`s will no longer work.  And, the `Registration ID` is based on the `Sender ID` supplied at registration time.  So, if multiple senders (e.g. Layer and another service) register for GCM, one will register last and invalidate the other.
+The best way to do this is to handle GCM registration yourself, rather than letting individual libraries perform the registration. Note that you would use `gcm_defaultSenderId` or `googleCloudMessagingSenderId` on the Layer client; instead, you'll have to join the sender IDs of each library with a comma:
 
-#### Option 1: Handling GCM Registration Yourself
-The first method is documented:
-
+```java
+public class RegistrationIntentService extends IntentService {
+	@Override
+	public void onHandleIntent(Intent intent) {
+		InstanceID instanceID = InstanceID.getInstance(this);
+		// Comma-concatenated sender IDs
+		String senderIDs = "SENDER_ID_1,SENDER_ID_2";
+		String token = instanceID.getToken(senderIDs, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+		// ...
+	}
+}
 ```
-	To make this possible, all you need to do is have each sender
-	generate its own project number. Then include those IDs in
-	the sender field, separated by commas, when requesting a
-	registration.  Finally, share the registration ID with your
-	partners, and they'll be able to send messages to your
-	application using their own authentication keys.
+See the [GCM docs](https://developers.google.com/cloud-messaging/android/client#sample-register) for more details.
 
-	Note that there is limit of 100 multiple senders.
+Next, provide the GCM registration ID to Layer (via `LayerClient.setGcmRegistrationId()`) and the other provider libraries.
+
+Finally, configure the receiver priorities such that Layer receives the push first. GCM intents are **ordered** — that is, they get handled by receivers one at a time, and each receiver can either consume the intent or pass it to the next receiver. Layer does a good job handling its GCM intents and passing non-Layer intents down the chain, but not all libraries are good citizens in this way, and simply consume all intents. The workaround is to add a priority to each GCM receiver, and prioritize Layer above the offending receivers. For example:
+
+```xml
+<receiver
+    android:name="com.layer.sdk.services.GcmBroadcastReceiver"
+    android:permission="com.google.android.c2dm.permission.SEND">
+    <intent-filter android:priority="470">
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+        <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+        <action android:name="com.google.android.c2dm.intent.REGISTER"/>
+        <category android:name="com.my.app"/>
+    </intent-filter>
+</receiver>
+
+<receiver
+    android:name="com.another.service.GcmBroadcastReceiver"
+    android:permission="com.google.android.c2dm.permission.SEND">
+    <intent-filter android:priority="1">
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+        <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+        <action android:name="com.google.android.c2dm.intent.REGISTER"/>
+        <category android:name="com.my.app"/>
+    </intent-filter>
+</receiver>
 ```
 
-This approach requires your app to handle its own GCM registration, providing all GCM `Sender ID`s during that process, like so:
-
-``` java
-	Intent intent = new Intent(GCMConstants.INTENT_TO_GCM_REGISTRATION);
-	intent.setPackage(GSF_PACKAGE);
-	intent.putExtra(GCMConstants.EXTRA_APPLICATION_PENDING_INTENT,
-	        PendingIntent.getBroadcast(context, 0, new Intent(), 0));
-	String senderIds = "968350041068,652183961211";
-	intent.putExtra(GCMConstants.EXTRA_SENDER, senderIds);
-	context.startService(intent);
-```
-
-And then hand the resulting `Registration ID` to all senders (e.g. Layer and the other service).  However, all sender libraries must accept a `Registration ID` (rather than a `Sender ID`) to support this method.  Though Layer supports it through the `LayerClient.setGcmRegistrationId()` method, most libraries do not.  So we've found an undocumented work-around.
-
-#### Option 2: Supply Sender ID List to Libraries
-The second (though undocumented) method is to supply a comma-separated list of `Sender ID`s to each library as their `Sender ID`, and allow each library to handle their own GCM registration as usual.  So, if Layer has `Sender ID` "123456", and the other has "654321", you would supply both libraries with "123456,654321" as the `Sender ID`.  It's important to supply the same concatenation to all libraries so they don't invalidate the others' `Registration ID`.  This method works because Google hands back the same `Registration ID` for the same `Sender ID`, so although multiple libraries register GCM, they each supply the same `Sender ID` concatenation, and receive the same `Registration ID` back from Google.
-
-### GCM Receiver Priority
-Once registration is sorted out, you may need to take one more step to ensure all GCM receivers play nicely together.  GCM intents are "ordered" -- that is, they get handled by receivers one at a time, and each receiver can either consume the intent or pass it on to the next receiver.  Layer does a good job handling its GCM intents and passing non-Layer intents down the chain, but not all libraries are good citizens in this way, and simply consume all intents.  The workaround is to add a `priority` to each GCM receiver, and prioritize Layer above the offending receivers.  For example:
-
-``` xml
-    <receiver
-        android:name="com.layer.sdk.services.GcmBroadcastReceiver"
-        android:permission="com.google.android.c2dm.permission.SEND">
-        <intent-filter android:priority="470">
-            <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-            <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
-            <action android:name="com.google.android.c2dm.intent.REGISTER"/>
-            <category android:name="com.my.app"/>
-        </intent-filter>
-    </receiver>
-
-    <receiver
-        android:name="com.another.service.GcmBroadcastReceiver"
-        android:permission="com.google.android.c2dm.permission.SEND">
-        <intent-filter android:priority="1">
-            <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-            <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
-            <action android:name="com.google.android.c2dm.intent.REGISTER"/>
-            <category android:name="com.my.app"/>
-        </intent-filter>
-    </receiver>
- ```
-
-Note the `android:priority="470"` attribute in the Layer GCM receiver -- higher priorities get the GCM intents first.  This will allow Layer to receive GCM intents, consume them if they are Layer intents, and pass them on down the priority chain if they are not Layer intents.
+Note the `android:priority="470"` attribute in the Layer GCM receiver — higher priorities get the GCM intents first. This will allow Layer to receive GCM intents, consume them if they are Layer intents, and pass them on down the priority chain if they are not Layer intents.
