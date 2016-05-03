@@ -32,9 +32,10 @@ Queries are your means of detecting changes to your user's data; whether its new
 
 ## Constructing a query
 
-The Query object requires a `model` property, which can be one of the two values:
+The Query object requires a `model` property, which can be one of the three values:
 
 * layer.Query.Message - Query for messages
+* layer.Query.Announcement - Query for announcements
 * layer.Query.Conversation - Query for conversations
 
 ```javascript
@@ -60,7 +61,7 @@ var query = client.createQuery({
 At this time there is very limited support for sorting within Queries:
 
 1. Conversations can be sorted by `createdAt` or `lastMessage.sentAt`.
-2. Messages are sorted by `position` and this can not at this time be changed.
+2. Messages and Announcements are sorted by `position` and this can not at this time be changed.
 3. Descending sorts is the only direction currently supported.
 
 The following sort descriptor defines that Conversations be sorted by the `sentAt` time of the Conversation's `lastMessage`:
