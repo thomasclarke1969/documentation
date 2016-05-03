@@ -1,5 +1,16 @@
 # Layer Client API Change Log
 
+## April 29, 2016
+ Announcements and fixes
+ 
+ #### Enhancements
+ 
+ * New APIs to access announcements. Receipts and deletion are supported. Announcements can only be sent via the platform api
+
+#### Bug Fixes
+
+* When paginating through Messages, on the final page the `Layer-Count` header will continue to return the total number of results. Previously it would start returning the number of results in the final page
+
 ## April 5, 2016
 
 Improved deletion functionality.

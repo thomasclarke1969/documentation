@@ -22,6 +22,9 @@ You can send receipts using:
 ```request
 POST /messages/:message_uuid/receipts
 ```
+```request
+POST /announcements/:announcement_uuid/receipts
+```
 
 ### Parameters
 
@@ -44,6 +47,15 @@ curl  -X POST \
       -H 'Content-Type: application/json' \
       -d '{"type": "read"}' \
       https://api.layer.com/messages/MESSAGE_UUID/receipts
+```
+
+```console
+curl  -X POST \
+      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Authorization: Layer session-token='TOKEN'' \
+      -H 'Content-Type: application/json' \
+      -d '{"type": "read"}' \
+      https://api.layer.com/announcements/ANNOUNCEMENT_UUID/receipts
 ```
 
 ### Response `204 (No Content)`
