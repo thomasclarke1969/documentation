@@ -84,7 +84,7 @@ POST /apps/{app_id}/exports
     "download_url_expiration": null,
     "encrypted_aes_key": null,
     "expired_at": null,
-    "id": "c2ea7b50-e7b2-11e5-9e15-0242ac1101de",
+    "id": "layer:///exports/c2ea7b50-e7b2-11e5-9e15-0242ac1101de",
     "public_key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxNGxpyHoXIaCS2PkL53OEvtQ6sUdtoc1unk8rMvCRul9KlBxlwvdUdHp/HpZHW4bumrtU+rFLZZOccU8CawMHMH7cdx/q2vh0sGE39kTD3antdkeLXRRgWg/01X5hzCJIaa1yMa0Pxqu88qo+svDw7mQUHcSoB5PRMC+am+eygiElB3cT656mVhDKyGUpijs0u0s5EKLSX6fFbbjy3zjdYiU8BVcYQeie1x7CB0bT7UbtgzznLHP9bkR97r7tTN1dqYoP0/LCK3SXMV9ol5jw5BsA+/1afjmqo1t7F7Uo55V+m3mNPo7JVI0S773zR1KzF8/oWV81tdSNt5IzGSKoQIDAQAB",
     "started_at": "2016-03-11T17:57:46.566Z",
     "status": "executing",
