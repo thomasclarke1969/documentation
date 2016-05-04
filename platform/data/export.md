@@ -1,9 +1,6 @@
 # Data Export
 
-Complete access to data is crucial for any application. Whether you are importing messaging data into a warehouse, performing sentiment analysis, or looking at the impact of your
-latest marketing campaign on user behavior, you are going to need complete, timely
-access to your Layer data. For this reason, the Layer platform provides several
-options for exporting messaging data.
+Complete and timely access to messaging data is important for a wide range of tasks such as data warehousing or analysis on user usage and behavior. To support such tasks, the Layer platform provides several options for exporting messaging data.
 
 ### Historical Exports
 
