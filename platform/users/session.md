@@ -55,5 +55,5 @@ curl  -X DELETE \
 ```
 
 ```emphasis
-This will delete all of the users sessions, on both mobile SDK and web.
+This will delete all of the user's sessions, on both mobile SDK and web.
 ```
