@@ -51,7 +51,7 @@ DELETE /apps/:app_id/users/:user_id/sessions
 curl  -X DELETE \
       -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
-      https://api.layer.com/apps/APP_UUID/users/USER_ID
+      https://api.layer.com/apps/APP_UUID/users/USER_ID/sessions
 ```
 
 ```emphasis
