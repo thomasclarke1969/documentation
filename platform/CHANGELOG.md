@@ -1,5 +1,12 @@
 # Layer Platform API Change Log
 
+## May 5, 2016
+
+#### Enhancements
+
+* Add support for configuring default session TTL.
+* Add support for deleting sessions.
+
 ## March 1, 2016
 
 #### Enhancements

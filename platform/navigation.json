@@ -34,7 +34,8 @@
 			"identity": "Managing Identity",
 			"badging": "Notification Badges",
 			"blocking": "Managing Block Lists",
-			"suspension": "Access Suspension"
+			"suspension": "Access Suspension",
+			"session": "Managing Sessions"
 		}
 	},
 	"changelog": {

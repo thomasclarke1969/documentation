@@ -24,7 +24,7 @@ Where each `operation` object has the following properties:
 |------------|-------|--------------|
 | **operation** | string | The operation to perform. For suspension, always `"set"`. |
 | **property** | string | The property to update. For suspension, always `"suspended"`. |
-| **value** | string | The value to set. To suspend, always `true`. |
+| **value** | boolean | The value to set. To suspend, always `true`. |
 
 ### Example Request
 
@@ -35,10 +35,10 @@ Where each `operation` object has the following properties:
 ### Response `202 (Accepted)`
 
 ```console
-curl  -X PUT \
+curl  -X PATCH \
       -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
-      -H 'Content-Type: application/json' \
+      -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[ { "operation":"set", "property": "suspended", "value": true } ]' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID
 ```
@@ -61,7 +61,7 @@ Where each `operation` object has the following properties:
 |------------|-------|--------------|
 | **operation** | string | The operation to perform. For suspension, always `"set"`. |
 | **property** | string | The property to update. For suspension, always `"suspended"`. |
-| **value** | string | The value to set. To unsuspend, always `false`. |
+| **value** | boolean | The value to set. To unsuspend, always `false`. |
 
 ### Example Request
 
@@ -72,10 +72,10 @@ Where each `operation` object has the following properties:
 ### Response `202 (Accepted)`
 
 ```console
-curl  -X PUT \
+curl  -X PATCH \
       -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
-      -H 'Content-Type: application/json' \
+      -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[ { "operation":"set", "property": "suspended", "value": false } ]' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID
 ```
