@@ -72,7 +72,7 @@ The Layer Notification Service provides for advanced notification configuration 
 | **title-loc-key**     | title-loc-key   | title_loc_key   |
 | **title-loc-args**    | title-loc-args  | title_loc_args  |
 | **loc-key**           | loc-key         | body_loc_key    |
-| **loc-key**           | loc-args        | body_loc_args   |
+| **loc-args**          | loc-args        | body_loc_args   |
 | **launch_image**      | launch_image    | n/a             |
 | **data**              | data            | data            |
 
