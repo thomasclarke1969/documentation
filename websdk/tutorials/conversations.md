@@ -64,7 +64,7 @@ Some explanation is required here:
 
 1. Calling `client.createConversation()` creates the conversation locally; these conversations won't show up on any remote clients until we send our first message on the conversation.
 2. We are creating conversations where `distinct = true` (this happens to be the default).  This means that if you try to create a Conversation with `User 4` and `User 5` and you already have a Distinct Conversation with exactly those two users, you will be sent to the existing Conversation.
-3. The `participants` parameter to the `creatConversation` function is an array of userIds, which in this sample app are `0`, `1`, `2`, `3`, `4` and/or `5`.
+3. The `participants` parameter to the `createConversation` function is an array of userIds, which in this sample app are `0`, `1`, `2`, `3`, `4` and/or `5`.
 4. When launching the application, it will automatically call `createConversation()` to create a Conversation with `['0', '1', '2', '3', '4', '5']` (see bottom of `controller.js` where this is called).
 
 You should be able to run this application and see a console log statement that your Conversation has been created.
