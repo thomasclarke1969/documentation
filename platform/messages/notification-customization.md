@@ -24,7 +24,7 @@ Applications that require customization on a per recipient basis can do so by su
 |-----------------|---------|-------------|
 | **text**        | string  | The text to be displayed on the notification alert. On iOS, displayed on the lock screen or banner. On GCM, delivered in the push intent as advisory information. |
 | **sound**       | string  | The name of a sound to be played. On iOS, must exist in the main application bundle. On GCM, delivered in the push intent as advisory information. |
-| **recipients**  | object  | Customized notifications to specific recipients |
+| **recipients**  | array of objects  | OPTIONAL. Recipients and their customized notifications, where applicable.  |
 
 ```json
 {
@@ -32,23 +32,27 @@ Applications that require customization on a per recipient basis can do so by su
         "title": "New Message",
         "text": "This is the alert text",
         "sound": "aaaaoooga.aiff",
-        "recipients": {
-            "klaus_stube": {
-                "text": "hallo welt",
-                "sound": "ping.aiff"
+        "recipients": [
+            {
+              "user_id": "klaus_stube",
+              "text": "hallo welt",
+              "sound": "ping.aiff"
             },
-            "luigi_puccini": {
+            { 
+              "user_id": "luigi_puccini",
               "title": "New Message",
-                "text": "ciao mondo"
+              "text": "ciao mondo"
             },
-            "martina_marquez": {
-                "text": "hola mundo",
-                "sound": "chime.aiff"
+            { 
+              "user_id": "martina_marquez",
+              "text": "hola mundo",
+              "sound": "chime.aiff"
             },
-            "reginald_royford_williams_iii": {
-                "text": "Um.  Hello?"
+            { 
+              "user_id": "reginald_royford_williams_iii",
+              "text": "Um.  Hello?"
             }
-        }
+        ]
     }
 }
 ```

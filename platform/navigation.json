@@ -26,6 +26,7 @@
 			"deleting-messages": "Deleting Messages",
 			"send-an-announcement": "Sending Announcements",
 			"notification-customization": "Notification Customization",
+			"send-a-notification": "Sending an Ad-hoc Notification",
 			"delayed-messaging": "Delayed Messaging with Typing Indicators"
 		}
 	},
