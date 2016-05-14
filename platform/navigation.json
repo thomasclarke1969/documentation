@@ -38,6 +38,12 @@
 			"session": "Managing Sessions"
 		}
 	},
+	"data": {
+		"title": "Data Services",
+		"section": {
+			"export": "Exporting Data"
+		}
+	},
 	"changelog": {
 		"title": "Changelog",
 		"section": {
