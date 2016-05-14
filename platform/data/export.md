@@ -2,6 +2,10 @@
 
 Complete and timely access to messaging data is important for a wide range of tasks such as data warehousing or analysis on user usage and behavior. To support such tasks, the Layer platform provides several options for exporting messaging data.
 
+```emphasis
+Data Export is a premium feature available to Layer customers on enterprise packages. If you wish to have data access enabled for your account, please contact the growth team at [growth@layer.com](mailto:growth@layer.com).
+```
+
 ### Historical Exports
 
 A historical export provides a complete snapshot of the current state of an
@@ -58,7 +62,9 @@ that all archives remain accessible.
 ```
 
 ```json
-TODO: PUT IN A REAL EXAMPLE BODY
+{
+  "public_key": "-----BEGIN PUBLIC KEY-----MII...",
+}
 ```
 
 ## Requesting a Historical Export
@@ -125,7 +131,23 @@ curl  -X GET \
 202 (Accepted)
 ```
 
-TODO: Fill in this section with correct data
+```json
+{  
+   "id":"EXPORT_ID",
+   "type":"historical",
+   "public_key":"-----BEGIN PUBLIC KEY-----\nMII...",
+   "status":"executing",
+   "created_at":"2016-05-14T22:10:09.177Z",
+   "started_at":"2016-05-14T22:10:09.241Z",
+   "completed_at":null,
+   "expired_at":null,
+   "download_url":null,
+   "download_url_expires_at":null,
+   "encrypted_aes_key":null,
+   "aes_iv":null,
+   "status_url":"https://api.layer.com/apps/APP_ID/exports/EXPORT_ID/status"
+}
+```
 
 ## Configuring Scheduled Exports
 
@@ -201,11 +223,11 @@ GET /apps/{app_id}/exports
 | `download_url` | String | A secure, expiring URL from which to download the encrypted export archive. Refreshed automatically. |
 | `download_url_expires_at` | String (ISO 8601 timestamp) | The time at which the `download_url` will expire. |
 | `encrypted_aes_key` | String (ISO 8601 timestamp) | An copy of the AES key used to encrypt the export archive encrypted with the public key. |
-| `expired_at` | String (ISO 8601 timestamp) | The time that the export will expire and be purged. (TODO IS THIS RIGHT?) |
+| `expired_at` | String (ISO 8601 timestamp) | The time that the export will expire and be purged. |
 | `id` | String | A unique UUID value identifying the export. |
 | `public_key` | String | The RSA public key used to encrypt a copy of the AES key that is used to encrypt the archive. |
 | `started_at` | String (ISO 8601 timestamp) | Time the export operation started. |
-| `status` | String | The status of the export. Either (TODO what are the valid values???) |
+| `status` | String | The status of the export. Either (One of: `pending`, `executing`, `completed`) |
 | `status_url` | String | The URL for polling export status. |
 | `type` | String | The type of export. Either `scheduled` or `historical`. |
 
