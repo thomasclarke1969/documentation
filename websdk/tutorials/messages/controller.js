@@ -5,7 +5,7 @@
  */
 (function() {
   var layerSampleApp = window.layerSampleApp;
-  layerSampleApp.Controller = function(client) {
+  layerSampleApp.initialize = function() {
 
     var titlebarView, conversationListView, conversationListHeaderView,
       userListView, activeConversation, conversationQuery,
