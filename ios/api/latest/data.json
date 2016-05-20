@@ -94,6 +94,13 @@
         },
         {
           "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly, nonnull) LYRSession *currentSession",
+          "comment" : "The current session for the client.",
+          "name" : "currentSession",
+          "discussion" : "When a new LYRClient instance is initialized, it will check for an existing, persisted session. If a session exists, it will resume that session. If not, a new one will be created."
+        },
+        {
+          "declared" : "LYRClient.h",
           "declaration" : "@property (nonatomic) BOOL debuggingEnabled",
           "comment" : "When YES, LayerKit will log detailed debugging information to both the XCode debugger and the file system.",
           "name" : "debuggingEnabled",
@@ -132,6 +139,13 @@
         },
         {
           "declared" : "LYRClient.h",
+          "declaration" : "@property (nonatomic, readonly, nonnull) NSOrderedSet<LYRSession*> *sessions",
+          "comment" : "The set of sessions that can be used with the client.",
+          "name" : "sessions",
+          "discussion" : "LYRClient instances can maintain multiple sessions at any given time. Each session is tied to a single, distinct, authenticated user."
+        },
+        {
+          "declared" : "LYRClient.h",
           "declaration" : "@property (nonatomic, readonly) LYRClientSynchronizationPolicy synchronizationPolicy",
           "comment" : "The synchronization policy the client was initialized with.",
           "name" : "synchronizationPolicy"
@@ -164,19 +178,20 @@
             "declared" : "LYRClient.h",
             "comment" : "Creates and returns a new Layer client instance.",
             "name" : "clientWithAppID:options:",
-            "declaration" : "+ (nullable instancetype)clientWithAppID:(nonnull NSURL *)appID options:(nullable NSDictionary *)options"
+            "declaration" : "+ (nullable instancetype)clientWithAppID:(nonnull NSURL *)appID options:(nullable NSDictionary<NSString*,id> *)options"
           }
         ],
         "instance" : [
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)addPolicy:(nonnull LYRPolicy *)policy error:(NSError *_Nullable *_Nullable)error",
-            "comment" : "Adds the given policy to the receiver.",
-            "name" : "addPolicy:error:",
+            "declaration" : "- (BOOL)addPolicies:(nonnull NSSet<LYRPolicy*> *)policies error:(NSError *_Nullable *_Nullable)error",
+            "comment" : "Adds the given policies to the receiver.",
+            "name" : "addPolicies:error:",
+            "return" : "A Boolean value that indicates if the given policies were added.",
             "parameters" : [
               {
-                "name" : "policy",
-                "description" : "The policy to be added to the client."
+                "name" : "policies",
+                "description" : "The set of policies to be added to the client."
               },
               {
                 "name" : "error",
@@ -195,7 +210,7 @@
                 "description" : "A block to be called upon completion of the asynchronous request for authentication. The block takes two parameters: an {@link LYRIdentity} object with the remote user ID that\nwas authenticated (or nil if authentication was unsuccessful) and an error object that upon failure describes the nature of the failure."
               }
             ],
-            "discussion" : "Authenticating a Layer client requires the submission of an Identity Token from a remote backend application that has been designated to act as an\nIdentity Provider on behalf of your application. The Identity Token is a JSON Web Signature (JWS) string that encodes a cryptographically signed set of claims\nabout the identity of a Layer client. An Identity Token must be obtained from your provider via an application defined mechanism (most commonly a JSON over HTTP\nrequest). Once an Identity Token has been obtained, it must be submitted to Layer via this method in ordr to authenticate the client and begin utilizing communication\nservices. Upon successful authentication, the client remains in an authenticated state until explicitly deauthenticated by a call to deauthenticateWithCompletion: or\nvia a server-issued authentication challenge.",
+            "discussion" : "Authenticating a Layer client requires the submission of an Identity Token from a remote backend application that has been designated to act as an\nIdentity Provider on behalf of your application. The Identity Token is a JSON Web Signature (JWS) string that encodes a cryptographically signed set of claims\nabout the identity of a Layer client. An Identity Token must be obtained from your provider via an application defined mechanism (most commonly a JSON over HTTP\nrequest). Once an Identity Token has been obtained, it must be submitted to Layer via this method in ordr to authenticate the client and begin utilizing communication\nservices. If and identity token is submitted with a userID for which the client already has an authenticated session, that session will be resumed. Upon successful authentication, the client remains in an authenticated state until explicitly deauthenticated by a call to deauthenticateWithCompletion: or\nvia a server-issued authentication challenge.",
             "declared" : "LYRClient.h",
             "see" : [
               "{@link http:\/\/tools.ietf.org\/html\/draft-ietf-jose-json-web-signature-25}"
@@ -272,6 +287,23 @@
               {
                 "name" : "completion",
                 "description" : "A block to be executed when the deauthentication operation has completed. The block has no return value and has two arguments: a Boolean value indicating if deauthentication was successful and an error describing the failure if it was not."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)destroySession:(nonnull LYRSession *)session error:(NSError *_Nullable *_Nullable)error",
+            "comment" : "Destoys an existing {@link LYRSession} object;",
+            "name" : "destroySession:error:",
+            "discussion" : "If a client is authenticated during a call to destroySession:error:, the client will immediately deauthenticate.",
+            "parameters" : [
+              {
+                "name" : "session",
+                "description" : "The session object that should be destroyed."
+              },
+              {
+                "name" : "error",
+                "description" : "An error object describing a failure that has occured."
               }
             ]
           },
@@ -430,6 +462,19 @@
           },
           {
             "declared" : "LYRClient.h",
+            "declaration" : "- (nullable LYRSession *)newSessionWithIdentifier:(nullable NSString *)identifier error:(NSError *_Nullable *_Nullable)error",
+            "comment" : "Creates and returns a new {@link LYRSession} object with the supplied identifier;",
+            "name" : "newSessionWithIdentifier:error:",
+            "discussion" : "Applications can create an unlimited number of sessions. If a session already exists with the supplied identitifer, the method will return nil and the existing seesion can be found under the NSRecoveryAttempterErrorKey in the userInfo dictionary of the error.",
+            "parameters" : [
+              {
+                "name" : "identifier",
+                "description" : "The identifier to be used for the session. If an identifier is not supplied, one will be created."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
             "declaration" : "- (nullable LYRQueryController *)queryControllerWithQuery:(nonnull LYRQuery *)query error:(NSError *_Nullable *_Nullable)error",
             "comment" : "Creates and returns a new query controller with the given query.",
             "name" : "queryControllerWithQuery:error:",
@@ -447,18 +492,18 @@
           },
           {
             "declared" : "LYRClient.h",
-            "declaration" : "- (BOOL)removePolicy:(nonnull LYRPolicy *)policy error:(NSError *_Nullable *_Nullable)error",
-            "comment" : "Removes the specified policy from the receiver.",
-            "name" : "removePolicy:error:",
-            "return" : "A Boolean value that indicates if the given policy was removed.",
+            "declaration" : "- (BOOL)removePolicies:(nonnull NSSet<LYRPolicy*> *)policies error:(NSError *_Nullable *_Nullable)error",
+            "comment" : "Removes the specified policies from the receiver.",
+            "name" : "removePolicies:error:",
+            "return" : "A Boolean value that indicates if the given policies were removed.",
             "parameters" : [
-              {
-                "name" : "policy",
-                "description" : "The policy to be removed from the client."
-              },
               {
                 "name" : "error",
                 "description" : "A pointer to an error that upon failure is set to an error object describing the policy could not be added."
+              },
+              {
+                "name" : "policy",
+                "description" : "The set of polices to be removed from the client."
               }
             ]
           },
@@ -488,6 +533,23 @@
               {
                 "name" : "component",
                 "description" : "The component to configure."
+              }
+            ]
+          },
+          {
+            "declared" : "LYRClient.h",
+            "declaration" : "- (BOOL)switchToSession:(nonnull LYRSession *)session error:(NSError *_Nullable *_Nullable)error",
+            "comment" : "Informs the client that it should switch to the supplied session.",
+            "name" : "switchToSession:error:",
+            "discussion" : "If a client is connected and authenticated during a call to switchSession:error:, the client will immediately deauthenticate. If the client has previously been authenticated with the supplied session, the client will restore its authentication state.",
+            "parameters" : [
+              {
+                "name" : "session",
+                "description" : "The {@link LYRSession} instance the client should switch to."
+              },
+              {
+                "name" : "error",
+                "description" : "An error object describing a failure that has occured."
               }
             ]
           },
@@ -1526,6 +1588,43 @@
       },
       "name" : "LYRQueryController",
       "inherits" : "NSObject"
+    },
+    {
+      "declared" : "LYRSession.h",
+      "properties" : [
+        {
+          "declared" : "LYRSession.h",
+          "declaration" : "@property (nonatomic, readonly) LYRIdentity *authenticatedUser",
+          "comment" : "The authenticated user for the session.",
+          "name" : "authenticatedUser"
+        },
+        {
+          "declared" : "LYRSession.h",
+          "declaration" : "@property (nonatomic, readonly) NSString *databasePath",
+          "comment" : "The database path for the underlying database for the session.",
+          "name" : "databasePath"
+        },
+        {
+          "declared" : "LYRSession.h",
+          "declaration" : "@property (nonatomic, readonly) NSString *identifier",
+          "comment" : "The identifier for the session.",
+          "name" : "identifier"
+        },
+        {
+          "declared" : "LYRSession.h",
+          "declaration" : "@property (nonatomic, readonly) NSString *sessionPath",
+          "comment" : "The path to which the session is persisted.",
+          "name" : "sessionPath"
+        },
+        {
+          "declared" : "LYRSession.h",
+          "declaration" : "@property (nonatomic, readonly) LYRSessionState state",
+          "comment" : "An enum value that describes the authentication state of the session.",
+          "name" : "state"
+        }
+      ],
+      "name" : "LYRSession",
+      "inherits" : "NSObject"
     }
   ],
   "protocols" : [
@@ -1845,6 +1944,10 @@
           "declared" : "LYRErrors.h"
         },
         {
+          "name" : "LYRClientErrorNotConnected",
+          "declared" : "LYRErrors.h"
+        },
+        {
           "name" : "LYRClientErrorKeyPairNotFound",
           "declared" : "LYRErrors.h"
         },
@@ -1862,6 +1965,10 @@
         },
         {
           "name" : "LYRClientErrorAlreadyAuthenticated",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorInvalidToken",
           "declared" : "LYRErrors.h"
         },
         {
@@ -1934,6 +2041,14 @@
         },
         {
           "name" : "LYRClientErrorInvalidClassType",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorInvalidSession",
+          "declared" : "LYRErrors.h"
+        },
+        {
+          "name" : "LYRClientErrorDuplicateSession",
           "declared" : "LYRErrors.h"
         }
       ]
@@ -2429,6 +2544,24 @@
           "name" : "LYRRecipientStatusRead",
           "comment" : "The message has been marked as read by one of the recipient's devices.",
           "declared" : "LYRMessage.h"
+        }
+      ]
+    },
+    {
+      "declared" : "LYRSession.h",
+      "name" : "LYRSessionState",
+      "values" : [
+        {
+          "name" : "LYRSessionStateUnauthenticated",
+          "declared" : "LYRSession.h"
+        },
+        {
+          "name" : "LYRSessionStateAuthenticated",
+          "declared" : "LYRSession.h"
+        },
+        {
+          "name" : "LYRSessionStateChallenged",
+          "declared" : "LYRSession.h"
         }
       ]
     },
