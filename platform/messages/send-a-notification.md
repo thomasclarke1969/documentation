@@ -2,7 +2,7 @@
 
 Notifications are messages sent to specific recipients over the GCM (Google Cloud Messaging) and APNS (Apple Push Notification Service) push notification services. The LNS platform API provides a unified integration point between different push notification service providers.
 
-The following request behaves similarly to the [Send a Message](#send-a-message) request above.  Each recipient will receive the Notification over the apropriate service, GCM for Android and APNS for iOS. Other push notification services are planned for future releases.
+The following request behaves similarly to the [Send a Message](#send-a-message) request above.  Each recipient will receive the Notification over the appropriate service, GCM for Android and APNS for iOS. Other push notification services are planned for future releases.
 
 ```request
 POST /apps/:app_uuid/notifications
