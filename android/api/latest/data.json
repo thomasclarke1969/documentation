@@ -11,7 +11,7 @@
                 "declarationSignature": "public static com.layer.sdk.LayerClient newInstance(android.content.Context context, java.lang.String layerAppId)",
                 "name": "newInstance",
                 "callSignature": "newInstance(context, layerAppId)",
-                "comment": "Generates a new LayerClient, ready for authentication and sending messages.",
+                "comment": "Generates a new LayerClient, ready for authentication and sending messages.\n\n<p>\n    Note: Avoid creating LayerClient on main UI thread. Do it asynchronously on a background thread.\n</p>",
                 "returns": {
                   "description": "a new LayerClient, ready to authenticate.",
                   "type": "LayerClient"
@@ -34,7 +34,7 @@
                 "declarationSignature": "public static com.layer.sdk.LayerClient newInstance(android.content.Context context, java.lang.String layerAppId, com.layer.sdk.LayerClient.Options options)",
                 "name": "newInstance",
                 "callSignature": "newInstance(context, layerAppId, options)",
-                "comment": "Generates a new LayerClient, ready for authentication and sending messages.",
+                "comment": "Generates a new LayerClient, ready for authentication and sending messages.\n\n<p>\n    Note: Avoid creating LayerClient on main UI thread. Do it asynchronously on a background thread.\n</p>",
                 "returns": {
                   "description": "a new LayerClient, ready to authenticate.",
                   "type": "LayerClient"
@@ -907,12 +907,32 @@
                 "declarationSignature": "public abstract com.layer.sdk.LayerClient deauthenticate()",
                 "name": "deauthenticate",
                 "callSignature": "deauthenticate()",
-                "comment": "Tells the client to drop all credentials and deauthenticate its session.  On success, also\nclears any local data synchronized with Layer.",
+                "comment": "Tells the client to drop all credentials and deauthenticate its session.  On success, also\nclears any local data synchronized with Layer (i.e., defaults to DeauthenticationAction.CLEAR_LOCAL_DATA).",
                 "returns": {
+                  "description": "this LayerClient.",
                   "type": "LayerClient"
                 },
                 "throws": [],
                 "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract com.layer.sdk.LayerClient deauthenticate(com.layer.sdk.LayerClient.DeauthenticationAction action)",
+                "name": "deauthenticate",
+                "callSignature": "deauthenticate(action)",
+                "comment": "Tells the client to drop all credentials and deauthenticate its session. On success, if needed,\nclears any local data synchronized with Layer based on specified DeauthenticationAction.",
+                "returns": {
+                  "description": "this LayerClient.",
+                  "type": "LayerClient"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "action",
+                    "description": "the DeauthenticationAction to use.",
+                    "type": "DeauthenticationAction"
+                  }
+                ],
                 "exceptions": []
               },
               {
@@ -1444,18 +1464,52 @@
                 "exceptions": []
               },
               {
-                "declarationSignature": "public abstract java.lang.Integer getUnreadMessageCount(com.layer.sdk.messaging.Conversation conversation)",
-                "name": "getUnreadMessageCount",
-                "callSignature": "getUnreadMessageCount(conversation)",
-                "comment": "",
+                "declarationSignature": "public abstract void waitForContent(android.net.Uri id, com.layer.sdk.LayerClient.ContentAvailableCallback callback)",
+                "name": "waitForContent",
+                "callSignature": "waitForContent(id, callback)",
+                "comment": "Asynchronously waits for the LayerClient to synchronize relevant data before calling the\ngiven callback. This will wait a maximum of 30 seconds before signaling failure in the\ncallback.",
                 "returns": {
-                  "type": "Integer"
+                  "type": "void"
                 },
                 "throws": [],
                 "parameters": [
                   {
-                    "name": "conversation",
-                    "type": "Conversation"
+                    "name": "id",
+                    "description": "Queryable object ID to wait for (Conversation, Message, MessagePart, etc).",
+                    "type": "android.net.Uri"
+                  },
+                  {
+                    "name": "callback",
+                    "description": "ContentAvailableCallback to alert success or failure.",
+                    "type": "ContentAvailableCallback"
+                  }
+                ],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public abstract void waitForContent(android.net.Uri id, long timeout, com.layer.sdk.LayerClient.ContentAvailableCallback callback)",
+                "name": "waitForContent",
+                "callSignature": "waitForContent(id, timeout, callback)",
+                "comment": "Asynchronously waits for the LayerClient to synchronize relevant data before calling the\ngiven callback. This will wait the specified time before signaling failure in the callback.",
+                "returns": {
+                  "type": "void"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "id",
+                    "description": "Queryable object ID to wait for (Conversation, Message, MessagePart, etc).",
+                    "type": "android.net.Uri"
+                  },
+                  {
+                    "name": "timeout",
+                    "description": "Maximum duration, in milliseconds, before signaling failure. Must be greater than 0.",
+                    "type": "long"
+                  },
+                  {
+                    "name": "callback",
+                    "description": "ContentAvailableCallback to alert success or failure.",
+                    "type": "ContentAvailableCallback"
                   }
                 ],
                 "exceptions": []
@@ -1465,6 +1519,76 @@
           "name": "LayerClient",
           "comment": null,
           "nestedClasses": [
+            {
+              "implementedInterfaces": [],
+              "generics": [
+                "T"
+              ],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": [
+                  {
+                    "declarationSignature": "void onContentAvailable(com.layer.sdk.LayerClient client, com.layer.sdk.query.Queryable object)",
+                    "name": "onContentAvailable",
+                    "callSignature": "onContentAvailable(client, object)",
+                    "comment": "Called when the content has been synchronized and exists in local persistence.",
+                    "returns": {
+                      "type": "void"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "client",
+                        "description": "LayerClient that requested the content.",
+                        "type": "LayerClient"
+                      },
+                      {
+                        "name": "object",
+                        "description": "The Queryable object.",
+                        "type": "Queryable"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "void onContentFailed(com.layer.sdk.LayerClient client, android.net.Uri objectId, java.lang.Exception exception)",
+                    "name": "onContentFailed",
+                    "callSignature": "onContentFailed(client, objectId, exception)",
+                    "comment": "Called when the content could not be found before the timeout was reached.",
+                    "returns": {
+                      "type": "void"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "client",
+                        "description": "LayerClient that requested the content.",
+                        "type": "LayerClient"
+                      },
+                      {
+                        "name": "objectId",
+                        "description": "The ID of the object that was requested.",
+                        "type": "android.net.Uri"
+                      },
+                      {
+                        "name": "exception",
+                        "description": "A Exception describing why this wait failed. This can be\n                 an {@link IllegalStateException} if the LayerClient has been closed or\n                 a {@link LayerException} if the wait has timed out.",
+                        "type": "Exception"
+                      }
+                    ],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "ContentAvailableCallback",
+              "comment": null,
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.LayerClient$ContentAvailableCallback",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            },
             {
               "implementedInterfaces": [
                 {
@@ -1876,6 +2000,37 @@
                   "name": "ALL_PARTICIPANTS",
                   "comment": "Deletes this LayerObject from all participant devices.",
                   "type": "DeletionMode"
+                }
+              ],
+              "derivedClasses": []
+            },
+            {
+              "implementedInterfaces": [],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": []
+              },
+              "name": "DeauthenticationAction",
+              "comment": "Actions for the LayerClient to take on deauthentication.",
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.LayerClient$DeauthenticationAction",
+              "enumClasses": [],
+              "fields": [
+                {
+                  "name": "INVALID",
+                  "comment": "Invalid",
+                  "type": "DeauthenticationAction"
+                },
+                {
+                  "name": "KEEP_LOCAL_DATA",
+                  "comment": "Keeps this user's local data for resuming when they authenticate again.",
+                  "type": "DeauthenticationAction"
+                },
+                {
+                  "name": "CLEAR_LOCAL_DATA",
+                  "comment": "Clears this user's local data, requiring synchronization when they authenticate again.",
+                  "type": "DeauthenticationAction"
                 }
               ],
               "derivedClasses": []
@@ -5031,9 +5186,9 @@
                 "declarationSignature": "java.util.Date getSentAt()",
                 "name": "getSentAt",
                 "callSignature": "getSentAt()",
-                "comment": "The date and time that the message was originally sent.",
+                "comment": "The date and time that the message was originally sent to server, or `null` if not yet sent.",
                 "returns": {
-                  "description": "the date and time that the message was originally sent.",
+                  "description": "the date and time that the message was originally sent to server, or `null` if not yet sent.",
                   "type": "Date"
                 },
                 "throws": [],
@@ -5044,9 +5199,9 @@
                 "declarationSignature": "java.util.Date getReceivedAt()",
                 "name": "getReceivedAt",
                 "callSignature": "getReceivedAt()",
-                "comment": "The date and time that the message was received by the authenticated user, or `null` if they\nare the sender.",
+                "comment": "The date and time that the message was received by the authenticated user.",
                 "returns": {
-                  "description": "the date and time that the message was received by the authenticated user, or `null`\nif they are the sender.",
+                  "description": "the date and time that the message was received by the authenticated user.",
                   "type": "Date"
                 },
                 "throws": [],
@@ -5957,6 +6112,11 @@
                   "name": "IS_DISTINCT",
                   "comment": "Whether the Conversation is distinct or not, not sortable and supports comparison by Equality",
                   "type": "Property"
+                },
+                {
+                  "name": "METADATA",
+                  "comment": "Conversation metadata, not sortable and supports comparison by Equality or inclusion.\nCan either pass a {@link Metadata} object or a key-path (e.g. \"first.second\") as the\nvalue. If querying via key-path, the property key must be specified.",
+                  "type": "Property"
                 }
               ],
               "derivedClasses": []
@@ -6110,6 +6270,411 @@
           "fullname": "com.layer.sdk.messaging.Announcement",
           "enumClasses": [],
           "fields": [],
+          "derivedClasses": []
+        },
+        {
+          "implementedInterfaces": [],
+          "methods": {
+            "constructor": [],
+            "static": [
+              {
+                "declarationSignature": "public static com.layer.sdk.messaging.PushNotificationPayload fromGcmIntentExtras(android.os.Bundle extras)",
+                "name": "fromGcmIntentExtras",
+                "callSignature": "fromGcmIntentExtras(extras)",
+                "comment": "Create a {@link PushNotificationPayload} from a {@link Bundle} received in a GCM intent. This\nis a helper method which allows using an object rather than requiring the fetching of all the\nindividual keys from the Bundle. {@link #getCategory()} and {@link #getApnsData()} on the\nresulting object will always return null as those are iOS only values.",
+                "returns": {
+                  "description": "a {@link PushNotificationPayload}",
+                  "type": "PushNotificationPayload"
+                },
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "extras",
+                    "description": "a Bundle containing the extras received in the GCM intent.",
+                    "type": "android.os.Bundle"
+                  }
+                ],
+                "exceptions": []
+              }
+            ],
+            "instance": [
+              {
+                "declarationSignature": "public java.lang.String getTitle()",
+                "name": "getTitle",
+                "callSignature": "getTitle()",
+                "comment": "Returns the title of the notification.",
+                "returns": {
+                  "description": "a String, or null",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getText()",
+                "name": "getText",
+                "callSignature": "getText()",
+                "comment": "Returns the body text of the notification.",
+                "returns": {
+                  "description": "a String, or null",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getSound()",
+                "name": "getSound",
+                "callSignature": "getSound()",
+                "comment": "Returns the sound to play when the notification is received.",
+                "returns": {
+                  "description": "a String, or null",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getCategory()",
+                "name": "getCategory",
+                "callSignature": "getCategory()",
+                "comment": "Returns the APNS category. Note: This is an iOS only String and will only be used when\nsending a message. It will always be null if this was created with\n{@link #fromGcmIntentExtras(Bundle)}.",
+                "returns": {
+                  "description": "a String, or null",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getTitleLocalizationKey()",
+                "name": "getTitleLocalizationKey",
+                "callSignature": "getTitleLocalizationKey()",
+                "comment": "Returns the title used for localization.",
+                "returns": {
+                  "description": "a String, or null",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String[] getTitleLocalizationArguments()",
+                "name": "getTitleLocalizationArguments",
+                "callSignature": "getTitleLocalizationArguments()",
+                "comment": "Returns an array of Strings to use when replacing format specifiers in the localized title.",
+                "returns": {
+                  "description": "a String[], or null",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getLocalizationKey()",
+                "name": "getLocalizationKey",
+                "callSignature": "getLocalizationKey()",
+                "comment": "Returns the body text used for localization.",
+                "returns": {
+                  "description": "a String, or null",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String[] getLocalizationArguments()",
+                "name": "getLocalizationArguments",
+                "callSignature": "getLocalizationArguments()",
+                "comment": "Returns an array of Strings to use when replacing format specifiers in the localized body\ntext.",
+                "returns": {
+                  "description": "a String[], or null",
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.util.Map getData()",
+                "name": "getData",
+                "callSignature": "getData()",
+                "comment": "Returns additional key-value pairs in the notification.",
+                "returns": {
+                  "description": "a Map, or null",
+                  "type": "Map"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.util.Map getApnsData()",
+                "name": "getApnsData",
+                "callSignature": "getApnsData()",
+                "comment": "Returns iOS specific key-value pairs in the notification, such as `launch-image`. See the\nAPNS documentation for more information. Note: This is an iOS only Map and will only be used\nwhen sending a message. It will always be null if this was created with\n{@link #fromGcmIntentExtras(Bundle)}.",
+                "returns": {
+                  "description": "a Map, or null",
+                  "type": "Map"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String toString()",
+                "name": "toString",
+                "callSignature": "toString()",
+                "comment": null,
+                "returns": {
+                  "type": "String"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              }
+            ]
+          },
+          "name": "PushNotificationPayload",
+          "comment": "Represents a payload that is sent with a message through {@link MessageOptions} or received in\na push notification from GCM.",
+          "nestedClasses": [
+            {
+              "implementedInterfaces": [],
+              "methods": {
+                "constructor": [],
+                "static": [],
+                "instance": [
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload.Builder title(java.lang.String title)",
+                    "name": "title",
+                    "callSignature": "title(title)",
+                    "comment": "Set the title used in the notification.",
+                    "returns": {
+                      "description": "This Builder object for method chaining",
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "title",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload.Builder text(java.lang.String text)",
+                    "name": "text",
+                    "callSignature": "text(text)",
+                    "comment": "Set the body text used in the notification.",
+                    "returns": {
+                      "description": "This Builder object for method chaining",
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "text",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload.Builder sound(java.lang.String sound)",
+                    "name": "sound",
+                    "callSignature": "sound(sound)",
+                    "comment": "Set the sound name to play when the notification is received.",
+                    "returns": {
+                      "description": "This Builder object for method chaining",
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "sound",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload.Builder category(java.lang.String category)",
+                    "name": "category",
+                    "callSignature": "category(category)",
+                    "comment": "Set the APNS category for the notification.",
+                    "returns": {
+                      "description": "This Builder object for method chaining",
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "category",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload.Builder titleLocalization(java.lang.String key, java.lang.String... args)",
+                    "name": "titleLocalization",
+                    "callSignature": "titleLocalization(key, args)",
+                    "comment": "Set the key and arguments to be used for title localization.",
+                    "returns": {
+                      "description": "This Builder object for method chaining",
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "key",
+                        "description": "a String key used to look up the localized string in the app's resources",
+                        "type": "String"
+                      },
+                      {
+                        "name": "args",
+                        "description": "Strings used to replace format specifiers",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload.Builder localization(java.lang.String key, java.lang.String... args)",
+                    "name": "localization",
+                    "callSignature": "localization(key, args)",
+                    "comment": "Set the key and arguments to be used for body text localization.",
+                    "returns": {
+                      "description": "This Builder object for method chaining",
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "key",
+                        "description": "a String key used to look up the localized string in the app's resources",
+                        "type": "String"
+                      },
+                      {
+                        "name": "args",
+                        "description": "Strings used to replace format specifiers",
+                        "type": "String"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload.Builder data(java.util.Map data)",
+                    "name": "data",
+                    "callSignature": "data(data)",
+                    "comment": "Set the extra payload data to be sent with the notification.",
+                    "returns": {
+                      "description": "This Builder object for method chaining",
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "data",
+                        "type": "Map"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload.Builder apnsData(java.util.Map apnsData)",
+                    "name": "apnsData",
+                    "callSignature": "apnsData(apnsData)",
+                    "comment": "Set the APNS payload data to be sent with the notification (e.g. `launch-image`).",
+                    "returns": {
+                      "description": "This Builder object for method chaining",
+                      "type": "Builder"
+                    },
+                    "throws": [],
+                    "parameters": [
+                      {
+                        "name": "apnsData",
+                        "type": "Map"
+                      }
+                    ],
+                    "exceptions": []
+                  },
+                  {
+                    "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload build()",
+                    "name": "build",
+                    "callSignature": "build()",
+                    "comment": "Create a {@link PushNotificationPayload} from this Builder.",
+                    "returns": {
+                      "description": "a {@link PushNotificationPayload}",
+                      "type": "PushNotificationPayload"
+                    },
+                    "throws": [],
+                    "parameters": [],
+                    "exceptions": []
+                  }
+                ]
+              },
+              "name": "Builder",
+              "comment": null,
+              "nestedClasses": [],
+              "fullname": "com.layer.sdk.messaging.PushNotificationPayload$Builder",
+              "enumClasses": [],
+              "fields": [],
+              "derivedClasses": []
+            }
+          ],
+          "fullname": "com.layer.sdk.messaging.PushNotificationPayload",
+          "enumClasses": [],
+          "fields": [
+            {
+              "name": "KEY_TITLE",
+              "comment": "Notification title",
+              "type": "String"
+            },
+            {
+              "name": "KEY_TEXT",
+              "comment": "Notification body text",
+              "type": "String"
+            },
+            {
+              "name": "KEY_SOUND",
+              "comment": "Sound to play when the device receives the notification",
+              "type": "String"
+            },
+            {
+              "name": "KEY_TITLE_LOC_KEY",
+              "comment": "Key to the title string for localization",
+              "type": "String"
+            },
+            {
+              "name": "KEY_TITLE_LOC_ARGS",
+              "comment": "String values to replace format specifiers in the title string for localization",
+              "type": "String"
+            },
+            {
+              "name": "KEY_LOC_KEY",
+              "comment": "Key to the body string for localization",
+              "type": "String"
+            },
+            {
+              "name": "KEY_LOC_ARGS",
+              "comment": "String values to replace format specifiers in the body string for localization",
+              "type": "String"
+            },
+            {
+              "name": "KEY_DATA",
+              "comment": "Additional key-value pairs in the notification payload",
+              "type": "String"
+            }
+          ],
           "derivedClasses": []
         },
         {
@@ -6492,203 +7057,106 @@
             "static": [],
             "instance": [
               {
-                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationMessage(java.lang.String message)",
-                "name": "pushNotificationMessage",
-                "callSignature": "pushNotificationMessage(message)",
-                "comment": "Sets the push notification value that comes in on the `layer-push-message` key.",
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions defaultPushNotificationPayload(com.layer.sdk.messaging.PushNotificationPayload payload)",
+                "name": "defaultPushNotificationPayload",
+                "callSignature": "defaultPushNotificationPayload(payload)",
+                "comment": "Sets the PushNotificationPayload to be used for all recipients. Null can be passed to\nremove this payload.",
                 "returns": {
-                  "description": "This MessageOptions for chaining.",
+                  "description": "This MessageOptions for chaining",
                   "type": "MessageOptions"
                 },
                 "throws": [],
                 "parameters": [
                   {
-                    "name": "message",
-                    "description": "Notification message to include in the generated notification.",
-                    "type": "String"
+                    "name": "payload",
+                    "description": "a {@link PushNotificationPayload}, or null",
+                    "type": "PushNotificationPayload"
                   }
                 ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public java.lang.String getPushNotificationMessage()",
-                "name": "getPushNotificationMessage",
-                "callSignature": "getPushNotificationMessage()",
-                "comment": "Gets the notification message.",
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions userPushNotificationPayload(java.lang.String userId, com.layer.sdk.messaging.PushNotificationPayload payload)",
+                "name": "userPushNotificationPayload",
+                "callSignature": "userPushNotificationPayload(userId, payload)",
+                "comment": "Adds a PushNotificationPayload for a given user. Null can be passed for the\nPushNotificationPayload to remove it from the user. If a value is not set in this\nper-user PushNotificationPayload, the value in the default's PushNotificationPayload will\nbe used, if set.",
                 "returns": {
-                  "description": "The notification message.",
-                  "type": "String"
-                },
-                "throws": [],
-                "parameters": [],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationSound(java.lang.String sound)",
-                "name": "pushNotificationSound",
-                "callSignature": "pushNotificationSound(sound)",
-                "comment": "Sets the push notification value that comes in on the `layer-push-sound` key.",
-                "returns": {
-                  "description": "This MessageOptions for chaining.",
-                  "type": "MessageOptions"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "sound",
-                    "description": "Notification sound to include in the generated notification.",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public java.lang.String getPushNotificationSound()",
-                "name": "getPushNotificationSound",
-                "callSignature": "getPushNotificationSound()",
-                "comment": "Returns the push notification sound.",
-                "returns": {
-                  "description": "The push notification sound.",
-                  "type": "String"
-                },
-                "throws": [],
-                "parameters": [],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationMessage(java.lang.String userId, java.lang.String message)",
-                "name": "pushNotificationMessage",
-                "callSignature": "pushNotificationMessage(userId, message)",
-                "comment": "Sets the custom push notification value that comes in on the `layer-push-message` key for the\ngiven user.",
-                "returns": {
-                  "description": "This MessageOptions for chaining.",
+                  "description": "This MessageOptions for chaining",
                   "type": "MessageOptions"
                 },
                 "throws": [],
                 "parameters": [
                   {
                     "name": "userId",
+                    "description": "a String representing the user's ID",
                     "type": "String"
                   },
                   {
-                    "name": "message",
-                    "description": "Notification message to include in the generated notification.",
-                    "type": "String"
+                    "name": "payload",
+                    "description": "a {@link PushNotificationPayload}, or null",
+                    "type": "PushNotificationPayload"
                   }
                 ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationMessage(java.util.Map userPushMessages)",
-                "name": "pushNotificationMessage",
-                "callSignature": "pushNotificationMessage(userPushMessages)",
-                "comment": null,
+                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions userPushNotificationPayloads(java.util.Map payloads)",
+                "name": "userPushNotificationPayloads",
+                "callSignature": "userPushNotificationPayloads(payloads)",
+                "comment": "Adds all user/PushNotificationPayload key/value pairs. If a PushNotificationPayload for a\nuser has already been set then it will be overridden with the new value. If a value is not\nset in this per-user PushNotificationPayload, the value in the default's\nPushNotificationPayload will be used, if set.",
                 "returns": {
+                  "description": "This MessageOptions for chaining",
                   "type": "MessageOptions"
                 },
                 "throws": [],
                 "parameters": [
                   {
-                    "name": "userPushMessages",
+                    "name": "payloads",
+                    "description": "a Map containing user ID and {@link PushNotificationPayload} key/values",
                     "type": "Map"
                   }
                 ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public java.lang.String getPushNotificationMessage(java.lang.String userId)",
-                "name": "getPushNotificationMessage",
-                "callSignature": "getPushNotificationMessage(userId)",
-                "comment": "Gets the custom notification message for the given user.",
+                "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload getDefaultPushNotificationPayload()",
+                "name": "getDefaultPushNotificationPayload",
+                "callSignature": "getDefaultPushNotificationPayload()",
+                "comment": "Returns the PushNotificationPayload that is used for all recipient, or null if no default\nPushNotificationPayload has been set.",
                 "returns": {
-                  "description": "The notification message for the given user.",
-                  "type": "String"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "userId",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public java.util.Map getUserPushNotificationMessages()",
-                "name": "getUserPushNotificationMessages",
-                "callSignature": "getUserPushNotificationMessages()",
-                "comment": null,
-                "returns": {
-                  "type": "Map"
+                  "description": "a {@link PushNotificationPayload}, or null",
+                  "type": "PushNotificationPayload"
                 },
                 "throws": [],
                 "parameters": [],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationSound(java.lang.String userId, java.lang.String sound)",
-                "name": "pushNotificationSound",
-                "callSignature": "pushNotificationSound(userId, sound)",
-                "comment": "Sets the custom push notification sound that comes in on the `layer-push-sound` key for the\ngiven user.",
+                "declarationSignature": "public com.layer.sdk.messaging.PushNotificationPayload getUserPushNotificationPayload(java.lang.String userId)",
+                "name": "getUserPushNotificationPayload",
+                "callSignature": "getUserPushNotificationPayload(userId)",
+                "comment": "Returns the PushNotificationPayload that is used for the specified user, or null if it has\nnot been set. This does not include any default values that were set through\n{@link #defaultPushNotificationPayload(PushNotificationPayload)}",
                 "returns": {
-                  "description": "This MessageOptions for chaining.",
-                  "type": "MessageOptions"
+                  "description": "a {@link PushNotificationPayload}, or null",
+                  "type": "PushNotificationPayload"
                 },
                 "throws": [],
                 "parameters": [
                   {
                     "name": "userId",
-                    "type": "String"
-                  },
-                  {
-                    "name": "sound",
-                    "description": "Notification sound to include in the generated notification.",
+                    "description": "a String representing the user's ID",
                     "type": "String"
                   }
                 ],
                 "exceptions": []
               },
               {
-                "declarationSignature": "public com.layer.sdk.messaging.MessageOptions pushNotificationSound(java.util.Map userPushSounds)",
-                "name": "pushNotificationSound",
-                "callSignature": "pushNotificationSound(userPushSounds)",
-                "comment": null,
+                "declarationSignature": "public java.util.Map getUserPushNotificationPayloads()",
+                "name": "getUserPushNotificationPayloads",
+                "callSignature": "getUserPushNotificationPayloads()",
+                "comment": "Returns all the PushNotificationPayloads that have been added for specific users, or null if\nnone have been added. This does not include any default values that were set through\n{@link #defaultPushNotificationPayload(PushNotificationPayload)}",
                 "returns": {
-                  "type": "MessageOptions"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "userPushSounds",
-                    "type": "Map"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public java.lang.String getPushNotificationSound(java.lang.String userId)",
-                "name": "getPushNotificationSound",
-                "callSignature": "getPushNotificationSound(userId)",
-                "comment": "Gets the custom notification sound for the given user.",
-                "returns": {
-                  "description": "The notification sound for the given user.",
-                  "type": "String"
-                },
-                "throws": [],
-                "parameters": [
-                  {
-                    "name": "userId",
-                    "type": "String"
-                  }
-                ],
-                "exceptions": []
-              },
-              {
-                "declarationSignature": "public java.util.Map getUserPushNotificationSounds()",
-                "name": "getUserPushNotificationSounds",
-                "callSignature": "getUserPushNotificationSounds()",
-                "comment": null,
-                "returns": {
+                  "description": "a Map containing user ID/{@link PushNotificationPayload} key/value pairs, or null.",
                   "type": "Map"
                 },
                 "throws": [],
@@ -7771,6 +8239,36 @@
                   }
                 ],
                 "exceptions": []
+              },
+              {
+                "declarationSignature": "public Predicate(com.layer.sdk.query.Queryable.Property property, java.lang.String propertyKey, com.layer.sdk.query.Predicate.Operator operator, java.lang.Object value)",
+                "name": "Predicate",
+                "callSignature": "Predicate(property, propertyKey, operator, value)",
+                "comment": "Creates a `Predicate` with the given property, property key, operator, and value.",
+                "throws": [],
+                "parameters": [
+                  {
+                    "name": "property",
+                    "description": "The property whose value is to be compared.",
+                    "type": "Property"
+                  },
+                  {
+                    "name": "propertyKey",
+                    "description": "The key of the property whose value is to be compared. This is unused if\n                   the property type does not support mutable keys.",
+                    "type": "String"
+                  },
+                  {
+                    "name": "operator",
+                    "description": "The operator that determines how the property's value is compared to the reference value.",
+                    "type": "Operator"
+                  },
+                  {
+                    "name": "value",
+                    "description": "The reference value to use in the comparison.",
+                    "type": "Object"
+                  }
+                ],
+                "exceptions": []
               }
             ],
             "static": [],
@@ -7783,6 +8281,19 @@
                 "returns": {
                   "description": "the property whose value the receiver will compare against the reference value",
                   "type": "Property"
+                },
+                "throws": [],
+                "parameters": [],
+                "exceptions": []
+              },
+              {
+                "declarationSignature": "public java.lang.String getPropertyKey()",
+                "name": "getPropertyKey",
+                "callSignature": "getPropertyKey()",
+                "comment": "Retrieves the key of the property to use in the comparison. This is used for Properties that\ncontain mutable keys. If a Property does not utilize such a key then this should be unused.",
+                "returns": {
+                  "description": "the property key to be used for comparison",
+                  "type": "String"
                 },
                 "throws": [],
                 "parameters": [],
