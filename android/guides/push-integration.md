@@ -19,7 +19,10 @@ private void sendTextMessage(String text) {
 
     //Formats the push notification text
     MessageOptions options = new MessageOptions();
-    options.pushNotificationMessage(MainActivity.getUserID() + ": " + text);
+    PushNotificationPayload payload = new PushNotificationPayload.Builder()
+    	.text(MainActivity.getUserID() + ": " + text)
+    	.build();
+    options.defaultPushNotificationPayload(payload);
 
     //Creates and returns a new message containing the message parts
     Message message = layerClient.newMessage(options, Arrays.asList(messagePart));
@@ -33,11 +36,9 @@ private void sendTextMessage(String text) {
 ## Receiving Push Notifications
 Receiving clients access push notifications via broadcast Intents.  It is up to your app to implement a BroadcastReceiver for generating and posting notifications from these Intents, which contain the following extras:
 
-   1. **layer-push-message**: A string value set by the sender to specify the notification message.
-   2. **layer-push-sound**: A string value set by the sender to represent the sound resource to play.
-   3. **layer-conversation-id**: A parceled Uri representing the conversation ID associated with the pushed message.
-   4. **layer-message-id**: A parceled Uri representing the message ID associated with the pushed message.
-
+   1. **layer-conversation-id**: A parceled Uri representing the conversation ID associated with the pushed message.
+   2. **layer-message-id**: A parceled Uri representing the message ID associated with the pushed message.
+   3. Extra strings defined by keys in `PushNotificationPayload`. These can be queried directly or by using the helper method `PushNotificationPayload.fromGcmIntentExtras()`.
 
 ### Example BroadcastReceiver
 ``` java
@@ -51,6 +52,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.layer.sdk.messaging.Message;
+import com.layer.sdk.messaging.PushNotificationPayload;
 
 public class LayerPushReceiver extends BroadcastReceiver {
     @Override
@@ -62,11 +64,8 @@ public class LayerPushReceiver extends BroadcastReceiver {
 
         // Get notification content
         Bundle extras = intent.getExtras();
-        String message = "";
+        PushNotificationPayload payload = PushNotificationPayload.fromGcmIntentExtras(extras);
         Uri conversationId = null;
-        if (extras.containsKey("layer-push-message")) {
-            message = extras.getString("layer-push-message");
-        }
         if (extras.containsKey("layer-conversation-id")) {
             conversationId = extras.getParcelable("layer-conversation-id");
         }
@@ -75,7 +74,7 @@ public class LayerPushReceiver extends BroadcastReceiver {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.layer_launcher)
                 .setContentTitle(context.getResources().getString(R.string.app_name))
-                .setContentText(message)
+                .setContentText(payload.getText())
                 .setAutoCancel(true)
                 .setLights(context.getResources().getColor(R.color.blue), 100, 1900)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
