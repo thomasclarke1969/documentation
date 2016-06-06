@@ -32,6 +32,15 @@ private void sendTextMessage(String text) {
 }
 ```
 
+```emphasis
+**NOTE**
+It is strongly encouraged to use at least version `0.21.0`. For versions prior to `0.21.0`, the `MessageOptions` object is set using the following:
+```
+
+```java
+MessageOptions options = new MessageOptions();
+options.pushNotificationMessage(MainActivity.getUserID() + ": " + text);
+```
 
 ## Receiving Push Notifications
 Receiving clients access push notifications via broadcast Intents.  It is up to your app to implement a BroadcastReceiver for generating and posting notifications from these Intents, which contain the following extras:
@@ -92,6 +101,17 @@ public class LayerPushReceiver extends BroadcastReceiver {
         mNotifyMgr.notify(1, mBuilder.build());
     }
 }
+```
+
+```emphasis
+**NOTE**
+It is strongly encouraged to use at least version `0.21.0`. For versions prior to `0.21.0`, the message and sound are read using the following:
+```
+
+```java
+Bundle extras = intent.getExtras();
+String message = extras.getString("layer-push-message");
+String sound = extras.getString("layer-push-sound");
 ```
 
 Note that this BroadcastReceiver must filter for the `com.layer.sdk.PUSH` action.  One way to do so is through your app's AndroidManifest.xml (replace `com.myapp.package` with your own package name):
