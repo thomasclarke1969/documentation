@@ -87,4 +87,3 @@ A Message uses MessageParts to group diverse types of information together.  For
 ## Push Notifications
 
 When a mobile device receives a new Message, a notification is often needed to let them know that a new Message has arrived.  The Client API lets you control details of the notification for each Message you send.  More detail can be found in the [Push Notifications](/docs/client/rest#push-notifications) section.
-
