@@ -1,5 +1,11 @@
 # Layer Platform API Change Log
 
+## June 9, 2016
+
+#### Enhancements
+
+* Add support for sending delayed messages with typing indicators.
+
 ## May 5, 2016
 
 #### Enhancements

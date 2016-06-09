@@ -25,7 +25,8 @@
 			"retrieving-messages": "Retrieving Messages",
 			"deleting-messages": "Deleting Messages",
 			"send-an-announcement": "Sending Announcements",
-			"notification-customization": "Notification Customization"
+			"notification-customization": "Notification Customization",
+			"delayed-messaging": "Delayed Messaging with Typing Indicators"
 		}
 	},
 	"users": {
