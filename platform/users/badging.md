@@ -45,7 +45,7 @@ Note that a push notification is immediately dispatched to all of the specified 
 
 ```console
 curl  -X PUT \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       -d '{"external_unread_count": 13}' \
@@ -74,7 +74,7 @@ Note that while you can read the badge values at any time, it is not recommended
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/1234/badge

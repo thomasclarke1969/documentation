@@ -36,7 +36,7 @@ Where each `operation` object has the following properties:
 
 ```console
 curl  -X PATCH \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[ { "operation":"set", "property": "suspended", "value": true } ]' \
@@ -73,7 +73,7 @@ Where each `operation` object has the following properties:
 
 ```console
 curl  -X PATCH \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[ { "operation":"set", "property": "suspended", "value": false } ]' \
@@ -92,9 +92,19 @@ GET /apps/:app_id/users/:user_id
 {
   "id": "blake",
   "identity": {
-    "first_name": "Blake",
-    "last_name": "Watters",
-    "display_name": "blakewatters"
+    "id": "layer:///identities/frodo-the-dodo",
+    "user_id": "frodo-the-dodo",
+    "url": "https://api.layer.com/apps/:app_uuid/users/frodo-the-dodo/identity",
+    "display_name": "Frodo the Dodo",
+    "avatar_url": "http://sillylordoftheringspictures.com/frodo-riding-a-dodo.png",
+    "first_name": "Frodo",
+    "last_name": "Baggins",
+    "phone_number": "13791379137",
+    "email_address": "frodo@sillylordoftheringspictures.com",
+    "metadata": {
+        "level": "35",
+        "race": "Dodo"
+    }
   },
   "suspended": false
 }

@@ -16,7 +16,7 @@ GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid/messages
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations/CONVERSATION_ID/messages
@@ -41,12 +41,15 @@ curl  -X GET \
         ],
         "received_at": "2016-01-10T13:31:10.394Z",
         "recipient_status": {
-            "2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
-            "bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
+            "layer:///identities/2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
+            "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
         },
         "sender": {
-            "name": null,
-            "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07"
+          "id": "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "url": "https://api.layer.com/identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "display_name": "User A",
+          "avatar_url": "https://mydomain.com/images/bcd5e1d8-d276-4b60-97fd-d4bb18308b07.gif"
         },
         "sent_at": "2016-01-10T13:31:04.393Z",
         "url": "https://api.layer.com/apps/58330abe-b79e-11e5-b0dd-f4bc00000775/users/bcd5e1d8-d276-4b60-97fd-d4bb18308b07/messages/cf131537-a92b-46d7-a2b5-a89f94c707c5"
@@ -67,12 +70,15 @@ curl  -X GET \
         ],
         "received_at": "2016-01-10T13:31:02.781Z",
         "recipient_status": {
-            "2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
-            "bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
+            "layer:///identities/2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
+            "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
         },
         "sender": {
-            "name": null,
-            "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07"
+          "id": "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "url": "https://api.layer.com/identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "display_name": "User A",
+          "avatar_url": "https://mydomain.com/images/bcd5e1d8-d276-4b60-97fd-d4bb18308b07.gif"
         },
         "sent_at": "2016-01-10T13:30:59.548Z",
         "url": "https://api.layer.com/apps/58330abe-b79e-11e5-b0dd-f4bc00000775/users/bcd5e1d8-d276-4b60-97fd-d4bb18308b07/messages/b9b39a23-1a3a-4e0e-8198-39c869814e58"
@@ -90,7 +96,7 @@ GET /apps/:app_uuid/conversations/:conversation_uuid/messages
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_ID/messages
@@ -115,12 +121,15 @@ curl  -X GET \
         ],
         "received_at": null,
         "recipient_status": {
-            "2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
-            "bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
+            "layer:///identities/2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
+            "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
         },
         "sender": {
-            "name": null,
-            "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07"
+          "id": "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "url": "https://api.layer.com/identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "display_name": "User A",
+          "avatar_url": "https://mydomain.com/images/bcd5e1d8-d276-4b60-97fd-d4bb18308b07.gif"
         },
         "sent_at": "2016-01-10T13:31:04.393Z",
         "url": "https://api.layer.com/apps/58330abe-b79e-11e5-b0dd-f4bc00000775/conversations/051f1ca7-5760-47a5-bf73-048a747fee44/messages/cf131537-a92b-46d7-a2b5-a89f94c707c5"
@@ -141,12 +150,15 @@ curl  -X GET \
         ],
         "received_at": null,
         "recipient_status": {
-            "2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
-            "bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
+            "layer:///identities/2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
+            "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
         },
         "sender": {
-            "name": null,
-            "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07"
+          "id": "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "url": "https://api.layer.com/identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+          "display_name": "User A",
+          "avatar_url": "https://mydomain.com/images/bcd5e1d8-d276-4b60-97fd-d4bb18308b07.gif"
         },
         "sent_at": "2016-01-10T13:30:59.548Z",
         "url": "https://api.layer.com/apps/58330abe-b79e-11e5-b0dd-f4bc00000775/conversations/051f1ca7-5760-47a5-bf73-048a747fee44/messages/b9b39a23-1a3a-4e0e-8198-39c869814e58"
@@ -177,7 +189,7 @@ Pagination example:
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_ID/messages?from_id=UUID
@@ -199,7 +211,7 @@ GET /apps/:app_uuid/users/:user_id/messages/:message_uuid
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/messages/MESSAGE_ID
@@ -223,12 +235,15 @@ curl  -X GET \
     ],
     "received_at": "2016-01-10T13:31:10.394Z",
     "recipient_status": {
-        "2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
-        "bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
+        "layer:///identities/2dfbc084-9800-427a-a965-5aef5a2c35b8": "sent",
+        "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07": "read"
     },
     "sender": {
-        "name": null,
-        "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07"
+      "id": "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+      "url": "https://api.layer.com/identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+      "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+      "display_name": "User A",
+      "avatar_url": "https://mydomain.com/images/bcd5e1d8-d276-4b60-97fd-d4bb18308b07.gif"
     },
     "sent_at": "2016-01-10T13:31:04.393Z",
     "url": "https://api.layer.com/apps/58330abe-b79e-11e5-b0dd-f4bc00000775/users/bcd5e1d8-d276-4b60-97fd-d4bb18308b07/messages/cf131537-a92b-46d7-a2b5-a89f94c707c5"
@@ -245,7 +260,7 @@ GET /apps/:app_uuid/conversations/:conversation_uuid/messages/:message_uuid
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_ID/messages/MESSAGE_ID
@@ -270,8 +285,11 @@ curl  -X GET \
     "received_at": null,
     "recipient_status": null,
     "sender": {
-        "name": null,
-        "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07"
+      "id": "layer:///identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+      "url": "https://api.layer.com/identities/bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+      "user_id": "bcd5e1d8-d276-4b60-97fd-d4bb18308b07",
+      "display_name": "User A",
+      "avatar_url": "https://mydomain.com/images/bcd5e1d8-d276-4b60-97fd-d4bb18308b07.gif"
     },
     "sent_at": "2016-01-10T13:31:04.393Z",
     "url": "https://api.layer.com/apps/58330abe-b79e-11e5-b0dd-f4bc00000775/conversations/051f1ca7-5760-47a5-bf73-048a747fee44/messages/cf131537-a92b-46d7-a2b5-a89f94c707c5"

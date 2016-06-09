@@ -10,7 +10,7 @@ POST /apps/:app_uuid/conversations
 
 | Name    |  Type | Description |
 |---------|-------|-------------|
-| **participants** | array  | User IDs (strings) identifying who will participate in the Conversation |
+| **participants** | string[]  | Layer Identity IDs identifying who will participate in the Conversation |
 | **distinct** | boolean | Create or find a unique Conversation between these participants |
 | **metadata** | object | Arbitrary set of name value pairs representing initial state of Conversation metadata |
 
@@ -19,8 +19,8 @@ POST /apps/:app_uuid/conversations
 ```json
 {
     "participants": [
-        "1234",
-        "5678"
+        "layer:///identities/1234",
+        "layer:///identities/5678"
     ],
     "distinct": false,
     "metadata": {
@@ -38,8 +38,20 @@ POST /apps/:app_uuid/conversations
     "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
     "created_at": "2014-09-15T04:44:47+00:00",
     "participants": [
-        "1234",
-        "5678"
+        {
+          "id": "layer:///identities/1234",
+          "url": "https://api.layer.com/identities/1234",
+          "user_id": "1234",
+          "display_name": "One Two Three Four",
+          "avatar_url": "https://mydomain.com/images/1234.gif"
+        },
+        {
+          "id": "layer:///identities/5678",
+          "url": "https://api.layer.com/identities/5678",
+          "user_id": "5678",
+          "display_name": "Five Six Seven Eight",
+          "avatar_url": "https://mydomain.com/images/5678.gif"
+        }
     ],
     "distinct": false,
     "metadata": {
@@ -53,10 +65,10 @@ POST /apps/:app_uuid/conversations
 
 ```console
 curl  -X POST \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"participants": ["a", "b"], "distinct": false, "metadata": {"info": {"background_color": "#3c3c3c", "title": "A conversation about Coffee"}}}' \
+      -d '{"participants": ["layer:///identities/a", "layer:///identities/b"], "distinct": false, "metadata": {"info": {"background_color": "#3c3c3c", "title": "A conversation about Coffee"}}}' \
       https://api.layer.com/apps/APP_UUID/conversations
 ```
 
@@ -106,8 +118,8 @@ Location: /apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92
     "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
     "created_at": "2014-09-15T04:44:47+00:00",
     "participants": [
-        "1234",
-        "5678"
+        "layer:///identities/1234",
+        "layer:///identities/5678"
     ],
     "distinct": true,
     "metadata": {
@@ -132,8 +144,20 @@ If the matching Distinct Conversation has metadata different from what was reque
         "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
         "created_at": "2014-09-15T04:44:47+00:00",
         "participants": [
-            "1234",
-            "5678"
+            {
+              "id": "layer:///identities/1234",
+              "url": "https://api.layer.com/identities/1234",
+              "user_id": "1234",
+              "display_name": "One Two Three Four",
+              "avatar_url": "https://mydomain.com/images/1234.gif"
+            },
+            {
+              "id": "layer:///identities/5678",
+              "url": "https://api.layer.com/identities/5678",
+              "user_id": "5678",
+              "display_name": "Five Six Seven Eight",
+              "avatar_url": "https://mydomain.com/images/5678.gif"
+            }
         ],
         "distinct": true,
         "metadata": {

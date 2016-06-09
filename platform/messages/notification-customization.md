@@ -33,19 +33,19 @@ Applications that require customization on a per recipient basis can do so by su
         "text": "This is the alert text",
         "sound": "aaaaoooga.aiff",
         "recipients": {
-            "klaus_stube": {
+            "layer:///identities/klaus_stube": {
                 "text": "hallo welt",
                 "sound": "ping.aiff"
             },
-            "luigi_puccini": {
+            "layer:///identities/luigi_puccini": {
               "title": "New Message",
                 "text": "ciao mondo"
             },
-            "martina_marquez": {
+            "layer:///identities/martina_marquez": {
                 "text": "hola mundo",
                 "sound": "chime.aiff"
             },
-            "reginald_royford_williams_iii": {
+            "layer:///identities/reginald_royford_williams_iii": {
                 "text": "Um.  Hello?"
             }
         }

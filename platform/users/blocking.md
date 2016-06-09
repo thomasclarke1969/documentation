@@ -25,14 +25,14 @@ Where each `operation` object has the following properties:
 |------------|-------|--------------|
 | **operation** | string | The operation to perform |
 | **property** | string | The user property to update, "blocks" |
-| **value** | string | The value to set for the property |
+| **id** | string | The Layer Identity ID of the user to block/unblock. |
 
 For example:
 ```json
 [
-    {"operation": "add", "property": "blocks", "value": "blockMe1"},
-    {"operation": "add", "property": "blocks", "value": "blockMe2"},
-    {"operation": "remove", "property": "blocks", "value": "unblockMe"}
+    {"operation": "add", "property": "blocks", "id": "layer:///identities/blockMe1"},
+    {"operation": "add", "property": "blocks", "id": "layer:///identities/blockMe2"},
+    {"operation": "remove", "property": "blocks", "id": "layer:///identities/unblockMe"}
 ]
 ```
 
@@ -40,20 +40,17 @@ For example:
 
 There is no limit to the number of patch operations, enabling clients to perform bulk manipulation of block lists. The reason we use `202 (Accepted)` here as opposed to `204 (No Content)` is because the updates are not guaranteed to have been applied when the request completes. Whether it's one or 10,000 operations, they're enqueued and processed asynchronously.
 
-Note that `"set"` is also a supported operation.  When `"blocks"` is `"set"`, it _replaces_ the full Block List for the given User.  For example:
+Note that `"set"` is also a supported operation, but can only be used empty the block list. For example:
 
 ```json
 [
-    {"operation": "set", "property": "blocks", "value": ["blockMe1", "blockMe2"]}
+    {"operation": "set", "property": "blocks", "value": []},
+    {"operation": "add", "property": "blocks", "id": "layer:///identities/blockMe1"},
+    {"operation": "add", "property": "blocks", "id": "layer:///identities/blockMe2"}
 ]
 ```
-or to clear the list:
 
-```json
-[
-    {"operation": "set", "property": "blocks", "value": []}
-]
-```
+The above operations array clears the list, and then repopulates it with new Identities.
 
 ## Retrieving the Block List for a User
 
@@ -67,78 +64,15 @@ GET /apps/:app_uuid/users/:owner_user_id/blocks
 
 ```json
 [
-  {"user_id": "abc1234"},
-  {"user_id": "def5678"}
+  {"id": "layer:///identities/abc1234", "user_id": "abc1234", "url": "https://api.layer.com/APP_ID/abc1234/identity", "display_name": "ABC", "avatar_url": ""},
+  {"id": "layer:///identities/def5678", "user_id": "def5678", "url": "https://api.layer.com/APP_ID/def5678/identity", "display_name": "DEF", "avatar_url": ""}
 ]
 ```
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/a/blocks
 ```
-
-## Blocking Users
-
-Adds a new blocked user to the Block List for the specified `owner_user_id`.
-
-```request
-POST /apps/:app_uuid/users/:owner_user_id/blocks
-```
-
-### Parameters
-
-| Name       |  Type | Description  |
-|------------|-------|--------------|
-| **user_id**  | string | The User ID of a user to add to Block List |
-
-### Example Request: Block a User
-
-```json
-{
-  "user_id": "blockme987"
-}
-```
-
-### Response
-
-```text
-204 (No Content)
-```
-
-```console
-curl  -X POST \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
-      -H 'Authorization: Bearer TOKEN' \
-      -H 'Content-Type: application/json' \
-      -d '{"user_id": "b"}' \
-      https://api.layer.com/apps/APP_UUID/users/a/blocks
-```
-
-## Unblocking Users
-
-Removes a blocked user from the Block List of the specified `owner_user_id`.
-
-```request
-DELETE /apps/:app_uuid/users/:owner_user_id/blocks/:user_id
-```
-
-### Response
-
-```text
-204 (No Content)
-```
-
-```console
-curl  -X DELETE \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
-      -H 'Authorization: Bearer TOKEN' \
-      -H 'Content-Type: application/json' \
-      https://api.layer.com/apps/APP_UUID/users/a/blocks/b
-```
-
-> User IDs embedded in the URLs above must be URL-encoded if there's any chance they may contain URL-unsafe characters such as `/`, `+`, `%`, or `?`.
-
-> For example, if your user ID is `namespace/12345`, the URL would need to be `/apps/:app_uuid/users/namespace%2F12345/blocks`.

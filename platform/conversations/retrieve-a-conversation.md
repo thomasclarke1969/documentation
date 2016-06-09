@@ -16,7 +16,7 @@ GET /apps/:app_uuid/users/:user_id/conversations
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations
@@ -46,7 +46,7 @@ Pagination Example:
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations?page_size=50&from_id=layer:///conversations/UUID
@@ -66,7 +66,7 @@ Sorting example:
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations?sort_by=last_message&page_size=50&from_id=layer:///conversations/UUID
@@ -91,7 +91,7 @@ GET /apps/:app_uuid/users/:user_id/conversations/:conversation_uuid
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/conversations/CONVERSATION_UUID
@@ -106,8 +106,20 @@ curl  -X GET \
     "messages_url": "https://api.layer.com/apps/1ab339a8-adb6-11e5-ad04-192ee3134c94/users/1234567/conversations/90a3dd7e-59f2-4369-a522-a3e4f767af10/messages",
     "created_at": "2015-12-28T22:59:57.433Z",
     "participants": [
-        "2222222",
-        "1234567"
+        {
+          "id": "layer:///identities/1234",
+          "url": "https://api.layer.com/identities/1234",
+          "user_id": "1234",
+          "display_name": "One Two Three Four",
+          "avatar_url": "https://mydomain.com/images/1234.gif"
+        },
+        {
+          "id": "layer:///identities/5678",
+          "url": "https://api.layer.com/identities/5678",
+          "user_id": "5678",
+          "display_name": "Five Six Seven Eight",
+          "avatar_url": "https://mydomain.com/images/5678.gif"
+        }
     ],
     "metadata": {
         "background_color": "#3c3c3c"
@@ -130,12 +142,16 @@ curl  -X GET \
         "sent_at": "2015-12-28T23:07:51.112Z",
         "received_at": "2015-12-28T23:07:51.123Z",
         "sender": {
-            "user_id": "1234567"
+          "id": "layer:///identities/1234",
+          "url": "https://api.layer.com/identities/1234",
+          "user_id": "1234",
+          "display_name": "One Two Three Four",
+          "avatar_url": "https://mydomain.com/images/1234.gif"
         },
         "is_unread": false,
         "recipient_status": {
-            "2222222": "sent",
-            "1234567": "read"
+            "layer:///identities/1234": "sent",
+            "layer:///identities/5678": "read"
         }
     },
     "unread_message_count": 0
@@ -152,7 +168,7 @@ GET /apps/:app_uuid/conversations/:conversation_uuid
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID
@@ -167,8 +183,20 @@ curl  -X GET \
     "messages_url": "https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/messages",
     "created_at": "2014-09-15T04:44:47+00:00",
     "participants": [
-        "1234",
-        "5678"
+        {
+          "id": "layer:///identities/1234",
+          "url": "https://api.layer.com/identities/1234",
+          "user_id": "1234",
+          "display_name": "One Two Three Four",
+          "avatar_url": "https://mydomain.com/images/1234.gif"
+        },
+        {
+          "id": "layer:///identities/5678",
+          "url": "https://api.layer.com/identities/5678",
+          "user_id": "5678",
+          "display_name": "Five Six Seven Eight",
+          "avatar_url": "https://mydomain.com/images/5678.gif"
+        }
     ],
     "distinct": false,
     "metadata": {

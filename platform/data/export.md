@@ -101,7 +101,7 @@ POST /apps/{app_id}/exports
 
 ```console
 curl  -X PUT \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/exports
@@ -119,7 +119,7 @@ GET /apps/{app_id}/exports/{export_id}/status
 
 ```console
 curl  -X GET \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/exports/EXPORT_ID/status
@@ -132,7 +132,7 @@ curl  -X GET \
 ```
 
 ```json
-{  
+{
    "id":"EXPORT_ID",
    "type":"historical",
    "public_key":"-----BEGIN PUBLIC KEY-----\nMII...",

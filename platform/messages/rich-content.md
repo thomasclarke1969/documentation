@@ -51,7 +51,7 @@ The response will either be a 201 (Created) response that includes a `content` o
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.1" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Bearer TOKEN" \
       -H "Content-Type: application/json" \
       -H "Upload-Content-Type: image/jpeg" \
@@ -165,7 +165,7 @@ GET /apps/:app_uuid/conversations/:conversation_uuid/content/:content_id
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.1" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Bearer TOKEN" \
       https://api.layer.com/apps/24f43c32-4d95-11e4-b3a2-0fd00000020d/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67/content/8c839735-5f95-439a-a867-30903c0133f2
 ```

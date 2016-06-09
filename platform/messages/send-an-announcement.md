@@ -16,21 +16,17 @@ POST /apps/:app_uuid/announcements
 
 | Name         |    Type     |  Description  |
 |--------------|-------------|---------------|
-| **recipients** | array of strings | Array of User IDs to deliver the Announcement to. |
+| **recipients** | string[] | Array of Layer Identity IDs to deliver the Announcement to. |
 
 
 > See [Send a Message](#send-a-message) parameters section for details on the remaining parameters.
-
-One key difference with [Send a Message](#send-a-message): you may not use `sender.user_id` when sending an Announcement.
 
 ### Example Request: Sending an Announcement
 
 ```json
 {
-    "recipients": [ "1234", "5678" ],
-    "sender": {
-        "name": "The System"
-    },
+    "recipients": [ "layer:///identities/1234", "layer:///identities/5678" ],
+    "sender_id": "layer:///identities/admin",
     "parts": [
         {
             "body": "Hello, World!",
@@ -53,8 +49,11 @@ One key difference with [Send a Message](#send-a-message): you may not use `send
     "sent_at": "2014-09-15T04:44:47+00:00",
     "recipients": [ "1234", "5678" ],
     "sender": {
-        "name": "The System",
-        "user_id": null
+        "id": "layer:///identities/admin",
+        "url": "https://api.layer.com/identities/admin",
+        "user_id": "admin",
+        "display_name": "Your Favorite System Admin",
+        "avatar_url": "https://mydomain.com/images/admin.gif"
     },
     "parts": [
         {
@@ -67,10 +66,10 @@ One key difference with [Send a Message](#send-a-message): you may not use `send
 
 ```console
 curl  -X POST \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], "notification": {"text": "Howdy"}, "sender": {"name": "Your Master"}, "recipients": ["a","b","c"]}' \
+      -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], "notification": {"text": "Howdy"}, "sender_id": "layer:///identities/admin", "recipients": ["layer:///identities/a","layer:///identities/b","layer:///identities/c"]}' \
       https://api.layer.com/apps/APP_UUID/announcements
 ```
 

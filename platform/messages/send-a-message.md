@@ -16,28 +16,18 @@ Messages sent by the Platform API are currently limited to a size of 2kb per mes
 
 | Name    | Type |  Description  |
 |---------|------|---------------|
-| **sender** | object | Identifies the sender of the Message |
-| [**sender.user_id**](#warning)  | string | User ID of the participant that this message will appear to be from |
-| [**sender.name**](#warning)     | string | Arbitrary string naming the service that this message will appear to be from |
+| **sender_id**  | string | Identity ID of the participant that this message will appear to be from (layer:///identities/userA) |
 | **parts**           | Array  | Array of MessageParts |
 | **parts.body**      | string | Text or base64 encoded data for your message |
 | **parts.mime_type** | string | text/plain, image/png or other mime type describing the body of this MessagePart |
 | **parts.encoding**  | string | If sending base64 encoded data, specify base64 else omit this field |
 | **notification** | object | See [Push Notifications](https://developer.layer.com/docs/platform/misc#notification-customization) docs for detailed options |
 
-<a name="warning"></a>
-```emphasis
-** IMPORTANT **:
-You can either specify `sender.user_id` or `sender.name`, but not both.
-```
-
 ### Example Request: Sending a Message
 
 ```json
 {
-    "sender": {
-        "name": "t-bone"
-    },
+    "sender_id": "layer:///identities/admin",
     "parts": [
         {
             "body": "Hello, World!",
@@ -79,57 +69,43 @@ You can either specify `sender.user_id` or `sender.name`, but not both.
     ],
     "sent_at": "2014-09-09T04:44:47+00:00",
     "sender": {
-        "name": "t-bone",
-        "user_id": null
+      "id": "layer:///identities/admin",
+      "url": "https://api.layer.com/identities/admin",
+      "user_id": "admin",
+      "display_name": "The Administrator",
+      "avatar_url": "https://mydomain.com/images/admin.gif"
     },
     "recipient_status": {
-        "777": "sent",
-        "999": "sent",
-        "111": "sent"
+        "layer:///identities/777": "sent",
+        "layer:///identities/999": "sent",
+        "layer:///identities/111": "sent"
     }
 }
 ```
 
 ```console
 curl  -X POST \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], "notification": {"text": "Howdy"}, "sender": {"name": "Your Master"}}' \
+      -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], "notification": {"text": "Howdy"}, "sender_id": "layer:///identities/admin"}' \
       https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID/messages
 ```
 
 ## Specifying a Sender
 
-The `sender` object in the request enables sending Messages in two ways:
+The `sender_id` is the ID for a Layer Identity object representing the sender of this Message.
+There are two types of Identities you might try to send from:
 
-1. From a participant
-2. From a non-human actor
+1. Users (The Identity Object's `type` field is `User`)
+2. A Bot (The Identity Object's `type` field is `Bot`)
 
-### From a Participant
+An Identity must exist to use it as the `sender_id`; you can [Create an Identity](../users#identity) at any time.
 
-The Message can be sent on behalf of a participant of the Conversation. The Message will be delivered as though it were sent directly from the specified `user_id`.
+Regardless of what Type of Identity it is, the `sender_id` will always be a string formatted as `layer:///identities/ID`.
+Note as well that the Identity ID is a URI derived from the User IDs in your User Management System:
 
-```json
-{
-    "sender": {
-        "user_id": "user1"
-    }
-}
+```javascript
+var identityID = 'layer:///identities/' + enencodeURIComponent(userId);
 ```
 
-### From a Non-human Actor
-
-Suppose you wanted to send a message from "System", "Moderator" or "Your Friend" rather than have the message appear to be from a participant in the conversation.  The Message will be delivered as though it were sent by the service in the `name` field.
-
-```json
-{
-    "sender": {
-        "name": "Hal 2000"
-    }
-}
-```
-
-Upon delivery, the message will have a `null` value for the `user_id` of the `sender` object, allowing clients to differentiate between messages originating from human and non-human senders.
-
-> It is recommended that you use simple strings that describe the utility of the Service that sent the Message and clearly differentiate such Messages in your UI.

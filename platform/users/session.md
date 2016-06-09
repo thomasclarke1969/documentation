@@ -32,7 +32,7 @@ Where each `operation` object has the following properties:
 
 ```console
 curl  -X PATCH \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/vnd.layer-patch+json' \
       -d '[ { "operation":"set", "property": "session_ttl_in_seconds", "value": 3600 } ]' \
@@ -49,7 +49,7 @@ DELETE /apps/:app_id/users/:user_id/sessions
 
 ```console
 curl  -X DELETE \
-      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Bearer TOKEN' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/sessions
 ```
