@@ -10,7 +10,7 @@ Get the most recent Messages in a Conversation:
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/conversations/CONVERSATION_UUID/messages
 ```
@@ -39,7 +39,7 @@ Pagination example:
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/conversations/CONVERSATION_UUID/messages?from_id=UUID
 ```
@@ -60,7 +60,7 @@ GET /messages/:message_uuid
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/messages/MESSAGE_UUID
 ```
@@ -89,14 +89,15 @@ curl  -X GET \
   ],
   "sent_at": "2014-09-09T04:44:47+00:00",
   "sender": {
-    "name": null,
+    "id": "layer:///identities/5678",
+    "url": "https://api.layer.com/identities/5678",
     "user_id": "5678",
     "display_name": "five six seven eight",
     "avatar_url": ""
   },
   "recipient_status": {
-    "5678": "read",
-    "1234": "sent"
+    "layer:///identities/5678": "read",
+    "layer:///identities/1234": "sent"
   }
 }
 ```
@@ -145,7 +146,7 @@ POST /conversations/:conversation_uuid/messages
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/json" \
       -d '{"parts": [ {"body": "Hello world", "mime_type": "text/plain"}, {"body": "YW55IGNhcm5hbCBwbGVhc3VyZQ==", "mime_type": "image/jpeg", "encoding": "base64"}  ],  "notification": { "text": "This is the alert text", "sound": "chime.aiff" }}' \
@@ -176,14 +177,15 @@ curl  -X POST \
   ],
   "sent_at": "2014-09-09T04:44:47+00:00",
   "sender": {
-    "name": null,
+    "id": "layer:///identities/5678",
+    "url": "https://api.layer.com/identities/5678",
     "user_id": "5678",
     "display_name": "five six seven eight",
     "avatar_url": ""
   },
   "recipient_status": {
-    "5678": "read",
-    "1234": "sent"
+    "layer:///identities/5678": "read",
+    "layer:///identities/1234": "sent"
   }
 }
 ```
@@ -219,14 +221,15 @@ If using [deduplication](introduction#deduplication), you may get a conflict if 
     ],
     "sent_at": "2014-09-09T04:44:47+00:00",
     "sender": {
-      "name": null,
+      "id": "layer:///identities/5678",
+      "url": "https://api.layer.com/identities/5678",
       "user_id": "5678",
       "display_name": "five six seven eight",
       "avatar_url": ""
     },
     "recipient_status": {
-      "5678": "read",
-      "1234": "sent"
+      "layer:///identities/5678": "read",
+      "layer:///identities/1234": "sent"
     }
   }
 }
@@ -274,7 +277,7 @@ DELETE /messages/:message_uuid?mode=all_participants
 
 ```console
 curl  -X DELETE \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/json" \
       https://api.layer.com/messages/MESSAGE_UUID?mode=all_participants

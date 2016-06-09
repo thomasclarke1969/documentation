@@ -12,7 +12,7 @@ https://api.layer.com
 The API is versioned using a custom media type that encodes the wire format and the version desired. Developers must explicitly request a specific version via the `Accept` header:
 
 ```text
-Accept: application/vnd.layer+json; version=1.0
+Accept: application/vnd.layer+json; version=2.0
 ```
 
 Failure to request a specific version of the API will result in:

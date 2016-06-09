@@ -32,7 +32,7 @@ The response will either be a 201 (Created) response that includes a `content` o
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/json" \
       -H "Upload-Content-Type: image/jpeg" \
@@ -146,7 +146,7 @@ GET /content/:content_id
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/content/8a896e15-2908-4d7c-9f4e-d47e18ae2774
 ```

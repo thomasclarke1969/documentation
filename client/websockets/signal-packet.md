@@ -20,7 +20,7 @@ A Typing indicator uses the `data` field to indicate typing status, and which us
 
 | Field | Description |
 |-------|-------------|
-| **user_id** | The identifier of the user whose typing state has changed |
+| **sender** | The Basic Identity object for the user whose typing state has changed |
 | **action**  | "started", "paused", "finished"; the new state of the typing indicator for that user |
 
 Note that it is not required to send the `user_id` field when sending a typing indicator; this is automatically added by the server.
@@ -40,7 +40,13 @@ Note that it is not required to send the `user_id` field when sending a typing i
       "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
     },
     "data": {
-      "user_id": "12345",
+      "sender": {
+        "id": "layer:///identities/1234",
+        "url": "https://api.layer.com/identities/1234",
+        "user_id": "1234",
+        "display_name": "one two three four",
+        "avatar_url": ""
+      },
       "action": "started"
     }
   }

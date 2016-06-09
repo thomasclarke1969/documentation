@@ -79,10 +79,14 @@ curl  -X GET \
   ],
   "sent_at": "2014-09-09T04:44:47+00:00",
   "sender": {
-    "name": "The World"
+    "id": "layer:///identities/admin",
+    "url": "https://api.layer.com/identities/admin",
+    "user_id": "admin",
+    "display_name": "Lord Master, the Admin!",
+    "avatar_url": ""
   },
   "recipient_status": {
-    "5678": "read"
+    "layer:///identities/5678": "read"
   }
 }
 ```

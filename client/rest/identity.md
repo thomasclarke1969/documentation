@@ -12,7 +12,7 @@ This will return an array of Identities ordered by creation time in descending o
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/identities
 ```
@@ -47,7 +47,7 @@ Pagination example:
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/identities?page_size=250&from_id=layer:///identities/frodo_the_dodo
 ```
@@ -65,7 +65,7 @@ This will return an array of user_ids (i.e. not the full Identity object).  Note
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/following
 ```
@@ -100,7 +100,7 @@ Pagination example:
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/following?page_size=250&from_id=layer:///identities/frodo_the_dodo
 ```
@@ -115,7 +115,7 @@ GET /identities/:user_id
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/identities/USER_ID
 ```
@@ -144,15 +144,15 @@ curl  -X GET \
 This operation can be used to quickly test if the authenticated user is following the specified user:
 
 ```request
-GET /following/:user_id
+GET /following/users/:user_id
 ```
 
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
-      https://api.layer.com/following/USER_ID
+      https://api.layer.com/following/users/USER_ID
 ```
 
 ### Response `204 (No Content)`
@@ -177,14 +177,14 @@ The specified user_id is **not** followed by this user.
 A user can be explicitly followed by the authenticated user using:
 
 ```request
-PUT /following/:user_id
+PUT /following/users/:user_id
 ```
 
 ```console
 curl  -X PUT \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
-      https://api.layer.com/following/USER_ID
+      https://api.layer.com/following/users/USER_ID
 ```
 
 ### Response `204 (No Content)`
@@ -196,14 +196,14 @@ The specified user_id is now followed by this user.
 If following multiple new users, they can be added to the current set of followed users using:
 
 ```request
-POST /following/
+POST /following/users
 ```
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
-      https://api.layer.com/following -d '["1234", "5678", "90ab"]'
+      https://api.layer.com/following/users -d '["1234", "5678", "90ab"]'
 ```
 
 ### Response `202 (Accepted)`
@@ -221,7 +221,7 @@ DELETE /following/:user_id
 
 ```console
 curl  -X DELETE \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/following/USER_ID
 ```

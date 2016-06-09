@@ -7,6 +7,7 @@ The following JSON represents a typical Identity; referred to throughout this do
   "id": "layer:///identities/frodo115",
   "url": "https://api.layer.com/identities/frodo115",
   "user_id": "frodo115",
+  "type": "user",
   "display_name": "https://myserver.com/frodo115.gif",
   "first_name": "Frodo",
   "last_name": "The Dodo",
@@ -24,6 +25,7 @@ The following JSON represents a typical Identity; referred to throughout this do
 | **id** | string | Layer's internal ID for this user |
 | **url** | string | A URL for accessing the Identity via the REST API |
 | **user_id** | string | Your application's ID for this user |
+| **type** | string | One of "User" or "Bot" |
 | **display_name** | string | Optional display name used when rendering this user in a UI |
 | **first_name** | string | Optional first name of the user |
 | **last_name** | string | Optional last name of the user |
@@ -48,6 +50,13 @@ Identity objects can be created in two ways:
     * `public_key`
 * Identities can be created, updated and deleted via the [Platform API](https://developer.layer.com/docs/platform/users#managing-identity); only the Platform API can be used to set ALL fields of the Identity.
 
+## Identifying a User
+
+Some application may frequently need to specify a user in their system to Layer, perhaps for creating a Conversation with them.  A simple way to get the Layer ID from your internal User IDs is:
+
+```javascript
+var layerId = "layer:///identities/" + encodeURIComponent(myUserId);
+```
 
 ## Following an Identity
 

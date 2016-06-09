@@ -10,7 +10,7 @@ This will return an array of Conversations ordered by its `created_at` field in 
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/conversations
 ```
@@ -39,7 +39,7 @@ Pagination example:
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/conversations?page_size=50&from_id=layer:///conversations/UUID
 ```
@@ -68,7 +68,7 @@ Sorting example:
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/conversations?sort_by=last_message&page_size=50&from_id=layer:///conversations/UUID
 ```
@@ -98,7 +98,7 @@ GET /conversations/:conversation_uuid
 
 ```console
 curl  -X GET \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/conversations/CONVERSATION_UUID
 ```
@@ -112,7 +112,20 @@ curl  -X GET \
   "messages_url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c/messages",
   "created_at": "2015-10-10T22:51:12.010Z",
   "last_message": null,
-  "participants": [ "1234", "5678" ],
+  "participants": [{
+      "id": "layer:///identities/1234",
+      url: "https://api.layer.com/identities/1234",
+      user_id: "1234",
+      display_name: "One Two Three Four",
+      avatar_url: "https://mydomain.com/images/1234.gif"
+    },
+    {
+      "id": "layer:///identities/5678",
+      url: "https://api.layer.com/identities/5678",
+      user_id: "5678",
+      display_name: "Five Six Seven Eight",
+      avatar_url: "https://mydomain.com/images/5678.gif"
+  }],
   "distinct": false,
   "unread_message_count": 0,
   "metadata": {
@@ -133,16 +146,22 @@ POST /conversations
 
 | Name    |  Type | Description |
 |---------|-------|-------------|
-| **participants** | string[]  | Array of User IDs (strings) identifying who will participate in the Conversation |
+| **participants** | string[]  | Array of Identity IDs (strings) identifying who will participate in the Conversation ("layer:///identities/1234") |
 | **distinct** | boolean | Create or find a Distinct Conversation with these participants |
 | **metadata** | object | Arbitrary set of name value pairs representing initial state of Conversation metadata |
 | **id**       | string | Optional UUID or Layer ID, used for [deduplication](introduction#deduplication) |
+
+Recall that one can find the Identity ID from your internal User Management system by doing:
+
+```javascript
+var layerId = "layer:///identities/" + encodeURIComponent(myUserId);
+```
 
 ### Example
 
 ```json
 {
-  "participants": [ "1234", "5678" ],
+  "participants": [ "layer:///identities/1234", "layer:///identities/5678" ],
   "distinct": false,
   "metadata": {
     "background_color": "#3c3c3c"
@@ -152,10 +171,10 @@ POST /conversations
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/json" \
-      -d '{"participants": ["1234", "5678"], "distinct": false, "metadata": {"background_color": "#3c3c3c"}}' \
+      -d '{"participants": ["layer:///identities/1234", "layer:///identities/5678"], "distinct": false, "metadata": {"background_color": "#3c3c3c"}}' \
       https://api.layer.com/conversations
 ```
 
@@ -167,7 +186,20 @@ curl  -X POST \
   "messages_url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c/messages",
   "created_at": "2015-10-10T22:51:12.010Z",
   "last_message": null,
-  "participants": [ "1234", "5678" ],
+  "participants": [{
+      "id": "layer:///identities/1234",
+      url: "https://api.layer.com/identities/1234",
+      user_id: "1234",
+      display_name: "One Two Three Four",
+      avatar_url: "https://mydomain.com/images/1234.gif"
+    },
+    {
+      "id": "layer:///identities/5678",
+      url: "https://api.layer.com/identities/5678",
+      user_id: "5678",
+      display_name: "Five Six Seven Eight",
+      avatar_url: "https://mydomain.com/images/5678.gif"
+  }],
   "distinct": false,
   "unread_message_count": 0,
   "metadata": {
@@ -192,7 +224,20 @@ If using [deduplication](introduction#deduplication), you may get a conflict if 
     "messages_url": "https://api.layer.com/conversations/74a676c4-f697-45c4-b3bc-3e48bd2e372c/messages",
     "created_at": "2015-10-10T22:51:12.010Z",
     "last_message": null,
-    "participants": [ "1234", "5678" ],
+    "participants": [{
+        "id": "layer:///identities/1234",
+        "url": "https://api.layer.com/identities/1234",
+        "user_id": "1234",
+        "display_name": "One Two Three Four",
+        "avatar_url": "https://mydomain.com/images/1234.gif"
+      },
+      {
+        "id": "layer:///identities/5678",
+        "url": "https://api.layer.com/identities/5678",
+        "user_id": "5678",
+        "display_name": "Five Six Seven Eight",
+        "avatar_url": "https://mydomain.com/images/5678.gif"
+    }],
     "distinct": false,
     "unread_message_count": 0,
     "metadata": {
@@ -316,7 +361,7 @@ DELETE /conversations/:conversation_uuid?mode=all_participants
 
 ```console
 curl  -X DELETE \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/json" \
       https://api.layer.com/conversations/CONVERSATION_UUID?mode=all_participants
@@ -390,7 +435,7 @@ You can add and remove participants in a Conversation.
 
 ```console
 curl  -X PATCH \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/vnd.layer-patch+json" \
       -d '[{"operation": "add", "property": "participants", "value": "user1"}, {"operation": "add", "property": "participants", "value": "user2"}]' \
@@ -412,7 +457,7 @@ The standard response for any PATCH operation is `204 (No Content)`.
 
 ```console
 curl  -X PATCH \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/vnd.layer-patch+json" \
       -d '[{"operation": "remove", "property": "participants", "value": "user1"}, {"operation": "remove", "property": "participants", "value": "user2"}]' \
@@ -431,7 +476,7 @@ This will replace the entire set of participants with a new list. Be warned howe
 
 ```console
 curl  -X PATCH \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/vnd.layer-patch+json" \
       -d '[{"operation": "remove", "property": "participants", "value": ["user1", "user2", "user3"]}]' \
@@ -468,7 +513,7 @@ This operation will create or set the `count` and `word_of_the_day` properties o
 
 ```console
 curl  -X PATCH \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/vnd.layer-patch+json" \
       -d '[{ "operation": "set", "property": "metadata.a.b.count", "value": "42" }, { "operation": "set", "property": "metadata.a.b.word_of_the_day", "value": "Argh" }]' \

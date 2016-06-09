@@ -10,10 +10,34 @@ The following JSON represents a typical Conversation; referred to throughout thi
   "created_at": "2014-09-15T04:44:47+00:00",
   "last_message": null,
   "participants": [
-    "1234",
-    "777",
-    "999",
-    "111"
+    {
+      "id": "layer:///identities/1234",
+      url: "https://api.layer.com/identities/1234",
+      user_id: "1234",
+      display_name: "One Two Three Four",
+      avatar_url: "https://mydomain.com/images/1234.gif"
+    },
+    {
+      "id": "layer:///identities/777",
+      url: "https://api.layer.com/identities/777",
+      user_id: "777",
+      display_name: "Seven Times Three",
+      avatar_url: "https://mydomain.com/images/777.gif"
+    },
+    {
+      "id": "layer:///identities/999",
+      url: "https://api.layer.com/identities/999",
+      user_id: "999",
+      display_name: "Nein",
+      avatar_url: "https://mydomain.com/images/999.gif"
+    },
+    {
+      "id": "layer:///identities/111",
+      url: "https://api.layer.com/identities/111",
+      user_id: "111",
+      display_name: "All for One",
+      avatar_url: "https://mydomain.com/images/111.gif"
+    }
   ],
   "distinct": true,
   "unread_message_count": 3,
@@ -34,7 +58,7 @@ The following JSON represents a typical Conversation; referred to throughout thi
 |---------|------|---------------|
 | **id** | string | A Layer ID to identify the Conversation |
 | **url** | string | A URL for accessing the Conversation via the REST API |
-| **participants** | string[] | Array of User IDs indicating who is currently participating in a Conversation |
+| **participants** | Basic Identity[] | Array of Identities indicating who is currently participating in a Conversation |
 | **created_at** | string | The date that the Conversation was created; "2014-09-09T04:44:47+00:00" |
 | **last_message** | Message | A Message Object representing the last message sent within this Conversation.  |
 | **distinct** | boolean | *true* if this is the only Distinct Conversation shared amongst these participants |
@@ -63,9 +87,12 @@ The `url` property specifies how to retrieve, update or delete the Conversation 
 
 ## The `participants` property
 
-A Participant is a user who can send and receive messages within this Conversation, and is represented in the `participants` property as a User ID.  A User ID is any arbitrary string that your identity provider has placed within its Identity Token to identify a user.  The `participants` property is an array of up to 25 user IDs for users who are a part of this Conversation.
+A Participant is a user who can send and receive messages within this Conversation, and is represented in the `participants` property as a [Basic Identity](#identity).  The `participants` property is an array of up to 25 Identities for users who are a part of this Conversation.
 
-Note that by creating a Conversation with a "User A" in the participant list, "User A" will automatically be a part of that Conversation until they remove themselves from the Conversation (assuming that your UI permits this).  This means that if your UI allows "User B" to create a Conversation with "User A" in the participant list, "User A" is now a part of the Conversation and receiving messages for that Conversation, whether they wanted to be in the Conversation or not.
+Note that by creating a Conversation with an identity in the participant list:
+
+1. An Identity will be created for that user on Layer's Servers
+2. That user will see this Conversation and all of its messages if and when they register with Layer.
 
 ## The `metadata` property
 

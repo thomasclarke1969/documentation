@@ -32,10 +32,11 @@ The following JSON represents a typical Message; referred to throughout this doc
   ],
   "sent_at": "2014-09-09T04:44:47+00:00",
   "sender": {
+    "id": "layer:///identities/1234",
+    "url": "https://api.layer.com/identities/1234",
     "user_id": "1234",
     "display_name": "one two three four",
-    "avatar_url": "",
-    "name": null
+    "avatar_url": ""
   },
   "is_unread": true,
   "recipient_status": {
@@ -53,11 +54,7 @@ The Message Object represents a message sent by a user (or by a server) to the p
 |---------|------|---------------|
 | **id** | string | A Layer ID to identify the Message |
 | **url** | string | A URL for accessing the Message via the REST API |
-| **sender** | object | Identifies who sent the message |
-| **sender.user_id** | string | The user_id is the ID of the participant that sent the message |
-| **sender.display_name** | string | The display name used when rendering this user in a UI |
-| **sender.avatar_url** | string | A URL to an avatar image to display next to the user |
-| **sender.name** | string | If sent by the Platform API, the name is a system name such as "Administrator" or "Moderator" and is used instead of user_id |
+| **sender** | Basic Identity | Identifies who sent the message |
 | **sent_at** | string | Date/time that the message was sent; "2014-09-09T04:44:47+00:00" |
 | **position** | integer | Position of the Message within the Conversation |
 | **conversation** | object | Conversation that the Message is a part of |
@@ -83,16 +80,7 @@ The `url` property specifies how to retrieve, update or delete the Message via t
 
 ## The `sender` property
 
-The Sender object consists of two properties:
-
-| Name    | Type |  Description  |
-|---------|------|---------------|
-| **user_id** | string | The user_id is the ID of the participant that sent the message |
-| **display_name** | string  | The display name used when rendering this user in a UI |
-| **avatar_url** | string  | A URL to an avatar image to display next to the user |
-| **name** | string | If sent by the Platform API, the name is a system name such as "Administrator" or "Moderator"; else its null |
-
-These two properties are mutually exclusive.  If one has a value, then the other must be null.
+The Sender is represented by a [Basic Identity Object](#identity).  This provides among other things, fields for specifying details on how to render this user, as well as fields for mapping this Identity to your own user management system.
 
 ## The `sent_at` property
 
@@ -120,9 +108,9 @@ Every Message has a Recipient Status object.  The status object looks roughly li
 
 ```json
 {
-  "t-bone": "read",
-  "kevin": "delivered",
-  "blake": "sent"
+  "layer:///identities/t-bone": "read",
+  "layer:///identities/kevin": "delivered",
+  "layer:///identities/blake": "sent"
 }
 ```
 
@@ -136,6 +124,8 @@ The Recipient Status object is driven by Receipts.  A Receipt is a message sent 
 
 1. Receiving a Message (Delivery Receipt)
 2. Displaying a Message (Read Receipt)
+
+Failure to send a receipt will cause the status to remain at `sent`.
 
 ## The `parts` property
 

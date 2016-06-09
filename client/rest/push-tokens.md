@@ -46,7 +46,7 @@ POST /push_tokens
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       -H "Content-Type: application/json" \
       -d '{"token": "105ebe3fcb7e93efda22257caaf5b9c465043f6d0b2abf3bc8ae7c939655e949", "type": "apns", "device_id": "a7775566-bfbf-11e5-bf72-359a01002888", "apns_bundle_id": "com.layer.bundleid"}' \
@@ -73,7 +73,7 @@ DELETE /push_tokens/:device_id
 
 ```console
 curl  -X DELETE \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Authorization: Layer session-token='TOKEN'" \
       https://api.layer.com/push_tokens/a7775566-bfbf-11e5-bf72-359a01002888
 ```

@@ -303,16 +303,21 @@ The following properties can be updated via an Update Event:
 
 * **Conversation.participants**: participants can be added or removed
 * **Conversation.metadata**: Metadata keys can be set or deleted
-* **Message.recipient_status**: Recipient status is updated as delivery and read receipts are received
 * **Conversation.last_message**: The ID for the Message is provided each time a new Message becomes the most recent Message
 * **Conversation.unread_message_count**: Any time a Conversation's unread message count changes, you will be notified
+* **Message.recipient_status**: Recipient status is updated as delivery and read receipts are received
+* **Identity.XXX**: Most properties of the Identity object may be updated via the Platform API, resulting in a Change packet sent over WebSocket.
 
-Any field of an Identity object other than the `user_id` field may change.
-
-Note that it is common to receive multiple Layer Patch Operations in a single Change Packet, resulting in multiple changes to a properties.
+Note that it is common to receive multiple Layer Patch Operations in a single Change Packet, resulting in multiple changes to an Object's properties.
 
 
 ### Add/Replace Participants Example
+
+Note that the Add operation provides both the ID of the user to add, as well as a Basic Identity in case that Identity Object has not been cached.
+
+The Remove operation simply provides the ID of the user to remove from the `participants` array.
+
+Both options are supported within the Layer Patch format.
 
 ```json
 {
@@ -327,8 +332,23 @@ Note that it is common to receive multiple Layer Patch Operations in a single Ch
       "url": "https://api.layer.com/conversations/f3cc7b32-3c92-11e4-baad-164230d1df67"
     },
     "data": [
-      { "operation": "add",    "property": "participants", "value": "4567" },
-      { "operation": "remove", "property": "participants", "value": "5678" }
+      {
+        "operation": "add",
+        "property": "participants",
+        "id": "layer:///identities/4567",
+        "value": {
+          "id": "layer:///identities/1234",
+          "url": "https://api.layer.com/identities/1234",
+          "user_id": "1234",
+          "display_name": "one two three four",
+          "avatar_url": ""
+        }
+      },
+      {
+        "operation": "remove",
+        "property": "participants",
+        "id": "layer:///identities/5678"
+      }
     ]
   }
 }
@@ -376,7 +396,7 @@ Note that it is common to receive multiple Layer Patch Operations in a single Ch
     "data": [
       {
         "operation": "set",
-        "property": "recipient_status.fred\.flinstone",
+        "property": "recipient_status.layer:///identities/fred\.flinstone",
         "value": "delivered"
       }
     ]
@@ -384,23 +404,23 @@ Note that it is common to receive multiple Layer Patch Operations in a single Ch
 }
 ```
 
-Note that if the property is "recipient_status.fred.flinstone", then it will try to set:
+Note that if the property is "recipient_status.layer:///identities/fred.flinstone", then it will try to set:
 
 ```json
 {
   "recipient_status": {
-    "fred": {
+    "layer:///identities/fred": {
       "flinstone": "delivered"
     }
   }
 }
 ```
-Whereas what is needed is: "recipient_status.fred\\.flinstone" which will set:
+Whereas what is needed is: "recipient_status.layer:///identities/fred\\.flinstone" which will set:
 
 ```json
 {
   "recipient_status": {
-    "fred.flinstone": "delivered"
+    "layer:///identities/fred.flinstone": "delivered"
   }
 }
 ```
@@ -422,7 +442,7 @@ Announcements will also receive read receipts; especially useful if your user is
     "data": [
       {
         "operation": "set",
-        "property": "recipient_status.FrodoTheDodo",
+        "property": "recipient_status.layer:///identities/FrodoTheDodo",
         "value": "read"
       }
     ]

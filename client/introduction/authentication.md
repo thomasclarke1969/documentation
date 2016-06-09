@@ -25,7 +25,7 @@ POST /nonces
 
 ```console
 curl  -X POST \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Content-Type: application/json" \
       https://api.layer.com/nonces
 ```
@@ -74,7 +74,7 @@ POST /sessions
 
 ```console
 curl  -X POST \
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Content-Type: application/json' \
       https://api.layer.com/sessions \
       -d '{ "identity_token": "f6179ecb285c669c07415011f17d7a4e59ce1f91.9afd0f5ef6df7bf7eb13e9ada65fa28cf765a51c.450b81833898cb159f3cfc5a9a839187e63683e0", "app_id": "layer:///apps/production/e49e50aa-ffda-453f-adc8-404f68de84ae" }'
@@ -163,7 +163,7 @@ DELETE /sessions/:token_id
 
 ```console
 curl  -X DELETE \
-      -H "Accept: application/vnd.layer+json; version=1.0" \
+      -H "Accept: application/vnd.layer+json; version=2.0" \
       -H "Content-Type: application/json" \
       https://api.layer.com/sessions/7Rti7Cl6m3JA4GdjXRcnyBvovv0q-DBHpQdmGUZblKJbGzODoAYW7Z5o_a5bJjqkD_CU_pe9qr11111111111.1-1
 ```

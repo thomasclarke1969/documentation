@@ -42,7 +42,7 @@ POST /announcements/:announcement_uuid/receipts
 
 ```console
 curl  -X POST \
-      -H 'Accept: application/vnd.layer+json; version=1.0' \
+      -H 'Accept: application/vnd.layer+json; version=2.0' \
       -H 'Authorization: Layer session-token='TOKEN'' \
       -H 'Content-Type: application/json' \
       -d '{"type": "read"}' \

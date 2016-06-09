@@ -2,13 +2,33 @@
 
 There are concepts one should be familiar with before using the Client APIs.
 
+## What is an Identity?
+
+Every user within Layer is represented by an Identity Object.  These objects provide a uniform way of Identifying who a user is, and allowing easy access to them within Layer as well as easy mapping of that user to users within your own server.
+
+An Identity has the following properties (See The Identity Object)[#identity] for a complete list of properties)
+
+| Name    | Type |  Example | Description  |
+|---------|------|----------|--------------|
+| **id**  | string | 'layer:///identities/frodo115' | The **id** identifies the user within the Layer's services |
+| **user_id** | string | 'frodo115' | The **user_id* identifies the user within your application's services |
+| **display_name** | string | 'Frodo the Dodo' | The display name used when rendering this user in a UI |
+| **avatar_url** | string | 'https://myserver.com/frodo115.gif' | A URL to an avatar image to display next to the user. |
+
+There are two types of Identity Objects
+
+* Full Identity: Contains a range of fields describing the user
+* Basic Identity: Represents the smallest useful subset of the Full Identity
+
+Identities can be created explicitly using the [Layer Platform API](https://developer.layer.com/docs/platform/users/#managing-identity), or implicitly by placing them within a Conversation's `participants` array.
+
 ## What is a Conversation?
 
 A Conversation is an Object that represents a set of messages being exchanged by a group of users.  A Conversation has the following properties (See [The Conversation Object](#conversation)) for a complete list of properties)
 
 | Name    | Type |  Description  |
 |---------|------|---------------|
-| **participants** | string[] | Array of User IDs indicating who is currently participating in a Conversation |
+| **participants** | Basic Identity[] | Array of Basic Identity objects representing who is currently participating in a Conversation |
 | **metadata** | object | Custom data associated with the Conversation that is viewable/editable by all participants of the Conversation |
 | **distinct** | boolean | Indicates if this is a unique reusable Conversation between the participants |
 
@@ -18,8 +38,7 @@ A full JSON description of the Conversation object is shown in [The Conversation
 
 ### The `participants` property
 
-A Participant is a User ID.  A User ID is any arbitrary string that your identity provider has placed within its Identity Token to identify a user.  The `participants` property is an array of up to 25 IDs for users who are a part of this Conversation.
-
+Each participant in the Conversation is represented by a Basic Identity, the full array of Identities specifies who is a part of the Conversation.  There is a limit of at most 25 useres per Conversation.
 
 ### The `metadata` property
 
@@ -44,25 +63,12 @@ The Message Object represents a message sent by a user (or by the server) to the
 
 | Name    | Type |  Description  |
 |---------|------|---------------|
-| **sender** | object | Identifies who sent the message |
+| **sender** | Basic Identity | Identifies who sent the message |
 | **sent_at** | string | Date/time that the message was sent; "2014-09-09T04:44:47+00:00" |
 | **recipient_status** | object | Hash of User IDs indicating which users have received/read the message |
 | **parts** | MessagePart[] | Array of MessageParts; each part contains some of the contents of the message. |
 
 A full JSON description of the Message object is shown in [The Message Object](#message); any API that expects the full Message object will simply show `<Message>`.
-
-### The `sender` property
-
-The Sender object consists of:
-
-| Name    | Type |  Description  |
-|---------|------|---------------|
-| **user_id** | string | The user_id is the ID of the participant that sent the message |
-| **display_name** | string | The display name used when rendering this user in a UI |
-| **avatar_url** | string  | A URL to an avatar image to display next to the user. |
-| **name** | string | If sent by the [Platform API](https://developer.layer.com/docs/platform), the name is a system name such as "Administrator" or "Moderator"; else its null. |
-
-If `name` has a value, all other properties will be null.
 
 ### The `is_unread` property
 
@@ -82,16 +88,3 @@ A Message uses MessageParts to group diverse types of information together.  For
 
 When a mobile device receives a new Message, a notification is often needed to let them know that a new Message has arrived.  The Client API lets you control details of the notification for each Message you send.  More detail can be found in the [Push Notifications](/docs/client/rest#push-notifications) section.
 
-## What is an Identity?
-
-Every user within Layer is represented as a User ID, which can be any sort of unique identifier string, including ones that you are already using for user management (this could be a UUID, username, email address, phone number, etc).  If using nothing more than this withing the Layer Services, then the task of associating meaning to that User ID falls entirely to your application.
-
-An Identity, is an object within Layer's Servers that associate additional information with that User ID so that your application does not need to separately load this data from your servers; at a minimum, an Identity would associate a Display Name with that User ID.
-
-An Identity has the following properties (See The Identity Object)[#identity] for a complete list of properties)
-
-| Name    | Type |  Example | Description  |
-|---------|------|----------|--------------|
-| **user_id** | string | 'frodo115' | The user_id is the ID of the participant that sent the message |
-| **display_name** | string | 'Frodo the Dodo' | The display name used when rendering this user in a UI |
-| **avatar_url** | string | 'https://myserver.com/frodo115.gif' | A URL to an avatar image to display next to the user. |
