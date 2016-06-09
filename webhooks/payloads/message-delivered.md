@@ -13,7 +13,11 @@ POST https://mydomain.com/my-webhook-endpoint
         "type": "message.delivered",
         "id": "c12f340d-3b62-4cf1-9b93-ef4d754cfe69",
         "actor": {
-            "user_id": "999"
+            "id": "layer:///identities/999",
+            "url": "https://api.layer.com/identities/999",
+            "user_id": "999",
+            "display_name": "Nein!",
+            "avatar_url": "https://mydomain.com/images/999.gif"
         }
     },
     "message": {
@@ -31,12 +35,16 @@ POST https://mydomain.com/my-webhook-endpoint
         ],
         "sent_at": "2014-09-09T04:44:47+00:00",
         "sender": {
-            "user_id": "12345"
+          "id": "layer:///identities/1234",
+          "url": "https://api.layer.com/identities/1234",
+          "user_id": "1234",
+          "display_name": "One Two Three Four",
+          "avatar_url": "https://mydomain.com/images/1234.gif"
         },
         "recipient_status": {
-            "12345": "read",
-            "999": "delivered",
-            "111": "sent"
+            "layer:///identities/1234": "read",
+            "layer:///identities/999": "delivered",
+            "layer:///identities/111": "read"
         }
     },
     "config": {

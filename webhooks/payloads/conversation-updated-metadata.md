@@ -20,8 +20,20 @@ POST https://mydomain.com/my-webhook-endpoint
         "messages_url": "https://api.layer.com/apps/082d4684-0992-11e5-a6c0-1697f925ec7b/conversations/c12fd916-1390-464b-850f-1380a051f7c8/messages",
         "distinct": false,
         "participants": [
-            "1234",
-            "5678"
+            {
+              "id": "layer:///identities/1234",
+              "url": "https://api.layer.com/identities/1234",
+              "user_id": "1234",
+              "display_name": "One Two Three Four",
+              "avatar_url": "https://mydomain.com/images/1234.gif"
+            },
+            {
+              "id": "layer:///identities/5678",
+              "url": "https://api.layer.com/identities/5678",
+              "user_id": "5678",
+              "display_name": "Five Six Seven Eight",
+              "avatar_url": "https://mydomain.com/images/5678.gif"
+            }
         ],
         "metadata": {
             "favorite": "true",
