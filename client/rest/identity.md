@@ -73,7 +73,7 @@ curl  -X GET \
 ### Response `200 (OK)`
 
 ```text
-["1234", "5678", "9abc", "defg"]
+["layer:///identities/1234", "layer:///identities/5678", "layer:///identities/9abc", "layer:///identities/defg"]
 ```
 
 ## Pagination
