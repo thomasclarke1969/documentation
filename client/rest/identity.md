@@ -219,6 +219,8 @@ A user can be explicitly removed as from the list of followed users using:
 DELETE /following/:user_id
 ```
 
+Note that after unfollowing a user they may be implicitly refollowed if they join another Conversation together.
+
 ```console
 curl  -X DELETE \
       -H "Accept: application/vnd.layer+json; version=2.0" \

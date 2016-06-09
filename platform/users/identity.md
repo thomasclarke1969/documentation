@@ -175,25 +175,3 @@ curl  -X GET \
       -H 'Content-Type: application/json' \
       https://api.layer.com/apps/APP_UUID/users/USER_ID/identity
 ```
-
-## Delete an Identity
-
-Delete an Identity from Layer's servers.  One might do this after a user leaves your service.
-
-```request
-DELETE /apps/:app_uuid/users/:user_id/identity
-```
-
-### Successful Response
-
-```text
-204 (No Content)
-```
-
-```console
-curl  -X DELETE \
-      -H 'Accept: application/vnd.layer+json; version=2.0' \
-      -H 'Authorization: Bearer TOKEN' \
-      -H 'Content-Type: application/json' \
-      https://api.layer.com/apps/APP_UUID/users/USER_ID/identity
-```

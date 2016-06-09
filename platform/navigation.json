@@ -32,6 +32,7 @@
 		"title": "Users",
 		"section": {
 			"identity": "Managing Identity",
+			"following": "Following Users",
 			"badging": "Notification Badges",
 			"blocking": "Managing Block Lists",
 			"suspension": "Access Suspension",
