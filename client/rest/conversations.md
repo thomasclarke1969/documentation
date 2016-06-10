@@ -114,17 +114,17 @@ curl  -X GET \
   "last_message": null,
   "participants": [{
       "id": "layer:///identities/1234",
-      url: "https://api.layer.com/identities/1234",
-      user_id: "1234",
-      display_name: "One Two Three Four",
-      avatar_url: "https://mydomain.com/images/1234.gif"
+      "url": "https://api.layer.com/identities/1234",
+      "user_id": "1234",
+      "display_name": "One Two Three Four",
+      "avatar_url": "https://mydomain.com/images/1234.gif"
     },
     {
       "id": "layer:///identities/5678",
-      url: "https://api.layer.com/identities/5678",
-      user_id: "5678",
-      display_name: "Five Six Seven Eight",
-      avatar_url: "https://mydomain.com/images/5678.gif"
+      "url": "https://api.layer.com/identities/5678",
+      "user_id": "5678",
+      "display_name": "Five Six Seven Eight",
+      "avatar_url": "https://mydomain.com/images/5678.gif"
   }],
   "distinct": false,
   "unread_message_count": 0,
@@ -188,17 +188,17 @@ curl  -X POST \
   "last_message": null,
   "participants": [{
       "id": "layer:///identities/1234",
-      url: "https://api.layer.com/identities/1234",
-      user_id: "1234",
-      display_name: "One Two Three Four",
-      avatar_url: "https://mydomain.com/images/1234.gif"
+      "url": "https://api.layer.com/identities/1234",
+      "user_id": "1234",
+      "display_name": "One Two Three Four",
+      "avatar_url": "https://mydomain.com/images/1234.gif"
     },
     {
       "id": "layer:///identities/5678",
-      url: "https://api.layer.com/identities/5678",
-      user_id: "5678",
-      display_name: "Five Six Seven Eight",
-      avatar_url: "https://mydomain.com/images/5678.gif"
+      "url": "https://api.layer.com/identities/5678",
+      "user_id": "5678",
+      "display_name": "Five Six Seven Eight",
+      "avatar_url": "https://mydomain.com/images/5678.gif"
   }],
   "distinct": false,
   "unread_message_count": 0,

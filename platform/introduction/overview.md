@@ -25,14 +25,15 @@ Accept: application/vnd.layer+json; version=2.0
 ```
 
 Failure to request a specific version of the API will result in `406 (Not Acceptable)`
-```
+
+```json
 {
-    id: "invalid_header",
-    code: 107,
-    message: "Invalid Accept header; must be of form application/vnd.layer+json; version=x.y",
-    url: "https://developer.layer.com/docs/platform#overview",
-    data: {
-        header: "Accept"
+    "id": "invalid_header",
+    "code": 107,
+    "message": "Invalid Accept header; must be of form application/vnd.layer+json; version=x.y",
+    "url": "https://developer.layer.com/docs/platform#overview",
+    "data": {
+        "header": "Accept"
     }
 }
 ```

@@ -12,31 +12,31 @@ The following JSON represents a typical Conversation; referred to throughout thi
   "participants": [
     {
       "id": "layer:///identities/1234",
-      url: "https://api.layer.com/identities/1234",
-      user_id: "1234",
-      display_name: "One Two Three Four",
-      avatar_url: "https://mydomain.com/images/1234.gif"
+      "url": "https://api.layer.com/identities/1234",
+      "user_id": "1234",
+      "display_name": "One Two Three Four",
+      "avatar_url": "https://mydomain.com/images/1234.gif"
     },
     {
       "id": "layer:///identities/777",
-      url: "https://api.layer.com/identities/777",
-      user_id: "777",
-      display_name: "Seven Times Three",
-      avatar_url: "https://mydomain.com/images/777.gif"
+      "url": "https://api.layer.com/identities/777",
+      "user_id": "777",
+      "display_name": "Seven Times Three",
+      "avatar_url": "https://mydomain.com/images/777.gif"
     },
     {
       "id": "layer:///identities/999",
-      url: "https://api.layer.com/identities/999",
-      user_id: "999",
-      display_name: "Nein",
-      avatar_url: "https://mydomain.com/images/999.gif"
+      "url": "https://api.layer.com/identities/999",
+      "user_id": "999",
+      "display_name": "Nein",
+      "avatar_url": "https://mydomain.com/images/999.gif"
     },
     {
       "id": "layer:///identities/111",
-      url: "https://api.layer.com/identities/111",
-      user_id: "111",
-      display_name: "All for One",
-      avatar_url: "https://mydomain.com/images/111.gif"
+      "url": "https://api.layer.com/identities/111",
+      "user_id": "111",
+      "display_name": "All for One",
+      "avatar_url": "https://mydomain.com/images/111.gif"
     }
   ],
   "distinct": true,
