@@ -3,7 +3,7 @@
 All requests against the Webhooks API must include an `Accept` header specifying the Layer Webhooks media type and API version:
 
 ```text
-Accept: application/vnd.layer.webhooks+json; version=1.0
+Accept: application/vnd.layer.webhooks+json; version=2.0
 ```
 
 A request with any other `Accept` header will be rejected with a `406 (Not Acceptable)` [error response](/docs/webhooks/rest#errors).

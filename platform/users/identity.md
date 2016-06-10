@@ -25,7 +25,7 @@ Most fields below are optional and may be blank.
 
 ## Create an Identity
 
-Register an Identity with Layer's servers.  One might do this after a user signs up with your service.  The `display_name` field is required in all `POST` requests.  The
+Register an Identity with Layer's servers.  One might do this after a user signs up with your service.  The `display_name` field is required in all `POST` requests.
 
 ```request
 POST /apps/:app_uuid/users/:user_id/identity

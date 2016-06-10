@@ -1,5 +1,43 @@
 # Layer Platform API Change Log
 
+## Release v2.0
+
+Identity is now a core part of the Platform APIs, simplifying building chat into your applications in a variety of ways.  This involves major changes to the API.
+
+This is a major version increment, and can only be accessed by updating your `Accept` header to `application/vnd.layer+json; version=2.0`.
+
+This update contains breaking changes to the APIs and existing integrations will need to be updated to take advantage of the new capabilities.
+
+### Changes
+
+* All requests require `Accept: application/vnd.layer+json; version=2.0`
+* Throughout the APIs, use of `user_id` values is replaced with the user of either Layer Identity IDs or Layer's Basic Identity Objects. Affected APIs include:
+    * Conversation Object `participants` array
+        * Creating a conversation now takes Layer Identity IDs
+        * Changing participants has a new Layer Patch syntax
+        * The `participants` array returned by the server is an array of Basic Identity Objects
+    * Message/Announcement Object `sender` object
+        * Creating a Message now takes a `sender_id` instead of `sender.name` or `sender.user_id`
+        * Messages from server now have `sender` as a Basic Identity
+        * Sending Messages/Announcements from a randomly seleted `name` is no longer supported; an Identity must be created even for a Bot to send a Message.
+    * Message/Announcement Object `recipient_status` object
+        * Messages from server now use a hash of Layer Identity IDs rather than User IDs
+    * Delayed Messaging
+        * Now takes a `sender_id` instead of `sender.name` or `sender.user_id`
+    * Notification Customization
+        * Replaces `user_id` with `recipient`)
+    * Sending a Notification
+        * `recipients` array is now an array of Layer Identity IDs
+    * Blocking API
+        * Requests and responses use arrays of Layer Identity IDs instead of User IDs.
+* Changes to the Identity Object:
+    * Now supports a `type` field which can be either "User" or "Bot"
+    * A Following API is provided for following/unfollowing users and listing who a user follows.
+* Blocking Users API Change
+    * `POST /apps/:app_uuid/users/:owner_user_id/blocks` is no longer supported; see `PATCH /apps/:app_uuid/users/:owner_user_id/blocks` instead
+    * `DELETE /apps/:app_uuid/users/:owner_user_id/blocks` is no longer supported; see `PATCH /apps/:app_uuid/users/:owner_user_id/blocks` instead
+
+
 ## June 9, 2016
 
 #### Enhancements

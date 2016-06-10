@@ -12,14 +12,14 @@ POST /apps/:app_uuid/notifications
 
 | Name         |    Type     |  Description  |
 |--------------|-------------|---------------|
-| **recipients** | array | Array of User IDs to deliver the Notification to. |
+| **recipients** | array | Array of Layer Identity IDs to deliver the Notification to. |
 | **notification** | object | See [Push Notifications](https://developer.layer.com/docs/platform/misc#notification-customization) docs for detailed options. |
 
 ### Example Request: Sending a Notification
 
 ```json
 {
-    "recipients": [ "1234", "5678" ],
+    "recipients": [ "layer:///identities/1234", "layer:///identities/5678" ],
     "notification": {
         "text": "This is the alert text to include with the Push Notification.",
         "sound": "chime.aiff"
@@ -36,7 +36,7 @@ curl  -X POST \
       -H 'Accept: application/vnd.layer+json; version=1.1' \
       -H 'Authorization: Bearer TOKEN' \
       -H 'Content-Type: application/json' \
-      -d '{"notification": {"text": "Howdy"}, "recipients": ["a","b","c"]}' \
+      -d '{"notification": {"text": "Howdy"}, "recipients": ["layer:///identities/a","layer:///identities/b","layer:///identities/c"]}' \
       https://api.layer.com/apps/APP_UUID/notifications
 ```
 

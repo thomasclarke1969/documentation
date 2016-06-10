@@ -4,9 +4,7 @@ This feature allows you to schedule a message for delivery in the near future, o
 
 ```json
 {
-    "sender": {
-        "name": "nicebot"
-    },
+    "sender_id": "layer:///identities/SenderBot",
     "parts": [
         {
             "body": "Good morning!  How can I help you today?",
