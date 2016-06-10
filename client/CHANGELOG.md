@@ -6,7 +6,7 @@ Identity is now a core part of the Client APIs, simplifying building chat into y
 
 This is a major version increment, and can only be accessed by updating your `Accept` header in REST requests, and your `protocol` for WebSocket connections.
 
-There will be backwards compatibility issues in upgrading to this version.
+This update contains breaking changes to the APIs and existing integrations will need to be updated to take advantage of the new capabilities.
 
 ### Changes
 

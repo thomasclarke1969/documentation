@@ -52,9 +52,9 @@ curl  -X GET \
       https://api.layer.com/identities?page_size=250&from_id=layer:///identities/frodo_the_dodo
 ```
 
-# Retreiving all Followed User IDs
+# Retreiving all Followed Users
 
-If you just need the `user_id` of every user followed by this user (commonly used prior to adding/removing follows), you can get the list using:
+If you just need the Layer Identity ID of every user followed by this user (commonly used prior to adding/removing follows), you can get the list using:
 
 
 ```request
