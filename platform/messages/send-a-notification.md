@@ -1,6 +1,6 @@
 # Sending Ad-hoc Notifications over Layer Notification Service (LNS)
 
-Notifications are messages sent to specific recipients over the GCM (Google Cloud Messaging) and APNS (Apple Push Notification Service) push notification services. The LNS platform API provides a unified integration point between different push notification service providers.
+Notifications are messages sent to specific recipients over the GCM (Google Cloud Messaging) and APNS (Apple Push Notification Service) push notification services. The LNS Platform API provides a unified integration point between different push notification service providers.
 
 The following request behaves similarly to the [Send a Message](#send-a-message) request above.  Each recipient will receive the Notification over the appropriate service, GCM for Android and APNS for iOS. Other push notification services are planned for future releases.
 
