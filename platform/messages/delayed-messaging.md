@@ -1,6 +1,14 @@
 # Delayed Messaging with Typing Indicators
 
-This feature allows you to schedule a message for delivery in the near future, optionally including a typing indicator while in the delay period.  This is done using the same endpoint and object format as [sending any other message](/docs/platform/messages#send-a-message), with the addition of the `schedule` object:
+This feature allows you to schedule a message for delivery in the near future, optionally including a typing indicator while in the delay period.
+
+This is done using the same endpoint and object format as [sending any other message](/docs/platform/messages#send-a-message), with the addition of the `schedule` object.
+
+```request
+POST /apps/:app_uuid/conversations/:conversation_uuid/messages
+```
+
+### Example Request: Sending a Delayed Message
 
 ```json
 {
@@ -20,6 +28,12 @@ This feature allows you to schedule a message for delivery in the near future, o
 }
 ```
 
+### Successful Response
+
+```text
+202 (Accepted)
+```
+
 ### Parameters
 
 | Name    | Type | Min Value | Max Value |  Description  |
@@ -28,15 +42,20 @@ This feature allows you to schedule a message for delivery in the near future, o
 | **schedule.delay_in_seconds** | number | 1.0 | 300.0 | Delay before the message is sent |
 | [**schedule.typing_indicator_in_seconds**](#botnote) | number | 1.0 | min(300.0, delay_in_seconds) | (optional) Duration for which a typing indicator is displayed |
 
-```emphasis
-** IMPORTANT **:
-Typing indicators sent via bots (`sender.name` as opposed to `sender.user_id`) are only compatible with forthcoming SDK updates. Please contact support@layer.com for an update on release timing.
-```
-
 <a name="botnote"></a>
 ```emphasis
 ** NOTE **:
 When a typing indicator is scheduled, its duration is "anchored" to the end of the message delay.
+```
+
+
+```console
+curl  -X POST \
+      -H 'Accept: application/vnd.layer+json; version=1.1' \
+      -H 'Authorization: Bearer TOKEN' \
+      -H 'Content-Type: application/json' \
+      -d '{"parts": [{"body": "Hello world", "mime_type": "text/plain"}], "notification": {"text": "Howdy"}, "sender": {"name": "Your Master"}, "schedule": {"delay_in_seconds": 5.0, "typing_indicator_in_seconds": 3.0}}' \
+      https://api.layer.com/apps/APP_UUID/conversations/CONVERSATION_UUID/messages
 ```
 
 ### Examples
