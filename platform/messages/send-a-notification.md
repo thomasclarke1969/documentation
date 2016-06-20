@@ -13,7 +13,7 @@ POST /apps/:app_uuid/notifications
 | Name         |    Type     |  Description  |
 |--------------|-------------|---------------|
 | **recipients** | array | Array of User IDs to deliver the Notification to. |
-| **notification** | object | See [Push Notifications](https://developer.layer.com/docs/platform/misc#notification-customization) docs for detailed options. |
+| **notification** | object | See [Push Notifications](https://developer.layer.com/docs/platform/messages#notification-customization) docs for detailed options. |
 
 ### Example Request: Sending a Notification
 
