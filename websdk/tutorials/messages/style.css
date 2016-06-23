@@ -151,6 +151,13 @@ button {
 }
 .user-list label {
   flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.user-list label img {
+  margin-right: 15px;
 }
 
 .user-list-dialog-inner .button-panel {
@@ -250,6 +257,10 @@ button {
 .panel-header .title {
   flex-grow: 1;
   text-align: center;
+}
+
+.panel-header .title img {
+  float: left;
 }
 
 .panel-header .icon {

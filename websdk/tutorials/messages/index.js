@@ -16,7 +16,7 @@ window.addEventListener('load', function() {
    * Sign in to Layer sample identity provider service.
    */
   client.on('challenge', function(evt) {
-    layerSampleApp.Identities.getIdentityToken({
+    layerSampleApp.getIdentityToken({
       appId: window.layerSampleConfig.appId,
       userId: window.layerSampleConfig.userId,
       nonce: evt.nonce,
@@ -30,6 +30,6 @@ window.addEventListener('load', function() {
    * Client ready. Initialize controller.
    */
   client.once('ready', function() {
-    layerSampleApp.Controller(layerSampleApp.client);
+    layerSampleApp.initialize();
   });
 });

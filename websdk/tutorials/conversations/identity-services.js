@@ -11,14 +11,6 @@
 (function() {
   var layerSampleApp = window.layerSampleApp;
 
-  var sampleIdentities = {
-    '1': 'User 1',
-    '2': 'User 2',
-    '3': 'User 3',
-    '4': 'User 4',
-    '5': 'User 5'
-  };
-
   /**
    * All code here is specific to a sample identity service to help get
    * sample apps up and running quickly, and should not be a part of any
@@ -34,37 +26,25 @@
   function getIdentityToken(options) {
     var id = options.appId.replace(/^.*\//, '');
     layer.xhr({
-      url: 'https://layer-identity-provider.herokuapp.com/apps/' + id + '/identities',
+      url: 'https://layer-identity-provider.herokuapp.com/identity_tokens',
       headers: {
+        'X_LAYER_APP_ID': id,
         'Content-type': 'application/json',
         'Accept': 'application/json'
       },
       method: 'POST',
       data: {
-        name: options.userId,
-        nonce: options.nonce
+        user: {
+          id: options.userId,
+          display_name: 'User ' + options.userId
+        },
+        nonce: options.nonce,
+        app_id: id
       }
     }, function(result) {
       var data = result.data;
-      data.atlas_identities.forEach(function(item) {
-          sampleIdentities[item.id] = item.name;
-      });
       options.callback(data.identity_token);
     });
   }
-
-  function getIdentityDisplayName(userId) {
-    return sampleIdentities[userId] || 'User ' + userId;
-  }
-
-  function getIdentityList() {
-    return Object.keys(sampleIdentities).map(function(userId) {
-      return {id: userId, name: sampleIdentities[userId]};
-    });
-  }
-  layerSampleApp.Identities = {
-    getList: getIdentityList,
-    getDisplayName: getIdentityDisplayName,
-    getIdentityToken: getIdentityToken
-  };
+  layerSampleApp.getIdentityToken = getIdentityToken;
 })();

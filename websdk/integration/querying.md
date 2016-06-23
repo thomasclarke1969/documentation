@@ -37,6 +37,7 @@ The Query object requires a `model` property, which can be one of the three valu
 * layer.Query.Message - Query for messages
 * layer.Query.Announcement - Query for announcements
 * layer.Query.Conversation - Query for conversations
+* layer.Query.Identity - Query for identities
 
 ```javascript
 var query = client.createQuery({

@@ -13,6 +13,7 @@
      * Create the user list dialog and setup its event handlers
      */
     initialize: function() {
+      this.users = [];
       this.$el.append(
         '<div class="user-list-dialog-inner">' +
           '<div class="user-list"></div>' +
@@ -46,25 +47,24 @@
      * Make sure not to list the current user in the list.
      */
     render: function() {
-      var users = layerSampleApp.Identities.getList();
       var list = this.$el.find('.user-list');
       list.empty();
 
       // Render each user; except of course we don't need to create a conversation with
       // the current user.
-      users.forEach(function(participant) {
-        if (participant !== layerSampleApp.client.userId) {
-          list.append(
-            '<div class="user-list-item">' +
-              '<label for="participant-checkbox-' + participant.id + '">' + participant.name + '</label>' +
-              '<input value="' + participant.id + '" ' +
-                  'id="participant-checkbox-' + participant.id + '" ' +
-                  'type="checkbox" ' +
-                  'name="userList"/>' +
-            '</div>'
-          );
-        }
+      this.users.forEach(function(user) {
+        this.renderUser(list, user);
       }, this);
+    },
+
+    /**
+     * Render an individual User
+     */
+    renderUser: function(list, user) {
+      // Tutorial Step 7
+      if (user !== layerSampleApp.client.user) {
+        list.append('<div class="user-list-item">' + user.displayName + '</div>');
+      }
     },
 
     /**

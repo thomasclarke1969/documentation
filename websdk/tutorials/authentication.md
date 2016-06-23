@@ -25,7 +25,7 @@ Open up your `index.html` file and update the `layerSampleConfig.appId` variable
 ```javascript
 window.layerSampleConfig = {
   appId: '%%C-INLINE-APPID%%',
-  userId: 'Tutorial User'
+  userId: '0'
 };
 ```
 
@@ -47,7 +47,7 @@ layerSampleApp.client.connect(window.layerSampleConfig.userId);
 
 The Authentication Challenge is a `challenge` event that is triggered to provide a nonce to your app.
 Your app provides this nonce to your identity service to get an Identity Token.  In this case,
-you'll use a Sample Identity Service, using the `Identities.getIdentityToken()` method provided in `identity-services.js`.
+you'll use a Sample Identity Service, using the `getIdentityToken()` method provided in `identity-services.js`.
 
 On getting an Identity Token via `getIdentityToken`'s callback, we call the challenge callback to procede with authentication.  The event comes with two properties:
 
@@ -59,7 +59,7 @@ Open your `index.js` file and insert this code after the client has been instant
 ```javascript
 // Tutorial Step 3: Handle authentication challenge
 layerSampleApp.client.on('challenge', function(evt) {
-    layerSampleApp.Identities.getIdentityToken({
+    layerSampleApp.getIdentityToken({
         appId: window.layerSampleConfig.appId,
         userId: window.layerSampleConfig.userId,
         nonce: evt.nonce,
@@ -72,11 +72,12 @@ layerSampleApp.client.on('challenge', function(evt) {
 
 There is some stuff going on here that we are avoiding discussing; what is this Identity Service? How does one build an Identity Service?  This tutorial is about how to develop using the Web SDK, and so we've provided a sample Identity Service; you can learn more about building your own Identity Service in our [Authentication Guide](/docs/websdk/guides/#authentication).  Here's what you *Should* understand from this:
 
-1. Creating a Client instance caused it to get a *Nonce* from *Layer's server*.
-2. The *Nonce* is provided to your app via the `challenge` event.
-3. Your app uses the *Nonce* to get an *Identity Token* from *your server* (such as is done above with the `getIdentityToken()` call).
-4. Your app provides the *Identity Token* to the Client via `evt.callback(identityToken)`.
-5. The Client will now establish an authenticated session with *Layer's server*.
+1. Before you can do anything, you need to create a Client instance.
+2. Calling `connect(userId)` caused it to get a *Nonce* from *Layer's server*.
+3. The *Nonce* is provided to your app via the `challenge` event.
+4. Your app uses the *Nonce* to get an *Identity Token* from *your server* (such as is done above with the `getIdentityToken()` call).
+5. Your app provides the *Identity Token* to the Client via `evt.callback(identityToken)`.
+6. The Client will now establish an authenticated session with *Layer's server*.
 
 ## Step 4: Handle the Ready Event
 
@@ -99,29 +100,18 @@ Open up `views/titlebar.js`, and replace the render method with:
 
 ```javascript
 render: function(conversation) {
-    // Tutorial Steps 5 and 6: Show the User Name
-    var title = 'Logged in as: ' + layerSampleApp.client.userId;
-    this.$el.html('<div class="title">' + title + '</div>');
+    // Tutorial Step 5: Show the User Name
+    var user = layerSampleApp.client.user;
+    var img = '<img src="' + user.avatarUrl + '"/>';
+    var title = 'Logged in as: ' + user.displayName;
+    this.$el.html('<div class="title">' + img + title + '</div>');
 }
 ```
 
-The Client has a `userId` property that stores the userId of the user of the current session.  That userId may be any string, but is typically a unique identifier string from your own database, and is rarely an ID that has meaning to the user.
+The Client has a `user` property that stores a layer.UserIdentity instance representing the user of this Client.  The `user` object contains three key properties:
 
-Run this app; you should see a UI that logs in and then displays `Logged in as: 0`.
+1. `userId`: This property should be the same as `window.layerSampleConfig.userId` (i.e. `0`).  This UserID is the unique identifier identifying this user; typically it would be defined within your own server's account management system.
+2. `displayName`: This is the recommended string for rendering this user's name.  The Display name is typically set when creating an Identity Token (done by our Sample Identity Service), but can also be set using the [Layer Platform API](https://developer.layer.com/docs/platform/users).
+3. `avatarUrl`: This string provides a URL for rendering the user's avatar.  This string may not always have a value.
 
-## Step 6: Fixing the Welcome Message
-
-So, why did it show the userId as `0`?  Because for this Sample Identity Service, Unique User ID strings are `0`, `1`, `2`, `3`, etc...  We don't actually want to display the userId, we want to display the user's name.  The `identity-services.js` file exposes a `getDisplayName` function that takes the userId as input and returns the display name.
-
-Open up `views/titlebar.js`, and replace the render method with:
-
-```javascript
-render: function(conversation) {
-    // Tutorial Steps 5 and 6: Show the User Name
-    var title = 'Logged in as: ' +
-        layerSampleApp.Identities.getDisplayName(layerSampleApp.client.userId);
-    this.$el.html('<div class="title">' + title + '</div>');
-}
-```
-
-You should now be able to run this application and once logged in, see `Logged in as: Tutorial User`.
+Run this app; you should see a UI that logs in and then displays `Logged in as: User 0`, and show this user's icon in the titlebar.

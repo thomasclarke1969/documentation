@@ -24,8 +24,17 @@ Applications are notified of typing indicator events by subscribing to the Layer
 ```javascript
 client.on('typing-indicator-change', function(evt) {
     if (evt.conversationId === selectedConversation.id) {
-        console.log('The following users are typing: ' + evt.typing.join(', '));
-        console.log('The following users are paused: ' + evt.paused.join(', '));
+        var typingUsers = evt.typing;
+        var typingUserNames = typingUsers.map(function(identity) {
+            return identity.displayName;
+        });
+        console.log('The following users are typing: ' + typingUserNames.join(', '));
+
+        var pausedUsers = evt.paused;
+        var pausedUserNames = pausedUsers.map(function(identity) {
+            return identity.displayName;
+        });
+        console.log('The following users are paused: ' + pausedUserNames.join(', '));
     }
  });
 
@@ -34,8 +43,8 @@ client.on('typing-indicator-change', function(evt) {
 The `evt` in the above snippet contains three properties:
 
 * `conversationId`: The ID of the conversation that has changed so that you can ignore typing events on Conversations your not currently rendering.
-* `typing`: An array of user IDs of users who are currently typing.
-* `paused`: An array of user IDs of users who were recently typing but appear to have paused briefly.
+* `typing`: An array of layer.Identity objects of users who are currently typing.
+* `paused`: An array of layer.Identity objects of users who were recently typing but appear to have paused briefly.
 
 Note that a user who is finished typing is not explictly reported on except by ommitting them from the `typing` and `paused` arrays.
 

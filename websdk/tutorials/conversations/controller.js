@@ -8,7 +8,7 @@
   layerSampleApp.initialize = function() {
 
     var titlebarView, conversationListView, conversationListHeaderView,
-      userListView, activeConversation, conversationQuery;
+      userListView, activeConversation, conversationQuery, identityQuery;
 
     /**
      * During initialization, create all of the views and setup event listeners
@@ -23,9 +23,13 @@
       userListView = new layerSampleApp.UserListDialog();
 
       // When the user clicks the New Conversation button in the
-      // Conversation List Header, call newConversation.
+      // Conversation List Header, create a new Conversation
       conversationListHeaderView.on('conversations:new', function() {
-        newConversation();
+        var participants = [];
+        for (var i = 1; i < 6; i++) {
+          if (Math.random() > 0.5) participants.push('layer:///identities/' + String(i));
+        }
+        createConversation(participants);
       });
 
       // When the user is in the User List Dialog and clicks to create a conversation,
@@ -34,7 +38,7 @@
         createConversation(participants);
       });
 
-      // Tutorial Step 5: Select Conversation listener
+      // Tutorial Step 6: Select Conversation listener
     }
 
     /**
@@ -44,8 +48,9 @@
      * data changes.
      */
     function initializeQueries() {
-      // Tutorial Step 3: Create Query here
+      // Tutorial Step 3: Create Conversation Query here
 
+      // Tutorial Steps 5 and 7: Create an Identity Query
     }
 
     /**
@@ -59,15 +64,16 @@
      * Handle the user creating a Conversation from the User List Dialog.
      */
     function createConversation(participants) {
-      // Tutorial Step 2 and 6: Create a Conversation
+      // Tutorial Step 2: Create a Conversation
 
+      // Tutorial Step 6: Select the Conversation
     }
 
     /**
      * Handle the user selecting a Conversation
      */
     function selectConversation(conversationId) {
-      // Tutorial Step 5: Select a Conversation Handler
+      // Tutorial Step 6: Select a Conversation Handler
 
     }
 

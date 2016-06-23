@@ -5,10 +5,10 @@
  */
 (function() {
   var layerSampleApp = window.layerSampleApp;
-  layerSampleApp.Controller = function(client) {
+  layerSampleApp.initialize = function() {
 
     var titlebarView, conversationListView, conversationListHeaderView,
-      userListView, activeConversation, conversationQuery,
+      userListView, activeConversation, conversationQuery, identityQuery,
       messageListView, messageComposerView, messagesQuery;
 
     /**
@@ -62,7 +62,7 @@
       /**
        * Create the Conversation List Query
        */
-      conversationQuery = client.createQuery({
+      conversationQuery = layerSampleApp.client.createQuery({
         model: layer.Query.Conversation
       });
 
@@ -72,6 +72,20 @@
        */
       conversationQuery.on('change', function() {
         conversationListView.render(conversationQuery.data);
+      });
+
+      /**
+       * Initialize the Identity List Query
+       */
+      identityQuery = layerSampleApp.client.createQuery({
+        model: layer.Query.Identity
+      });
+
+      /**
+       * Any time Identity data changes, pass the data to the UserListDialog
+       */
+      identityQuery.on('change', function() {
+        userListView.users = identityQuery.data;
       });
 
       // Tutorial Step 3: Setup the Message Query here
@@ -89,7 +103,7 @@
      * Handle the user creating a Conversation from the User List Dialog.
      */
     function createConversation(participants) {
-      var conversation = client.createConversation({
+      var conversation = layerSampleApp.client.createConversation({
           participants: participants,
           distinct: true
       });
@@ -100,7 +114,7 @@
      * Handle the user selecting a Conversation
      */
     function selectConversation(conversationId) {
-      var conversation = client.getConversation(conversationId);
+      var conversation = layerSampleApp.client.getConversation(conversationId);
       activeConversation = conversation;
 
       // Update the Conversation List to highlight the selected Conversation
