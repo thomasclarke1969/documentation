@@ -38,7 +38,7 @@
         createConversation(participants);
       });
 
-      // Tutorial Step 6: Select Conversation listener
+      // Tutorial Step 5: Select Conversation listener
     }
 
     /**
@@ -50,7 +50,7 @@
     function initializeQueries() {
       // Tutorial Step 3: Create Conversation Query here
 
-      // Tutorial Steps 5 and 7: Create an Identity Query
+      // Tutorial Steps 6 and 7: Create an Identity Query
     }
 
     /**
@@ -66,14 +66,14 @@
     function createConversation(participants) {
       // Tutorial Step 2: Create a Conversation
 
-      // Tutorial Step 6: Select the Conversation
+      // Tutorial Step 5: Select the Conversation
     }
 
     /**
      * Handle the user selecting a Conversation
      */
     function selectConversation(conversationId) {
-      // Tutorial Step 6: Select a Conversation Handler
+      // Tutorial Step 5: Select a Conversation Handler
 
     }
 

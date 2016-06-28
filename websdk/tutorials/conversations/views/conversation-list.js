@@ -10,6 +10,7 @@
 
     initialize: function() {
       this.$el.append("Your conversation list goes here");
+      this.conversations = [];
     },
 
 

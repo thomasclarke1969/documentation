@@ -11,7 +11,7 @@ Once we have a Conversation, we can then send a Message on that Conversation.  B
 
 * Create a Conversation
 * Get a list of all of your Conversations
-* Have a better understanding of userIDs/Conversation Participants
+* Have a better understanding of Identities and Participants
 
 Starting from where we left off in the [Authentication Tutorial](#authentication), we add the following to the template project:
 
@@ -55,7 +55,7 @@ function createConversation(participants) {
         distinct: true
     });
     console.log('Conversation created (locally) with participants ' +
-        conversation.participants.map(function(identity) {return identity.displayName;}) + ', and ID: ' + conversation.id);
+        conversation.participants.map(function(identity) {return identity.id;}) + ', and ID: ' + conversation.id);
 
     // Tutorial Step 6: Select the Conversation
 }
@@ -64,9 +64,9 @@ function createConversation(participants) {
 Some explanation is required here:
 
 1. Calling `client.createConversation()` creates the conversation locally; these conversations won't show up on any remote clients until we send our first message on the conversation.
-2. We are creating conversations where `distinct = true` (this happens to be the default).  This means that if you try to create a Conversation with `User 4` and `User 5` and you already have a Distinct Conversation with exactly those two users, you will be sent to the existing Conversation instead of creating a new Conversation.
+2. We are creating conversations where `distinct = true` (this happens to be the default).  This means that if you try to create a Conversation with `User 4` and `User 5` and you already have a Distinct Conversation with exactly those two users, it will return the existing Conversation instead of creating a new Conversation.
 3. The `participants` parameter to the `createConversation` function is an array of Identity IDs, which in this sample app are `layer://identities/0`, `layer://identities/1`, `layer://identities/2`, `layer://identities/3`, `layer://identities/4` and/or `layer://identities/5`.
-4. The `New` button is wired to call `createConversation(participants)`
+4. The `New` button is wired to call `createConversation(participants)` with randomly selected participants.
 
 You should be able to run this application, click the `New` button and see a console log statement that your Conversation has been created.  Each time it will add a new Conversation... unless it tries to create a Conversation with the same set of participants... in which case the logs will show it will returns the previously created Conversation ID.
 
@@ -79,6 +79,7 @@ Lets start with some *very* basic rendering; Open up your `views/conversation-li
 
 ```javascript
 render: function(conversations) {
+    // Tutorial Step 3, 4 and 5: Render conversation list here
     if (conversations) this.conversations = conversations;
     this.$el.empty();
     this.$el.append('Found ' + this.conversations.length + ' conversations');
@@ -100,7 +101,7 @@ function initializeQueries() {
 }
 ```
 
-Once `conversationQuery` has completed connecting to the server and downloading the user's Conversations, it will invoke this `change` event handler which you put into your `initializeQueries` function:
+Once `conversationQuery` has completed connecting to the server and downloading the user's Conversations, it will invoke this `change` event handler which you should now put into your `initializeQueries` function:
 
 ```javascript
 conversationQuery.on('change', function() {
@@ -119,16 +120,16 @@ A simple Conversation list consists of iterating over all Conversations and rend
 The `layer.Conversation.participants` property contains an array of Identity Objects.  An Identity Object contains
 
 * A `userId` property that maps to User ID names used by your server
-* A `displayName` property that makes rendering this user easy
+* A `displayName` and `avatarUrl` properties that makes rendering this user easy
 
 Open up your `views/conversation-list.js` file and replace the `render` method with:
 
 ```javascript
 buildConversationRow: function(conversation) {
     var title = conversation.participants
-        map(function(identity) {
+        .map(function(identity) {
             return identity.displayName;
-        });
+        })
         .join(', ');
     var cssClasses = ['conversation-list-item'];
 
@@ -170,9 +171,9 @@ Open `views/conversation-list.js` and replace the `buildConversationRow` method 
 ```javascript
 buildConversationRow: function(conversation) {
     var title = conversation.participants
-        map(function(identity) {
+        .map(function(identity) {
             return identity.displayName;
-        });
+        })
         .join(', ');
     var cssClasses = ['conversation-list-item'];
 
@@ -250,7 +251,7 @@ render: function(conversation) {
         title = betterTitle(conversation.participants);
     }
     else {
-        title = 'Logged in as: ' + client.user.displayName;
+        title = 'Logged in as: ' + layerSampleApp.client.user.displayName;
     }
 
     this.$el.html('<div class="title">' + title + '</div>');
@@ -313,7 +314,7 @@ function initializeQueries() {
 This query will load all of the Identities followed by this user, with the following results:
 
 1. `identityQuery.data` will contain an array of Identities
-2. `client.getIdentity(identityId)` can now be called with an Identity ID to get any of the Identities loaded by this Query (or by any of the other ways of receiving Identity data listed above)
+2. `client.getIdentity(identityId)` can now be called with an Identity ID to get any of the Identities cached by the client, regardless of whether they are received via this Query or other activities
 3. `conversation.addParticipant(identity)` can now be called to add any of these users to a Conversation
 4. `client.createConversation({participants: [identity]})` can now be called to create a Conversation
 
@@ -380,7 +381,7 @@ renderUser: function(list, user) {
 },
 ```
 
-Running this, we should now see a list of users, with a checkbox next to each one.  The `createConversation()` method of the UserListDialog will get the User IDs associated with the selected checkboxes and trigger a `conversation:created` event with those User IDs so that the controller can create a Conversation with thos users.  You can try this, and as before, should be able to create multiple new Conversations... but creating the same Conversation multiple times should not result in a new Conversation being added to the list.
+Running this, we should now see a list of users, with a checkbox next to each one.  The `createConversation()` method of the UserListDialog will get the Identity IDs associated with the selected checkboxes and trigger a `conversation:created` event with those Identity IDs so that the controller can create a Conversation with those users.  You can try this, and as before, should be able to create multiple new Conversations... but creating the same Conversation multiple times should not result in a new Conversation being added to the list.
 
 ### Polishing up the User List
 

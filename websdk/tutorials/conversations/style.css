@@ -124,7 +124,6 @@ button {
   border-radius: 4px;
   background-color: white;
   flex-grow: 1;
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -134,10 +133,12 @@ button {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  height: 100px; // flexbox workaround
 }
 .user-list .user-list-item {
   padding: 4px 12px;
   line-height: 35px;
+  min-height: 35px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -168,7 +169,10 @@ button {
 }
 
 .user-list-dialog-inner .button-panel button {
-  margin: 6px;
+  margin: 2px;
+  border-radius: 2px;
+  background-color: #dadada;
+  border: solid 1px #555;
 }
 
 .panel-header.conversations-header {
