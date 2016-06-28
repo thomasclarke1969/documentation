@@ -12,6 +12,7 @@ This update contains breaking changes to the APIs and existing integrations will
 
 * Websocket Connections require `layer-2.0` for the `protocol`
 * All REST API requests require `Accept: application/vnd.layer+json; version=2.0`
+* Websocket now uses `operation` value of `update` instead of `patch` (this is as documented, but not as implemented)
 * All processing of Websocket Change events with Operation of `patch` should now expect an operation string of `update`
 * Introduces the [Identity Object](../introduction/identity) and [Identity API](../rest/identity).
 * Throughout the APIs, use of `user_id` values is replaced with the user of either Layer Identity IDs or Layer's Basic Identity Objects. Affected APIs include:
