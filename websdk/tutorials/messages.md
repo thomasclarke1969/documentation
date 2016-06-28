@@ -100,7 +100,7 @@ render: function(messages) {
 }
 ```
 
-This is called with an array of `messages`.  It will iterate through them and for each Message, it will create a Message View and append it to the dom.
+This `render()` method is called with an array of `messages`.  It will iterate through them and for each Message, it will create a Message View and append it to the dom.
 
 Next, open your `controller.js` file and setup the Query in the `initializeQueries` function and add the following at the bottom of the function:
 
@@ -158,9 +158,10 @@ Open up your `views/message.js` and update the `render` method with:
 render: function(message) {
     // Tutorial Step 4: Render a single message here
     this.$el.append(
+        '<img class="avatar" src="' + message.sender.avatarUrl + '">' +
         '<div class="message-content">' +
             '<span class="name">' + message.sender.displayName + '</span>' +
-            '<div class="bubble"> + message.parts[0].body + '</div>' +
+            '<div class="bubble">' + message.parts[0].body + '</div>' +
         '</div>' +
         '<div class="timestamp">' + message.sentAt + '</div>'
     );
@@ -173,7 +174,7 @@ The `render()` method renders the following:
 * Using `message.parts[0].body` it renders the body of the first MessagePart (more on MessageParts later).
 * Using the Date Object from `message.sentAt`, it renders a timestamp for the Message.
 
-For each MessagePart, we will return the appropriately rendering for the `messagePart.body` for its given Mime Type.  For this example, we only send the default Mime Type of `text/plain`.  If any other Mime Types are sent, it will render "not supported" until suitable HTML is returned.
+For each MessagePart, we will return the appropriate rendering for the `messagePart.body` for its given Mime Type.  For this example, we only send the default Mime Type of `text/plain`.  If any other Mime Types are sent, it will render "not supported" until suitable HTML is returned.
 
 This should render:
 
