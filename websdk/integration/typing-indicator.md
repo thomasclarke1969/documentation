@@ -43,8 +43,8 @@ client.on('typing-indicator-change', function(evt) {
 The `evt` in the above snippet contains three properties:
 
 * `conversationId`: The ID of the conversation that has changed so that you can ignore typing events on Conversations your not currently rendering.
-* `typing`: An array of layer.Identity objects of users who are currently typing.
-* `paused`: An array of layer.Identity objects of users who were recently typing but appear to have paused briefly.
+* `typing`: An array of [layer.Identity](#identities) objects of users who are currently typing.
+* `paused`: An array of [layer.Identity](#identities) objects of users who were recently typing but appear to have paused briefly.
 
 Note that a user who is finished typing is not explictly reported on except by ommitting them from the `typing` and `paused` arrays.
 

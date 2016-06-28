@@ -8,19 +8,19 @@ Web applications need to be able to survive running on a device that has gone of
 
 ## Sync Manager
 
-The Sync Manager stashes all of your requests.  This means that if your user types in Messages, deletes Messages, change Conversation metadata, sends read receipts, all while offline, all of these requests will queue up.  When the browser/device goes back online these will all be sent to the server.  For more information on the Sync Manager, see [Synchronization](guides#synchronization).
+The [Sync Manager](http://static.layer.com/sdk/docs-1.1/#!/api/layer.SyncManager) caches all of your requests.  This means that if your user types in Messages, deletes Messages, change Conversation metadata, sends read receipts, all while offline, all of these requests will queue up.  When the browser/device goes back online these will all be sent to the server.  For more information on the Sync Manager, see [Synchronization](guides#synchronization).
 
 ## Websocket Manager
 
-The WebSocket Manager (layer.Websockets.SocketManager) monitors the state of the Websocket connection, reconnects when needed, and requests missed events from the server any time it reconnects, or suspects it may have missed data.
+The [WebSocket Manager](http://static.layer.com/sdk/docs-1.1/#!/api/layer.Websockets.SocketManager) monitors the state of the Websocket connection, reconnects when needed, and requests missed events from the server any time it reconnects, or suspects it may have missed data.
 
-After going offline for a few hours, your app should automatically receive events from the past few hours once the connection is restored to your device.
+After going offline for a few hours, your app should automatically receive events from the past few hours once the connection is restored to your device.  Going offline for more than a day may cause all Queries to refire and load fresh data from the server rather than attempt to replay all changes.
 
 ## Persistence
 
-Before getting into persistence, its important to note that persistence is only enabled if [the isTrustedDevice property](integration#trusted-devices) is enabled.
+Before getting into persistence, its important to note that persistence is only enabled if [isTrustedDevice](integration#trusted-devices) is enabled.
 
-Persistence allows your web application to maintain a database (IndexedDB) of Messages, Conversations, Identities and unsent server requests.  By keeping these in sync, its possible to load Conversation lists and Message lists from the database while offline... and to get a quicker list if on a slow network.
+Persistence allows your web application to maintain a database (IndexedDB) of Messages, Announcements, Conversations, Identities and unsent server requests.  By keeping these in sync, its possible to load Conversation lists and Message lists from the database while offline... and to get a quicker list if on a slow network.
 
 Loading of Conversations and Messages from the database vs from the server is managed by the layer.Query class; with persistence enabled, this behavior will transparently occur in the background, adding no complexity to your application.
 
@@ -48,7 +48,7 @@ Some guidelines on deciding what to enable
 
 * If its a Hybrid/Cordova/Ionic app thats installed on a mobile device rather than running in a standard web browser, its probably safe to trust it with all of your user's data.
 * If you don't know whether this is a public terminal or a private laptop, its best to just turn off all persistence.
-* If you have any security concerns, keep in mind that allowing the Session Token to be cached means that the requests can be made to your server to regain any data you tried to avoid writing to browser's database.
-* Identities are good to cache, as it helps speed up initialization time.  However, a dating app may want to treat the list of people you talk with as highly confidential, and disable this.
-* Messages contain the meat of the data one typically wants to secure.  Whether its a credit card number, dating information or a work related discussion, consider the likelyhood of a coworker, spouse or misc person getting access to this "trusted" laptop.
+* If you have any security concerns, keep in mind that allowing the Session Token to be cached means that any request can be made to your server; this makes questions of whether to write data to a database or not a little less relevant.
+* Identities seem pretty safe to cache.  However, a dating app may want to treat the list of people you talk with as highly confidential, and disable this.
+* Messages contain the meat of the data one typically wants to secure.  Whether its a credit card number, dating information or a work related discussion, consider the likelihood of a coworker, spouse or misc person getting access to this "trusted" laptop.
 * The Sync Queue options allows any Messages sent, Conversations created, and other interactions to be saved to a database.  This means that the next time the app is loaded, anything unprocess can be sent, updated or deleted on the server.  While these seem like relatively safe things privacy-wise, this setting is only available if both `messages` and `conversations` are enabled.

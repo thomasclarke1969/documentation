@@ -32,7 +32,7 @@ Queries are your means of detecting changes to your user's data; whether its new
 
 ## Constructing a query
 
-The Query object requires a `model` property, which can be one of the three values:
+The Query object requires a `model` property, which can be one of these values:
 
 * layer.Query.Message - Query for messages
 * layer.Query.Announcement - Query for announcements

@@ -19,14 +19,8 @@ For more information see [Querying](#querying).
 
 ## Marking an Announcement as read
 
-The following code shows you how to mark an `Announcement` as read; this code will set the property and trigger the necessary side effects to update the server.
+The following code shows you how to mark an `Announcement` as read; this code will set the `isRead` property and trigger the necessary side effects to update the server.
 
 ```javascript
 announcement.isRead = true;
-```
-
-## Deleting an Announcement
-
-```javascript
-announcement.delete();
 ```

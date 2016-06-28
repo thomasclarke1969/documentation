@@ -2,18 +2,18 @@
 
 Once authenticated, users can send and receive messages, which are associated with a specific Conversation object.
 
-Conversation objects are created by calling `client.createConversation()`. This method takes a list of participant identifiers.  Users within Layer are represented as `layer.Identity` objects; which have the following properties:
+Conversation objects are created by calling `client.createConversation()`. This method takes a list of [Identity](#identities) IDs.  Users within Layer are represented as `layer.Identity` objects; which have the following properties:
 
-* An Identity object has a `user_id` which maps to user IDs within your own user management system
-* An Identity object has an Identity ID represented by its `id` property
-* The `id` property can be calculated as `'layer:///identities/' + encodeURIComponent(user_id)`
+* A `userId` which maps to user IDs within your own user management system
+* An `id` property which identifies the user within Layer's services
+* The `id` property can be calculated as `'layer:///identities/' + encodeURIComponent(userId)`
 * You may specify an Identity object be a participant in a Conversation, and it will be created if it does not exist.
 
 By default, new Conversations are set to be `distinct`, which ensures that there is only one unique conversation between the given set of users.
 
 ```javascript
 var conversation = client.createConversation({
-    participants: ['layer:///identities/USER-ID'],
+    participants: ['layer:///identities/' + encodeURIComponent('USER-ID')],
     distinct: true
 });
 ```
@@ -28,14 +28,14 @@ You can also have multiple Conversations with the same set of users by setting `
 
 ```javascript
 var conversation = client.createConversation({
-    participants: ['layer:///identities/USER-ID'],
+    participants: ['layer:///identities/' + encodeURIComponent('USER-ID')],
     distinct: false
 });
 ```
 
 ## Add/Remove Participants
 
-Once a Conversation has been created, participant lists remain mutable, meaning participants can be both added and removed. The Layer service does not enforce any ownership, so any client can both add and remove participants.
+Once a Conversation has been created, participants can be added and removed. The Layer service does not enforce any ownership, so any client can both add and remove participants as long as the user of that Client is also a participant.
 
 ```javascript
 // Adds a participant to a given conversation
@@ -184,38 +184,25 @@ message.isRead = true;
 
 ## Receiving the Message
 
-When displaying the message, you may want to render information about the Message Sender.  The `sender` property contains a `layer.Identity` object which typically contains properties for:
-
-* `displayName`: A displayable version of the user's name
-* `avatarUrl`: An image URL that loads an icon that can go next to the user's `displayName`.
-* `userId`: The ID of the user (the same ID used to add them to a Conversation)
-
-Of the above properties, only `userId` is gauranteed to exist; the others will exist if you populate them via your Identity Token or using the Platform API.
+When displaying the message, you may want to render information about the Message Sender.  The `sender` property is a [layer.Identity](#identities) object which provides a `displayName` and an optional `avatarUrl` for easy rendering:
 
 ```javascript
 var sender = message.sender;
 myRender(sender.displayName, sender.avatarUrl);
 ```
 
-Messages can also be sent from the Platform API as a named service, rather than as coming from a participant of the Conversation; these provide a `layer.ServiceIdentity` object as the `sender` property.  This will NOT have a `userId` nor an `avatarUrl` property.
+You will also need to check the message's Mime Type (set when the message was sent) in order to know how to render the message contents.
 
 ```javascript
-var sender = message.sender;
-myRender(sender.displayName);
-```
-
-You will also need to check the message's Mime Type (set when the message was sent) in order to know how to decode the message contents.
-
-```javascript
-var parts = message.parts, textData, locationData;
+var parts = message.parts, html = '';
 parts.forEach(function(part) {
     switch (part.mimeType) {
         case 'text/plain':
-            textData = part.body;
+            html += '<div class="message-part message-part-text-plain">' + part.body + '</div>';
             break;
 
         case 'text/location':
-            locationData = JSON.parse(part.body);
+            html += '<div class="message-part message-part-text-location"><img src='https://some-mapping-service.com/latlong=' + part.body + '</img></div>';
             break;
     }
 });
