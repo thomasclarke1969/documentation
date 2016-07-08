@@ -104,7 +104,7 @@ Each Message object identifies the Conversation it is a part of, providing both 
 
 ## The `is_unread` property
 
-A Message is known to be read if any client that is authenticated as this user has sent a [read receipt](../rest#receipts).  Until that is received, `is_unread` is equal to true, and can be taken as a hint to your UI on how to highlight this Message.
+A Message is known to be read if any client that is authenticated as this user has sent a [read receipt](/docs/client/rest#receipts).  Until that is received, `is_unread` is equal to true, and can be taken as a hint to your UI on how to highlight this Message.
 
 The sender of a Message is always assumed to have read the Message even if no read receipt was sent.
 
