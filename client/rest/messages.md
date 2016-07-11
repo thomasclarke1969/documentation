@@ -135,6 +135,7 @@ POST /conversations/:conversation_uuid/messages
     }
   ],
   "notification": {
+    "title": "Alert",
     "text": "This is the alert text to include with the Push Notification.",
     "sound": "chime.aiff"
   }
@@ -233,12 +234,7 @@ If using [deduplication](introduction#deduplication), you may get a conflict if 
 
 ## Push Notifications
 
-Layer provides extensive support for Push Notifications on both iOS (APNS) and Android (GCM). Pushes are delivered to devices when Messages are sent using the `notification` parameter.  The possible values for the `notification` object are described below:
-
-| Name | Type    | Description |
-|------|---------|-------------|
-| **text** | string  |The text to be displayed on the notification alert. On iOS, displayed on the lock screen or banner. On GCM, delivered in the push intent as advisory information. |
-| **sound** | string | The name of a sound to be played. On iOS, must exist in the main application bundle. On GCM, delivered in the push intent as advisory information. |
+Layer provides extensive support for Push Notifications on both iOS (APNS) and Android (GCM). Pushes are delivered to devices when Messages are sent using the `notification` parameter.  The possible values for the `notification` object are described at: [Push Notifications](https://developer.layer.com/docs/client/introduction#notification-customization).
 
 Note that values for iOS badge counts cannot be provided because the pushes are fanned out to all participants.
 

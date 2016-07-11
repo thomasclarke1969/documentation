@@ -11,7 +11,8 @@
       "message": "Messages",
       "announcement": "Announcements",
       "message-part": "Message Parts",
-      "rich-content": "Rich Content"
+      "rich-content": "Rich Content",
+      "notification-customization": "Notification Customization"
     }
   },
   "rest": {
