@@ -6,7 +6,7 @@ The WebSocket API also supports a number of operations such as sending Messages 
 
 Establishing a WebSocket connection requires a [Session Token](introduction#authentication).  While a WebSocket connection can be created from any type of client, this document uses a JavaScript client for all examples.
 
-Clients open a WebSocket connection with an HTTPS request on the `/websocket` endpoint with an upgrade request following the WebSocket protocol.  The subprotocol `layer-1.0` is required for this connection. The Layer session token can be sent either in the Authorization header or in the URL's query string.
+Clients open a WebSocket connection with an HTTPS request on the `websockets.layer.com` service with an upgrade request following the WebSocket protocol.  The subprotocol `layer-1.0` is required for this connection. The Layer session token can be sent either in the Authorization header or in the URL's query string.
 
 The JavaScript WebSocket object handles the upgrade handshake, allowing for the following initialization:
 
