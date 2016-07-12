@@ -1,10 +1,14 @@
 # Layer Client API Change Log
 
+## July 12, 2016
+
+Websocket URL is changed to `wss://websockets.layer.com/?session_token=TOKEN` (previously `wss://api.layer.com/websockets/?session_token=TOKEN`)
+
 ## April 29, 2016
  Announcements and fixes
- 
+
  #### Enhancements
- 
+
  * New APIs to access announcements. Receipts and deletion are supported. Announcements can only be sent via the platform api
 
 #### Bug Fixes

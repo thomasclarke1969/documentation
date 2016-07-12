@@ -61,7 +61,7 @@ mysocket.addEventHandler("error", myErrorHandler);
 function myErrorHandler(err) {
     // On Error: Wait 15 seconds and then create a new websocket
     window.setTimeout(function() {
-        mysocket = new WebSocket('wss://api.layer.com/websocket?session_token=donuts==',
+        mysocket = new WebSocket('wss://websockets.layer.com/?session_token=donuts==',
                            'layer-1.0');
 
        // On successfully opening the websocket, replay missed events

@@ -11,7 +11,7 @@ Clients open a WebSocket connection with an HTTPS request on the `/websocket` en
 The JavaScript WebSocket object handles the upgrade handshake, allowing for the following initialization:
 
 ```javascript
-var ws = new WebSocket('wss://api.layer.com/websocket?session_token=keuIjkPoPlkxw==',
+var ws = new WebSocket('wss://websockets.layer.com/?session_token=keuIjkPoPlkxw==',
     'layer-1.0');
 ws.addEventListener('message', myMessageHandler);
 ```

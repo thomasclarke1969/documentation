@@ -95,7 +95,7 @@ A successful response also includes info in the [Link header](http://tools.ietf.
 ```
 link: <https://api.layer.com/conversations>; rel=conversations,
   <https://api.layer.com/content>; rel=content,
-  <https://api.layer.com/websocket>; rel=websocket
+  <https://websockets.layer.com>; rel=websocket
 ```
 
 The possible `rel` values are:
