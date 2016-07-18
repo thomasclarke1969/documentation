@@ -16,4 +16,4 @@ Note that these libraries support requests from your **servers** only.
 | Ruby       | [layer-api](https://rubygems.org/gems/layer-api) | Ruby library maintained by [cakejelly](https://github.com/cakejelly/layer-api). |
 | Python     | [LayerClient](https://pypi.python.org/pypi/LayerClient) | Python library maintained by [Jana](https://github.com/Jana-Mobile/layer-python). |
 
-*Your library not on this list? Submit a pull request [here](https://github.com/layerhq/documentation/blob/master/platform/platform-api/libraries.md).*
+*Your library not on this list? Submit a pull request [here](https://github.com/layerhq/documentation/blob/master/platform/introduction/libraries.md).*
