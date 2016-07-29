@@ -15,6 +15,16 @@ curl  -X GET \
       https://api.layer.com/conversations/CONVERSATION_UUID/messages
 ```
 
+## The `Layer-Conversation-Is-Syncing` header
+
+If a user has just been added to a Conversation that already contains many Messages, and the application immediately requests messages for that Conversation, it is likely that no Messages or an incomplete set of Messages will be loaded from the server.  The server needs to copy in the Messages of the newly added Conversation into that user's account, and as long as that server process is running, the `Layer-Conversation-Is-Syncing: true` header will be returned in the results to indicate that more results are arriving. If you did not receive enough results, check back in a few seconds.
+
+When sync has been completed:
+
+* The `LayerCount` header will be updated to show the actual number of Messages in the Conversation (until then, this header value may be misleading)
+* The `GET /messages` request will not return a complete list, and may return an empty list
+* The `Layer-Conversation-Is-Syncing` header returned by the server on all `GET /messages` requests for this Conversation will be true.
+
 ## Pagination
 
 All requests that list resources support the pagination API, which includes:
