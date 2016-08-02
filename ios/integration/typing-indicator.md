@@ -4,11 +4,11 @@ LayerKit provides a simple API which allows applications to both broadcast and r
 
 ## Broadcasting
 
-Applications can broadcast typing events by calling `sendTypingIndicator:` on `LYRConversation` objects. This will send a typing indicator event on behalf of the currently authenticated user. All participants in the conversation who are currently online will receive the typing indicator. LayerKit supports three typing indicator states: `LYRTypingDidBegin`, `LYRTypingDidPause`, and `LYRTypingDidFinish`.
+Applications can broadcast typing events by calling `sendTypingIndicator:` on `LYRConversation` objects. This will send a typing indicator event on behalf of the currently authenticated user. All participants in the conversation who are currently online will receive the typing indicator. LayerKit supports three typing indicator states: `LYRTypingIndicatorActionBegin`, `LYRTypingIndicatorActionPause`, and `LYRTypingIndicatorActionFinish`.
 
 ```
 // Sends a typing indicator event to the given conversation.
-[conversation sendTypingIndicator:LYRTypingDidBegin];
+[conversation sendTypingIndicator:LYRTypingIndicatorActionBegin];
 ```
 
 ## Receiving
@@ -29,12 +29,11 @@ Upon receipt of a typing indicator event, applications can inspect properties of
 - (void)didReceiveTypingIndicator:(NSNotification *)notification
 {
     NSString *participantID = notification.userInfo[LYRTypingIndicatorParticipantUserInfoKey];
-    LYRTypingIndicator typingIndicator = [notification.userInfo[LYRTypingIndicatorValueUserInfoKey] unsignedIntegerValue];
+    LYRTypingIndicator *typingIndicator = notification.userInfo[LYRTypingIndicatorObjectUserInfoKey];
     
-    if (typingIndicator == LYRTypingDidBegin) {
+    if (typingIndicator.action == LYRTypingIndicatorActionBegin) {
         NSLog(@"Typing Started");
-    }
-    else {
+    } else {
         NSLog(@"Typing Stopped");
     }
 }
@@ -44,4 +43,4 @@ Upon receipt of a typing indicator event, applications can inspect properties of
 
 Typing indicator events are ephemeral, meaning they are not persisted by Layer. Applications are free to call `sendTypingIndicator:toConversation` as often as they would like. LayerKit will coalesce the calls internally and efficiently send typing indicator events as needed.
 
-After calling `sendTypingIndicator:` with the `LYRTypingDidBegin` state, if 10 seconds go by without an update, LayerKit will automatically send an `LYRTypingDidPause` event. If another 10 seconds go without an update, LayerKit will send an `LYRTypingDidFinish` event.
+After calling `sendTypingIndicator:` with the `LYRTypingIndicatorActionBegin` state, if 10 seconds go by without an update, LayerKit will automatically send an `LYRTypingIndicatorActionPause` event. If another 10 seconds go without an update, LayerKit will send an `LYRTypingIndicatorActionFinish` event.
