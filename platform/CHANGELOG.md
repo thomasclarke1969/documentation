@@ -1,5 +1,12 @@
 # Layer Platform API Change Log
 
+## June 21, 2016
+
+#### Enhancements
+
+* Response objects have explicit `null` where before the attributes were simply absent.
+* When making a request on behalf of a user (i.e. `/apps/:app_uuid/users/:user_id/...`), if that user _does not exist in our system yet_, you will get a `404` response with a clear error.  Prior to now, the user was always created in our system on the fly.
+
 ## June 9, 2016
 
 #### Enhancements
