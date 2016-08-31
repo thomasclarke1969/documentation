@@ -2,6 +2,15 @@
 
 The Layer Web SDK is Layer's Javascript API for accessing Layer Services.  Its built on top of Layer's [Client APIs](/docs/client) which provides REST and Websocket APIs.  Typical javascript applications will be far easier to build using the Layer Web SDK which manages authentication, connections, websocket retries, etc.
 
+## WebSDK 1.1
+
+The latest release of the WebSDK is WebSDK 1.1; See the [WebSDK 1.1 Docs](https://docs.layer.com/sdk/web/install).
+
+> Docs below are **not** for WebSDK 1.1.
+
+## WebSDK 1.0
+
+All docs below are for WebSDK 1.0 which is no longer the latest version.
 
 ## Samples, Demos and Tutorials
 
