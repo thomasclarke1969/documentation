@@ -1,5 +1,17 @@
 # Webhooks Change Log
 
+## August 31, 2016
+
+#### Enhancements
+
+* Deactivation emails will include additional information about the webhook, such as the target URL and subscribed event types.
+
+## July 26, 2016
+
+#### Enhancements
+
+* When a webhook is deactivated, an email notification will be sent to the email address registered on your account.
+
 ## January 27, 2016
 
 #### Enhancements
