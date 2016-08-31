@@ -1,5 +1,11 @@
 # Layer Platform API Change Log
 
+## August 30, 2016
+
+#### Bug Fixes
+
+* Users who left a conversation with `?mode=my_devices&leave=true` and were subsequently re-added were seeing an empty `participants` list.  Now the full list is back in all its glory.
+
 ## June 21, 2016
 
 #### Enhancements
