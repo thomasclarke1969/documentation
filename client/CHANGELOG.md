@@ -1,5 +1,11 @@
 # Layer Client API Change Log
 
+## September 15, 2016
+
+#### Bug Fixes
+
+* Formerly, you'd get a `503 Service Unavailable` error response (with `code` of `1` in the Error object) not only when a dependent service was unavailable, but also when any unexpected exception occurred.  We now distinguish those scenarios properly.  Now you'll get `500 Internal Server Error` (with `code` of `100`) if something unexpected happens.  If you see a `500`, please report it to us immediately, particularly if it's repeatable.
+
 ## August 30, 2016
 
 #### Bug Fixes
